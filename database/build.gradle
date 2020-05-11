@@ -1,0 +1,30 @@
+apply plugin: 'com.android.library'
+
+apply from: "$rootDir/android.gradle"
+
+android {
+    defaultConfig {
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [
+                    'room.schemaLocation'  : "$projectDir/databaseSchemas".toString(),
+                    'room.incremental'     : 'true',
+                    'room.expandProjection': 'true'
+                ]
+            }
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    api project(':extensions:room')
+
+    api libraries.roomRuntime
+    kapt processors.roomCompiler
+
+    androidTestImplementation testLibraries.kotlinTestJunit
+    androidTestImplementation testLibraries.junitJupiterParams
+    androidTestImplementation testLibraries.testRunner
+}

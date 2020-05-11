@@ -1,0 +1,48 @@
+apply plugin: 'com.android.library'
+
+apply from: "$rootDir/android.gradle"
+
+android {
+    viewBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    api project(':extensions:android')
+    api project(':extensions:kotlin')
+    api project(':extensions:lifecycle')
+    api project(':extensions:retrofit')
+    api project(':extensions:room')
+    api project(':extensions:rx')
+
+    api project(':database')
+
+    api libraries.timber
+
+    api libraries.rxAndroid
+    api libraries.rxJava
+
+    api libraries.retrofit2
+    api libraries.roomRuntime
+
+    api libraries.coreKtx
+
+    api libraries.appCompat
+
+    api libraries.constraintLayout
+    api libraries.swipeRefreshLayout
+    api libraries.recyclerView
+
+    api libraries.navigationFragmentKtx
+    api libraries.navigationUiKtx
+
+    api libraries.lifecycleExtensions
+    api libraries.lifecycleCommonJava8
+    api libraries.lifecycleReactivestreams
+
+    api libraries.pagingRuntime
+    api libraries.pagingRxJava2
+}

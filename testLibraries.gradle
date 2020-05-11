@@ -1,0 +1,26 @@
+ext {
+    testLibraries = [
+        kotlinTestJunit        : "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version",
+
+        junitJupiterApi        : 'org.junit.jupiter:junit-jupiter-api:5.6.0',
+        junitJupiterEngine     : 'org.junit.jupiter:junit-jupiter-engine:5.6.0',
+        junitJupiterParams     : 'org.junit.jupiter:junit-jupiter-params:5.6.0',
+        junit5AndroidTestCore  : "de.mannodermaus.junit5:android-test-core:1.2.0",
+        junit5AndroidTestRunner: "de.mannodermaus.junit5:android-test-runner:1.2.0",
+
+        mockk                  : 'io.mockk:mockk:1.10.0',
+        mockkAndroid           : "io.mockk:mockk-android:1.10.0",
+        hamcrest               : 'org.hamcrest:hamcrest-library:2.2',
+
+        testCore               : 'androidx.test:core:1.2.0',
+        testRunner             : 'androidx.test:runner:1.2.0',
+        testOrchestrator       : 'androidx.test:orchestrator:1.2.0',
+        testRules              : 'androidx.test:rules:1.2.0',
+
+        testFragments          : 'androidx.fragment:fragment-testing:1.2.0',
+
+        espressoCore           : 'androidx.test.espresso:espresso-core:3.2.0',
+        espressoIntents        : 'androidx.test.espresso:espresso-intents:3.2.0',
+        espressoContrib        : 'androidx.test.espresso:espresso-contrib:3.2.0'
+    ]
+}

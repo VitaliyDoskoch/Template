@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <!-- Space dimensions -->
+    <dimen name="base_small_x7">2dp</dimen>
+    <dimen name="base_small_x6">4dp</dimen>
+    <dimen name="base_small_x5">6dp</dimen>
+    <dimen name="base_small_x4">8dp</dimen>
+    <dimen name="base_small_x3">10dp</dimen>
+    <dimen name="base_small_x2">12dp</dimen>
+    <dimen name="base_small_x1">14dp</dimen>
+    
+    <dimen name="base">16dp</dimen>
+    
+    <dimen name="base_large_x1">18dp</dimen>
+    <dimen name="base_large_x2">20dp</dimen>
+    <dimen name="base_large_x3">24dp</dimen>
+    <dimen name="base_large_x4">28dp</dimen>
+    <dimen name="base_large_x5">32dp</dimen>
+    <dimen name="base_large_x6">36dp</dimen>
+    <dimen name="base_large_x7">50dp</dimen>
+    
+    <!-- Text dimensions -->
+    <dimen name="text_small_x3">8sp</dimen>
+    <dimen name="text_small_x2">10sp</dimen>
+    <dimen name="text_small_x1">12sp</dimen>
+    
+    <dimen name="text_medium">14sp</dimen>
+    
+    <dimen name="text_large_x1">16sp</dimen>
+    <dimen name="text_large_x2">18sp</dimen>
+    <dimen name="text_large_x3">20sp</dimen>
+    <dimen name="text_large_x4">22sp</dimen>
+    <dimen name="text_large_x5">24sp</dimen>
+    <dimen name="text_large_x6">28sp</dimen>
+    <dimen name="text_large_x7">32sp</dimen>
+    
+    <!-- Icon dimensions -->
+    <dimen name="icon_small_x3">12dp</dimen>
+    <dimen name="icon_small_x2">16dp</dimen>
+    <dimen name="icon_small_x1">20dp</dimen>
+    
+    <dimen name="icon_normal">24dp</dimen>
+    
+    <dimen name="icon_large_x1">28dp</dimen>
+    <dimen name="icon_large_x2">32dp</dimen>
+    <dimen name="icon_large_x3">36dp</dimen>
+    
+    <!-- Image dimensions -->
+    <dimen name="image_small_x6">40dp</dimen>
+    <dimen name="image_small_x5">50dp</dimen>
+    <dimen name="image_small_x4">60dp</dimen>
+    <dimen name="image_small_x3">70dp</dimen>
+    <dimen name="image_small_x2">80dp</dimen>
+    <dimen name="image_small_x1">90dp</dimen>
+    
+    <dimen name="image_medium">100dp</dimen>
+    
+    <dimen name="image_large_x1">120dp</dimen>
+    <dimen name="image_large_x2">140dp</dimen>
+    <dimen name="image_large_x3">160dp</dimen>
+    <dimen name="image_large_x4">180dp</dimen>
+    <dimen name="image_large_x5">200dp</dimen>
+    
+</resources>

@@ -1,0 +1,15 @@
+apply plugin: 'com.android.library'
+
+apply from: "$rootDir/android.gradle"
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation project(':extensions:kotlin')
+    implementation project(':extensions:lifecycle')
+
+    implementation libraries.lifecycleExtensions
+
+    implementation testLibraries.kotlinTestJunit
+    implementation testLibraries.mockk
+}

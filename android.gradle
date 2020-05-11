@@ -1,0 +1,57 @@
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'de.mannodermaus.android-junit5'
+
+android {
+    compileSdkVersion 28
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 28
+        versionCode 1
+        versionName '0.0.1'
+
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+        testInstrumentationRunnerArgument 'runnerBuilder',
+            'de.mannodermaus.junit5.AndroidJUnit5Builder'
+        testInstrumentationRunnerArguments clearPackageData: 'true'
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+
+    buildTypes {
+        debug {
+            buildConfigField('Boolean', 'is_logging_enabled', 'true')
+        }
+        release {
+            buildConfigField('Boolean', 'is_logging_enabled', 'false')
+        }
+    }
+
+    packagingOptions {
+        pickFirst 'META-INF/LICENSE*'
+    }
+}
+
+dependencies {
+    implementation libraries.kotlin
+
+    testImplementation testLibraries.kotlinTestJunit
+    testImplementation testLibraries.junitJupiterApi
+    testImplementation testLibraries.mockk
+    testRuntimeOnly testLibraries.junitJupiterEngine
+
+    androidTestImplementation testLibraries.kotlinTestJunit
+    androidTestImplementation testLibraries.junitJupiterApi
+    androidTestImplementation testLibraries.junit5AndroidTestCore
+    androidTestImplementation testLibraries.mockkAndroid
+    androidTestRuntimeOnly testLibraries.junit5AndroidTestRunner
+    androidTestUtil testLibraries.testOrchestrator
+}

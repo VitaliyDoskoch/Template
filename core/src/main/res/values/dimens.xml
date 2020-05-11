@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="toolbar_height">56dp</dimen>
+    <dimen name="button_height">36dp</dimen>
+    <dimen name="progress_view_size">80dp</dimen>
+    <dimen name="edit_text_badge_side_padding">56dp</dimen>
+</resources>

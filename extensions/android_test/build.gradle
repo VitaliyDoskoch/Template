@@ -1,0 +1,17 @@
+apply plugin: 'com.android.library'
+
+apply from: "$rootDir/android.gradle"
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation libraries.appCompat
+    implementation libraries.material
+    implementation libraries.swipeRefreshLayout
+
+    implementation testLibraries.testCore
+    implementation testLibraries.hamcrest
+
+    implementation testLibraries.espressoCore
+    implementation testLibraries.espressoIntents
+}

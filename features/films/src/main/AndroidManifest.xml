@@ -1,0 +1,22 @@
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.doskoch.movies.features.films"
+    >
+    
+    <application>
+        
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.doskoch.movies"
+            android:grantUriPermissions="true"
+            android:exported="false"
+            >
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/images_path"
+                />
+        </provider>
+        
+    </application>
+    
+</manifest>

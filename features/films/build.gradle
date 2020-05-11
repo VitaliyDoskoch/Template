@@ -1,0 +1,20 @@
+apply plugin: 'com.android.library'
+
+apply from: "$rootDir/android.gradle"
+
+apply plugin: "de.mannodermaus.android-junit5"
+
+android {
+    viewBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    api project(':core')
+    api project(':apis:the_movie_db')
+
+    api libraries.glide
+}

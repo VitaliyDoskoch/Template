@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/contentLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?colorDialogBackground"
+    tools:theme="@style/AppTheme.Light"
+    >
+    
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/base"
+        android:layout_marginEnd="@dimen/base"
+        android:layout_marginTop="@dimen/base"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:textStyle="bold"
+        android:textSize="@dimen/text_large_x1"
+        android:textColor="?colorTextPrimary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/messageTextView"
+        app:layout_goneMarginBottom="@dimen/base"
+        tools:text="@tools:sample/lorem/random"
+        />
+    
+    <TextView
+        android:id="@+id/messageTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/base"
+        android:maxLines="16"
+        android:ellipsize="end"
+        android:textSize="@dimen/text_medium"
+        android:textColor="?colorTextPrimary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/titleTextView"
+        app:layout_constraintBottom_toTopOf="@+id/buttonsLayout"
+        tools:text="@tools:sample/lorem/random"
+        />
+    
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/buttonsLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/messageTextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        >
+        
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5"
+            />
+        
+        <Button
+            android:id="@+id/negativeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginStart="@dimen/base"
+            android:layout_marginEnd="@dimen/base_small_x4"
+            android:layout_marginTop="@dimen/base"
+            android:layout_marginBottom="@dimen/base"
+            android:paddingStart="@dimen/base_small_x4"
+            android:paddingEnd="@dimen/base_small_x4"
+            android:background="?selectableItemBackground"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:textSize="@dimen/text_medium"
+            android:textColor="?colorAccent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/positiveButton"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintWidth_max="wrap"
+            app:layout_goneMarginEnd="@dimen/base"
+            tools:text="@tools:sample/lorem/random"
+            />
+        
+        <Button
+            android:id="@+id/positiveButton"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginEnd="@dimen/base"
+            android:layout_marginTop="@dimen/base"
+            android:layout_marginBottom="@dimen/base"
+            android:paddingStart="@dimen/base_small_x4"
+            android:paddingEnd="@dimen/base_small_x4"
+            android:background="?selectableItemBackground"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:textStyle="bold"
+            android:textSize="@dimen/text_medium"
+            android:textColor="?colorAccent"
+            app:layout_constraintStart_toEndOf="@id/guideline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constrainedWidth="true"
+            app:layout_goneMarginStart="@dimen/base"
+            tools:text="@tools:sample/lorem/random"
+            />
+    
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

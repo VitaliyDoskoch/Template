@@ -15,9 +15,17 @@ class ResultObserver<T : Any>(
     override fun onChanged(state: State<T>?) {
         if (state != null) {
             when (state) {
-                is State.Loading -> action(state)
-                is State.Success -> action(state).also { liveData.removeObserver(this) }
-                is State.Failure -> action(state).also { liveData.removeObserver(this) }
+                is State.Loading -> action(state).also {
+                    state.isConsumed = true
+                }
+                is State.Success -> action(state).also {
+                    state.isConsumed = true
+                    liveData.removeObserver(this)
+                }
+                is State.Failure -> action(state).also {
+                    state.isConsumed = true
+                    liveData.removeObserver(this)
+                }
             }
         }
     }

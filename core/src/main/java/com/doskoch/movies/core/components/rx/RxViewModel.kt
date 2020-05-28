@@ -8,7 +8,7 @@ import io.reactivex.disposables.Disposable
 
 abstract class RxViewModel : ViewModel() {
 
-    protected val compositeDisposable by lazy { CompositeDisposable() }
+    private val compositeDisposable by lazy { CompositeDisposable() }
 
     private val observers by lazy { mutableMapOf<LiveData<*>, Pair<Disposable, () -> Disposable>>() }
 

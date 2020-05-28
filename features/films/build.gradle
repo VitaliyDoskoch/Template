@@ -2,8 +2,6 @@ apply plugin: 'com.android.library'
 
 apply from: "$rootDir/android.gradle"
 
-apply plugin: "de.mannodermaus.android-junit5"
-
 android {
     viewBinding {
         enabled = true

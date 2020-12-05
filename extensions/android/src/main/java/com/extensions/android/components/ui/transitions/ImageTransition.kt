@@ -62,8 +62,8 @@ class ImageTransition(val alphaModifier: Float = 0.5f) : Transition() {
     private fun backgroundAnimator(view: View,
                                    startValues: TransitionValues,
                                    endValues: TransitionValues): Animator? {
-        val startValue = startValues.values[BACKGROUND] as Drawable?
-        val endValue = endValues.values[BACKGROUND] as Drawable?
+        val startValue = (startValues.values[BACKGROUND] as Drawable?)?.mutate()
+        val endValue = (endValues.values[BACKGROUND] as Drawable?)?.mutate()
 
         return when {
             startValue != null && endValue != null && !startValue.isEqualTo(endValue) -> {
@@ -85,11 +85,11 @@ class ImageTransition(val alphaModifier: Float = 0.5f) : Transition() {
                               startValues: TransitionValues,
                               endValues: TransitionValues): Animator? {
         return (view as? ImageView)?.let {
-            val startValue = startValues.values[IMAGE] as Drawable?
-            val endValue = endValues.values[IMAGE] as Drawable?
+            val startValue = (startValues.values[IMAGE] as Drawable?)?.mutate()
+            val endValue = (endValues.values[IMAGE] as Drawable?)?.mutate()
 
             when {
-                startValue != null && endValue != null && !startValue.isEqualTo(endValue) -> {
+                startValue != null && endValue != null -> {
                     view.setImageDrawable(startValue)
                     fromImageToImageAnimator(
                         startValue,

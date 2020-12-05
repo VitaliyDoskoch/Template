@@ -1,41 +1,36 @@
 package com.doskoch.movies.core.components.ui.base.fragment
 
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.CallSuper
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LiveData
-import com.doskoch.movies.core.components.rx.DisposablesManager
+import androidx.viewbinding.ViewBinding
 import com.extensions.android.components.ui.ContentManager
-import com.extensions.lifecycle.components.DataObserver
-import com.extensions.lifecycle.components.ResultObserver
-import com.extensions.lifecycle.components.State
-import io.reactivex.disposables.Disposable
 
-abstract class BaseFragment : Fragment() {
+abstract class BaseFragment<V : ViewBinding> : Fragment() {
 
     @Suppress("PropertyName")
     val INSTANCE_STATE_KEYS = "${this::class.java.simpleName}_INSTANCE_STATE_KEYS"
-
     val instanceState by lazy { mutableMapOf<String, Any?>() }
 
+    var viewBinding: V? = null
+        private set
     var contentManager: ContentManager? = null
         get() {
             return field ?: view?.let { ContentManager(it as? ViewGroup) }?.also { field = it }
         }
         private set
 
-    private val disposablesManager by lazy { DisposablesManager { lifecycle } }
+    abstract fun inflateViewBinding(inflater: LayoutInflater): V?
 
-    fun disposeOn(event: Lifecycle.Event, disposable: Disposable) {
-        disposablesManager.disposeOn(event, disposable)
-    }
-
-    fun disposeUpToEvent(event: Lifecycle.Event) {
-        disposablesManager.disposeUpToEvent(event)
-    }
+    /**
+     * Should return true to prevent Activity from handling its own onBackPressed.
+     * Works only if Activity handle this situation (handling should be implemented manually).
+     */
+    open fun onBackPressed(): Boolean = false
 
     @CallSuper
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,9 +43,16 @@ abstract class BaseFragment : Fragment() {
         }
     }
 
+    override fun onCreateView(inflater: LayoutInflater,
+                              container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
+        return inflateViewBinding(inflater).also { viewBinding = it }?.root
+    }
+
     @CallSuper
     override fun onDestroyView() {
         super.onDestroyView()
+        viewBinding = null
         contentManager = null
     }
 
@@ -60,19 +62,4 @@ abstract class BaseFragment : Fragment() {
         outState.putAll(bundleOf(*instanceState.toList().toTypedArray()))
         super.onSaveInstanceState(outState)
     }
-
-    fun <T : Any> LiveData<State<T>>.observeResult(action: (state: State<T>) -> Unit) {
-        observe(viewLifecycleOwner, ResultObserver(this, action))
-    }
-
-    fun <T : Any> LiveData<State<T>>.observeData(action: (state: State<T>) -> Unit) {
-        observe(viewLifecycleOwner, DataObserver(action))
-    }
-
-    /**
-     * Should return true to prevent Activity from handling its own onBackPressed.
-     * Works only if Activity handle this situation (handling should be implemented manually).
-     */
-    open fun onBackPressed(): Boolean = false
-
 }

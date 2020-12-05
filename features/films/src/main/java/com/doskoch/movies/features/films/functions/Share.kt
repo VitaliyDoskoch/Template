@@ -7,7 +7,7 @@ import com.extensions.rx.components.schedulers.ioScheduler
 import com.extensions.rx.components.schedulers.mainThread
 import timber.log.Timber
 
-fun BaseFragment.shareFilm(item: Film, showError: (throwable: Throwable) -> Unit) {
+fun BaseFragment<*>.shareFilm(item: Film, showError: (throwable: Throwable) -> Unit) {
     val context = context ?: return
 
     context.preparePosterForSharing(item.posterPath)
@@ -21,5 +21,4 @@ fun BaseFragment.shareFilm(item: Film, showError: (throwable: Throwable) -> Unit
             Timber.e(it)
             showError(it)
         })
-        .also { disposeOn(Lifecycle.Event.ON_PAUSE, it) }
 }

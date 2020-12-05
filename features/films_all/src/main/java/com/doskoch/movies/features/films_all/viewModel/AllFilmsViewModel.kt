@@ -7,7 +7,7 @@ import androidx.paging.PagedList
 import com.doskoch.movies.core.components.rx.RxViewModel
 import com.doskoch.movies.core.components.ui.base.recyclerView.paging.boundaryCallback.BoundaryCallbackHandler
 import com.doskoch.movies.core.components.ui.base.recyclerView.paging.boundaryCallback.BoundaryCallbackResult
-import com.doskoch.movies.core.functions.runSimpleRxAction
+import com.doskoch.movies.core.functions.simpleRxAction
 import com.doskoch.movies.core.functions.waitForNetwork
 import com.doskoch.movies.database.modules.films.view.Film
 import com.extensions.lifecycle.components.State
@@ -110,7 +110,7 @@ class AllFilmsViewModel(private val module: AllFilmsViewModelModule) : RxViewMod
 
     private fun loadItems(result: MutableLiveData<State<Int>>, pageKey: Int) {
         recreateOnEvent { trigger ->
-            runSimpleRxAction(result, ioScheduler) {
+            simpleRxAction(result, ioScheduler) {
                 module.apiRepository.load(pageKey)
                     .doOnError {
                         if (it.cause is NoInternetException) {
@@ -137,7 +137,7 @@ class AllFilmsViewModel(private val module: AllFilmsViewModelModule) : RxViewMod
 
     fun refresh(): LiveData<State<Any>> {
         return MutableLiveData<State<Any>>().also { result ->
-            runSimpleRxAction(result, ioScheduler) {
+            simpleRxAction(result, ioScheduler) {
                 module.apiRepository.load(module.minPageKey)
                     .map { module.converter.toDbFilms(it.results) }
                     .flatMapCompletable { module.dbRepository.replaceAll(it) }
@@ -148,7 +148,7 @@ class AllFilmsViewModel(private val module: AllFilmsViewModelModule) : RxViewMod
 
     fun switchFavourite(item: Film): LiveData<State<Any>> {
         return MutableLiveData<State<Any>>().also { result ->
-            runSimpleRxAction(result, ioScheduler) {
+            simpleRxAction(result, ioScheduler) {
                 module.dbRepository.switchFavourite(item)
                     .andThen(Flowable.just(Any()))
             }

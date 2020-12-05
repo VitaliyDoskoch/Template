@@ -15,10 +15,10 @@ class AllFilmsDbRepositoryModule(
     companion object {
         fun create(): AllFilmsDbRepositoryModule {
             return AllFilmsDbRepositoryModule(
-                dbConnector = DatabaseConnector(Injector.component.database),
-                dbFilmDao = Injector.component.database.dbFilmDao(),
-                dbFavouriteFilmDao = Injector.component.database.dbFavouriteFilmDao(),
-                filmDao = Injector.component.database.filmDao()
+                dbConnector = DatabaseConnector(Injector.database),
+                dbFilmDao = Injector.database.dbFilmDao(),
+                dbFavouriteFilmDao = Injector.database.dbFavouriteFilmDao(),
+                filmDao = Injector.database.filmDao()
             )
         }
     }

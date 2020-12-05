@@ -1,5 +1,6 @@
 package com.extensions.lifecycle.components
 
+import android.util.Log
 import androidx.lifecycle.Observer
 
 /**
@@ -11,24 +12,18 @@ class DataObserver<T : Any>(private val action: (state: State<T>) -> Unit) : Obs
     private var previousFailure: State.Failure<T>? = null
 
     override fun onChanged(state: State<T>?) {
-        if (state != null) {
-            when (state) {
-                is State.Loading -> action(state).also {
+        when (state) {
+            is State.Loading, is State.Success -> action(state).also {
+                state.isConsumed = true
+                previousFailure = null
+            }
+            is State.Failure -> if (
+                previousFailure?.data != state.data ||
+                previousFailure?.throwable?.isSameAs(state.throwable) != true
+            ) {
+                action(state).also {
                     state.isConsumed = true
-                    previousFailure = null
-                }
-                is State.Success -> action(state).also {
-                    state.isConsumed = true
-                    previousFailure = null
-                }
-                is State.Failure -> if (
-                    previousFailure?.data != state.data ||
-                    previousFailure?.throwable?.isSameAs(state.throwable) != true
-                ) {
-                    action(state).also {
-                        state.isConsumed = true
-                        previousFailure = state
-                    }
+                    previousFailure = state
                 }
             }
         }

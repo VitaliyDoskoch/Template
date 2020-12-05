@@ -3,11 +3,11 @@ package com.doskoch.movies.features.films_favourite
 import com.doskoch.movies.database.AppDatabase
 import com.extensions.kotlin.components.di.ComponentInjector
 
-internal typealias Component = FavouriteFilmsFeatureComponent
-internal typealias Injector = FavouriteFilmsFeatureInjector
-
-interface FavouriteFilmsFeatureComponent {
+interface FavouriteFilmsFeature {
     val database: AppDatabase
 }
 
-object FavouriteFilmsFeatureInjector : ComponentInjector<Component>()
+object FavouriteFilmsFeatureInjector : ComponentInjector<FavouriteFilmsFeature>()
+
+internal val Injector
+    get() = FavouriteFilmsFeatureInjector.componentProvider!!.value

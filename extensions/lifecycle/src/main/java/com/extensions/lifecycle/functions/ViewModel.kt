@@ -67,3 +67,9 @@ inline fun <reified T : ViewModel> Fragment.viewModelLazy(key: String? = null,
 }
 
 //endregion
+
+fun <T : ViewModel> typeSafeViewModelFactory(create: () -> T): TypeSafeViewModelFactory<T> {
+    return object : TypeSafeViewModelFactory<T>() {
+        override fun create(): T = create()
+    }
+}

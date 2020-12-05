@@ -3,6 +3,8 @@ package com.extensions.android.components.ui.transitions
 import android.animation.Animator
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -31,8 +33,8 @@ class ImageColorTransition : Transition() {
 
     private fun captureValues(values: TransitionValues) {
         (values.view as? ImageView)?.let { view ->
-            values.values[COLOR] = view.drawable?.getDominantColor()
-                ?: view.imageTintList?.defaultColor ?: Color.TRANSPARENT
+            values.values[COLOR] = view.imageTintList?.defaultColor
+                ?: view.drawable?.getDominantColor() ?: Color.TRANSPARENT
             values.values[ALPHA] = view.drawable?.alpha ?: 0
         }
     }
@@ -67,6 +69,7 @@ class ImageColorTransition : Transition() {
 
         return if (startValue != endValue) {
             view.drawable.setTint(startValue)
+            view.setImageDrawable(view.drawable.mutate())
             ObjectAnimator.ofArgb(view.drawable, "tint", startValue, endValue)
         } else {
             null
@@ -81,6 +84,7 @@ class ImageColorTransition : Transition() {
 
         return if (startValue != endValue) {
             view.drawable.alpha = startValue
+            view.setImageDrawable(view.drawable.mutate())
             ObjectAnimator.ofInt(view.drawable, "alpha", startValue, endValue)
         } else {
             null

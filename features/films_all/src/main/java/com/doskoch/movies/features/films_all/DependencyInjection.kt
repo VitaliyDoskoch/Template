@@ -6,13 +6,13 @@ import com.doskoch.movies.database.AppDatabase
 import com.extensions.kotlin.components.di.ComponentInjector
 import com.extensions.retrofit.components.service.ServiceConnector
 
-internal typealias Component = AllFilmsFeatureComponent
-internal typealias Injector = AllFilmsFeatureInjector
-
-interface AllFilmsFeatureComponent {
+interface AllFilmsFeature {
     val context: Context
     val discoverServiceConnector: ServiceConnector<DiscoverService>
     val database: AppDatabase
 }
 
-object AllFilmsFeatureInjector : ComponentInjector<Component>()
+object AllFilmsFeatureInjector : ComponentInjector<AllFilmsFeature>()
+
+internal val Injector
+    get() = AllFilmsFeatureInjector.componentProvider!!.value

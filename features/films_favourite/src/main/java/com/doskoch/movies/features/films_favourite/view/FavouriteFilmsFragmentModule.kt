@@ -19,7 +19,7 @@ class FavouriteFilmsFragmentModule(
                         return FavouriteFilmsViewModel(FavouriteFilmsViewModelModule.create())
                     }
                 },
-                shareFilm = BaseFragment::shareFilm
+                shareFilm = BaseFragment<*>::shareFilm
             )
         }
     }

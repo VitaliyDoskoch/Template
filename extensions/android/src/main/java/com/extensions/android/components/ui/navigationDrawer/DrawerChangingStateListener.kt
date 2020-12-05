@@ -9,8 +9,8 @@ import com.extensions.android.components.ui.simplifiedListeners.SimpleDrawerList
  */
 abstract class DrawerChangingStateListener : SimpleDrawerListener {
 
-    open fun onDrawerStartOpening() {}
-    open fun onDrawerStartClosing() {}
+    open fun onDrawerStartOpening() = Unit
+    open fun onDrawerStartClosing() = Unit
 
     private var skipIncreasing = false
     private var skipDecreasing = false

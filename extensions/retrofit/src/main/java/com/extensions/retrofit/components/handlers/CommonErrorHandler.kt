@@ -1,4 +1,4 @@
-package com.doskoch.apis.the_movie_db.components.handlers
+package com.extensions.retrofit.components.handlers
 
 import com.extensions.retrofit.components.exceptions.RetrofitException
 import com.extensions.retrofit.functions.toNetworkException

@@ -13,9 +13,9 @@ class FavouriteFilmsDbRepositoryModule(
     companion object {
         fun create(): FavouriteFilmsDbRepositoryModule {
             return FavouriteFilmsDbRepositoryModule(
-                dbConnector = DatabaseConnector(Injector.component.database),
-                dbFavouriteFilmDao = Injector.component.database.dbFavouriteFilmDao(),
-                filmDao = Injector.component.database.filmDao()
+                dbConnector = DatabaseConnector(Injector.database),
+                dbFavouriteFilmDao = Injector.database.dbFavouriteFilmDao(),
+                filmDao = Injector.database.filmDao()
             )
         }
     }

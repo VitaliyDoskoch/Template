@@ -10,4 +10,5 @@ interface SimpleOnQueryTextListener : SearchView.OnQueryTextListener {
     override fun onQueryTextSubmit(query: String?): Boolean = false
 
     override fun onQueryTextChange(newText: String?): Boolean = false
+
 }

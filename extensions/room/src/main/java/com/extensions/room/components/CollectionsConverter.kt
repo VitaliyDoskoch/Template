@@ -8,13 +8,16 @@ import java.math.BigDecimal
  */
 object CollectionsConverter {
 
-    const val SEPARATOR = ";\n"
+    const val PREFIX = "{\n\""
+    const val SEPARATOR = "\",\n\""
+    const val POSTFIX = "\"\n}"
+    const val SUBSTITUTE = "[SEPARATOR_SUBSTITUTE]"
 
     //region Array
 
     @JvmStatic
     @TypeConverter
-    fun fromBooleanArray(items: Array<Boolean>): String = items.joinToString(SEPARATOR)
+    fun fromBooleanArray(items: Array<Boolean>) = items.joinToString(SEPARATOR, PREFIX, POSTFIX)
 
     @JvmStatic
     @TypeConverter
@@ -22,13 +25,17 @@ object CollectionsConverter {
         return if (value.isNullOrEmpty()) {
             arrayOf()
         } else {
-            value.split(SEPARATOR).map(String::toBoolean).toTypedArray()
+            value
+                .removeSurrounding(PREFIX, POSTFIX)
+                .split(SEPARATOR)
+                .map(String::toBoolean)
+                .toTypedArray()
         }
     }
 
     @JvmStatic
     @TypeConverter
-    fun fromByteArray(items: Array<Byte>): String = items.joinToString(SEPARATOR)
+    fun fromByteArray(items: Array<Byte>) = items.joinToString(SEPARATOR, PREFIX, POSTFIX)
 
     @JvmStatic
     @TypeConverter
@@ -36,13 +43,17 @@ object CollectionsConverter {
         return if (value.isNullOrEmpty()) {
             arrayOf()
         } else {
-            value.split(SEPARATOR).map(String::toByte).toTypedArray()
+            value
+                .removeSurrounding(PREFIX, POSTFIX)
+                .split(SEPARATOR)
+                .map(String::toByte)
+                .toTypedArray()
         }
     }
 
     @JvmStatic
     @TypeConverter
-    fun fromShortArray(items: Array<Short>): String = items.joinToString(SEPARATOR)
+    fun fromShortArray(items: Array<Short>) = items.joinToString(SEPARATOR, PREFIX, POSTFIX)
 
     @JvmStatic
     @TypeConverter
@@ -50,13 +61,17 @@ object CollectionsConverter {
         return if (value.isNullOrEmpty()) {
             arrayOf()
         } else {
-            value.split(SEPARATOR).map(String::toShort).toTypedArray()
+            value
+                .removeSurrounding(PREFIX, POSTFIX)
+                .split(SEPARATOR)
+                .map(String::toShort)
+                .toTypedArray()
         }
     }
 
     @JvmStatic
     @TypeConverter
-    fun fromIntArray(items: Array<Int>): String = items.joinToString(SEPARATOR)
+    fun fromIntArray(items: Array<Int>) = items.joinToString(SEPARATOR, PREFIX, POSTFIX)
 
     @JvmStatic
     @TypeConverter
@@ -64,13 +79,17 @@ object CollectionsConverter {
         return if (value.isNullOrEmpty()) {
             arrayOf()
         } else {
-            value.split(SEPARATOR).map(String::toInt).toTypedArray()
+            value
+                .removeSurrounding(PREFIX, POSTFIX)
+                .split(SEPARATOR)
+                .map(String::toInt)
+                .toTypedArray()
         }
     }
 
     @JvmStatic
     @TypeConverter
-    fun fromLongArray(items: Array<Long>): String = items.joinToString(SEPARATOR)
+    fun fromLongArray(items: Array<Long>) = items.joinToString(SEPARATOR, PREFIX, POSTFIX)
 
     @JvmStatic
     @TypeConverter
@@ -78,13 +97,17 @@ object CollectionsConverter {
         return if (value.isNullOrEmpty()) {
             arrayOf()
         } else {
-            value.split(SEPARATOR).map(String::toLong).toTypedArray()
+            value
+                .removeSurrounding(PREFIX, POSTFIX)
+                .split(SEPARATOR)
+                .map(String::toLong)
+                .toTypedArray()
         }
     }
 
     @JvmStatic
     @TypeConverter
-    fun fromFloatArray(items: Array<Float>): String = items.joinToString(SEPARATOR)
+    fun fromFloatArray(items: Array<Float>) = items.joinToString(SEPARATOR, PREFIX, POSTFIX)
 
     @JvmStatic
     @TypeConverter
@@ -92,13 +115,17 @@ object CollectionsConverter {
         return if (value.isNullOrEmpty()) {
             arrayOf()
         } else {
-            value.split(SEPARATOR).map(String::toFloat).toTypedArray()
+            value
+                .removeSurrounding(PREFIX, POSTFIX)
+                .split(SEPARATOR)
+                .map(String::toFloat)
+                .toTypedArray()
         }
     }
 
     @JvmStatic
     @TypeConverter
-    fun fromDoubleArray(items: Array<Double>): String = items.joinToString(SEPARATOR)
+    fun fromDoubleArray(items: Array<Double>) = items.joinToString(SEPARATOR, PREFIX, POSTFIX)
 
     @JvmStatic
     @TypeConverter
@@ -106,13 +133,18 @@ object CollectionsConverter {
         return if (value.isNullOrEmpty()) {
             arrayOf()
         } else {
-            value.split(SEPARATOR).map(String::toDouble).toTypedArray()
+            value
+                .removeSurrounding(PREFIX, POSTFIX)
+                .split(SEPARATOR)
+                .map(String::toDouble)
+                .toTypedArray()
         }
     }
 
     @JvmStatic
     @TypeConverter
-    fun fromBigDecimalArray(items: Array<BigDecimal>): String = items.joinToString(SEPARATOR)
+    fun fromBigDecimalArray(items: Array<BigDecimal>) =
+        items.joinToString(SEPARATOR, PREFIX, POSTFIX)
 
     @JvmStatic
     @TypeConverter
@@ -120,13 +152,19 @@ object CollectionsConverter {
         return if (value.isNullOrEmpty()) {
             arrayOf()
         } else {
-            value.split(SEPARATOR).map(String::toBigDecimal).toTypedArray()
+            value
+                .removeSurrounding(PREFIX, POSTFIX)
+                .split(SEPARATOR)
+                .map(String::toBigDecimal)
+                .toTypedArray()
         }
     }
 
     @JvmStatic
     @TypeConverter
-    fun fromStringArray(items: Array<String>): String = items.joinToString(SEPARATOR)
+    fun fromStringArray(items: Array<String>): String {
+        return items.joinToString(SEPARATOR, PREFIX, POSTFIX) { it.replace(SEPARATOR, SUBSTITUTE) }
+    }
 
     @JvmStatic
     @TypeConverter
@@ -134,7 +172,11 @@ object CollectionsConverter {
         return if (value.isNullOrEmpty()) {
             arrayOf()
         } else {
-            value.split(SEPARATOR).toTypedArray()
+            value
+                .removeSurrounding(PREFIX, POSTFIX)
+                .split(SEPARATOR)
+                .map { it.replace(SUBSTITUTE, SEPARATOR) }
+                .toTypedArray()
         }
     }
 
@@ -144,7 +186,7 @@ object CollectionsConverter {
 
     @JvmStatic
     @TypeConverter
-    fun fromBooleanList(items: List<Boolean>): String = items.joinToString(SEPARATOR)
+    fun fromBooleanList(items: List<Boolean>) = items.joinToString(SEPARATOR, PREFIX, POSTFIX)
 
     @JvmStatic
     @TypeConverter
@@ -152,13 +194,17 @@ object CollectionsConverter {
         return if (value.isNullOrEmpty()) {
             mutableListOf()
         } else {
-            value.split(SEPARATOR).map(String::toBoolean).toMutableList()
+            value
+                .removeSurrounding(PREFIX, POSTFIX)
+                .split(SEPARATOR)
+                .map(String::toBoolean)
+                .toMutableList()
         }
     }
 
     @JvmStatic
     @TypeConverter
-    fun fromByteList(items: List<Byte>): String = items.joinToString(SEPARATOR)
+    fun fromByteList(items: List<Byte>): String = items.joinToString(SEPARATOR, PREFIX, POSTFIX)
 
     @JvmStatic
     @TypeConverter
@@ -166,13 +212,17 @@ object CollectionsConverter {
         return if (value.isNullOrEmpty()) {
             mutableListOf()
         } else {
-            value.split(SEPARATOR).map(String::toByte).toMutableList()
+            value
+                .removeSurrounding(PREFIX, POSTFIX)
+                .split(SEPARATOR)
+                .map(String::toByte)
+                .toMutableList()
         }
     }
 
     @JvmStatic
     @TypeConverter
-    fun fromShortList(items: List<Short>): String = items.joinToString(SEPARATOR)
+    fun fromShortList(items: List<Short>) = items.joinToString(SEPARATOR, PREFIX, POSTFIX)
 
     @JvmStatic
     @TypeConverter
@@ -180,13 +230,17 @@ object CollectionsConverter {
         return if (value.isNullOrEmpty()) {
             mutableListOf()
         } else {
-            value.split(SEPARATOR).map(String::toShort).toMutableList()
+            value
+                .removeSurrounding(PREFIX, POSTFIX)
+                .split(SEPARATOR)
+                .map(String::toShort)
+                .toMutableList()
         }
     }
 
     @JvmStatic
     @TypeConverter
-    fun fromIntList(items: List<Int>): String = items.joinToString(SEPARATOR)
+    fun fromIntList(items: List<Int>) = items.joinToString(SEPARATOR, PREFIX, POSTFIX)
 
     @JvmStatic
     @TypeConverter
@@ -194,13 +248,17 @@ object CollectionsConverter {
         return if (value.isNullOrEmpty()) {
             mutableListOf()
         } else {
-            value.split(SEPARATOR).map(String::toInt).toMutableList()
+            value
+                .removeSurrounding(PREFIX, POSTFIX)
+                .split(SEPARATOR)
+                .map(String::toInt)
+                .toMutableList()
         }
     }
 
     @JvmStatic
     @TypeConverter
-    fun fromLongList(items: List<Long>): String = items.joinToString(SEPARATOR)
+    fun fromLongList(items: List<Long>) = items.joinToString(SEPARATOR, PREFIX, POSTFIX)
 
     @JvmStatic
     @TypeConverter
@@ -208,13 +266,17 @@ object CollectionsConverter {
         return if (value.isNullOrEmpty()) {
             mutableListOf()
         } else {
-            value.split(SEPARATOR).map(String::toLong).toMutableList()
+            value
+                .removeSurrounding(PREFIX, POSTFIX)
+                .split(SEPARATOR)
+                .map(String::toLong)
+                .toMutableList()
         }
     }
 
     @JvmStatic
     @TypeConverter
-    fun fromFloatList(items: List<Float>): String = items.joinToString(SEPARATOR)
+    fun fromFloatList(items: List<Float>) = items.joinToString(SEPARATOR, PREFIX, POSTFIX)
 
     @JvmStatic
     @TypeConverter
@@ -222,13 +284,17 @@ object CollectionsConverter {
         return if (value.isNullOrEmpty()) {
             mutableListOf()
         } else {
-            value.split(SEPARATOR).map(String::toFloat).toMutableList()
+            value
+                .removeSurrounding(PREFIX, POSTFIX)
+                .split(SEPARATOR)
+                .map(String::toFloat)
+                .toMutableList()
         }
     }
 
     @JvmStatic
     @TypeConverter
-    fun fromDoubleList(items: List<Double>): String = items.joinToString(SEPARATOR)
+    fun fromDoubleList(items: List<Double>) = items.joinToString(SEPARATOR, PREFIX, POSTFIX)
 
     @JvmStatic
     @TypeConverter
@@ -236,13 +302,17 @@ object CollectionsConverter {
         return if (value.isNullOrEmpty()) {
             mutableListOf()
         } else {
-            value.split(SEPARATOR).map(String::toDouble).toMutableList()
+            value
+                .removeSurrounding(PREFIX, POSTFIX)
+                .split(SEPARATOR)
+                .map(String::toDouble)
+                .toMutableList()
         }
     }
 
     @JvmStatic
     @TypeConverter
-    fun fromBigDecimalList(items: List<BigDecimal>): String = items.joinToString(SEPARATOR)
+    fun fromBigDecimalList(items: List<BigDecimal>) = items.joinToString(SEPARATOR, PREFIX, POSTFIX)
 
     @JvmStatic
     @TypeConverter
@@ -250,13 +320,19 @@ object CollectionsConverter {
         return if (value.isNullOrEmpty()) {
             mutableListOf()
         } else {
-            value.split(SEPARATOR).map(String::toBigDecimal).toMutableList()
+            value
+                .removeSurrounding(PREFIX, POSTFIX)
+                .split(SEPARATOR)
+                .map(String::toBigDecimal)
+                .toMutableList()
         }
     }
 
     @JvmStatic
     @TypeConverter
-    fun fromStringList(items: List<String>): String = items.joinToString(SEPARATOR)
+    fun fromStringList(items: List<String>): String {
+        return items.joinToString(SEPARATOR, PREFIX, POSTFIX) { it.replace(SEPARATOR, SUBSTITUTE) }
+    }
 
     @JvmStatic
     @TypeConverter
@@ -264,7 +340,11 @@ object CollectionsConverter {
         return if (value.isNullOrEmpty()) {
             mutableListOf()
         } else {
-            value.split(SEPARATOR).toMutableList()
+            value
+                .removeSurrounding(PREFIX, POSTFIX)
+                .split(SEPARATOR)
+                .map { it.replace(SUBSTITUTE, SEPARATOR) }
+                .toMutableList()
         }
     }
 
@@ -274,7 +354,7 @@ object CollectionsConverter {
 
     @JvmStatic
     @TypeConverter
-    fun fromBooleanSet(items: Set<Boolean>): String = items.joinToString(SEPARATOR)
+    fun fromBooleanSet(items: Set<Boolean>) = items.joinToString(SEPARATOR, PREFIX, POSTFIX)
 
     @JvmStatic
     @TypeConverter
@@ -282,13 +362,17 @@ object CollectionsConverter {
         return if (value.isNullOrEmpty()) {
             mutableSetOf()
         } else {
-            value.split(SEPARATOR).map(String::toBoolean).toMutableSet()
+            value
+                .removeSurrounding(PREFIX, POSTFIX)
+                .split(SEPARATOR)
+                .map(String::toBoolean)
+                .toMutableSet()
         }
     }
 
     @JvmStatic
     @TypeConverter
-    fun fromByteSet(items: Set<Byte>): String = items.joinToString(SEPARATOR)
+    fun fromByteSet(items: Set<Byte>) = items.joinToString(SEPARATOR, PREFIX, POSTFIX)
 
     @JvmStatic
     @TypeConverter
@@ -296,13 +380,17 @@ object CollectionsConverter {
         return if (value.isNullOrEmpty()) {
             mutableSetOf()
         } else {
-            value.split(SEPARATOR).map(String::toByte).toMutableSet()
+            value
+                .removeSurrounding(PREFIX, POSTFIX)
+                .split(SEPARATOR)
+                .map(String::toByte)
+                .toMutableSet()
         }
     }
 
     @JvmStatic
     @TypeConverter
-    fun fromShortSet(items: Set<Short>): String = items.joinToString(SEPARATOR)
+    fun fromShortSet(items: Set<Short>) = items.joinToString(SEPARATOR, PREFIX, POSTFIX)
 
     @JvmStatic
     @TypeConverter
@@ -310,13 +398,17 @@ object CollectionsConverter {
         return if (value.isNullOrEmpty()) {
             mutableSetOf()
         } else {
-            value.split(SEPARATOR).map(String::toShort).toMutableSet()
+            value
+                .removeSurrounding(PREFIX, POSTFIX)
+                .split(SEPARATOR)
+                .map(String::toShort)
+                .toMutableSet()
         }
     }
 
     @JvmStatic
     @TypeConverter
-    fun fromIntSet(items: Set<Int>): String = items.joinToString(SEPARATOR)
+    fun fromIntSet(items: Set<Int>) = items.joinToString(SEPARATOR, PREFIX, POSTFIX)
 
     @JvmStatic
     @TypeConverter
@@ -324,13 +416,17 @@ object CollectionsConverter {
         return if (value.isNullOrEmpty()) {
             mutableSetOf()
         } else {
-            value.split(SEPARATOR).map(String::toInt).toMutableSet()
+            value
+                .removeSurrounding(PREFIX, POSTFIX)
+                .split(SEPARATOR)
+                .map(String::toInt)
+                .toMutableSet()
         }
     }
 
     @JvmStatic
     @TypeConverter
-    fun fromLongSet(items: Set<Long>): String = items.joinToString(SEPARATOR)
+    fun fromLongSet(items: Set<Long>) = items.joinToString(SEPARATOR, PREFIX, POSTFIX)
 
     @JvmStatic
     @TypeConverter
@@ -338,13 +434,17 @@ object CollectionsConverter {
         return if (value.isNullOrEmpty()) {
             mutableSetOf()
         } else {
-            value.split(SEPARATOR).map(String::toLong).toMutableSet()
+            value
+                .removeSurrounding(PREFIX, POSTFIX)
+                .split(SEPARATOR)
+                .map(String::toLong)
+                .toMutableSet()
         }
     }
 
     @JvmStatic
     @TypeConverter
-    fun fromFloatSet(items: Set<Float>): String = items.joinToString(SEPARATOR)
+    fun fromFloatSet(items: Set<Float>) = items.joinToString(SEPARATOR, PREFIX, POSTFIX)
 
     @JvmStatic
     @TypeConverter
@@ -352,13 +452,17 @@ object CollectionsConverter {
         return if (value.isNullOrEmpty()) {
             mutableSetOf()
         } else {
-            value.split(SEPARATOR).map(String::toFloat).toMutableSet()
+            value
+                .removeSurrounding(PREFIX, POSTFIX)
+                .split(SEPARATOR)
+                .map(String::toFloat)
+                .toMutableSet()
         }
     }
 
     @JvmStatic
     @TypeConverter
-    fun fromDoubleSet(items: Set<Double>): String = items.joinToString(SEPARATOR)
+    fun fromDoubleSet(items: Set<Double>) = items.joinToString(SEPARATOR, PREFIX, POSTFIX)
 
     @JvmStatic
     @TypeConverter
@@ -366,13 +470,17 @@ object CollectionsConverter {
         return if (value.isNullOrEmpty()) {
             mutableSetOf()
         } else {
-            value.split(SEPARATOR).map(String::toDouble).toMutableSet()
+            value
+                .removeSurrounding(PREFIX, POSTFIX)
+                .split(SEPARATOR)
+                .map(String::toDouble)
+                .toMutableSet()
         }
     }
 
     @JvmStatic
     @TypeConverter
-    fun fromBigDecimalSet(items: Set<BigDecimal>): String = items.joinToString(SEPARATOR)
+    fun fromBigDecimalSet(items: Set<BigDecimal>) = items.joinToString(SEPARATOR, PREFIX, POSTFIX)
 
     @JvmStatic
     @TypeConverter
@@ -380,13 +488,19 @@ object CollectionsConverter {
         return if (value.isNullOrEmpty()) {
             mutableSetOf()
         } else {
-            value.split(SEPARATOR).map(String::toBigDecimal).toMutableSet()
+            value
+                .removeSurrounding(PREFIX, POSTFIX)
+                .split(SEPARATOR)
+                .map(String::toBigDecimal)
+                .toMutableSet()
         }
     }
 
     @JvmStatic
     @TypeConverter
-    fun fromStringSet(items: Set<String>): String = items.joinToString(SEPARATOR)
+    fun fromStringSet(items: Set<String>): String {
+        return items.joinToString(SEPARATOR, PREFIX, POSTFIX) { it.replace(SEPARATOR, SUBSTITUTE) }
+    }
 
     @JvmStatic
     @TypeConverter
@@ -394,7 +508,11 @@ object CollectionsConverter {
         return if (value.isNullOrEmpty()) {
             mutableSetOf()
         } else {
-            value.split(SEPARATOR).toMutableSet()
+            value
+                .removeSurrounding(PREFIX, POSTFIX)
+                .split(SEPARATOR)
+                .map { it.replace(SUBSTITUTE, SEPARATOR) }
+                .toMutableSet()
         }
     }
 

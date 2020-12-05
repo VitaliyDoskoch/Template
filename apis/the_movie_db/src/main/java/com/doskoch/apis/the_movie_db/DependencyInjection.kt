@@ -1,12 +1,11 @@
 package com.doskoch.apis.the_movie_db
 
-internal typealias Component = TheMovieDbComponent
 internal typealias Injector = TheMovieDbInjector
 
-interface TheMovieDbComponent {
+interface TheMovieDbApi {
     val isNetworkAvailable: () -> Boolean
 }
 
 object TheMovieDbInjector {
-    lateinit var component: Component
+    lateinit var component: TheMovieDbApi
 }

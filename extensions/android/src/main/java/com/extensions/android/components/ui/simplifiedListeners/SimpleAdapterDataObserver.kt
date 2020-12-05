@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
  */
 abstract class SimpleAdapterDataObserver : RecyclerView.AdapterDataObserver() {
 
-    open fun onAnyChange() {}
+    open fun onAnyChange() = Unit
 
     @CallSuper
     override fun onChanged() {

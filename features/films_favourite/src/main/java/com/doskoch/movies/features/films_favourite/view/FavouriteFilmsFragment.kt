@@ -21,10 +21,12 @@ import com.doskoch.movies.features.films_favourite.R
 import com.doskoch.movies.features.films_favourite.databinding.FragmentFavouriteFilmsBinding
 import com.extensions.kotlin.components.annotations.CallsFrom
 import com.extensions.lifecycle.components.State
+import com.extensions.lifecycle.functions.observeData
+import com.extensions.lifecycle.functions.observeResult
 import com.extensions.lifecycle.functions.viewModelLazy
 import com.google.android.material.appbar.AppBarLayout
 
-class FavouriteFilmsFragment : BaseFragment(),
+class FavouriteFilmsFragment : BaseFragment<FragmentFavouriteFilmsBinding>(),
     FilmsAdapter.ActionListener {
 
     companion object {
@@ -52,7 +54,6 @@ class FavouriteFilmsFragment : BaseFragment(),
     private val adapter: FilmsAdapter?
         get() = nestedBinding?.recyclerView?.adapter as? FilmsAdapter
 
-    private var viewBinding: FragmentFavouriteFilmsBinding? = null
     private var nestedBinding: LayoutPageContentBinding? = null
 
     private var parallaxListener: AppBarLayout.OnOffsetChangedListener? = null
@@ -61,7 +62,6 @@ class FavouriteFilmsFragment : BaseFragment(),
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         return FragmentFavouriteFilmsBinding.inflate(inflater).also {
-            viewBinding = it
             nestedBinding =
                 LayoutPageContentBinding.bind(it.root.findViewById(R.id.nestedScrollView))
         }.root
@@ -110,7 +110,7 @@ class FavouriteFilmsFragment : BaseFragment(),
     }
 
     private fun observePagedList() {
-        viewModel.pagedListData().observeData { state ->
+        viewModel.pagedListData().observeData(viewLifecycleOwner) { state ->
             when (state) {
                 is State.Loading -> contentManager?.showProgress()
                 is State.Success -> submitList(state.data)
@@ -133,7 +133,7 @@ class FavouriteFilmsFragment : BaseFragment(),
 
     @CallsFrom(FilmsAdapter::class)
     override fun onFavouriteClicked(item: Film) {
-        viewModel.delete(item).observeResult { state ->
+        viewModel.delete(item).observeResult(viewLifecycleOwner) { state ->
             if (state is State.Failure) {
                 view?.let { showErrorSnackbar(it, state.throwable) }
             }
@@ -150,7 +150,8 @@ class FavouriteFilmsFragment : BaseFragment(),
     override fun onDestroyView() {
         super.onDestroyView()
         appBarLayout?.removeOnOffsetChangedListener(parallaxListener)
-        viewBinding = null
         nestedBinding = null
     }
+
+    override fun inflateViewBinding(inflater: LayoutInflater) = FragmentFavouriteFilmsBinding.inflate(inflater)
 }

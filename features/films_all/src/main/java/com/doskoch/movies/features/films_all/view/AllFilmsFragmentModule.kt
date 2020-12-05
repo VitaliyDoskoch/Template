@@ -19,7 +19,7 @@ class AllFilmsFragmentModule(
                         return AllFilmsViewModel(AllFilmsViewModelModule.create())
                     }
                 },
-                shareFilm = BaseFragment::shareFilm
+                shareFilm = BaseFragment<*>::shareFilm
             )
         }
     }

@@ -14,6 +14,4 @@ open class ComponentInjector<C> {
             field = value
         }
 
-    val component: C
-        get() = componentProvider!!.value
 }

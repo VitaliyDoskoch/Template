@@ -40,7 +40,7 @@ class MainActivity : BaseActivity() {
             ?.fragments
             ?.firstOrNull()
             .let { fragment ->
-                if ((fragment as? BaseFragment)?.onBackPressed() != true) {
+                if ((fragment as? BaseFragment<*>)?.onBackPressed() != true) {
                     super.onBackPressed()
                 }
             }

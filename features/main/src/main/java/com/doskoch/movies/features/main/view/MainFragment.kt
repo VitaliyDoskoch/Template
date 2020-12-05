@@ -12,7 +12,7 @@ import com.doskoch.movies.core.components.ui.base.pager.behavior.PagerAdapterBeh
 import com.doskoch.movies.features.main.R
 import com.doskoch.movies.features.main.databinding.FragmentMainBinding
 
-class MainFragment : BaseFragment() {
+class MainFragment : BaseFragment<FragmentMainBinding>() {
 
     companion object {
         @VisibleForTesting
@@ -20,14 +20,6 @@ class MainFragment : BaseFragment() {
     }
 
     private lateinit var module: MainFragmentModule
-
-    private var viewBinding: FragmentMainBinding? = null
-
-    override fun onCreateView(inflater: LayoutInflater,
-                              container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        return FragmentMainBinding.inflate(inflater).also { viewBinding = it }.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -56,8 +48,5 @@ class MainFragment : BaseFragment() {
         )
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        viewBinding = null
-    }
+    override fun inflateViewBinding(inflater: LayoutInflater) = FragmentMainBinding.inflate(inflater)
 }

@@ -3,6 +3,8 @@ package com.doskoch.movies.core.components.rx
 import androidx.annotation.CallSuper
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import com.extensions.lifecycle.components.LiveDataPool
+import com.extensions.lifecycle.components.add
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 
@@ -11,6 +13,10 @@ abstract class RxViewModel : ViewModel() {
     private val compositeDisposable by lazy { CompositeDisposable() }
 
     private val observers by lazy { mutableMapOf<LiveData<*>, Pair<Disposable, () -> Disposable>>() }
+
+    fun <T : Any> LiveDataPool<T>.add(liveData: LiveData<T>) {
+        add(this, liveData)
+    }
 
     /**
      * Will dispose passed Disposables, when [onCleared] method will be called.

@@ -18,9 +18,6 @@ import com.doskoch.movies.features.splash.SplashFeatureInjector
 import com.extensions.kotlin.components.DestroyableLazy
 import timber.log.Timber
 
-internal typealias Component = AppComponent
-internal typealias Injector = AppInjector
-
 interface AppComponent {
     val application: Application
     val appDatabase: AppDatabase
@@ -31,41 +28,33 @@ object AppInjector {
     lateinit var component: AppComponent
 
     fun init(application: Application) {
-        component = AppModule.create(application)
+        component = AppModule.create(application).also(this::logCreation)
 
-        CoreInjector.component = CoreModule.create(component)
-            .also { logCreation<CoreModule>() }
+        CoreInjector.component = CoreModule.create(component).also(this::logCreation)
 
-        TheMovieDbInjector.component = TheMovieDbApiModule.create(component)
-            .also { logCreation<TheMovieDbApiModule>() }
+        TheMovieDbInjector.component = TheMovieDbApiModule.create(component).also(this::logCreation)
 
         SplashFeatureInjector.componentProvider = DestroyableLazy(
-            { SplashFeatureModule.create(component).also { logCreation<SplashFeatureModule>() } },
-            { logDestruction<SplashFeatureModule>() }
+            { SplashFeatureModule.create(component).also(this::logCreation) },
+            this::logDestruction
         )
         MainFeatureInjector.componentProvider = DestroyableLazy(
-            { MainFeatureModule.create(component).also { logCreation<MainFeatureModule>() } },
+            { MainFeatureModule.create(component).also(this::logCreation) },
             {
                 destroyMainFeatureSubmodules()
-                logDestruction<MainFeatureModule>()
+                logDestruction(it)
             }
         ).also { initMainFeatureSubmodules() }
     }
 
     private fun initMainFeatureSubmodules() {
         AllFilmsFeatureInjector.componentProvider = DestroyableLazy(
-            {
-                AllFilmsFeatureModule.create(component)
-                    .also { logCreation<AllFilmsFeatureModule>() }
-            },
-            { logDestruction<AllFilmsFeatureModule>() }
+            { AllFilmsFeatureModule.create(component).also(this::logCreation) },
+            this::logDestruction
         )
         FavouriteFilmsFeatureInjector.componentProvider = DestroyableLazy(
-            {
-                FavouriteFilmsFeatureModule.create(component)
-                    .also { logCreation<FavouriteFilmsFeatureModule>() }
-            },
-            { logDestruction<FavouriteFilmsFeatureModule>() }
+            { FavouriteFilmsFeatureModule.create(component).also(this::logCreation) },
+            this::logDestruction
         )
     }
 
@@ -74,11 +63,15 @@ object AppInjector {
         FavouriteFilmsFeatureInjector.componentProvider?.destroyInstance()
     }
 
-    private inline fun <reified M : Any> logCreation() {
-        Timber.v("Creating ${M::class.java.simpleName}")
+    private inline fun <reified M> logCreation(module: M) {
+        Timber.i("Creating ${M::class.java.simpleName}")
     }
 
-    private inline fun <reified M : Any> logDestruction() {
-        Timber.v("Destroying ${M::class.java.simpleName}")
+    private inline fun <reified M> logDestruction(module: M?) {
+        if (module == null) {
+            Timber.i("Trying to destroy ${M::class.java.simpleName}, but it is already destroyed")
+        } else {
+            Timber.i("Destroying ${M::class.java.simpleName}")
+        }
     }
 }

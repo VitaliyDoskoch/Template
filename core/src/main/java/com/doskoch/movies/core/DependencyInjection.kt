@@ -2,7 +2,6 @@ package com.doskoch.movies.core
 
 import android.content.Context
 
-internal typealias Component = CoreComponent
 internal typealias Injector = CoreInjector
 
 interface CoreComponent {
@@ -10,5 +9,5 @@ interface CoreComponent {
 }
 
 object CoreInjector {
-    lateinit var component: Component
+    lateinit var component: CoreComponent
 }

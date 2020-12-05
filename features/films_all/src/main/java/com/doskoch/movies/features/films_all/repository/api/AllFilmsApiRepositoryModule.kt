@@ -13,7 +13,7 @@ class AllFilmsApiRepositoryModule(
     companion object {
         fun create(): AllFilmsApiRepositoryModule {
             return AllFilmsApiRepositoryModule(
-                discoverServiceConnector = Injector.component.discoverServiceConnector
+                discoverServiceConnector = Injector.discoverServiceConnector
             )
         }
     }

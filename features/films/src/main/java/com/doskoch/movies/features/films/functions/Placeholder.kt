@@ -5,7 +5,7 @@ import com.doskoch.movies.core.components.ui.views.CorePlaceholder
 import com.doskoch.movies.core.functions.showSimple
 import com.doskoch.movies.features.films.R
 
-fun BaseFragment.showNoFilmsPlaceholder() {
+fun BaseFragment<*>.showNoFilmsPlaceholder() {
     contentManager?.showPlaceholder { view ->
         (view as? CorePlaceholder)?.let {
             it.showSimple(

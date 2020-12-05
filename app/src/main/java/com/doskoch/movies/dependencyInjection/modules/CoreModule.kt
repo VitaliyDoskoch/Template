@@ -8,10 +8,8 @@ class CoreModule(
     override val context: Context
 ) : CoreComponent {
     companion object {
-        fun create(component: AppComponent): CoreModule {
-            return CoreModule(
-                context = component.application
-            )
-        }
+        fun create(component: AppComponent) = CoreModule(
+            context = component.application
+        )
     }
 }

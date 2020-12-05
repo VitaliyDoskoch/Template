@@ -7,34 +7,42 @@ import android.view.ViewGroup
 import androidx.annotation.VisibleForTesting
 import androidx.navigation.fragment.findNavController
 import com.doskoch.movies.core.components.ui.base.fragment.BaseFragment
+import com.doskoch.movies.features.splash.Injector
 import com.doskoch.movies.features.splash.R
+import com.doskoch.movies.features.splash.SplashFeature
 import com.doskoch.movies.features.splash.databinding.FragmentSplashBinding
+import com.doskoch.movies.features.splash.viewModel.SplashViewModel
 import com.extensions.lifecycle.components.State
+import com.extensions.lifecycle.components.TypeSafeViewModelFactory
+import com.extensions.lifecycle.functions.observeData
+import com.extensions.lifecycle.functions.typeSafeViewModelFactory
 import com.extensions.lifecycle.functions.viewModelLazy
 
-class SplashFragment : BaseFragment() {
+class SplashFragment : BaseFragment<FragmentSplashBinding>() {
+
+    data class Module(
+        val viewModelFactory: TypeSafeViewModelFactory<SplashViewModel>,
+        val directions: SplashFeature.Directions,
+        val versionCode: Int
+    )
 
     companion object {
         @VisibleForTesting
-        var provideModule = fun(_: SplashFragment) = SplashFragmentModule.create()
+        var provideModule = fun SplashFragment.() = Module(
+            typeSafeViewModelFactory { SplashViewModel(SplashViewModel.provideModule()) },
+            Injector.directions,
+            1
+        )
     }
 
-    private lateinit var module: SplashFragmentModule
+    private lateinit var module: Module
 
     private val viewModel by viewModelLazy { module.viewModelFactory }
-
-    private var viewBinding: FragmentSplashBinding? = null
-
-    override fun onCreateView(inflater: LayoutInflater,
-                              container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        return FragmentSplashBinding.inflate(inflater).also { viewBinding = it }.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (!::module.isInitialized) {
-            module = provideModule(this)
+            module = provideModule()
         }
 
         viewBinding?.let { initViews(it) }
@@ -55,7 +63,7 @@ class SplashFragment : BaseFragment() {
     }
 
     private fun observeDisplayTimeout() {
-        viewModel.displayTimeoutData().observeData { state ->
+        viewModel.displayTimeoutData().observeData(viewLifecycleOwner) { state ->
             when (state) {
                 is State.Success, is State.Failure -> navigateNext()
             }
@@ -66,8 +74,5 @@ class SplashFragment : BaseFragment() {
         findNavController().navigate(module.directions.toMain())
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        viewBinding = null
-    }
+    override fun inflateViewBinding(inflater: LayoutInflater) = FragmentSplashBinding.inflate(inflater)
 }

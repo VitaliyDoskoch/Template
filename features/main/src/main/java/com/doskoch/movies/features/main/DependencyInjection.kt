@@ -3,12 +3,12 @@ package com.doskoch.movies.features.main
 import androidx.fragment.app.Fragment
 import com.extensions.kotlin.components.di.ComponentInjector
 
-internal typealias Component = MainFeatureComponent
-internal typealias Injector = MainFeatureInjector
-
-interface MainFeatureComponent {
+interface MainFeature {
     val provideAllFilmsFragment: () -> Fragment
     val provideFavouriteFilmsFragment: () -> Fragment
 }
 
-object MainFeatureInjector : ComponentInjector<Component>()
+object MainFeatureInjector : ComponentInjector<MainFeature>()
+
+internal val Injector
+    get() = MainFeatureInjector.componentProvider!!.value

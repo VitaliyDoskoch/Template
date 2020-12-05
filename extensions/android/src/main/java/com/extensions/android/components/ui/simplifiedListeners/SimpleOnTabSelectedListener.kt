@@ -7,9 +7,9 @@ import com.google.android.material.tabs.TabLayout
  */
 interface SimpleOnTabSelectedListener : TabLayout.OnTabSelectedListener {
 
-    override fun onTabReselected(p0: TabLayout.Tab?) {}
+    override fun onTabReselected(p0: TabLayout.Tab?) = Unit
 
-    override fun onTabUnselected(p0: TabLayout.Tab?) {}
+    override fun onTabUnselected(p0: TabLayout.Tab?) = Unit
 
-    override fun onTabSelected(p0: TabLayout.Tab?) {}
+    override fun onTabSelected(p0: TabLayout.Tab?) = Unit
 }

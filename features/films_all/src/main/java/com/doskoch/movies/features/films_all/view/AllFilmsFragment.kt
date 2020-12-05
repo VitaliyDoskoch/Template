@@ -26,11 +26,13 @@ import com.doskoch.movies.features.films_all.R
 import com.doskoch.movies.features.films_all.databinding.FragmentAllFilmsBinding
 import com.extensions.kotlin.components.annotations.CallsFrom
 import com.extensions.lifecycle.components.State
+import com.extensions.lifecycle.functions.observeData
+import com.extensions.lifecycle.functions.observeResult
 import com.extensions.lifecycle.functions.viewModelLazy
 import com.extensions.retrofit.components.exceptions.NoInternetException
 import com.google.android.material.appbar.AppBarLayout
 
-class AllFilmsFragment : BaseFragment(),
+class AllFilmsFragment : BaseFragment<FragmentAllFilmsBinding>(),
     BasePagedRecyclerAdapter.FetchItemListener<FetchState>,
     FilmsAdapter.ActionListener {
 
@@ -59,7 +61,6 @@ class AllFilmsFragment : BaseFragment(),
     private val adapter: FilmsAdapter?
         get() = nestedBinding?.recyclerView?.adapter as? FilmsAdapter
 
-    private var viewBinding: FragmentAllFilmsBinding? = null
     private var nestedBinding: LayoutPageContentBinding? = null
 
     private var parallaxListener: AppBarLayout.OnOffsetChangedListener? = null
@@ -68,7 +69,6 @@ class AllFilmsFragment : BaseFragment(),
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         return FragmentAllFilmsBinding.inflate(inflater).also {
-            viewBinding = it
             nestedBinding =
                 LayoutPageContentBinding.bind(it.root.findViewById(R.id.nestedScrollView))
         }.root
@@ -130,7 +130,7 @@ class AllFilmsFragment : BaseFragment(),
     }
 
     private fun observePagedList() {
-        viewModel.pagedListData().observeData { state ->
+        viewModel.pagedListData().observeData(viewLifecycleOwner) { state ->
             when (state) {
                 is State.Loading -> contentManager?.showProgress()
                 is State.Success -> submitList(state.data)
@@ -159,7 +159,7 @@ class AllFilmsFragment : BaseFragment(),
     }
 
     private fun loadFirstPage() {
-        viewModel.loadNextPage().observeResult { state ->
+        viewModel.loadNextPage().observeResult(viewLifecycleOwner, ) { state ->
             when (state) {
                 is State.Success -> if (state.data == 0) {
                     showNoFilmsPlaceholder()
@@ -180,7 +180,7 @@ class AllFilmsFragment : BaseFragment(),
 
         val liveData = viewModel.loadNextPage()
 
-        liveData.observeData { state ->
+        liveData.observeData(viewLifecycleOwner) { state ->
             adapter?.afterFetchState = when (state) {
                 is State.Loading -> FetchState.Loading()
                 is State.Success -> FetchState.Success()
@@ -196,7 +196,7 @@ class AllFilmsFragment : BaseFragment(),
     }
 
     private fun onRefresh() {
-        viewModel.refresh().observeResult { state ->
+        viewModel.refresh().observeResult(viewLifecycleOwner) { state ->
             if(state !is State.Loading) {
                 viewBinding?.swipeRefreshLayout?.isRefreshing = false
             }
@@ -213,7 +213,7 @@ class AllFilmsFragment : BaseFragment(),
 
     @CallsFrom(FilmsAdapter::class)
     override fun onFavouriteClicked(item: Film) {
-        viewModel.switchFavourite(item).observeResult { state ->
+        viewModel.switchFavourite(item).observeResult(viewLifecycleOwner) { state ->
             if (state is State.Failure) {
                 view?.let { showErrorSnackbar(it, state.throwable) }
             }
@@ -230,7 +230,8 @@ class AllFilmsFragment : BaseFragment(),
     override fun onDestroyView() {
         super.onDestroyView()
         appBarLayout?.removeOnOffsetChangedListener(parallaxListener)
-        viewBinding = null
         nestedBinding = null
     }
+
+    override fun inflateViewBinding(inflater: LayoutInflater) = FragmentAllFilmsBinding.inflate(inflater)
 }

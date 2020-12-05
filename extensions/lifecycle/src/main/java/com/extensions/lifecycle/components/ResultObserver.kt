@@ -9,23 +9,17 @@ import androidx.lifecycle.Observer
  */
 class ResultObserver<T : Any>(
     private val liveData: LiveData<State<T>>,
+    private val liveDataPool: LiveDataPool<State<T>>? = null,
     private val action: (state: State<T>) -> Unit
 ) : Observer<State<T>> {
 
     override fun onChanged(state: State<T>?) {
-        if (state != null) {
-            when (state) {
-                is State.Loading -> action(state).also {
-                    state.isConsumed = true
-                }
-                is State.Success -> action(state).also {
-                    state.isConsumed = true
-                    liveData.removeObserver(this)
-                }
-                is State.Failure -> action(state).also {
-                    state.isConsumed = true
-                    liveData.removeObserver(this)
-                }
+        when (state) {
+            is State.Loading -> action(state).also { state.isConsumed = true }
+            is State.Success, is State.Failure -> action(state).also {
+                state.isConsumed = true
+                liveDataPool?.remove(liveData)
+                liveData.removeObserver(this)
             }
         }
     }

@@ -9,11 +9,9 @@ class AppModule(
     override val appDatabase: AppDatabase
 ) : AppComponent {
     companion object {
-        fun create(application: Application): AppModule {
-            return AppModule(
-                application = application,
-                appDatabase = AppDatabase.buildDatabase(application)
-            )
-        }
+        fun create(application: Application) = AppModule(
+            application = application,
+            appDatabase = AppDatabase.buildDatabase(application)
+        )
     }
 }

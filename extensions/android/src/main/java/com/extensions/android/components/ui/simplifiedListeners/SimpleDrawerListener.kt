@@ -8,12 +8,12 @@ import androidx.drawerlayout.widget.DrawerLayout
  */
 interface SimpleDrawerListener : DrawerLayout.DrawerListener {
 
-    override fun onDrawerStateChanged(newState: Int) {}
+    override fun onDrawerStateChanged(newState: Int) = Unit
 
-    override fun onDrawerSlide(drawerView: View, slideOffset: Float) {}
+    override fun onDrawerSlide(drawerView: View, slideOffset: Float) = Unit
 
-    override fun onDrawerClosed(drawerView: View) {}
+    override fun onDrawerClosed(drawerView: View) = Unit
 
-    override fun onDrawerOpened(drawerView: View) {}
+    override fun onDrawerOpened(drawerView: View) = Unit
 
 }

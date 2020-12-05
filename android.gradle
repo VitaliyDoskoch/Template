@@ -1,20 +1,20 @@
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
-apply plugin: 'de.mannodermaus.android-junit5'
+//apply plugin: 'de.mannodermaus.android-junit5'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 30
 
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 28
+        targetSdkVersion 30
         versionCode 1
         versionName '0.0.1'
 
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
-        testInstrumentationRunnerArgument 'runnerBuilder',
-            'de.mannodermaus.junit5.AndroidJUnit5Builder'
-        testInstrumentationRunnerArguments clearPackageData: 'true'
+//        testInstrumentationRunnerArgument 'runnerBuilder',
+//            'de.mannodermaus.junit5.AndroidJUnit5Builder'
+//        testInstrumentationRunnerArguments clearPackageData: 'true'
     }
 
     compileOptions {

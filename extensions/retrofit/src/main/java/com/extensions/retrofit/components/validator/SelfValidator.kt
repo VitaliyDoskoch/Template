@@ -4,7 +4,7 @@ interface SelfValidator {
     fun validate(): ValidationResult
 }
 
-inline fun <reified T : SelfValidator> List<T>.validate(): ValidationResult {
+inline fun <reified T : SelfValidator> Collection<T>.validate(): ValidationResult {
     val results = map { it.validate() }
 
     return ValidationResult(

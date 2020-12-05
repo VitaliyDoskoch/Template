@@ -12,10 +12,10 @@ class MainFragmentModule {
     }
 
     fun provideAllFilmsFragment(): Fragment {
-        return Injector.component.provideAllFilmsFragment()
+        return Injector.provideAllFilmsFragment()
     }
 
     fun provideFavouriteFilmsFragment(): Fragment {
-        return Injector.component.provideFavouriteFilmsFragment()
+        return Injector.provideFavouriteFilmsFragment()
     }
 }

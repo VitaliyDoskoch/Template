@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PagedList
 import com.doskoch.movies.core.components.rx.RxViewModel
-import com.doskoch.movies.core.functions.runSimpleRxAction
+import com.doskoch.movies.core.functions.simpleRxAction
 import com.doskoch.movies.database.modules.films.view.Film
 import com.extensions.lifecycle.components.State
 import com.extensions.rx.components.schedulers.ioScheduler
@@ -80,7 +80,7 @@ class FavouriteFilmsViewModel(private val module: FavouriteFilmsViewModelModule)
 
     fun delete(item: Film): LiveData<State<Any>> {
         return MutableLiveData<State<Any>>().also { result ->
-            runSimpleRxAction(result, ioScheduler) {
+            simpleRxAction(result, ioScheduler) {
                 module.dbRepository.delete(item)
                     .andThen(Flowable.just(Any()))
             }

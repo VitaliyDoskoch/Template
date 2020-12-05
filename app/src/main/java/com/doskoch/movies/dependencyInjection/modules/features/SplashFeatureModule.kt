@@ -1,27 +1,17 @@
 package com.doskoch.movies.dependencyInjection.modules.features
 
-import androidx.navigation.NavDirections
 import com.doskoch.movies.dependencyInjection.AppComponent
-import com.doskoch.movies.features.splash.SplashFeatureComponent
-import com.doskoch.movies.features.splash.SplashFeatureDirections
+import com.doskoch.movies.features.splash.SplashFeature
 import com.doskoch.movies.features.splash.view.SplashFragmentDirections
 
 class SplashFeatureModule(
-    override val directions: SplashFeatureDirections
-) : SplashFeatureComponent {
+    override val directions: SplashFeature.Directions
+) : SplashFeature {
     companion object {
-        fun create(component: AppComponent): SplashFeatureModule {
-            return SplashFeatureModule(
-                directions = provideNavDirections()
-            )
-        }
-
-        private fun provideNavDirections(): SplashFeatureDirections {
-            return object : SplashFeatureDirections {
-                override fun toMain(): NavDirections {
-                    return SplashFragmentDirections.toMain()
-                }
+        fun create(component: AppComponent) = SplashFeatureModule(
+            directions = object : SplashFeature.Directions {
+                override fun toMain() = SplashFragmentDirections.toMain()
             }
-        }
+        )
     }
 }

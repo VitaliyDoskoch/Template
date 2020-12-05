@@ -31,8 +31,8 @@ class BackgroundColorTransition : Transition() {
 
     private fun captureValues(values: TransitionValues) {
         values.view?.let { view ->
-            values.values[COLOR] = view.background?.getDominantColor()
-                ?: view.backgroundTintList?.defaultColor ?: Color.TRANSPARENT
+            values.values[COLOR] = view.backgroundTintList?.defaultColor
+                ?: view.background?.getDominantColor() ?: Color.TRANSPARENT
             values.values[ALPHA] = view.background?.alpha ?: 255
         }
     }
@@ -67,6 +67,7 @@ class BackgroundColorTransition : Transition() {
 
         return if (startValue != endValue) {
             view.background.setTint(startValue)
+            view.background = view.background.mutate()
             ObjectAnimator.ofArgb(view.background, "tint", startValue, endValue)
         } else {
             null
@@ -81,6 +82,7 @@ class BackgroundColorTransition : Transition() {
 
         return if (startValue != endValue) {
             view.background.alpha = startValue
+            view.background = view.background.mutate()
             ObjectAnimator.ofInt(view.background, "alpha", startValue, endValue)
         } else {
             null

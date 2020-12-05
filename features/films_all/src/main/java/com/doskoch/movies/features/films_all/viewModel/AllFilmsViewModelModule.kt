@@ -24,7 +24,7 @@ class AllFilmsViewModelModule(
     companion object {
         fun create(): AllFilmsViewModelModule {
             return AllFilmsViewModelModule(
-                context = Injector.component.context,
+                context = Injector.context,
                 dbRepository = AllFilmsDbRepository(AllFilmsDbRepositoryModule.create()),
                 apiRepository = AllFilmsApiRepository(AllFilmsApiRepositoryModule.create()),
                 converter = AllFilmsApiToDbConverter(),

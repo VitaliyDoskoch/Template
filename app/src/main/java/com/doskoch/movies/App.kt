@@ -1,7 +1,7 @@
 package com.doskoch.movies
 
 import android.app.Application
-import com.doskoch.movies.dependencyInjection.Injector
+import com.doskoch.movies.dependencyInjection.AppInjector
 import timber.log.Timber
 
 @Suppress("unused")
@@ -10,7 +10,7 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        Injector.init(this)
+        AppInjector.init(this)
 
         initLogging()
     }

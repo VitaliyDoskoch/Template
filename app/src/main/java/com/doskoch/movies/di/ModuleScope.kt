@@ -1,4 +1,4 @@
-package com.doskoch.movies.dependencyInjection
+package com.doskoch.movies.di
 
 import com.doskoch.movies.R
 import com.doskoch.movies.features.main.MainFeatureInjector

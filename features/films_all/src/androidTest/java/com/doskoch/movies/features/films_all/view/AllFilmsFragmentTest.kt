@@ -23,7 +23,7 @@ import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import com.doskoch.movies.core.components.ui.base.recyclerView.paging.FetchStateViewHolder
 import com.doskoch.movies.core.components.ui.base.recyclerView.paging.boundaryCallback.BoundaryCallbackResult
 import com.doskoch.movies.database.modules.films.view.Film
-import com.doskoch.movies.features.films.config.PAGED_LIST_CONFIG
+import com.doskoch.movies.features.films.PAGED_LIST_CONFIG
 import com.doskoch.movies.features.films_all.R
 import com.doskoch.movies.features.films_all.dataSource.AllFilmsDataSource
 import com.doskoch.movies.features.films_all.viewModel.AllFilmsViewModel

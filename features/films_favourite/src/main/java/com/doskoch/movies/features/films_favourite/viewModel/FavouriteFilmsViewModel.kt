@@ -7,6 +7,8 @@ import androidx.paging.PagedList
 import com.doskoch.movies.core.components.rx.RxViewModel
 import com.doskoch.movies.core.functions.simpleRxAction
 import com.doskoch.movies.database.modules.films.view.Film
+import com.doskoch.movies.features.films_favourite.dataSource.FavouriteFilmsDataSource
+import com.doskoch.movies.features.films_favourite.repository.db.FavouriteFilmsDbRepository
 import com.extensions.lifecycle.components.State
 import com.extensions.rx.components.schedulers.ioScheduler
 import com.extensions.rx.components.schedulers.mainThread
@@ -16,7 +18,13 @@ import io.reactivex.Flowable
 import io.reactivex.disposables.Disposable
 import timber.log.Timber
 
-class FavouriteFilmsViewModel(private val module: FavouriteFilmsViewModelModule) : RxViewModel() {
+class FavouriteFilmsViewModel(private val module: Module) : RxViewModel() {
+
+    data class Module(
+        val dbRepository: FavouriteFilmsDbRepository,
+        val pagedListConfig: PagedList.Config,
+        val createDataSource: (totalCount: Int, onLoadRangeError: (throwable: Throwable) -> Unit) -> FavouriteFilmsDataSource
+    )
 
     private val pagedListData by lazy { MutableLiveData<State<PagedList<Film>>>() }
 

@@ -16,7 +16,7 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import com.doskoch.movies.database.modules.films.view.Film
-import com.doskoch.movies.features.films.config.PAGED_LIST_CONFIG
+import com.doskoch.movies.features.films.PAGED_LIST_CONFIG
 import com.doskoch.movies.features.films_favourite.R
 import com.doskoch.movies.features.films_favourite.dataSource.FavouriteFilmsDataSource
 import com.doskoch.movies.features.films_favourite.viewModel.FavouriteFilmsViewModel

@@ -1,4 +1,4 @@
-package com.doskoch.movies.features.films.config
+package com.doskoch.movies.features.films
 
 import androidx.paging.PagedList
 import com.doskoch.apis.the_movie_db.config.LIST_PAGE_SIZE

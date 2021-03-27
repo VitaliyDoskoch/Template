@@ -7,9 +7,9 @@ import com.bumptech.glide.Glide
 import com.doskoch.apis.the_movie_db.config.BASE_IMAGE_URL
 import com.doskoch.movies.database.modules.films.view.Film
 import com.doskoch.movies.features.films.R
-import com.doskoch.movies.features.films.config.MODULE_IMAGES_PATH
-import com.doskoch.movies.features.films.config.POSTER_FILE_NAME
-import com.doskoch.movies.features.films.config.REQUESTED_POSTER_SIZE
+import com.doskoch.movies.features.films.MODULE_IMAGES_PATH
+import com.doskoch.movies.features.films.POSTER_FILE_NAME
+import com.doskoch.movies.features.films.REQUESTED_POSTER_SIZE
 import io.reactivex.Completable
 import java.io.File
 

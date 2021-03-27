@@ -2,10 +2,9 @@ package com.doskoch.movies.features.films_all.viewModel
 
 import androidx.arch.core.executor.ArchTaskExecutor
 import androidx.paging.PagedList
-import com.doskoch.movies.core.functions.waitForNetwork
 import com.doskoch.movies.database.modules.films.entity.DbFilm
 import com.doskoch.movies.database.modules.films.view.Film
-import com.doskoch.movies.features.films.config.PAGED_LIST_CONFIG
+import com.doskoch.movies.features.films.PAGED_LIST_CONFIG
 import com.doskoch.movies.features.films_all.dataSource.AllFilmsDataSource
 import com.extensions.lifecycle.components.State
 import com.extensions.lifecycle_test.components.StateTestHelper

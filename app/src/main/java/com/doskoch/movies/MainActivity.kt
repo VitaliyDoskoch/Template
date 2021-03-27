@@ -6,7 +6,7 @@ import androidx.navigation.NavDestination
 import androidx.navigation.fragment.findNavController
 import com.doskoch.movies.core.components.ui.base.activity.BaseActivity
 import com.doskoch.movies.core.components.ui.base.fragment.BaseFragment
-import com.doskoch.movies.dependencyInjection.ModuleScope
+import com.doskoch.movies.di.ModuleScope
 
 class MainActivity : BaseActivity() {
 

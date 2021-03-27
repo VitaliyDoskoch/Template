@@ -1,10 +1,8 @@
 package com.doskoch.movies.features.splash.viewModel
 
-import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.doskoch.movies.core.components.rx.RxViewModel
-import com.doskoch.movies.features.splash.config.MIN_SPLASH_DISPLAY_TIME
 import com.extensions.lifecycle.components.State
 import com.extensions.rx.components.schedulers.mainThread
 import io.reactivex.Flowable
@@ -15,11 +13,6 @@ import java.util.concurrent.TimeUnit
 class SplashViewModel(private val module: Module) : RxViewModel() {
 
     data class Module(val minDisplayTime: Long)
-
-    companion object {
-        @VisibleForTesting
-        var provideModule = { Module(MIN_SPLASH_DISPLAY_TIME) }
-    }
 
     private val displayTimeoutData by lazy { MutableLiveData<State<Any>>() }
 

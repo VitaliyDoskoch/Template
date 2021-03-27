@@ -4,7 +4,6 @@ import androidx.navigation.NavDirections
 import com.extensions.kotlin.components.di.ComponentInjector
 
 interface SplashFeature {
-
     interface Directions {
         fun toMain(): NavDirections
     }

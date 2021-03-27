@@ -3,28 +3,31 @@ package com.doskoch.movies.features.main.view
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.annotation.VisibleForTesting
+import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.doskoch.movies.core.components.ui.base.fragment.BaseFragment
 import com.doskoch.movies.core.components.ui.base.pager.BaseTabPagerAdapter
 import com.doskoch.movies.core.components.ui.base.pager.behavior.PagerAdapterBehavior.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
 import com.doskoch.movies.features.main.R
 import com.doskoch.movies.features.main.databinding.FragmentMainBinding
+import com.doskoch.movies.features.main.newModule
 
 class MainFragment : BaseFragment<FragmentMainBinding>() {
 
+    data class Module(val provideAllFilmsFragment: () -> Fragment, val provideFavouriteFilmsFragment: () -> Fragment)
+
     companion object {
         @VisibleForTesting
-        var provideModule = fun(_: MainFragment) = MainFragmentModule.create()
+        var provideModule = fun MainFragment.() = newModule()
     }
 
-    private lateinit var module: MainFragmentModule
+    private lateinit var module: Module
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (!::module.isInitialized) {
-            module = provideModule(this)
+            module = provideModule()
         }
 
         viewBinding?.let { initViews(it) }

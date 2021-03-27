@@ -19,15 +19,22 @@ import com.doskoch.movies.features.films.functions.showNoFilmsPlaceholder
 import com.doskoch.movies.features.films.view.FilmsAdapter
 import com.doskoch.movies.features.films_favourite.R
 import com.doskoch.movies.features.films_favourite.databinding.FragmentFavouriteFilmsBinding
+import com.doskoch.movies.features.films_favourite.newModule
+import com.doskoch.movies.features.films_favourite.viewModel.FavouriteFilmsViewModel
 import com.extensions.kotlin.components.annotations.CallsFrom
 import com.extensions.lifecycle.components.State
+import com.extensions.lifecycle.components.TypeSafeViewModelFactory
 import com.extensions.lifecycle.functions.observeData
 import com.extensions.lifecycle.functions.observeResult
 import com.extensions.lifecycle.functions.viewModelLazy
 import com.google.android.material.appbar.AppBarLayout
 
-class FavouriteFilmsFragment : BaseFragment<FragmentFavouriteFilmsBinding>(),
-    FilmsAdapter.ActionListener {
+class FavouriteFilmsFragment : BaseFragment<FragmentFavouriteFilmsBinding>(), FilmsAdapter.ActionListener {
+
+    data class Module(
+        val viewModelFactory: TypeSafeViewModelFactory<FavouriteFilmsViewModel>,
+        val shareFilm: (FavouriteFilmsFragment, Film, (Throwable) -> Unit) -> Unit
+    )
 
     companion object {
         private const val APP_BAR_LAYOUT_ID = "APP_BAR_LAYOUT_ID"
@@ -41,10 +48,10 @@ class FavouriteFilmsFragment : BaseFragment<FragmentFavouriteFilmsBinding>(),
         }
 
         @VisibleForTesting
-        var provideModule = fun(_: FavouriteFilmsFragment) = FavouriteFilmsFragmentModule.create()
+        var provideModule = fun FavouriteFilmsFragment.() = newModule()
     }
 
-    private lateinit var module: FavouriteFilmsFragmentModule
+    private lateinit var module: Module
 
     private val viewModel by viewModelLazy { module.viewModelFactory }
 
@@ -70,7 +77,7 @@ class FavouriteFilmsFragment : BaseFragment<FragmentFavouriteFilmsBinding>(),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (!::module.isInitialized) {
-            module = provideModule(this)
+            module = provideModule()
         }
 
         initViews()

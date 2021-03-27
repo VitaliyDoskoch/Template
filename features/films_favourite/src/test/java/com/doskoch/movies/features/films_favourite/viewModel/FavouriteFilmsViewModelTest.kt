@@ -5,7 +5,7 @@ import androidx.lifecycle.Observer
 import androidx.paging.PagedList
 import com.doskoch.movies.database.modules.films.entity.DbFavouriteFilm
 import com.doskoch.movies.database.modules.films.view.Film
-import com.doskoch.movies.features.films.config.PAGED_LIST_CONFIG
+import com.doskoch.movies.features.films.PAGED_LIST_CONFIG
 import com.doskoch.movies.features.films_favourite.dataSource.FavouriteFilmsDataSource
 import com.extensions.kotlin.functions.runAndWaitForEvent
 import com.extensions.lifecycle.components.State

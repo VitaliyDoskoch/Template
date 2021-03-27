@@ -3,19 +3,17 @@ package com.doskoch.movies.features.splash.view
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.annotation.VisibleForTesting
 import androidx.navigation.fragment.findNavController
 import com.doskoch.movies.core.components.ui.base.fragment.BaseFragment
-import com.doskoch.movies.features.splash.Injector
 import com.doskoch.movies.features.splash.R
 import com.doskoch.movies.features.splash.SplashFeature
 import com.doskoch.movies.features.splash.databinding.FragmentSplashBinding
+import com.doskoch.movies.features.splash.newModule
 import com.doskoch.movies.features.splash.viewModel.SplashViewModel
 import com.extensions.lifecycle.components.State
 import com.extensions.lifecycle.components.TypeSafeViewModelFactory
 import com.extensions.lifecycle.functions.observeData
-import com.extensions.lifecycle.functions.typeSafeViewModelFactory
 import com.extensions.lifecycle.functions.viewModelLazy
 
 class SplashFragment : BaseFragment<FragmentSplashBinding>() {
@@ -28,11 +26,7 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>() {
 
     companion object {
         @VisibleForTesting
-        var provideModule = fun SplashFragment.() = Module(
-            typeSafeViewModelFactory { SplashViewModel(SplashViewModel.provideModule()) },
-            Injector.directions,
-            1
-        )
+        var provideModule = fun SplashFragment.() = newModule()
     }
 
     private lateinit var module: Module

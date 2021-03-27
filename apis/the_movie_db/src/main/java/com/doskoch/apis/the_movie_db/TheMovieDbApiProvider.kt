@@ -56,7 +56,7 @@ object TheMovieDbApiProvider {
 
     fun defaultInterceptors(): List<Interceptor> {
         return listOf(
-            NetworkInterceptor(Injector.component.isNetworkAvailable),
+            NetworkInterceptor(Injector.isNetworkAvailable),
             AuthorizationInterceptor { BuildConfig.the_movie_db_api_key },
             defaultLoggingInterceptor()
         )

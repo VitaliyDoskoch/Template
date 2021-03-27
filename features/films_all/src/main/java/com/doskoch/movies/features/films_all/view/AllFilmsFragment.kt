@@ -24,8 +24,11 @@ import com.doskoch.movies.features.films.functions.showNoFilmsPlaceholder
 import com.doskoch.movies.features.films.view.FilmsAdapter
 import com.doskoch.movies.features.films_all.R
 import com.doskoch.movies.features.films_all.databinding.FragmentAllFilmsBinding
+import com.doskoch.movies.features.films_all.newModule
+import com.doskoch.movies.features.films_all.viewModel.AllFilmsViewModel
 import com.extensions.kotlin.components.annotations.CallsFrom
 import com.extensions.lifecycle.components.State
+import com.extensions.lifecycle.components.TypeSafeViewModelFactory
 import com.extensions.lifecycle.functions.observeData
 import com.extensions.lifecycle.functions.observeResult
 import com.extensions.lifecycle.functions.viewModelLazy
@@ -36,22 +39,23 @@ class AllFilmsFragment : BaseFragment<FragmentAllFilmsBinding>(),
     BasePagedRecyclerAdapter.FetchItemListener<FetchState>,
     FilmsAdapter.ActionListener {
 
+    data class Module(
+        val viewModelFactory: TypeSafeViewModelFactory<AllFilmsViewModel>,
+        val shareFilm: (AllFilmsFragment, Film, (Throwable) -> Unit) -> Unit
+    )
+
     companion object {
         private const val APP_BAR_LAYOUT_ID = "APP_BAR_LAYOUT_ID"
 
-        fun create(@IdRes appBarLayoutId: Int): AllFilmsFragment {
-            return AllFilmsFragment().apply {
-                arguments = Bundle().apply {
-                    putInt(APP_BAR_LAYOUT_ID, appBarLayoutId)
-                }
-            }
+        fun create(@IdRes appBarLayoutId: Int) = AllFilmsFragment().apply {
+            arguments = Bundle().apply { putInt(APP_BAR_LAYOUT_ID, appBarLayoutId) }
         }
 
         @VisibleForTesting
-        var provideModule = fun(_: AllFilmsFragment) = AllFilmsFragmentModule.create()
+        var provideModule = fun AllFilmsFragment.() = newModule()
     }
 
-    private lateinit var module: AllFilmsFragmentModule
+    private lateinit var module: Module
 
     private val viewModel by viewModelLazy { module.viewModelFactory }
 
@@ -77,7 +81,7 @@ class AllFilmsFragment : BaseFragment<FragmentAllFilmsBinding>(),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (!::module.isInitialized) {
-            module = provideModule(this)
+            module = provideModule()
         }
 
         initViews()

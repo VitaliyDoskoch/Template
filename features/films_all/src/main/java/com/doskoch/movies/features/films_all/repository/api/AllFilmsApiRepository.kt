@@ -1,20 +1,26 @@
 package com.doskoch.movies.features.films_all.repository.api
 
 import android.annotation.SuppressLint
+import com.doskoch.apis.the_movie_db.services.discover.DiscoverService
 import com.doskoch.apis.the_movie_db.services.discover.responses.GetMoviesResponse
 import com.doskoch.movies.core.components.exceptions.ExpectedException.ErrorCode.FAILED_TO_LOAD_DATA
 import com.doskoch.movies.core.functions.toDetermined
 import com.doskoch.movies.features.films.functions.convertDate
+import com.extensions.kotlin.functions.beginningOfDay
 import com.extensions.retrofit.components.INVALID_RESPONSE
 import com.extensions.retrofit.components.exceptions.NetworkException
+import com.extensions.retrofit.components.service.ServiceConnector
 import io.reactivex.Single
 import retrofit2.Response
+import java.util.*
 
-class AllFilmsApiRepository(private val module: AllFilmsApiRepositoryModule) {
+class AllFilmsApiRepository(private val module: Module) {
+
+    data class Module(val discoverServiceConnector: ServiceConnector<DiscoverService>, )
 
     fun load(pageKey: Int): Single<GetMoviesResponse> {
-        val fromReleaseDate = module.fromReleaseDate()
-        val toReleaseDate = module.toReleaseDate()
+        val fromReleaseDate = fromReleaseDate()
+        val toReleaseDate = toReleaseDate()
 
         return module.discoverServiceConnector.call {
             getMovies(pageKey, fromReleaseDate, toReleaseDate)
@@ -66,5 +72,16 @@ class AllFilmsApiRepository(private val module: AllFilmsApiRepositoryModule) {
                 toReleaseDate,
                 invalidItems.joinToString(separator = ";\n", prefix = "\n")
             )
+    }
+
+    private fun fromReleaseDate(): String {
+        return Calendar.getInstance()
+            .beginningOfDay()
+            .apply { add(Calendar.WEEK_OF_YEAR, -2) }
+            .let { convertDate(it.time.time) }
+    }
+
+    private fun toReleaseDate(): String {
+        return convertDate(Calendar.getInstance().time.time)
     }
 }

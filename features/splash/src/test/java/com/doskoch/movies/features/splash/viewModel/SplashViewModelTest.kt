@@ -1,7 +1,7 @@
 package com.doskoch.movies.features.splash.viewModel
 
 import androidx.arch.core.executor.ArchTaskExecutor
-import com.doskoch.movies.features.splash.config.MIN_SPLASH_DISPLAY_TIME
+import com.doskoch.movies.features.splash.MIN_SPLASH_DISPLAY_TIME
 import com.extensions.lifecycle.components.State
 import com.extensions.lifecycle_test.components.StateTestHelper
 import com.extensions.lifecycle_test.functions.createTaskExecutor

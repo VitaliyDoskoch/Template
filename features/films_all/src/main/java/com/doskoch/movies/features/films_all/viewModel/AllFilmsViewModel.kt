@@ -1,5 +1,6 @@
 package com.doskoch.movies.features.films_all.viewModel
 
+import android.content.Context
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -10,6 +11,10 @@ import com.doskoch.movies.core.components.ui.base.recyclerView.paging.boundaryCa
 import com.doskoch.movies.core.functions.simpleRxAction
 import com.doskoch.movies.core.functions.waitForNetwork
 import com.doskoch.movies.database.modules.films.view.Film
+import com.doskoch.movies.features.films_all.dataSource.AllFilmsDataSource
+import com.doskoch.movies.features.films_all.repository.AllFilmsApiToDbConverter
+import com.doskoch.movies.features.films_all.repository.api.AllFilmsApiRepository
+import com.doskoch.movies.features.films_all.repository.db.AllFilmsDbRepository
 import com.extensions.lifecycle.components.State
 import com.extensions.retrofit.components.exceptions.NoInternetException
 import com.extensions.rx.components.schedulers.ioScheduler
@@ -21,7 +26,17 @@ import io.reactivex.Flowable
 import io.reactivex.disposables.Disposable
 import timber.log.Timber
 
-class AllFilmsViewModel(private val module: AllFilmsViewModelModule) : RxViewModel() {
+class AllFilmsViewModel(private val module: Module) : RxViewModel() {
+
+    data class Module(
+        val context: Context,
+        val dbRepository: AllFilmsDbRepository,
+        val apiRepository: AllFilmsApiRepository,
+        val converter: AllFilmsApiToDbConverter,
+        val pagedListConfig: PagedList.Config,
+        val minPageKey: Int,
+        val createDataSource: (totalCount: Int, onLoadRangeError: (throwable: Throwable) -> Unit) -> AllFilmsDataSource
+    )
 
     private val pagedListData by lazy { MutableLiveData<State<PagedList<Film>>>() }
     private val boundaryCallbackData by lazy { MutableLiveData<BoundaryCallbackResult<Film>>() }

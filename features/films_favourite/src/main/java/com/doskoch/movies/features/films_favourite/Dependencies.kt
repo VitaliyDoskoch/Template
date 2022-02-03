@@ -10,17 +10,17 @@ import com.doskoch.movies.features.films_favourite.view.FavouriteFilmsFragment
 import com.doskoch.movies.features.films_favourite.viewModel.FavouriteFilmsViewModel
 import com.extensions.lifecycle.functions.typeSafeViewModelFactory
 
-fun FavouriteFilmsFragment.newModule() = FavouriteFilmsFragment.Module(
-    typeSafeViewModelFactory { FavouriteFilmsViewModel(newViewModelModule()) },
+fun favouriteFilmsDependencies() = FavouriteFilmsFragment.Dependencies(
+    typeSafeViewModelFactory { FavouriteFilmsViewModel(favouriteFilmsViewModelDependencies()) },
     BaseFragment<*>::shareFilm
 )
 
-fun FavouriteFilmsFragment.newViewModelModule(): FavouriteFilmsViewModel.Module {
-    val dbRepository = FavouriteFilmsDbRepository(newDbRepositoryModule())
+fun favouriteFilmsViewModelDependencies(): FavouriteFilmsViewModel.Dependencies {
+    val dbRepository = FavouriteFilmsDbRepository(dbRepositoryDependencies())
 
-    return FavouriteFilmsViewModel.Module(dbRepository, PAGED_LIST_CONFIG) { totalCount, onLoadRangeError ->
+    return FavouriteFilmsViewModel.Dependencies(dbRepository, PAGED_LIST_CONFIG) { totalCount, onLoadRangeError ->
         FavouriteFilmsDataSource(FavouriteFilmsDataSource.Module(totalCount, onLoadRangeError, dbRepository))
     }
 }
 
-fun FavouriteFilmsFragment.newDbRepositoryModule() = FavouriteFilmsDbRepository.Module(DatabaseConnector(Injector.database))
+fun dbRepositoryDependencies() = FavouriteFilmsDbRepository.Dependencies(DatabaseConnector(Injector.database))

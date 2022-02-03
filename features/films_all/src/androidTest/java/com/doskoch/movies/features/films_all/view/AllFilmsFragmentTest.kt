@@ -64,7 +64,7 @@ class AllFilmsFragmentTest {
         @JvmStatic
         @BeforeAll
         fun beforeAll() {
-            originProvideModule = AllFilmsFragment.provideModule
+            originProvideModule = AllFilmsFragment.provideDependencies
         }
     }
 
@@ -87,7 +87,7 @@ class AllFilmsFragmentTest {
 
     @BeforeEach
     fun beforeEach() {
-        AllFilmsFragment.provideModule = { module }
+        AllFilmsFragment.provideDependencies = { module }
         initViewModel()
     }
 
@@ -121,7 +121,7 @@ class AllFilmsFragmentTest {
 
     @AfterEach
     fun afterEach() {
-        AllFilmsFragment.provideModule = originProvideModule
+        AllFilmsFragment.provideDependencies = originProvideModule
         clearAllMocks()
     }
 

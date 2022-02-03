@@ -86,7 +86,7 @@ fun Drawable.getDominantColorFromPixels(): Int {
         .toList()
         .groupingBy { it }
         .eachCount()
-        .maxBy { it.value }!!
+        .maxByOrNull { it.value }!!
         .key
 }
 

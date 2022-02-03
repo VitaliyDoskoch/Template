@@ -20,6 +20,8 @@ dependencies {
 
     api project(':database')
 
+    api libraries.coroutines
+
     api libraries.timber
 
     api libraries.rxAndroid

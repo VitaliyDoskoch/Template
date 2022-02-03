@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel target="1.8" />
+    <bytecodeTargetLevel target="1.8">
+      <module name="Movies.apis.the_movie_db" target="11" />
+      <module name="Movies.app" target="11" />
+      <module name="Movies.core" target="11" />
+      <module name="Movies.database" target="11" />
+      <module name="Movies.extensions.android" target="11" />
+      <module name="Movies.extensions.android_test" target="11" />
+      <module name="Movies.extensions.lifecycle" target="11" />
+      <module name="Movies.extensions.lifecycle_test" target="11" />
+      <module name="Movies.extensions.retrofit" target="11" />
+      <module name="Movies.extensions.room" target="11" />
+      <module name="Movies.extensions.rx" target="11" />
+      <module name="Movies.features.films" target="11" />
+      <module name="Movies.features.films_all" target="11" />
+      <module name="Movies.features.films_favourite" target="11" />
+      <module name="Movies.features.main" target="11" />
+      <module name="Movies.features.splash" target="11" />
+    </bytecodeTargetLevel>
   </component>
 </project>

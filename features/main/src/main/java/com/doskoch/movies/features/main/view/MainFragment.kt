@@ -11,7 +11,7 @@ import com.doskoch.movies.core.components.ui.base.pager.BaseTabPagerAdapter
 import com.doskoch.movies.core.components.ui.base.pager.behavior.PagerAdapterBehavior.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
 import com.doskoch.movies.features.main.R
 import com.doskoch.movies.features.main.databinding.FragmentMainBinding
-import com.doskoch.movies.features.main.newModule
+import com.doskoch.movies.features.main.mainFragmentDependencies
 
 class MainFragment : BaseFragment<FragmentMainBinding>() {
 
@@ -19,7 +19,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
 
     companion object {
         @VisibleForTesting
-        var provideModule = fun MainFragment.() = newModule()
+        var provideModule = fun MainFragment.() = mainFragmentDependencies()
     }
 
     private lateinit var module: Module

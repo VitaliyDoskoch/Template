@@ -24,7 +24,7 @@ import com.doskoch.movies.features.films.functions.showNoFilmsPlaceholder
 import com.doskoch.movies.features.films.view.FilmsAdapter
 import com.doskoch.movies.features.films_all.R
 import com.doskoch.movies.features.films_all.databinding.FragmentAllFilmsBinding
-import com.doskoch.movies.features.films_all.newModule
+import com.doskoch.movies.features.films_all.allFilmsFragmentDependencies
 import com.doskoch.movies.features.films_all.viewModel.AllFilmsViewModel
 import com.extensions.kotlin.components.annotations.CallsFrom
 import com.extensions.lifecycle.components.State
@@ -39,7 +39,7 @@ class AllFilmsFragment : BaseFragment<FragmentAllFilmsBinding>(),
     BasePagedRecyclerAdapter.FetchItemListener<FetchState>,
     FilmsAdapter.ActionListener {
 
-    data class Module(
+    data class Dependencies(
         val viewModelFactory: TypeSafeViewModelFactory<AllFilmsViewModel>,
         val shareFilm: (AllFilmsFragment, Film, (Throwable) -> Unit) -> Unit
     )
@@ -52,12 +52,12 @@ class AllFilmsFragment : BaseFragment<FragmentAllFilmsBinding>(),
         }
 
         @VisibleForTesting
-        var provideModule = fun AllFilmsFragment.() = newModule()
+        var provideDependencies = fun AllFilmsFragment.() = allFilmsFragmentDependencies()
     }
 
-    private lateinit var module: Module
+    private lateinit var dependencies: Dependencies
 
-    private val viewModel by viewModelLazy { module.viewModelFactory }
+    private val viewModel by viewModelLazy { dependencies.viewModelFactory }
 
     private val appBarLayout: AppBarLayout?
         get() = parentFragment?.view?.findViewById(arguments!!.getInt(APP_BAR_LAYOUT_ID))
@@ -80,8 +80,8 @@ class AllFilmsFragment : BaseFragment<FragmentAllFilmsBinding>(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (!::module.isInitialized) {
-            module = provideModule()
+        if (!::dependencies.isInitialized) {
+            dependencies = provideDependencies()
         }
 
         initViews()
@@ -226,7 +226,7 @@ class AllFilmsFragment : BaseFragment<FragmentAllFilmsBinding>(),
 
     @CallsFrom(FilmsAdapter::class)
     override fun onShareClicked(item: Film) {
-        module.shareFilm(this, item) { throwable ->
+        dependencies.shareFilm(this, item) { throwable ->
             view?.let { showErrorSnackbar(it, throwable) }
         }
     }

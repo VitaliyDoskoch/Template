@@ -10,9 +10,9 @@ import io.reactivex.disposables.Disposable
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
-class SplashViewModel(private val module: Module) : RxViewModel() {
+class SplashViewModel(private val dependencies: Dependencies) : RxViewModel() {
 
-    data class Module(val minDisplayTime: Long)
+    data class Dependencies(val minDisplayTime: Long)
 
     private val displayTimeoutData by lazy { MutableLiveData<State<Any>>() }
 
@@ -23,7 +23,7 @@ class SplashViewModel(private val module: Module) : RxViewModel() {
     }
 
     private fun observeTimeout(): Disposable {
-        return Flowable.timer(module.minDisplayTime, TimeUnit.MILLISECONDS)
+        return Flowable.timer(dependencies.minDisplayTime, TimeUnit.MILLISECONDS)
             .mergeWith(Flowable.never())
             .observeOn(mainThread)
             .doOnSubscribe {

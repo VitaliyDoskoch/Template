@@ -9,7 +9,7 @@ import com.doskoch.movies.core.components.ui.base.fragment.BaseFragment
 import com.doskoch.movies.features.splash.R
 import com.doskoch.movies.features.splash.SplashFeature
 import com.doskoch.movies.features.splash.databinding.FragmentSplashBinding
-import com.doskoch.movies.features.splash.newModule
+import com.doskoch.movies.features.splash.splashFragmentDependencies
 import com.doskoch.movies.features.splash.viewModel.SplashViewModel
 import com.extensions.lifecycle.components.State
 import com.extensions.lifecycle.components.TypeSafeViewModelFactory
@@ -18,7 +18,7 @@ import com.extensions.lifecycle.functions.viewModelLazy
 
 class SplashFragment : BaseFragment<FragmentSplashBinding>() {
 
-    data class Module(
+    data class Dependencies(
         val viewModelFactory: TypeSafeViewModelFactory<SplashViewModel>,
         val directions: SplashFeature.Directions,
         val versionCode: Int
@@ -26,17 +26,17 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>() {
 
     companion object {
         @VisibleForTesting
-        var provideModule = fun SplashFragment.() = newModule()
+        var provideModule = fun SplashFragment.() = splashFragmentDependencies()
     }
 
-    private lateinit var module: Module
+    private lateinit var dependencies: Dependencies
 
-    private val viewModel by viewModelLazy { module.viewModelFactory }
+    private val viewModel by viewModelLazy { dependencies.viewModelFactory }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (!::module.isInitialized) {
-            module = provideModule()
+        if (!::dependencies.isInitialized) {
+            dependencies = provideModule()
         }
 
         viewBinding?.let { initViews(it) }
@@ -46,7 +46,7 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>() {
         with(viewBinding) {
             versionTextView.text = "%s %s".format(
                 getString(R.string.version_shortened),
-                module.versionCode
+                dependencies.versionCode
             )
         }
     }
@@ -65,7 +65,7 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>() {
     }
 
     private fun navigateNext() {
-        findNavController().navigate(module.directions.toMain())
+        findNavController().navigate(dependencies.directions.toMain())
     }
 
     override fun inflateViewBinding(inflater: LayoutInflater) = FragmentSplashBinding.inflate(inflater)

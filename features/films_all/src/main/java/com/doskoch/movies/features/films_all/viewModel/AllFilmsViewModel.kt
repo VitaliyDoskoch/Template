@@ -26,9 +26,9 @@ import io.reactivex.Flowable
 import io.reactivex.disposables.Disposable
 import timber.log.Timber
 
-class AllFilmsViewModel(private val module: Module) : RxViewModel() {
+class AllFilmsViewModel(private val dependencies: Dependencies) : RxViewModel() {
 
-    data class Module(
+    data class Dependencies(
         val context: Context,
         val dbRepository: AllFilmsDbRepository,
         val apiRepository: AllFilmsApiRepository,
@@ -42,7 +42,7 @@ class AllFilmsViewModel(private val module: Module) : RxViewModel() {
     private val boundaryCallbackData by lazy { MutableLiveData<BoundaryCallbackResult<Film>>() }
 
     private val nextPageKey: Int
-        get() = totalCount / module.pagedListConfig.pageSize + module.minPageKey
+        get() = totalCount / dependencies.pagedListConfig.pageSize + dependencies.minPageKey
 
     private var totalCount: Int = 0
     private var lastLoadedPageKey: Int = -1
@@ -54,12 +54,12 @@ class AllFilmsViewModel(private val module: Module) : RxViewModel() {
     }
 
     private fun observePagedList(): Disposable {
-        return module.dbRepository.observeChanges()
+        return dependencies.dbRepository.observeChanges()
             .flatMap {
                 Completable.fromCallable {
                     pagedListData.value?.data?.dataSource?.invalidate()
                 }
-                    .andThen(module.dbRepository.count())
+                    .andThen(dependencies.dbRepository.count())
                     .doOnSuccess { totalCount = it }
                     .map { totalCount ->
                         buildPagedList(totalCount, pagedListData.value?.data?.lastKey as? Int ?: 0)
@@ -89,8 +89,8 @@ class AllFilmsViewModel(private val module: Module) : RxViewModel() {
 
     private fun buildPagedList(totalCount: Int, initialKey: Int): PagedList<Film> {
         return PagedList.Builder(
-            module.createDataSource(totalCount, this::onLoadRangeError),
-            module.pagedListConfig
+            dependencies.createDataSource(totalCount, this::onLoadRangeError),
+            dependencies.pagedListConfig
         )
             .setInitialKey(initialKey)
             .setBoundaryCallback(BoundaryCallbackHandler(boundaryCallbackData))
@@ -126,16 +126,16 @@ class AllFilmsViewModel(private val module: Module) : RxViewModel() {
     private fun loadItems(result: MutableLiveData<State<Int>>, pageKey: Int) {
         recreateOnEvent { trigger ->
             simpleRxAction(result, ioScheduler) {
-                module.apiRepository.load(pageKey)
+                dependencies.apiRepository.load(pageKey)
                     .doOnError {
                         if (it.cause is NoInternetException) {
                             waitForNetworkAsync(trigger)
                         }
                     }
-                    .map { module.converter.toDbFilms(it.results) }
+                    .map { dependencies.converter.toDbFilms(it.results) }
                     .toFlowable()
                     .flatMap {
-                        module.dbRepository.save(it)
+                        dependencies.dbRepository.save(it)
                             .doOnComplete { lastLoadedPageKey = pageKey }
                             .andThen(Flowable.just(it.size))
                     }
@@ -144,7 +144,7 @@ class AllFilmsViewModel(private val module: Module) : RxViewModel() {
     }
 
     private fun waitForNetworkAsync(onAvailable: () -> Unit) {
-        module.context.waitForNetwork()
+        dependencies.context.waitForNetwork()
             .observeOn(mainThread)
             .subscribe(onAvailable, { Timber.e(it) })
             .also { disposeOnCleared(it) }
@@ -153,9 +153,9 @@ class AllFilmsViewModel(private val module: Module) : RxViewModel() {
     fun refresh(): LiveData<State<Any>> {
         return MutableLiveData<State<Any>>().also { result ->
             simpleRxAction(result, ioScheduler) {
-                module.apiRepository.load(module.minPageKey)
-                    .map { module.converter.toDbFilms(it.results) }
-                    .flatMapCompletable { module.dbRepository.replaceAll(it) }
+                dependencies.apiRepository.load(dependencies.minPageKey)
+                    .map { dependencies.converter.toDbFilms(it.results) }
+                    .flatMapCompletable { dependencies.dbRepository.replaceAll(it) }
                     .andThen(Flowable.just(Any()))
             }
         }
@@ -164,7 +164,7 @@ class AllFilmsViewModel(private val module: Module) : RxViewModel() {
     fun switchFavourite(item: Film): LiveData<State<Any>> {
         return MutableLiveData<State<Any>>().also { result ->
             simpleRxAction(result, ioScheduler) {
-                module.dbRepository.switchFavourite(item)
+                dependencies.dbRepository.switchFavourite(item)
                     .andThen(Flowable.just(Any()))
             }
         }

@@ -18,9 +18,9 @@ import io.reactivex.Flowable
 import io.reactivex.disposables.Disposable
 import timber.log.Timber
 
-class FavouriteFilmsViewModel(private val module: Module) : RxViewModel() {
+class FavouriteFilmsViewModel(private val dependencies: Dependencies) : RxViewModel() {
 
-    data class Module(
+    data class Dependencies(
         val dbRepository: FavouriteFilmsDbRepository,
         val pagedListConfig: PagedList.Config,
         val createDataSource: (totalCount: Int, onLoadRangeError: (throwable: Throwable) -> Unit) -> FavouriteFilmsDataSource
@@ -35,12 +35,12 @@ class FavouriteFilmsViewModel(private val module: Module) : RxViewModel() {
     }
 
     private fun observePagedList(): Disposable {
-        return module.dbRepository.observeChanges()
+        return dependencies.dbRepository.observeChanges()
             .flatMap {
                 Completable.fromCallable {
                     pagedListData.value?.data?.dataSource?.invalidate()
                 }
-                    .andThen(module.dbRepository.count())
+                    .andThen(dependencies.dbRepository.count())
                     .map { totalCount ->
                         buildPagedList(totalCount, pagedListData.value?.data?.lastKey as? Int ?: 0)
                     }
@@ -69,8 +69,8 @@ class FavouriteFilmsViewModel(private val module: Module) : RxViewModel() {
 
     private fun buildPagedList(totalCount: Int, initialKey: Int): PagedList<Film> {
         return PagedList.Builder(
-            module.createDataSource(totalCount, this::onLoadRangeError),
-            module.pagedListConfig
+            dependencies.createDataSource(totalCount, this::onLoadRangeError),
+            dependencies.pagedListConfig
         )
             .setInitialKey(initialKey)
             .setFetchExecutor(ioScheduler.createExecutor())
@@ -89,7 +89,7 @@ class FavouriteFilmsViewModel(private val module: Module) : RxViewModel() {
     fun delete(item: Film): LiveData<State<Any>> {
         return MutableLiveData<State<Any>>().also { result ->
             simpleRxAction(result, ioScheduler) {
-                module.dbRepository.delete(item)
+                dependencies.dbRepository.delete(item)
                     .andThen(Flowable.just(Any()))
             }
         }

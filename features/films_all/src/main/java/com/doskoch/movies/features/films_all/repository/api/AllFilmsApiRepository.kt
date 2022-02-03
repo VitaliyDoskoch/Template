@@ -14,15 +14,15 @@ import io.reactivex.Single
 import retrofit2.Response
 import java.util.*
 
-class AllFilmsApiRepository(private val module: Module) {
+class AllFilmsApiRepository(private val dependencies: Dependencies) {
 
-    data class Module(val discoverServiceConnector: ServiceConnector<DiscoverService>, )
+    data class Dependencies(val discoverServiceConnector: ServiceConnector<DiscoverService>, )
 
     fun load(pageKey: Int): Single<GetMoviesResponse> {
         val fromReleaseDate = fromReleaseDate()
         val toReleaseDate = toReleaseDate()
 
-        return module.discoverServiceConnector.call {
+        return dependencies.discoverServiceConnector.call {
             getMovies(pageKey, fromReleaseDate, toReleaseDate)
         }
             .flatMap { response ->

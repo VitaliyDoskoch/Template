@@ -19,7 +19,7 @@ import com.doskoch.movies.features.films.functions.showNoFilmsPlaceholder
 import com.doskoch.movies.features.films.view.FilmsAdapter
 import com.doskoch.movies.features.films_favourite.R
 import com.doskoch.movies.features.films_favourite.databinding.FragmentFavouriteFilmsBinding
-import com.doskoch.movies.features.films_favourite.newModule
+import com.doskoch.movies.features.films_favourite.favouriteFilmsDependencies
 import com.doskoch.movies.features.films_favourite.viewModel.FavouriteFilmsViewModel
 import com.extensions.kotlin.components.annotations.CallsFrom
 import com.extensions.lifecycle.components.State
@@ -31,7 +31,7 @@ import com.google.android.material.appbar.AppBarLayout
 
 class FavouriteFilmsFragment : BaseFragment<FragmentFavouriteFilmsBinding>(), FilmsAdapter.ActionListener {
 
-    data class Module(
+    data class Dependencies(
         val viewModelFactory: TypeSafeViewModelFactory<FavouriteFilmsViewModel>,
         val shareFilm: (FavouriteFilmsFragment, Film, (Throwable) -> Unit) -> Unit
     )
@@ -48,12 +48,12 @@ class FavouriteFilmsFragment : BaseFragment<FragmentFavouriteFilmsBinding>(), Fi
         }
 
         @VisibleForTesting
-        var provideModule = fun FavouriteFilmsFragment.() = newModule()
+        var provideModule = fun FavouriteFilmsFragment.() = favouriteFilmsDependencies()
     }
 
-    private lateinit var module: Module
+    private lateinit var dependencies: Dependencies
 
-    private val viewModel by viewModelLazy { module.viewModelFactory }
+    private val viewModel by viewModelLazy { dependencies.viewModelFactory }
 
     private val appBarLayout: AppBarLayout?
         get() = parentFragment?.view?.findViewById(arguments!!.getInt(APP_BAR_LAYOUT_ID))
@@ -76,8 +76,8 @@ class FavouriteFilmsFragment : BaseFragment<FragmentFavouriteFilmsBinding>(), Fi
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (!::module.isInitialized) {
-            module = provideModule()
+        if (!::dependencies.isInitialized) {
+            dependencies = provideModule()
         }
 
         initViews()
@@ -149,7 +149,7 @@ class FavouriteFilmsFragment : BaseFragment<FragmentFavouriteFilmsBinding>(), Fi
 
     @CallsFrom(FilmsAdapter::class)
     override fun onShareClicked(item: Film) {
-        module.shareFilm(this, item) { throwable ->
+        dependencies.shareFilm(this, item) { throwable ->
             view?.let { showErrorSnackbar(it, throwable) }
         }
     }

@@ -20,3 +20,18 @@ include(":features:main")
 include(":features:films")
 include(":features:films_all")
 include(":features:films_favourite")
+
+pluginManagement {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+dependencyResolutionManagement {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+}

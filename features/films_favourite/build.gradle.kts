@@ -11,11 +11,12 @@ android {
 dependencies {
     implementation(fileTree("dir" to "libs", "include" to listOf("*.jar")))
 
-    implementation(project(":core"))
+    implementation(project(":features:films"))
 
     testImplementation(project(":extensions:lifecycle_test"))
 
     androidTestImplementation(project(":extensions:android_test"))
     androidTestImplementation(testLibraries.getValue("testFragments"))
     androidTestImplementation(testLibraries.getValue("espressoCore"))
+    androidTestImplementation(testLibraries.getValue("espressoContrib"))
 }

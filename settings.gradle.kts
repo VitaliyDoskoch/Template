@@ -19,7 +19,6 @@ include(":app")
 include(":core")
 include(":database")
 
-include(":extensions:lifecycle_test")
 include(":extensions:retrofit")
 include(":extensions:room")
 include(":extensions:rx")

@@ -51,7 +51,6 @@ dependencies {
     implementation(project(":apis:the_movie_db"))
 
     implementation(project(":features:splash"))
-    implementation(project(":features:main"))
     implementation(project(":features:films"))
     implementation(project(":features:films_all"))
     implementation(project(":features:films_favourite"))

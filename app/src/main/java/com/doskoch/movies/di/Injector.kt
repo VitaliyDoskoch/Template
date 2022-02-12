@@ -5,7 +5,6 @@ import com.doskoch.apis.the_movie_db.TheMovieDbApiInjector
 import com.doskoch.movies.database.AppDatabase
 import com.doskoch.movies.features.films_all.AllFilmsFeatureInjector
 import com.doskoch.movies.features.films_favourite.FavouriteFilmsFeatureInjector
-import com.doskoch.movies.features.main.MainFeatureInjector
 import com.doskoch.movies.features.splash.SplashFeatureInjector
 import com.extensions.kotlin.components.DestroyableLazy
 import timber.log.Timber
@@ -28,29 +27,6 @@ object AppInjector {
             { splashFeatureModule(component).also(this::logCreation) },
             this::logDestruction
         )
-        MainFeatureInjector.componentProvider = DestroyableLazy(
-            { mainFeatureModule(component).also(this::logCreation) },
-            {
-                destroyMainFeatureSubmodules()
-                logDestruction(it)
-            }
-        ).also { initMainFeatureSubmodules() }
-    }
-
-    private fun initMainFeatureSubmodules() {
-        AllFilmsFeatureInjector.componentProvider = DestroyableLazy(
-            { allFilmsFeatureModule(component).also(this::logCreation) },
-            this::logDestruction
-        )
-        FavouriteFilmsFeatureInjector.componentProvider = DestroyableLazy(
-            { favouriteFilmsFeatureModule(component).also(this::logCreation) },
-            this::logDestruction
-        )
-    }
-
-    private fun destroyMainFeatureSubmodules() {
-        AllFilmsFeatureInjector.componentProvider?.destroyInstance()
-        FavouriteFilmsFeatureInjector.componentProvider?.destroyInstance()
     }
 
     private inline fun <reified M> logCreation(module: M) {

@@ -1,4 +1,4 @@
-package com.extensions.room.components
+package com.doskoch.movies.database
 
 import androidx.room.Dao
 import androidx.room.Delete

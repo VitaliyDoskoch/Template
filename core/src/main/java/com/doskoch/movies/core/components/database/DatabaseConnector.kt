@@ -5,7 +5,7 @@ import com.doskoch.movies.core.components.exceptions.ExpectedException.ErrorCode
 import com.doskoch.movies.core.components.exceptions.ExpectedException.ErrorCode.FAILED_TO_SAVE_CHANGES
 import com.doskoch.movies.database.AppDatabase
 import com.doskoch.movies.database.BaseEntity
-import com.extensions.room.functions.observeChanges
+import com.doskoch.movies.database.observeChanges
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single

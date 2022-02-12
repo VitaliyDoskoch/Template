@@ -13,7 +13,6 @@ dependencies {
 
     api (project(":legacy"))
     api (project(":extensions:retrofit"))
-    api (project(":extensions:room"))
 
     api (project(":database"))
 

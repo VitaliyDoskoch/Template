@@ -11,7 +11,6 @@ import com.doskoch.movies.database.modules.films.entity.DbFavouriteFilmDao
 import com.doskoch.movies.database.modules.films.entity.DbFilm
 import com.doskoch.movies.database.modules.films.entity.DbFilmDao
 import com.doskoch.movies.database.modules.films.view.FilmDao
-import com.extensions.room.components.CollectionsConverter
 
 @Database(
     entities = [

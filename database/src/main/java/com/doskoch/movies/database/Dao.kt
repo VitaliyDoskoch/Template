@@ -1,6 +1,4 @@
-package com.extensions.room.functions
-
-import com.extensions.room.components.BaseDao
+package com.doskoch.movies.database
 
 /**
  * Performs:

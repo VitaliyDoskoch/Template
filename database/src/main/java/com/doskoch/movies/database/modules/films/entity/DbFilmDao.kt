@@ -3,7 +3,7 @@ package com.doskoch.movies.database.modules.films.entity
 import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.RoomDatabase
-import com.extensions.room.components.BaseDao
+import com.doskoch.movies.database.BaseDao
 
 @Dao
 abstract class DbFilmDao(database: RoomDatabase) : BaseDao<DbFilm>(database) {

@@ -20,7 +20,6 @@ include(":core")
 include(":database")
 
 include(":extensions:retrofit")
-include(":extensions:room")
 
 include(":apis:the_movie_db")
 

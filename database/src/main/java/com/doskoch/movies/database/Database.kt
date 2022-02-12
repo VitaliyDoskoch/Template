@@ -1,4 +1,4 @@
-package com.extensions.room.functions
+package com.doskoch.movies.database
 
 import androidx.room.InvalidationTracker
 import androidx.room.RoomDatabase

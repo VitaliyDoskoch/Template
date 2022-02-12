@@ -23,10 +23,9 @@ android {
 dependencies {
     implementation(fileTree("dir" to "libs", "include" to listOf("*.jar")))
 
-    api (project(":extensions:room"))
-
     api (libraries.getValue("roomRuntime"))
     kapt (processors.getValue("roomCompiler"))
+    implementation(libraries.getValue("roomRxJava2"))
 
     androidTestImplementation (testLibraries.getValue("kotlinTestJunit"))
     androidTestImplementation (testLibraries.getValue("junitJupiterParams"))

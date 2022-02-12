@@ -1,4 +1,4 @@
-package com.doskoch.movies.core.components.ui.base.recyclerView
+package com.doskoch.legacy.android.recyclerView
 
 import androidx.annotation.CallSuper
 import androidx.recyclerview.widget.DiffUtil

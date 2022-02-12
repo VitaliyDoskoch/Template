@@ -1,14 +1,8 @@
 package com.doskoch.movies.features.splash.viewModel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import com.doskoch.movies.core.components.rx.RxViewModel
-import io.reactivex.Flowable
-import io.reactivex.disposables.Disposable
-import timber.log.Timber
-import java.util.concurrent.TimeUnit
+import androidx.lifecycle.ViewModel
 
-class SplashViewModel(private val dependencies: Dependencies) : RxViewModel() {
+class SplashViewModel(private val dependencies: Dependencies) : ViewModel() {
 
     data class Dependencies(val minDisplayTime: Long)
 

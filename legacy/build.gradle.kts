@@ -10,4 +10,5 @@ dependencies {
 
     implementation (libraries.getValue("appCompat"))
     implementation (libraries.getValue("material"))
+    api (libraries.getValue("recyclerView"))
 }

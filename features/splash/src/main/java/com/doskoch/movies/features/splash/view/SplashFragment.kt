@@ -3,18 +3,19 @@ package com.doskoch.movies.features.splash.view
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.annotation.VisibleForTesting
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.doskoch.movies.core.components.ui.base.fragment.BaseFragment
 import com.doskoch.movies.features.splash.R
 import com.doskoch.movies.features.splash.SplashFeature
 import com.doskoch.movies.features.splash.databinding.FragmentSplashBinding
 import com.doskoch.movies.features.splash.splashFragmentDependencies
 import com.doskoch.movies.features.splash.viewModel.SplashViewModel
 
-class SplashFragment : BaseFragment<FragmentSplashBinding>() {
+class SplashFragment : Fragment() {
 
     data class Dependencies(
         val viewModelFactory: ViewModelProvider.Factory,
@@ -30,6 +31,12 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>() {
     private lateinit var dependencies: Dependencies
 
     private val viewModel by viewModels<SplashViewModel> { dependencies.viewModelFactory }
+
+    var viewBinding: FragmentSplashBinding? = null
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflateViewBinding(inflater).also { viewBinding = it }.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -49,13 +56,9 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>() {
         }
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-    }
-
     private fun navigateNext() {
         findNavController().navigate(dependencies.directions.toMain())
     }
 
-    override fun inflateViewBinding(inflater: LayoutInflater) = FragmentSplashBinding.inflate(inflater)
+    fun inflateViewBinding(inflater: LayoutInflater) = FragmentSplashBinding.inflate(inflater)
 }

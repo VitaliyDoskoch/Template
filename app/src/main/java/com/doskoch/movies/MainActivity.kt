@@ -1,12 +1,11 @@
 package com.doskoch.movies
-
+import android.app.Activity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import com.doskoch.movies.core.components.ui.base.activity.BaseActivity
-import com.doskoch.movies.core.components.ui.base.fragment.BaseFragment
 
-class MainActivity : BaseActivity() {
+class MainActivity : AppCompatActivity() {
 
     private lateinit var navigationController: NavController
 
@@ -16,17 +15,5 @@ class MainActivity : BaseActivity() {
 
         navigationController = supportFragmentManager
             .findFragmentById(R.id.navFragmentContainerView)!!.findNavController()
-    }
-
-    override fun onBackPressed() {
-        supportFragmentManager.findFragmentById(R.id.navFragmentContainerView)
-            ?.childFragmentManager
-            ?.fragments
-            ?.firstOrNull()
-            .let { fragment ->
-                if ((fragment as? BaseFragment<*>)?.onBackPressed() != true) {
-                    super.onBackPressed()
-                }
-            }
     }
 }

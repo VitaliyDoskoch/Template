@@ -1,15 +1,11 @@
 package com.doskoch.movies.di
 
 import android.app.Application
-import android.content.Context
 import com.doskoch.apis.the_movie_db.TheMovieDbApi
-import com.doskoch.apis.the_movie_db.TheMovieDbApiProvider
-import com.doskoch.apis.the_movie_db.services.discover.DiscoverService
 import com.doskoch.movies.database.AppDatabase
 import com.doskoch.movies.features.splash.SplashFeature
 import com.doskoch.movies.features.splash.view.SplashFragmentDirections
-import com.doskoch.legacy.functions.isNetworkAvailable
-import com.extensions.retrofit.components.service.ServiceConnector
+import com.doskoch.legacy.android.functions.isNetworkAvailable
 
 fun appModule(application: Application) = object : AppComponent {
     override val application = application

@@ -19,7 +19,6 @@ include(":app")
 include(":core")
 include(":database")
 
-include(":extensions:kotlin")
 include(":extensions:lifecycle")
 include(":extensions:lifecycle_test")
 include(":extensions:retrofit")

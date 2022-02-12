@@ -19,7 +19,6 @@ android {
 dependencies {
     implementation(fileTree("dir" to "libs", "include" to listOf("*.jar")))
 
-    implementation (project(":extensions:kotlin"))
     implementation (project(":extensions:retrofit"))
 
     implementation (libraries.getValue("retrofit2ConverterGson"))

@@ -3,8 +3,8 @@ package com.doskoch.movies.core.functions
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.Network
-import com.doskoch.legacy.functions.registerNetworkCallback
-import com.doskoch.legacy.functions.unregisterNetworkCallback
+import com.doskoch.legacy.android.functions.registerNetworkCallback
+import com.doskoch.legacy.android.functions.unregisterNetworkCallback
 import io.reactivex.Completable
 
 fun Context.waitForNetwork(): Completable {

@@ -8,7 +8,7 @@ import androidx.annotation.CallSuper
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
-import com.doskoch.legacy.content.ContentManager
+import com.doskoch.legacy.android.content.ContentManager
 
 abstract class BaseFragment<V : ViewBinding> : Fragment() {
 

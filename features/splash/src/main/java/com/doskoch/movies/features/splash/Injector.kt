@@ -1,7 +1,7 @@
 package com.doskoch.movies.features.splash
 
 import androidx.navigation.NavDirections
-import com.extensions.kotlin.components.di.ComponentInjector
+import com.doskoch.legacy.kotlin.DestroyableLazy
 
 interface SplashFeature {
     interface Directions {
@@ -11,7 +11,9 @@ interface SplashFeature {
     val directions: Directions
 }
 
-object SplashFeatureInjector : ComponentInjector<SplashFeature>()
+object SplashFeatureProvider {
+    var provider: DestroyableLazy<SplashFeature>? = null
+}
 
 internal val Injector
-    get() = SplashFeatureInjector.componentProvider!!.value
+    get() = SplashFeatureProvider.provider!!.value

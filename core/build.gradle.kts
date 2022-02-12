@@ -12,7 +12,6 @@ dependencies {
     implementation(fileTree("dir" to "libs", "include" to listOf("*.jar")))
 
     api (project(":legacy"))
-    api (project(":extensions:kotlin"))
     api (project(":extensions:lifecycle"))
     api (project(":extensions:retrofit"))
     api (project(":extensions:room"))

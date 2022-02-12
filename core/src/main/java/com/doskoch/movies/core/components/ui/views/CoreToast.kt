@@ -5,7 +5,7 @@ import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.annotation.StringRes
-import com.doskoch.legacy.functions.getThemeColor
+import com.doskoch.legacy.android.functions.getThemeColor
 import com.doskoch.movies.core.R
 import com.doskoch.movies.core.databinding.ViewCoreToastBinding
 

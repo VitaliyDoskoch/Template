@@ -5,7 +5,7 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.ViewConfiguration
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.doskoch.legacy.functions.getThemeColor
+import com.doskoch.legacy.android.functions.getThemeColor
 import com.doskoch.movies.core.R
 import kotlin.math.abs
 

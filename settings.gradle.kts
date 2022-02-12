@@ -32,6 +32,5 @@ include(":apis:the_movie_db")
 
 include(":features:splash")
 include(":features:films")
-include(":features:films_all")
 
 include(":legacy")

@@ -4,7 +4,6 @@ import android.app.Application
 import com.doskoch.apis.the_movie_db.TheMovieDbApiInjector
 import com.doskoch.movies.database.AppDatabase
 import com.doskoch.movies.features.films_all.AllFilmsFeatureInjector
-import com.doskoch.movies.features.films_favourite.FavouriteFilmsFeatureInjector
 import com.doskoch.movies.features.splash.SplashFeatureInjector
 import com.extensions.kotlin.components.DestroyableLazy
 import timber.log.Timber

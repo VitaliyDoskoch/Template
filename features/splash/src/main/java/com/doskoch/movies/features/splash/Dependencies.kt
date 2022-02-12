@@ -1,11 +1,13 @@
 package com.doskoch.movies.features.splash
 
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import com.doskoch.legacy.viewModel.viewModelFactory
 import com.doskoch.movies.features.splash.view.SplashFragment
 import com.doskoch.movies.features.splash.viewModel.SplashViewModel
-import com.extensions.lifecycle.functions.typeSafeViewModelFactory
 
 fun splashFragmentDependencies() = SplashFragment.Dependencies(
-    typeSafeViewModelFactory { SplashViewModel(splashViewModelDependencies()) },
+    viewModelFactory { SplashViewModel(splashViewModelDependencies()) },
     Injector.directions,
     1
 )

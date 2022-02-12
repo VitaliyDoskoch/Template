@@ -5,9 +5,9 @@ import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.annotation.StringRes
+import com.doskoch.legacy.functions.getThemeColor
 import com.doskoch.movies.core.R
 import com.doskoch.movies.core.databinding.ViewCoreToastBinding
-import com.extensions.android.functions.getThemeColor
 
 class CoreToast(context: Context, message: String, duration: Int) : Toast(context) {
 

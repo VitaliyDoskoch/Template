@@ -8,7 +8,7 @@ import com.doskoch.apis.the_movie_db.services.discover.DiscoverService
 import com.doskoch.movies.database.AppDatabase
 import com.doskoch.movies.features.splash.SplashFeature
 import com.doskoch.movies.features.splash.view.SplashFragmentDirections
-import com.extensions.android.functions.isNetworkAvailable
+import com.doskoch.legacy.functions.isNetworkAvailable
 import com.extensions.retrofit.components.service.ServiceConnector
 
 fun appModule(application: Application) = object : AppComponent {

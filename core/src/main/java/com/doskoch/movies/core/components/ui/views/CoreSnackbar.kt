@@ -5,8 +5,8 @@ import android.view.View
 import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.annotation.StringRes
+import com.doskoch.legacy.functions.getThemeColor
 import com.doskoch.movies.core.R
-import com.extensions.android.functions.getThemeColor
 import com.google.android.material.snackbar.Snackbar
 
 class CoreSnackbar(var anchorView: View, var message: String) {

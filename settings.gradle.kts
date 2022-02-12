@@ -19,7 +19,6 @@ include(":app")
 include(":core")
 include(":database")
 
-include(":extensions:android")
 include(":extensions:android_test")
 include(":extensions:kotlin")
 include(":extensions:lifecycle")

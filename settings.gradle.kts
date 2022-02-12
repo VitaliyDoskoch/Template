@@ -21,7 +21,6 @@ include(":database")
 
 include(":extensions:retrofit")
 include(":extensions:room")
-include(":extensions:rx")
 
 include(":apis:the_movie_db")
 

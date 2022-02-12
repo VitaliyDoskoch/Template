@@ -1,8 +1,6 @@
 package com.doskoch.movies.features.splash
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import com.doskoch.legacy.viewModel.viewModelFactory
+import com.doskoch.legacy.android.viewModel.viewModelFactory
 import com.doskoch.movies.features.splash.view.SplashFragment
 import com.doskoch.movies.features.splash.viewModel.SplashViewModel
 

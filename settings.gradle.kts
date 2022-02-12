@@ -19,7 +19,7 @@ include(":app")
 include(":core")
 include(":database")
 
-include(":apis:the_movie_db")
+include(":api")
 
 include(":features:splash")
 

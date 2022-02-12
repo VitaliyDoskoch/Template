@@ -1,7 +1,7 @@
 package com.doskoch.movies.di
 
 import android.app.Application
-import com.doskoch.apis.the_movie_db.TheMovieDbApiInjector
+import com.doskoch.api.the_movie_db.TheMovieDbApiInjector
 import com.doskoch.legacy.kotlin.DestroyableLazy
 import com.doskoch.movies.database.AppDatabase
 import com.doskoch.movies.features.splash.SplashFeatureProvider

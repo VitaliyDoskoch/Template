@@ -5,8 +5,6 @@ import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.view.isVisible
 import com.doskoch.movies.core.R
 import com.doskoch.movies.core.components.ui.views.CorePlaceholder
-import com.doskoch.apis.the_movie_db.components.exceptions.NetworkException
-import com.doskoch.apis.the_movie_db.components.exceptions.NoInternetException
 
 fun CorePlaceholder.setImage(image: CorePlaceholder.Image) {
     binding.imageView.setImageResource(image.drawableRes)
@@ -64,11 +62,11 @@ fun CorePlaceholder.showError(throwable: Throwable,
  */
 fun placeholderImageOf(throwable: Throwable): CorePlaceholder.Image {
     return when (throwable) {
-        is com.doskoch.apis.the_movie_db.components.exceptions.NoInternetException -> CorePlaceholder.Image(
+        is com.doskoch.api.the_movie_db.components.exceptions.NoInternetException -> CorePlaceholder.Image(
             R.drawable.ic_placeholder_no_internet,
             "1:1"
         )
-        is com.doskoch.apis.the_movie_db.components.exceptions.NetworkException -> CorePlaceholder.Image(R.drawable.ic_placeholder_no_internet, "1:1")
+        is com.doskoch.api.the_movie_db.components.exceptions.NetworkException -> CorePlaceholder.Image(R.drawable.ic_placeholder_no_internet, "1:1")
         else -> CorePlaceholder.Image(R.drawable.ic_placeholder_unknown_error, "1:1")
     }
 }

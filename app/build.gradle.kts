@@ -48,7 +48,7 @@ dependencies {
 
     implementation(project(":core"))
 
-    implementation(project(":apis:the_movie_db"))
+    implementation(project(":api"))
 
     implementation(project(":features:splash"))
 

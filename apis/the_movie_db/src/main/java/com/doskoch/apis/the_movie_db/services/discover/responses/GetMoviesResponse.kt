@@ -1,8 +1,8 @@
 package com.doskoch.apis.the_movie_db.services.discover.responses
 
-import com.extensions.retrofit.components.validator.SelfValidator
-import com.extensions.retrofit.components.validator.ValidationResult
-import com.extensions.retrofit.components.validator.validate
+import com.doskoch.apis.the_movie_db.components.validator.SelfValidator
+import com.doskoch.apis.the_movie_db.components.validator.ValidationResult
+import com.doskoch.apis.the_movie_db.components.validator.validate
 import com.google.gson.annotations.SerializedName
 
 data class GetMoviesResponse(

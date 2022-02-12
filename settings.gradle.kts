@@ -19,8 +19,6 @@ include(":app")
 include(":core")
 include(":database")
 
-include(":extensions:retrofit")
-
 include(":apis:the_movie_db")
 
 include(":features:splash")

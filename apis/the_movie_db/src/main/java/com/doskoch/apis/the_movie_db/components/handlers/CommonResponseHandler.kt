@@ -1,11 +1,10 @@
-package com.extensions.retrofit.components.handlers
+package com.doskoch.apis.the_movie_db.components.handlers
 
-import com.extensions.retrofit.components.HTTP
-import com.extensions.retrofit.components.INVALID_RESPONSE
-import com.extensions.retrofit.components.exceptions.NetworkException
-import com.extensions.retrofit.components.exceptions.NetworkException.Type
-import com.extensions.retrofit.components.validator.SelfValidator
-import com.extensions.retrofit.components.validator.validate
+import com.doskoch.apis.the_movie_db.HTTP
+import com.doskoch.apis.the_movie_db.INVALID_RESPONSE
+import com.doskoch.apis.the_movie_db.components.exceptions.NetworkException.Type
+import com.doskoch.apis.the_movie_db.components.validator.SelfValidator
+import com.doskoch.apis.the_movie_db.components.validator.validate
 import io.reactivex.Single
 import io.reactivex.functions.Function
 import okhttp3.ResponseBody
@@ -15,7 +14,7 @@ import retrofit2.Response
 class CommonResponseHandler<R : Response<*>> : Function<R, Single<R>> {
 
     private val R.url: String
-        get() = raw().request().url().toString()
+        get() = raw().request.url.toString()
 
     override fun apply(response: R): Single<R> {
         return if (response.isSuccessful) {
@@ -57,12 +56,19 @@ class CommonResponseHandler<R : Response<*>> : Function<R, Single<R>> {
     }
 
     private fun invalidResponseError(url: String, message: String): Single<R> {
-        return Single.error(NetworkException(url, Type.SERVER, INVALID_RESPONSE, message))
+        return Single.error(
+            com.doskoch.apis.the_movie_db.components.exceptions.NetworkException(
+                url,
+                Type.SERVER,
+                INVALID_RESPONSE,
+                message
+            )
+        )
     }
 
     private fun invalidTypeError(response: R): Single<R> {
         return Single.error(
-            NetworkException(
+            com.doskoch.apis.the_movie_db.components.exceptions.NetworkException(
                 response.url,
                 Type.UNKNOWN,
                 "${this::class.java.simpleName} error",
@@ -74,7 +80,7 @@ class CommonResponseHandler<R : Response<*>> : Function<R, Single<R>> {
 
     private fun httpError(response: R): Single<R> {
         return Single.error(
-            NetworkException(
+            com.doskoch.apis.the_movie_db.components.exceptions.NetworkException(
                 response.url,
                 Type.HTTP,
                 HTTP,

@@ -1,25 +1,26 @@
-package com.extensions.retrofit.functions
+package com.doskoch.apis.the_movie_db
 
-import com.extensions.retrofit.components.HTTP
-import com.extensions.retrofit.components.NO_INTERNET
-import com.extensions.retrofit.components.TIMEOUT
-import com.extensions.retrofit.components.UNKNOWN
-import com.extensions.retrofit.components.UNKNOWN_HOST
-import com.extensions.retrofit.components.exceptions.NetworkException
-import com.extensions.retrofit.components.exceptions.NetworkException.Type
-import com.extensions.retrofit.components.exceptions.NoInternetException
-import com.extensions.retrofit.components.exceptions.RetrofitException
+import com.doskoch.apis.the_movie_db.components.exceptions.NetworkException
+import com.doskoch.apis.the_movie_db.components.exceptions.NetworkException.Type
+import com.doskoch.apis.the_movie_db.components.exceptions.NoInternetException
+import com.doskoch.apis.the_movie_db.components.exceptions.RetrofitException
 import retrofit2.HttpException
 import java.io.IOException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
 fun RetrofitException.toNetworkException(): NetworkException {
-    val url = call.request().url().toString()
+    val url = call.request().url.toString()
 
     return when (val cause = cause) {
         is HttpException -> {
-            NetworkException(url, Type.HTTP, HTTP, "${cause.code()}: ${cause.message()}", cause)
+            NetworkException(
+                url,
+                Type.HTTP,
+                HTTP,
+                "${cause.code()}: ${cause.message()}",
+                cause
+            )
         }
         is IOException -> when (cause) {
             is NoInternetException -> {

@@ -1,4 +1,4 @@
-package com.extensions.retrofit.functions
+package com.doskoch.apis.the_movie_db
 
 import retrofit2.CallAdapter
 import retrofit2.Converter

@@ -1,4 +1,4 @@
-package com.extensions.retrofit.functions
+package com.doskoch.apis.the_movie_db
 
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient

@@ -1,6 +1,6 @@
-package com.extensions.retrofit.components.callAdapter
+package com.doskoch.apis.the_movie_db.components.callAdapter
 
-import com.extensions.retrofit.components.exceptions.RetrofitException
+import com.doskoch.apis.the_movie_db.components.exceptions.RetrofitException
 import io.reactivex.Single
 import retrofit2.Call
 import retrofit2.CallAdapter

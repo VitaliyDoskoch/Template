@@ -1,4 +1,4 @@
-package com.extensions.retrofit.components.handlerProviders
+package com.doskoch.apis.the_movie_db.components.handlerProviders
 
 import io.reactivex.Single
 import io.reactivex.functions.Function

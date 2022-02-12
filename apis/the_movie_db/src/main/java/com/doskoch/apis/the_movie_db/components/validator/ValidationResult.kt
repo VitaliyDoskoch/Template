@@ -1,4 +1,4 @@
-package com.extensions.retrofit.components.validator
+package com.doskoch.apis.the_movie_db.components.validator
 
 import kotlin.reflect.KClass
 

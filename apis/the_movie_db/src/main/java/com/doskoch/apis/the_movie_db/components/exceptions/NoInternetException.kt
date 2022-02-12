@@ -1,4 +1,4 @@
-package com.extensions.retrofit.components.exceptions
+package com.doskoch.apis.the_movie_db.components.exceptions
 
 import java.io.IOException
 

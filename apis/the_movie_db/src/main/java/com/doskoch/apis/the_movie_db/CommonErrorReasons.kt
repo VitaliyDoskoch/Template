@@ -1,4 +1,4 @@
-package com.extensions.retrofit.components
+package com.doskoch.apis.the_movie_db
 
 const val NO_INTERNET = "no_internet"
 const val TIMEOUT = "timeout"

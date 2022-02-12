@@ -1,16 +1,16 @@
 package com.doskoch.movies.core.functions
 
 import androidx.annotation.StringRes
+import com.doskoch.apis.the_movie_db.HTTP
+import com.doskoch.apis.the_movie_db.INVALID_RESPONSE
+import com.doskoch.apis.the_movie_db.NO_INTERNET
+import com.doskoch.apis.the_movie_db.TIMEOUT
+import com.doskoch.apis.the_movie_db.UNKNOWN
+import com.doskoch.apis.the_movie_db.UNKNOWN_HOST
 import com.doskoch.movies.core.R
 import com.doskoch.movies.core.components.exceptions.ExpectedException
 import com.doskoch.movies.core.components.exceptions.ExpectedException.ErrorCode
-import com.extensions.retrofit.components.HTTP
-import com.extensions.retrofit.components.INVALID_RESPONSE
-import com.extensions.retrofit.components.NO_INTERNET
-import com.extensions.retrofit.components.TIMEOUT
-import com.extensions.retrofit.components.UNKNOWN
-import com.extensions.retrofit.components.UNKNOWN_HOST
-import com.extensions.retrofit.components.exceptions.NetworkException
+import com.doskoch.apis.the_movie_db.components.exceptions.NetworkException
 import java.util.concurrent.TimeoutException
 
 /**

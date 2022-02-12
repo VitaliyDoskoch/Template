@@ -1,6 +1,6 @@
-package com.extensions.retrofit.components.interceptors
+package com.doskoch.apis.the_movie_db.components.interceptors
 
-import com.extensions.retrofit.components.exceptions.NoInternetException
+import com.doskoch.apis.the_movie_db.components.exceptions.NoInternetException
 import okhttp3.Interceptor
 import okhttp3.Response
 
@@ -10,10 +10,10 @@ import okhttp3.Response
  */
 class NetworkInterceptor(private val isNetworkAvailable: () -> Boolean) : Interceptor {
 
-    @Throws(NoInternetException::class)
+    @Throws(com.doskoch.apis.the_movie_db.components.exceptions.NoInternetException::class)
     override fun intercept(chain: Interceptor.Chain): Response {
         return if (!isNetworkAvailable()) {
-            throw NoInternetException()
+            throw com.doskoch.apis.the_movie_db.components.exceptions.NoInternetException()
         } else {
             chain.proceed(chain.request().newBuilder().build())
         }

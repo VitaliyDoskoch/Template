@@ -1,6 +1,6 @@
-package com.extensions.retrofit.components.service
+package com.doskoch.apis.the_movie_db.components.service
 
-import com.extensions.retrofit.components.handlerProviders.CallHandlerProvider
+import com.doskoch.apis.the_movie_db.components.handlerProviders.CallHandlerProvider
 import io.reactivex.Single
 import retrofit2.Response
 

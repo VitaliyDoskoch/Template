@@ -12,7 +12,6 @@ dependencies {
     implementation(fileTree("dir" to "libs", "include" to listOf("*.jar")))
 
     api (project(":legacy"))
-    api (project(":extensions:retrofit"))
 
     api (project(":database"))
 
@@ -44,4 +43,5 @@ dependencies {
     api (libraries.getValue("pagingRuntime"))
     api (libraries.getValue("pagingRxJava2"))
     api (libraries.getValue("glide"))
+    implementation(project(mapOf("path" to ":apis:the_movie_db")))
 }

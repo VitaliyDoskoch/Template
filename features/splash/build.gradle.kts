@@ -15,7 +15,6 @@ dependencies {
 
     testImplementation(project(":extensions:lifecycle_test"))
 
-    androidTestImplementation(project(":extensions:android_test"))
     androidTestImplementation(testLibraries.getValue("testFragments"))
     androidTestImplementation(testLibraries.getValue("espressoCore"))
 }

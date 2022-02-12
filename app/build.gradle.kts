@@ -51,7 +51,6 @@ dependencies {
     implementation(project(":apis:the_movie_db"))
 
     implementation(project(":features:splash"))
-    implementation(project(":features:films"))
 
     debugImplementation(libraries.getValue("leakCanary"))
 

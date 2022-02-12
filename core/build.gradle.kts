@@ -47,4 +47,5 @@ dependencies {
     
     api (libraries.getValue("pagingRuntime"))
     api (libraries.getValue("pagingRxJava2"))
+    api (libraries.getValue("glide"))
 }

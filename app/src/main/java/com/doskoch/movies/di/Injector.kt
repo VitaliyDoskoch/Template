@@ -4,7 +4,7 @@ import android.app.Application
 import com.doskoch.api.the_movie_db.TheMovieDbApiInjector
 import com.doskoch.legacy.kotlin.DestroyableLazy
 import com.doskoch.movies.database.AppDatabase
-import com.doskoch.movies.features.splash.SplashFeatureProvider
+import com.doskoch.movies.features.splash.SplashFeatureInjector
 import timber.log.Timber
 
 interface AppComponent {
@@ -21,7 +21,7 @@ object AppInjector {
 
         TheMovieDbApiInjector.component = theMovieDbApiModule(component).also(this::logCreation)
 
-        SplashFeatureProvider.provider = DestroyableLazy(
+        SplashFeatureInjector.provider = DestroyableLazy(
             { splashFeatureModule(component).also(this::logCreation) },
             this::logDestruction
         )

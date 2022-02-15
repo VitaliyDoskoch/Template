@@ -1,7 +1,10 @@
 package com.doskoch.movies.features.splash
 
 import androidx.navigation.NavDirections
+import com.doskoch.legacy.android.viewModel.viewModelFactory
 import com.doskoch.legacy.kotlin.DestroyableLazy
+import com.doskoch.movies.features.splash.view.SplashFragment
+import com.doskoch.movies.features.splash.viewModel.SplashViewModel
 
 interface SplashFeature {
     interface Directions {
@@ -11,9 +14,21 @@ interface SplashFeature {
     val directions: Directions
 }
 
-object SplashFeatureProvider {
+object SplashFeatureInjector {
     var provider: DestroyableLazy<SplashFeature>? = null
 }
 
 internal val Injector
-    get() = SplashFeatureProvider.provider!!.value
+    get() = SplashFeatureInjector.provider!!.value
+
+object Modules {
+
+    fun splashFragment() = SplashFragment.Module(
+        viewModelFactory = viewModelFactory { SplashViewModel(module = Modules.splashViewModel()) },
+        directions = Injector.directions,
+        versionCode = 1
+    )
+
+    fun splashViewModel() = SplashViewModel.Module(MIN_SPLASH_DISPLAY_TIME)
+
+}

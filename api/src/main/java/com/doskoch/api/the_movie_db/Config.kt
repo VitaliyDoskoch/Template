@@ -1,4 +1,4 @@
-package com.doskoch.api.the_movie_db.config
+package com.doskoch.api.the_movie_db
 
 const val BASE_URL = "https://api.themoviedb.org/4/"
 const val BASE_IMAGE_URL = "https://image.tmdb.org/t/p/"

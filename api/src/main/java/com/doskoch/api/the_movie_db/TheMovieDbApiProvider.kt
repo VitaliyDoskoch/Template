@@ -3,9 +3,6 @@ package com.doskoch.api.the_movie_db
 import android.util.Log
 import com.doskoch.api.BuildConfig
 import com.doskoch.api.the_movie_db.components.interceptors.AuthorizationInterceptor
-import com.doskoch.api.the_movie_db.config.BASE_URL
-import com.doskoch.api.the_movie_db.config.CONNECT_TIMEOUT
-import com.doskoch.api.the_movie_db.config.READ_TIMEOUT
 import com.doskoch.api.the_movie_db.components.callAdapter.CallAdapterFactory
 import com.doskoch.api.the_movie_db.components.callAdapter.CallAdapterWrapper
 import com.doskoch.api.the_movie_db.components.handlerProviders.CallHandlerProvider

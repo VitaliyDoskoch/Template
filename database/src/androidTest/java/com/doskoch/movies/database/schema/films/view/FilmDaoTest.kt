@@ -1,13 +1,15 @@
-package com.doskoch.movies.database.modules.films.view
+package com.doskoch.movies.database.schema.films.view
 
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import com.doskoch.movies.database.AppDatabase
-import com.doskoch.movies.database.modules.films.entity.DbFavouriteFilm
-import com.doskoch.movies.database.modules.films.entity.DbFavouriteFilmDao
-import com.doskoch.movies.database.modules.films.entity.DbFilm
-import com.doskoch.movies.database.modules.films.entity.DbFilmDao
+import com.doskoch.movies.database.schema.films.DbFavouriteFilm
+import com.doskoch.movies.database.schema.films.DbFavouriteFilmDao
+import com.doskoch.movies.database.schema.films.DbFilm
+import com.doskoch.movies.database.schema.films.DbFilmDao
+import com.doskoch.movies.database.schema.films.Film
+import com.doskoch.movies.database.schema.films.FilmDao
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName

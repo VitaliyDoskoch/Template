@@ -9,15 +9,15 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.doskoch.movies.features.splash.Modules
 import com.doskoch.movies.features.splash.R
 import com.doskoch.movies.features.splash.SplashFeature
 import com.doskoch.movies.features.splash.databinding.FragmentSplashBinding
-import com.doskoch.movies.features.splash.splashFragmentDependencies
 import com.doskoch.movies.features.splash.viewModel.SplashViewModel
 
 class SplashFragment : Fragment() {
 
-    data class Dependencies(
+    data class Module(
         val viewModelFactory: ViewModelProvider.Factory,
         val directions: SplashFeature.Directions,
         val versionCode: Int
@@ -25,12 +25,12 @@ class SplashFragment : Fragment() {
 
     companion object {
         @VisibleForTesting
-        var provideModule = fun SplashFragment.() = splashFragmentDependencies()
+        var provideModule = fun SplashFragment.() = Modules.splashFragment()
     }
 
-    private lateinit var dependencies: Dependencies
+    private lateinit var module: Module
 
-    private val viewModel by viewModels<SplashViewModel> { dependencies.viewModelFactory }
+    private val viewModel by viewModels<SplashViewModel> { module.viewModelFactory }
 
     var viewBinding: FragmentSplashBinding? = null
 
@@ -40,8 +40,8 @@ class SplashFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (!::dependencies.isInitialized) {
-            dependencies = provideModule()
+        if (!::module.isInitialized) {
+            module = provideModule()
         }
 
         viewBinding?.let { initViews(it) }
@@ -51,13 +51,13 @@ class SplashFragment : Fragment() {
         with(viewBinding) {
             versionTextView.text = "%s %s".format(
                 getString(R.string.version_shortened),
-                dependencies.versionCode
+                module.versionCode
             )
         }
     }
 
     private fun navigateNext() {
-        findNavController().navigate(dependencies.directions.toMain())
+        findNavController().navigate(module.directions.toMain())
     }
 
     fun inflateViewBinding(inflater: LayoutInflater) = FragmentSplashBinding.inflate(inflater)

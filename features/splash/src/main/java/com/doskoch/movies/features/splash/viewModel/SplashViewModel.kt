@@ -2,8 +2,8 @@ package com.doskoch.movies.features.splash.viewModel
 
 import androidx.lifecycle.ViewModel
 
-class SplashViewModel(private val dependencies: Dependencies) : ViewModel() {
+class SplashViewModel(private val module: Module) : ViewModel() {
 
-    data class Dependencies(val minDisplayTime: Long)
+    data class Module(val minDisplayTime: Long)
 
 }

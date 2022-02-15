@@ -1,4 +1,4 @@
-package com.doskoch.movies.database.modules.films.entity
+package com.doskoch.movies.database.schema.films
 
 import androidx.room.Entity
 import androidx.room.Index

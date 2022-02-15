@@ -1,4 +1,4 @@
-package com.doskoch.movies.database.modules.films.view
+package com.doskoch.movies.database.schema.films
 
 import androidx.room.Dao
 import androidx.room.Query

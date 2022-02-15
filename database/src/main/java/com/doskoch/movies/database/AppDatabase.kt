@@ -5,12 +5,11 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.doskoch.movies.database.config.DATABASE_NAME
-import com.doskoch.movies.database.modules.films.entity.DbFavouriteFilm
-import com.doskoch.movies.database.modules.films.entity.DbFavouriteFilmDao
-import com.doskoch.movies.database.modules.films.entity.DbFilm
-import com.doskoch.movies.database.modules.films.entity.DbFilmDao
-import com.doskoch.movies.database.modules.films.view.FilmDao
+import com.doskoch.movies.database.schema.films.DbFavouriteFilm
+import com.doskoch.movies.database.schema.films.DbFavouriteFilmDao
+import com.doskoch.movies.database.schema.films.DbFilm
+import com.doskoch.movies.database.schema.films.DbFilmDao
+import com.doskoch.movies.database.schema.films.FilmDao
 
 @Database(
     entities = [

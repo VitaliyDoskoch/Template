@@ -11,7 +11,8 @@ dependencies {
     api (project(":database"))
     api (project(":legacy"))
 
-    api (Dependencies.timber)
-    api(Dependencies.material)
-    api (Dependencies.navigationFragmentKtx)
+    api(Dependencies.timber)
+    api(Dependencies.navigationFragmentKtx)
+
+    implementation(Dependencies.material)
 }

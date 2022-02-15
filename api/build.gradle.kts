@@ -19,17 +19,12 @@ android {
 dependencies {
     implementation(fileTree("dir" to "libs", "include" to listOf("*.jar")))
 
-    implementation (libraries.getValue("retrofit2ConverterGson"))
-    implementation (libraries.getValue("retrofit2AdapterRxJava2"))
+    implementation(Dependencies.timber)
+    implementation(Dependencies.annotations)
 
-    implementation (libraries.getValue("okhttpLoggingInterceptor"))
-
-    implementation (libraries.getValue("gson"))
-
-    implementation (libraries.getValue("rxAndroid"))
-    implementation (libraries.getValue("rxJava"))
-
-    implementation (libraries.getValue("timber"))
-
-    compileOnly (libraries.getValue("annotations"))
+    implementation(Dependencies.retrofit2)
+    implementation(Dependencies.retrofit2ConverterGson)
+    implementation(Dependencies.retrofit2AdapterRxJava2)
+    implementation(Dependencies.okhttpLoggingInterceptor)
+    implementation(Dependencies.gson)
 }

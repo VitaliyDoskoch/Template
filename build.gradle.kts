@@ -13,5 +13,3 @@ buildscript {
 tasks {
     register("clean", Delete::class) { delete(rootProject.buildDir) }
 }
-
-apply(from = "$rootDir/libraries.gradle")

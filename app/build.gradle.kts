@@ -36,5 +36,5 @@ dependencies {
 
     implementation(project(":features:splash"))
 
-    debugImplementation(libraries.getValue("leakCanary"))
+    debugImplementation(Dependencies.leakCanary)
 }

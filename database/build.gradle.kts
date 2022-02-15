@@ -11,8 +11,8 @@ android {
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments += mapOf(
-                    "room.schemaLocation"  to "$projectDir/databaseSchemas".toString(),
-                    "room.incremental"     to "true",
+                    "room.schemaLocation" to "$projectDir/databaseSchemas".toString(),
+                    "room.incremental" to "true",
                     "room.expandProjection" to "true"
                 )
             }
@@ -23,7 +23,8 @@ android {
 dependencies {
     implementation(fileTree("dir" to "libs", "include" to listOf("*.jar")))
 
-    api (libraries.getValue("roomRuntime"))
-    kapt (processors.getValue("roomCompiler"))
-    implementation(libraries.getValue("roomRxJava2"))
+    kapt(Dependencies.roomCompiler)
+
+    implementation(Dependencies.room)
+    implementation(Dependencies.roomRxJava2)
 }

@@ -1,12 +1,5 @@
 rootProject.name = "Movies"
 
-pluginManagement {
-    repositories {
-        google()
-        mavenCentral()
-    }
-}
-
 dependencyResolutionManagement {
     repositories {
         google()

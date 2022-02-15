@@ -11,17 +11,7 @@ dependencies {
     api (project(":database"))
     api (project(":legacy"))
 
-    api (libraries.getValue("coroutines"))
-
-    api (libraries.getValue("timber"))
-
-    api (libraries.getValue("retrofit2"))
-    api (libraries.getValue("roomRuntime"))
-
-    api (libraries.getValue("coreKtx"))
-    api (libraries.getValue("material"))
-
-    api (libraries.getValue("appCompat"))
-
-    api (libraries.getValue("navigationFragmentKtx"))
+    api (Dependencies.timber)
+    api(Dependencies.material)
+    api (Dependencies.navigationFragmentKtx)
 }

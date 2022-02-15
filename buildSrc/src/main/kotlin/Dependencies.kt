@@ -3,6 +3,8 @@ object Versions {
     const val coroutines = "1.3.9"
 
     const val coreKtx = "1.2.0"
+    const val material = "1.2.0-alpha03"
+    const val navigationFragmentKtx = "2.2.1"
 
     const val recyclerView = "1.1.0"
     const val swipeRefreshLayout = "1.0.0"
@@ -20,7 +22,9 @@ object Dependencies {
     const val kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Versions.kotlin}"
     const val coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}"
 
+    const val material = "com.google.android.material:material:${Versions.material}"
     const val coreKtx = "androidx.core:core-ktx:${Versions.coreKtx}"
+    const val navigationFragmentKtx = "androidx.navigation:navigation-fragment-ktx:${Versions.navigationFragmentKtx}"
 
     const val recyclerView = "androidx.recyclerview:recyclerview:${Versions.recyclerView}"
     const val swipeRefreshLayout = "androidx.swiperefreshlayout:swiperefreshlayout:${Versions.swipeRefreshLayout}"

@@ -1,5 +1,5 @@
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
+apply plugin: "kotlin-android"
+apply plugin: "kotlin-kapt"
 
 android {
     compileSdkVersion 30
@@ -29,10 +29,6 @@ android {
         release {
             buildConfigField("Boolean", "is_logging_enabled", "false")
         }
-    }
-
-    packagingOptions {
-        pickFirst "META-INF/LICENSE*"
     }
 }
 

@@ -18,7 +18,6 @@ class SplashFragment : Fragment() {
 
     data class Module(
         val viewModelFactory: ViewModelProvider.Factory,
-        val directions: SplashFeature.Directions,
         val versionCode: Int
     )
 
@@ -40,9 +39,5 @@ class SplashFragment : Fragment() {
         if (!::module.isInitialized) {
             module = provideModule()
         }
-    }
-
-    private fun navigateNext() {
-        findNavController().navigate(module.directions.toMain())
     }
 }

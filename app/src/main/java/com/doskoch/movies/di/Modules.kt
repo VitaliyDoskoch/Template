@@ -16,7 +16,5 @@ fun theMovieDbApiModule(component: AppComponent) = object : TheMovieDbApi {
 }
 
 fun splashFeatureModule(component: AppComponent) = object : SplashFeature {
-    override val directions: SplashFeature.Directions = object : SplashFeature.Directions {
-        override fun toMain() = TODO()
-    }
+
 }

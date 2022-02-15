@@ -6,9 +6,8 @@ apply(from = "$rootDir/android.gradle")
 dependencies {
     implementation(fileTree("dir" to "libs", "include" to listOf("*.jar")))
 
-    implementation (libraries.getValue("coreKtx"))
-
-    implementation (libraries.getValue("appCompat"))
-    implementation (libraries.getValue("material"))
-    api (libraries.getValue("recyclerView"))
+    implementation("androidx.core:core-ktx:1.2.0")
+    implementation ("androidx.appcompat:appcompat:1.1.0")
+    implementation ("com.google.android.material:material:1.2.0-alpha03")
+    implementation ("androidx.recyclerview:recyclerview:1.1.0")
 }

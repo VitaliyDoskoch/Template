@@ -1,17 +1,11 @@
 package com.doskoch.movies.features.splash
 
-import androidx.navigation.NavDirections
 import com.doskoch.legacy.android.viewModel.viewModelFactory
 import com.doskoch.legacy.kotlin.DestroyableLazy
 import com.doskoch.movies.features.splash.view.SplashFragment
 import com.doskoch.movies.features.splash.viewModel.SplashViewModel
 
 interface SplashFeature {
-    interface Directions {
-        fun toMain(): NavDirections
-    }
-
-    val directions: Directions
 }
 
 object SplashFeatureInjector {
@@ -25,7 +19,6 @@ object Modules {
 
     fun splashFragment() = SplashFragment.Module(
         viewModelFactory = viewModelFactory { SplashViewModel(module = Modules.splashViewModel()) },
-        directions = Injector.directions,
         versionCode = 1
     )
 

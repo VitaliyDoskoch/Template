@@ -7,37 +7,21 @@ apply(from = "$rootDir/android.gradle")
 dependencies {
     implementation(fileTree("dir" to "libs", "include" to listOf("*.jar")))
 
-    api (project(":legacy"))
-
+    api (project(":api"))
     api (project(":database"))
+    api (project(":legacy"))
 
     api (libraries.getValue("coroutines"))
 
     api (libraries.getValue("timber"))
 
-    api (libraries.getValue("rxAndroid"))
-    api (libraries.getValue("rxJava"))
-
     api (libraries.getValue("retrofit2"))
     api (libraries.getValue("roomRuntime"))
 
     api (libraries.getValue("coreKtx"))
+    api (libraries.getValue("material"))
 
     api (libraries.getValue("appCompat"))
 
-    api (libraries.getValue("constraintLayout"))
-    api (libraries.getValue("swipeRefreshLayout"))
-    api (libraries.getValue("recyclerView"))
-
     api (libraries.getValue("navigationFragmentKtx"))
-    api (libraries.getValue("navigationUiKtx"))
-
-    api (libraries.getValue("lifecycleExtensions"))
-    api (libraries.getValue("lifecycleCommonJava8"))
-    api (libraries.getValue("lifecycleReactivestreams"))
-    
-    api (libraries.getValue("pagingRuntime"))
-    api (libraries.getValue("pagingRxJava2"))
-    api (libraries.getValue("glide"))
-    api (project(":api"))
 }

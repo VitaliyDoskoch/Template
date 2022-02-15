@@ -5,24 +5,24 @@ import android.net.ConnectivityManager
 import android.net.Network
 import com.doskoch.legacy.android.functions.registerNetworkCallback
 import com.doskoch.legacy.android.functions.unregisterNetworkCallback
-import io.reactivex.Completable
+//import io.reactivex.Completable
 
-fun Context.waitForNetwork(): Completable {
-    return Completable.create { emitter ->
-        try {
-            val callback = object : ConnectivityManager.NetworkCallback() {
-                override fun onAvailable(network: Network) {
-                    emitter.onComplete()
-                }
-            }
-
-            emitter.setCancellable { unregisterNetworkCallback(callback) }
-
-            registerNetworkCallback(callback)
-        } catch (throwable: Throwable) {
-            if (!emitter.isDisposed) {
-                emitter.onError(throwable)
-            }
-        }
-    }
-}
+//fun Context.waitForNetwork(): Completable {
+//    return Completable.create { emitter ->
+//        try {
+//            val callback = object : ConnectivityManager.NetworkCallback() {
+//                override fun onAvailable(network: Network) {
+//                    emitter.onComplete()
+//                }
+//            }
+//
+//            emitter.setCancellable { unregisterNetworkCallback(callback) }
+//
+//            registerNetworkCallback(callback)
+//        } catch (throwable: Throwable) {
+//            if (!emitter.isDisposed) {
+//                emitter.onError(throwable)
+//            }
+//        }
+//    }
+//}

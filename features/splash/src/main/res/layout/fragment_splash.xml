@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -11,77 +11,5 @@
     tools:theme="@style/AppTheme.Light"
     >
     
-    <ImageView
-        android:id="@+id/logoImageView"
-        android:layout_width="@dimen/image_medium"
-        android:layout_height="@dimen/image_medium"
-        android:src="@mipmap/ic_launcher_round"
-        android:contentDescription="@null"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/appNameTextView"
-        app:layout_constraintVertical_chainStyle="packed"
-        />
-    
-    <TextView
-        android:id="@+id/appNameTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/base_large_x3"
-        android:gravity="center"
-        android:textAllCaps="true"
-        android:maxLines="1"
-        android:ellipsize="end"
-        android:textSize="@dimen/text_large_x4"
-        android:textColor="?colorTextPrimaryInverse"
-        android:text="@string/app_name"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/logoImageView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        />
-    
-    <TextView
-        android:id="@+id/versionTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/base"
-        android:layout_marginEnd="@dimen/base"
-        android:layout_marginBottom="@dimen/base"
-        android:paddingStart="@dimen/base"
-        android:paddingEnd="@dimen/base"
-        android:paddingTop="@dimen/base_small_x7"
-        android:paddingBottom="@dimen/base_small_x7"
-        android:background="@drawable/shape_version_chip_background"
-        android:backgroundTint="?colorTextPrimaryInverse"
-        android:maxLines="1"
-        android:ellipsize="end"
-        android:textSize="@dimen/text_medium"
-        android:textColor="?colorAccent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/appNameTextView"
-        app:layout_constraintBottom_toTopOf="@+id/copyrightTextView"
-        app:layout_constraintVertical_bias="1"
-        app:layout_constrainedWidth="true"
-        tools:text="ver. 0.0.1"
-        />
-    
-    <TextView
-        android:id="@+id/copyrightTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/base_large_x4"
-        android:gravity="center"
-        android:maxLines="2"
-        android:ellipsize="end"
-        android:textSize="@dimen/text_medium"
-        android:textColor="?colorTextPrimaryInverse"
-        android:text="@string/developed_by"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

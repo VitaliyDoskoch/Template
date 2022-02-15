@@ -5,7 +5,6 @@ import android.view.View
 import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.annotation.StringRes
-import com.doskoch.legacy.android.functions.getThemeColor
 import com.doskoch.movies.core.R
 import com.google.android.material.snackbar.Snackbar
 
@@ -17,11 +16,11 @@ class CoreSnackbar(var anchorView: View, var message: String) {
 
     var duration: Int = Snackbar.LENGTH_LONG
 
-    @ColorInt
-    var textColor: Int = anchorView.context.getThemeColor(R.attr.colorTextPrimaryInverse)
-
-    @ColorInt
-    var backgroundColor: Int = anchorView.context.getThemeColor(R.attr.colorAccentDark)
+//    @ColorInt
+//    var textColor: Int = anchorView.context.getThemeColor(R.attr.colorTextPrimaryInverse)
+//
+//    @ColorInt
+//    var backgroundColor: Int = anchorView.context.getThemeColor(R.attr.colorAccentDark)
 
     constructor(anchorView: View, @StringRes messageRes: Int) :
         this(anchorView, anchorView.context.getString(messageRes))
@@ -34,7 +33,7 @@ class CoreSnackbar(var anchorView: View, var message: String) {
                 setTextColor(textColors)
             }
 
-            view.setBackgroundColor(backgroundColor)
+//            view.setBackgroundColor(backgroundColor)
         }
     }
 }

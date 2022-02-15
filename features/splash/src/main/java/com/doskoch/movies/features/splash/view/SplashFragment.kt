@@ -12,7 +12,6 @@ import androidx.navigation.fragment.findNavController
 import com.doskoch.movies.features.splash.Modules
 import com.doskoch.movies.features.splash.R
 import com.doskoch.movies.features.splash.SplashFeature
-import com.doskoch.movies.features.splash.databinding.FragmentSplashBinding
 import com.doskoch.movies.features.splash.viewModel.SplashViewModel
 
 class SplashFragment : Fragment() {
@@ -32,10 +31,8 @@ class SplashFragment : Fragment() {
 
     private val viewModel by viewModels<SplashViewModel> { module.viewModelFactory }
 
-    var viewBinding: FragmentSplashBinding? = null
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflateViewBinding(inflater).also { viewBinding = it }.root
+        return inflater.inflate(R.layout.fragment_splash, container)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -43,22 +40,9 @@ class SplashFragment : Fragment() {
         if (!::module.isInitialized) {
             module = provideModule()
         }
-
-        viewBinding?.let { initViews(it) }
-    }
-
-    private fun initViews(viewBinding: FragmentSplashBinding) {
-        with(viewBinding) {
-            versionTextView.text = "%s %s".format(
-                getString(R.string.version_shortened),
-                module.versionCode
-            )
-        }
     }
 
     private fun navigateNext() {
         findNavController().navigate(module.directions.toMain())
     }
-
-    fun inflateViewBinding(inflater: LayoutInflater) = FragmentSplashBinding.inflate(inflater)
 }

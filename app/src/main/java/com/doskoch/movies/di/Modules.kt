@@ -4,7 +4,6 @@ import android.app.Application
 import com.doskoch.api.the_movie_db.TheMovieDbApi
 import com.doskoch.movies.database.AppDatabase
 import com.doskoch.movies.features.splash.SplashFeature
-import com.doskoch.movies.features.splash.view.SplashFragmentDirections
 import com.doskoch.legacy.android.functions.isNetworkAvailable
 
 fun appModule(application: Application) = object : AppComponent {
@@ -18,6 +17,6 @@ fun theMovieDbApiModule(component: AppComponent) = object : TheMovieDbApi {
 
 fun splashFeatureModule(component: AppComponent) = object : SplashFeature {
     override val directions: SplashFeature.Directions = object : SplashFeature.Directions {
-        override fun toMain() = SplashFragmentDirections.toMain()
+        override fun toMain() = TODO()
     }
 }

@@ -4,10 +4,6 @@ plugins {
 
 apply(from = "$rootDir/android.gradle")
 
-android {
-    viewBinding.isEnabled = true
-}
-
 dependencies {
     implementation(fileTree("dir" to "libs", "include" to listOf("*.jar")))
 

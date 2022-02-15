@@ -26,8 +26,4 @@ dependencies {
     api (libraries.getValue("roomRuntime"))
     kapt (processors.getValue("roomCompiler"))
     implementation(libraries.getValue("roomRxJava2"))
-
-    androidTestImplementation (testLibraries.getValue("kotlinTestJunit"))
-    androidTestImplementation (testLibraries.getValue("junitJupiterParams"))
-    androidTestImplementation (testLibraries.getValue("testRunner"))
 }

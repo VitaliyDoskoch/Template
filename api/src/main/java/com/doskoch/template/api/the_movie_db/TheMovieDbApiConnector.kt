@@ -2,7 +2,7 @@ package com.doskoch.template.api.the_movie_db
 
 import android.util.Log
 import com.doskoch.template.api.BuildConfig
-import com.doskoch.template.api.the_movie_db.components.interceptors.AuthorizationInterceptor
+import com.doskoch.template.api.the_movie_db.common.interceptors.AuthorizationInterceptor
 import com.doskoch.template.api.the_movie_db.functions.addInterceptors
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonParser

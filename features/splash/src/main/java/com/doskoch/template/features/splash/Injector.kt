@@ -2,8 +2,6 @@ package com.doskoch.template.features.splash
 
 import com.doskoch.legacy.android.viewModel.viewModelFactory
 import com.doskoch.legacy.kotlin.DestroyableLazy
-import com.doskoch.template.features.splash.view.SplashFragment
-import com.doskoch.template.features.splash.viewModel.SplashViewModel
 
 interface SplashFeature
 
@@ -17,7 +15,7 @@ internal val Injector
 object Modules {
 
     fun splashFragment() = SplashFragment.Module(
-        viewModelFactory = viewModelFactory { SplashViewModel(module = Modules.splashViewModel()) },
+        viewModelFactory = viewModelFactory { SplashViewModel(module = splashViewModel()) },
         versionCode = 1
     )
 

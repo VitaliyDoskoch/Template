@@ -1,4 +1,4 @@
-package com.doskoch.template.features.splash.view
+package com.doskoch.template.features.splash
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,9 +8,6 @@ import androidx.annotation.VisibleForTesting
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
-import com.doskoch.template.features.splash.Modules
-import com.doskoch.template.features.splash.R
-import com.doskoch.template.features.splash.viewModel.SplashViewModel
 
 class SplashFragment : Fragment() {
 
@@ -18,11 +15,6 @@ class SplashFragment : Fragment() {
         val viewModelFactory: ViewModelProvider.Factory,
         val versionCode: Int
     )
-
-    companion object {
-        @VisibleForTesting
-        var provideModule = fun SplashFragment.() = Modules.splashFragment()
-    }
 
     private lateinit var module: Module
 
@@ -37,5 +29,10 @@ class SplashFragment : Fragment() {
         if (!::module.isInitialized) {
             module = provideModule()
         }
+    }
+
+    companion object {
+        @VisibleForTesting
+        var provideModule = fun SplashFragment.() = Modules.splashFragment()
     }
 }

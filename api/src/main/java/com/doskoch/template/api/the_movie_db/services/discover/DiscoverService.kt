@@ -1,7 +1,7 @@
-package com.doskoch.api.the_movie_db.services.discover
+package com.doskoch.template.api.the_movie_db.services.discover
 
 import androidx.annotation.IntRange
-import com.doskoch.api.the_movie_db.services.discover.responses.GetMoviesResponse
+import com.doskoch.template.api.the_movie_db.services.discover.responses.GetMoviesResponse
 import io.reactivex.Single
 import retrofit2.Response
 import retrofit2.http.GET

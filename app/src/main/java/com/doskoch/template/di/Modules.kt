@@ -1,8 +1,8 @@
 package com.doskoch.template.di
 
 import android.app.Application
-import com.doskoch.api.the_movie_db.TheMovieDbApi
 import com.doskoch.legacy.android.functions.isNetworkAvailable
+import com.doskoch.template.api.the_movie_db.TheMovieDbApi
 import com.doskoch.template.database.AppDatabase
 import com.doskoch.template.features.splash.SplashFeature
 

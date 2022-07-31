@@ -1,8 +1,5 @@
-package com.doskoch.api.the_movie_db.services.discover.responses
+package com.doskoch.template.api.the_movie_db.services.discover.responses
 
-import com.doskoch.api.the_movie_db.components.validator.SelfValidator
-import com.doskoch.api.the_movie_db.components.validator.ValidationResult
-import com.doskoch.api.the_movie_db.components.validator.validate
 import com.google.gson.annotations.SerializedName
 
 data class GetMoviesResponse(
@@ -14,7 +11,7 @@ data class GetMoviesResponse(
     val totalPages: Int,
     @SerializedName("total_results")
     val totalResults: Int
-) : SelfValidator {
+) {
 
     data class Result(
         @SerializedName("adult")
@@ -45,26 +42,5 @@ data class GetMoviesResponse(
         val voteAverage: Double,
         @SerializedName("vote_count")
         val voteCount: Int
-    ) : SelfValidator {
-
-        override fun validate(): ValidationResult {
-            return ValidationResult(
-                this::class to mutableSetOf<Pair<String, Any>>().apply {
-                    if (id <= 0) add("id" to id)
-                },
-                null
-            )
-        }
-    }
-
-    override fun validate(): ValidationResult {
-        return ValidationResult(
-            this::class to mutableSetOf<Pair<String, Any>>().apply {
-                if (page < 0) add("page" to page)
-                if (totalPages < 0) add("totalPages" to totalPages)
-                if (totalResults < 0) add("totalResults" to totalResults)
-            },
-            setOf(results.validate())
-        )
-    }
+    )
 }

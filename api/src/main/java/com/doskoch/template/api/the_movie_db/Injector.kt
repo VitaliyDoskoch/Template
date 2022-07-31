@@ -1,4 +1,4 @@
-package com.doskoch.api.the_movie_db
+package com.doskoch.template.api.the_movie_db
 
 interface TheMovieDbApi {
     val isNetworkAvailable: () -> Boolean

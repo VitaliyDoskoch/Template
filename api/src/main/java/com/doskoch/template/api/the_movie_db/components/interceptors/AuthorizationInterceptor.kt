@@ -1,4 +1,4 @@
-package com.doskoch.api.the_movie_db.components.interceptors
+package com.doskoch.template.api.the_movie_db.components.interceptors
 
 import okhttp3.Interceptor
 import okhttp3.Response

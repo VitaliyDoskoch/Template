@@ -1,8 +1,8 @@
 package com.doskoch.template.di
 
 import android.app.Application
-import com.doskoch.api.the_movie_db.TheMovieDbApiInjector
 import com.doskoch.legacy.kotlin.DestroyableLazy
+import com.doskoch.template.api.the_movie_db.TheMovieDbApiInjector
 import com.doskoch.template.database.AppDatabase
 import com.doskoch.template.features.splash.SplashFeatureInjector
 import timber.log.Timber

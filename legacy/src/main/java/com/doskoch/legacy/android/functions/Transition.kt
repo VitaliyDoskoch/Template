@@ -5,12 +5,12 @@ import androidx.transition.Transition
 import androidx.transition.TransitionManager
 
 /**
- * Creates [transition] on [sceneRoot] and runs [action].
- * @param sceneRoot [ViewGroup], to which [transition] should be attached.
+ * Creates a [Transition] on the [sceneRoot] and runs the [action].
+ * @param sceneRoot the [ViewGroup], to which the [transition] should be attached.
  * @param transition target [Transition].
  * @param endPrevious whether [TransitionManager.endTransitions] should be called before
  * [TransitionManager.beginDelayedTransition] call. Is true by default.
- * @param action action, which should be performed after beginning new [Transition].
+ * @param action action, which should be performed after beginning of the new [Transition].
  */
 fun <V : ViewGroup> withTransition(sceneRoot: V,
                                    transition: Transition,

@@ -12,7 +12,7 @@ import androidx.transition.TransitionValues
 import com.doskoch.legacy.android.functions.getDominantColor
 
 /**
- * A [Transition] to change [ImageView]'s image color and alpha smoothly.
+ * Smoothly changes the image color and the alpha of ImageViews.
  */
 class ImageColorTransition : Transition() {
 

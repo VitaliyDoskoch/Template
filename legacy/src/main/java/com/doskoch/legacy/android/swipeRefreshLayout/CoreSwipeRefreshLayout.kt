@@ -9,8 +9,7 @@ import com.doskoch.legacy.R
 import com.doskoch.legacy.android.functions.getThemeColor
 import kotlin.math.abs
 
-class CoreSwipeRefreshLayout(context: Context, attrs: AttributeSet? = null) :
-    SwipeRefreshLayout(context, attrs) {
+class CoreSwipeRefreshLayout(context: Context, attrs: AttributeSet? = null) : SwipeRefreshLayout(context, attrs) {
 
     private val touchSlop: Int = ViewConfiguration.get(context).scaledTouchSlop
     private var previousX: Float = 0f

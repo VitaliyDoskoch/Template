@@ -11,10 +11,9 @@ import androidx.transition.Transition
 import androidx.transition.TransitionValues
 
 /**
- * A [Transition] to change [EditText]'s inputType with alpha blinking.
- * @param [alphaModifier] value of alpha, used to blink.
+ * Smoothly changes the inputType of EditTexts' with the alpha blinking.
  */
-class InputTypeTransition(val alphaModifier: Float = 0.5f) : Transition() {
+class InputTypeTransition(private val alphaModifier: Float = 0.5f) : Transition() {
 
     companion object {
         const val INPUT_TYPE = "InputTypeTransition:input_type"

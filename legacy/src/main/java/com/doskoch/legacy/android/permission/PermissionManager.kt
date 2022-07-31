@@ -29,8 +29,7 @@ class PermissionManager(
         val fragment = findFragment() ?: newFragment()
 
         val denied = permissions.filter {
-            ContextCompat.checkSelfPermission(fragment.requireContext(), it) ==
-                PackageManager.PERMISSION_DENIED
+            ContextCompat.checkSelfPermission(fragment.requireContext(), it) == PackageManager.PERMISSION_DENIED
         }
 
         if (denied.isNotEmpty()) {

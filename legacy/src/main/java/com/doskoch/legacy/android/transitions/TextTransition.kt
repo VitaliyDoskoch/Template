@@ -11,8 +11,7 @@ import androidx.transition.Transition
 import androidx.transition.TransitionValues
 
 /**
- * A [Transition] to change [TextView]'s text with alpha blinking.
- * @param [alphaModifier] value of alpha, used to blink.
+ * Smoothly changes the text of TextViews' with the alpha blinking.
  */
 class TextTransition(val alphaModifier: Float = 0.5f) : Transition() {
 

@@ -4,9 +4,9 @@ import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 
 /**
- * Runs [action] and waits for an invocation of it's parameter, that is a trigger function.
+ * Runs the [action] and waits for an invocation of the onComplete.
  */
-fun runAndWaitForEvent(action: (() -> Unit) -> Unit) {
+fun runAndWaitForEvent(action: (onComplete: () -> Unit) -> Unit) {
 
     fun newEventHandler(latch: CountDownLatch): () -> Unit = { latch.countDown() }
 
@@ -16,9 +16,9 @@ fun runAndWaitForEvent(action: (() -> Unit) -> Unit) {
 }
 
 /**
- * Runs [action] and waits for an invocation of it's parameter, that is a trigger function.
+ * Runs the [action] and waits for an invocation of of the onComplete.
  */
-fun runAndWaitForEvent(timeout: Long, timeUnit: TimeUnit, action: (() -> Unit) -> Unit) {
+fun runAndWaitForEvent(timeout: Long, timeUnit: TimeUnit, action: (onComplete: () -> Unit) -> Unit) {
 
     fun newEventHandler(latch: CountDownLatch): () -> Unit = { latch.countDown() }
 

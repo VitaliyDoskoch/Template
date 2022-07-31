@@ -10,7 +10,7 @@ import androidx.transition.Transition
 import androidx.transition.TransitionValues
 
 /**
- * A [Transition] to change [TextView]'s text background color and alpha smoothly.
+ * Smoothly changes the text background color and the text alpha of TextViews.
  */
 class TextColorTransition : Transition() {
 

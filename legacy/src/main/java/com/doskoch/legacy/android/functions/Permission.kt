@@ -3,9 +3,8 @@ package com.doskoch.legacy.android.functions
 import android.Manifest
 
 /**
- * Creates request code for dangerous permissions. See [Manifest.permission].
- * @param permission target dangerous permission..
- * @return request code for permission.
+ * Creates a request code for dangerous permissions. See [Manifest.permission].
+ * @param permission the target dangerous permission.
  * @throws [IllegalArgumentException] when passed permission argument is not a dangerous permission.
  */
 fun requestCode(permission: String): Int {
@@ -46,6 +45,6 @@ fun requestCode(permission: String): Int {
         /* Manifest.permission_group.STORAGE */
         Manifest.permission.READ_EXTERNAL_STORAGE -> 1900
         Manifest.permission.WRITE_EXTERNAL_STORAGE -> 1901
-        else -> throw IllegalArgumentException("There is no request code for permission: $permission")
+        else -> throw IllegalArgumentException("There is no request code for the permission: $permission")
     }
 }

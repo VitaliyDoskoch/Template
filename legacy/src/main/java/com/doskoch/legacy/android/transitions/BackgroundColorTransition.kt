@@ -12,7 +12,7 @@ import androidx.transition.TransitionValues
 import com.doskoch.legacy.android.functions.getDominantColor
 
 /**
- * A [Transition] to change [android.view.View]'s background color and alpha smoothly.
+ * Smoothly changes the background color and the alpha of views.
  */
 class BackgroundColorTransition : Transition() {
 

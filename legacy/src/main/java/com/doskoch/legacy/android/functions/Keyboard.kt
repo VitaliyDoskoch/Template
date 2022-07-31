@@ -9,7 +9,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 
 /**
- * Shows software keyboard.
+ * Shows the software keyboard.
  */
 fun <A : Activity> A.showSoftKeyboard() {
     val manager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -17,7 +17,7 @@ fun <A : Activity> A.showSoftKeyboard() {
 }
 
 /**
- * Shows software keyboard.
+ * Shows the software keyboard.
  */
 fun <V : View> V.showSoftKeyboard() {
     if (requestFocus()) {
@@ -27,7 +27,7 @@ fun <V : View> V.showSoftKeyboard() {
 }
 
 /**
- * Hides software keyboard on [View], to which the keyboard is attached.
+ * Hides the software keyboard on the [View], to which the keyboard is attached.
  */
 fun <V : View> V.hideSoftKeyboard() {
     val manager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -35,7 +35,7 @@ fun <V : View> V.hideSoftKeyboard() {
 }
 
 /**
- * Closes keyboard on touch outside of any [EditText] in view.
+ * Closes the keyboard on a touch outside of any [EditText] in the View.
  */
 @SuppressLint("ClickableViewAccessibility")
 fun <V : View> V.hideKeyboardOnTouch() {

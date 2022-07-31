@@ -7,7 +7,7 @@ import androidx.transition.Transition
 import androidx.transition.TransitionValues
 
 /**
- * A [Transition] to change [android.view.View]'s alpha smoothly.
+ * Smoothly changes the alpha of views.
  */
 class AlphaTransition : Transition() {
 

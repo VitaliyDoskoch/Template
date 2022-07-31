@@ -10,7 +10,7 @@ import java.net.HttpURLConnection
 import java.net.URL
 
 /**
- * Check if network is available.
+ * Check if the network is available.
  * @return whether device is connected or connecting to network.
  */
 @SuppressLint("MissingPermission")
@@ -21,7 +21,6 @@ fun Context.isNetworkAvailable(): Boolean {
 
 /**
  * Registers [ConnectivityManager.NetworkCallback].
- * @param [callback] target callback.
  */
 @SuppressLint("MissingPermission")
 fun Context.registerNetworkCallback(callback: ConnectivityManager.NetworkCallback) {
@@ -40,7 +39,6 @@ fun Context.registerNetworkCallback(callback: ConnectivityManager.NetworkCallbac
 
 /**
  * Unregisters [ConnectivityManager.NetworkCallback].
- * @param [callback] target callback.
  */
 fun Context.unregisterNetworkCallback(callback: ConnectivityManager.NetworkCallback) {
     val manager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager

@@ -20,10 +20,8 @@ import androidx.core.graphics.drawable.toBitmap
 import androidx.core.view.MenuItemCompat
 
 /**
- * Finds color, stored in theme.
- * @param [colorRes] resourceId of target color in theme.
- * @return resolved color.
- * @throws [IllegalArgumentException] when color with passed id is not found in the theme.
+ * Finds the color, stored in the theme.
+ * @throws [IllegalArgumentException] when the color with passed id is not found in the theme.
  */
 @ColorInt
 fun Context.getThemeColor(@AttrRes colorRes: Int): Int {
@@ -36,18 +34,7 @@ fun Context.getThemeColor(@AttrRes colorRes: Int): Int {
 }
 
 /**
- * Changes icons' color of menu items.
- * @param [color] target color.
- */
-fun Menu.setMenuColor(@ColorInt color: Int) {
-    for (i in 0 until size()) {
-        MenuItemCompat.setIconTintList(getItem(i), ColorStateList.valueOf(color))
-    }
-}
-
-/**
- * Applies color to [Drawable].
- * @param [color] target color.
+ * Applies the color to the [Drawable].
  */
 fun Drawable.setColor(@ColorInt color: Int) {
     when (this) {
@@ -58,7 +45,7 @@ fun Drawable.setColor(@ColorInt color: Int) {
 }
 
 /**
- * Retrieves dominant color of [Drawable].
+ * Retrieves the dominant color of the [Drawable].
  * @return the most used color.
  */
 @ColorInt
@@ -76,7 +63,7 @@ fun Drawable.getDominantColor(): Int {
 }
 
 /**
- * Converts [Drawable] to [Bitmap] and returns dominant color.
+ * Converts the [Drawable] to a [Bitmap] and returns the dominant color.
  */
 @ColorInt
 fun Drawable.getDominantColorFromPixels(): Int {
@@ -92,27 +79,10 @@ fun Drawable.getDominantColorFromPixels(): Int {
 }
 
 /**
- * Converts [String] to [Spannable] with applied text color.
- * @param [color] target color.
- * @return [Spannable] with applied text color.
- */
-fun String.getColoredText(@ColorInt color: Int): Spannable {
-    return SpannableString(this).apply {
-        setSpan(
-            ForegroundColorSpan(color),
-            0,
-            this.length,
-            0
-        )
-    }
-}
-
-/**
- * Chooses [lightColor] or [darkColor] depending on contrast with [backgroundColor].
- * @param [backgroundColor] background color.
- * @param [lightColor] target color, if background is dark.
- * @param [darkColor] target color, if background is light.
- * @return [lightColor] or [darkColor] depending on contrast with [backgroundColor].
+ * Chooses between the [lightColor] or the [darkColor] depending on the contrast with the [backgroundColor].
+ * @param [backgroundColor] the background color.
+ * @param [lightColor] the target color, if the background is dark.
+ * @param [darkColor] the target color, if the background is light.
  */
 @ColorInt
 fun chooseContrastColor(@ColorInt backgroundColor: Int,

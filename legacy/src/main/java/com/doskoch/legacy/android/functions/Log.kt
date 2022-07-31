@@ -4,24 +4,7 @@ import android.os.Build
 import android.util.Log
 
 /**
- * Gets log level name.
- * @param [logLevel] Log level. See [Log] for constants.
- * @return String representation of passed logLevel.
- */
-fun logLevelName(logLevel: Int): String {
-    return when (logLevel) {
-        Log.VERBOSE -> "VERBOSE"
-        Log.DEBUG -> "DEBUG"
-        Log.INFO -> "INFO"
-        Log.WARN -> "WARN"
-        Log.ERROR -> "ERROR"
-        Log.ASSERT -> "ASSERT"
-        else -> throw IllegalArgumentException("unsupported logLevel: $logLevel")
-    }
-}
-
-/**
- * Creates build info report, that does not require any permission. See [Build].
+ * Creates the build info report, that does not require any permission. See [Build].
  * @return [String] with build info.
  */
 fun buildInfoReport(): String {

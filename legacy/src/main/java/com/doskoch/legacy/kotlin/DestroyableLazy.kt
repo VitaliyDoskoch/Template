@@ -1,7 +1,7 @@
 package com.doskoch.legacy.kotlin
 
 /**
- * It is a [Lazy] implementation, that allows to destroy value's instance.
+ * It is the [Lazy] implementation, that allows to destroy the instance.
  * If the instance is already destroyed, it will be recreated on the next call.
  */
 class DestroyableLazy<T>(

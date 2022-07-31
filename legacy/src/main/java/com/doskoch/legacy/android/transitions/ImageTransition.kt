@@ -12,10 +12,9 @@ import androidx.transition.TransitionValues
 import com.doskoch.legacy.android.functions.isEqualTo
 
 /**
- * A [Transition] to change [ImageView]'s image with alpha blinking.
- * @param [alphaModifier] value of alpha, used to blink.
+ * Smoothly changes the image of ImageViews with the alpha blinking.
  */
-class ImageTransition(val alphaModifier: Float = 0.5f) : Transition() {
+class ImageTransition(private val alphaModifier: Float = 0.5f) : Transition() {
 
     companion object {
         const val BACKGROUND = "ImageTransition:background"

@@ -4,7 +4,7 @@ import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 
 /**
- * Converts passed value to hash, using specified algorithm.
+ * Converts the passed value to hash, using the specified algorithm.
  * @throws NoSuchAlgorithmException if there is no implementation for the specified algorithm.
  */
 @Throws(NoSuchAlgorithmException::class)

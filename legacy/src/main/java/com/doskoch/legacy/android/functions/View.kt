@@ -12,8 +12,7 @@ import androidx.annotation.StyleRes
 import java.util.*
 
 /**
- * Applies maximum length to [TextView].
- * @param [maxLength] target maximum length.
+ * Applies the maximum length to the [TextView].
  */
 fun <V : TextView> V.setMaxLength(maxLength: Int) {
     val existingFilters = this.filters
@@ -29,7 +28,7 @@ fun <V : TextView> V.setMaxLength(maxLength: Int) {
 }
 
 /**
- * Determines whether [TextView] displays its content as masked password.
+ * Determines whether the [TextView] displays its content as masked password.
  * See [InputType].
  */
 fun <V : TextView> V.isPasswordMasked(): Boolean {
@@ -39,7 +38,7 @@ fun <V : TextView> V.isPasswordMasked(): Boolean {
 }
 
 /**
- * Switches password visibility of [TextView]. See [InputType].
+ * Switches the password visibility of the [TextView]. See [InputType].
  * @param [show] whether the password should be visible.
  */
 fun <V : TextView> V.switchPasswordVisibility(show: Boolean) {
@@ -60,8 +59,8 @@ fun <V : TextView> V.switchPasswordVisibility(show: Boolean) {
 }
 
 /**
- * Adds [ViewTreeObserver.OnGlobalLayoutListener] to [View]. When event is triggered,
- * invokes [action] and removes [ViewTreeObserver.OnGlobalLayoutListener].
+ * Adds a [ViewTreeObserver.OnGlobalLayoutListener] to the [View]. When an event is triggered,
+ * invokes the [action] and removes the [ViewTreeObserver.OnGlobalLayoutListener].
  */
 fun <V : View> V.performOnceOnGlobalLayout(action: (view: V) -> Unit) {
     viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
@@ -73,17 +72,7 @@ fun <V : View> V.performOnceOnGlobalLayout(action: (view: V) -> Unit) {
 }
 
 /**
- * Creates [LayoutInflater] with particular theme.
- * @param [themeRes] resource id of target theme.
- * @return new [LayoutInflater], based on passed theme.
- */
-fun LayoutInflater.styledInflater(inflater: LayoutInflater,
-                                  @StyleRes themeRes: Int): LayoutInflater {
-    return inflater.cloneInContext(ContextThemeWrapper(inflater.context, themeRes))
-}
-
-/**
- * Checks if [TextView] is ellipsized.
+ * Checks if the [TextView] is ellipsized.
  */
 fun <V : TextView> V.isEllipsized(): Boolean {
     for (i in 0 until layout.lineCount) {

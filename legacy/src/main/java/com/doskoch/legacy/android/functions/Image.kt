@@ -5,7 +5,7 @@ import android.graphics.drawable.Drawable
 import androidx.core.graphics.drawable.toBitmap
 
 /**
- * Compares to another [Drawable] based on [Drawable.ConstantState] and [Bitmap] equality.
+ * Compares the [Drawable] with another [Drawable] based on [Drawable.ConstantState] and [Bitmap] equality.
  */
 fun <D : Drawable> D?.isEqualTo(other: Drawable?): Boolean {
     return this === other || if (this != null && other != null) {

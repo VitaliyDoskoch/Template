@@ -7,5 +7,4 @@ import retrofit2.Response
 interface ErrorHandlerProvider {
 
     fun <R : Response<*>> provideHandler(): Function<in Throwable, out Single<R>>
-
 }

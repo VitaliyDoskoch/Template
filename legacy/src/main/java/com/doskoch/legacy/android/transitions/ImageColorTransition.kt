@@ -37,9 +37,11 @@ class ImageColorTransition : Transition() {
         }
     }
 
-    override fun createAnimator(sceneRoot: ViewGroup,
-                                startValues: TransitionValues?,
-                                endValues: TransitionValues?): Animator? {
+    override fun createAnimator(
+        sceneRoot: ViewGroup,
+        startValues: TransitionValues?,
+        endValues: TransitionValues?
+    ): Animator? {
         val view = endValues?.view as? ImageView
 
         return if (startValues != null && view != null) {
@@ -56,9 +58,11 @@ class ImageColorTransition : Transition() {
         }
     }
 
-    private fun colorAnimator(view: ImageView,
-                              startValues: TransitionValues,
-                              endValues: TransitionValues): Animator? {
+    private fun colorAnimator(
+        view: ImageView,
+        startValues: TransitionValues,
+        endValues: TransitionValues
+    ): Animator? {
         @ColorInt
         val startValue = startValues.values[COLOR] as Int
 
@@ -74,9 +78,11 @@ class ImageColorTransition : Transition() {
         }
     }
 
-    private fun alphaAnimator(view: ImageView,
-                              startValues: TransitionValues,
-                              endValues: TransitionValues): Animator? {
+    private fun alphaAnimator(
+        view: ImageView,
+        startValues: TransitionValues,
+        endValues: TransitionValues
+    ): Animator? {
         val startValue = startValues.values[ALPHA] as Int
         val endValue = endValues.values[ALPHA] as Int
 

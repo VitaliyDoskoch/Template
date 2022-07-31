@@ -12,10 +12,12 @@ import androidx.transition.TransitionManager
  * [TransitionManager.beginDelayedTransition] call. Is true by default.
  * @param action action, which should be performed after beginning of the new [Transition].
  */
-fun <V : ViewGroup> withTransition(sceneRoot: V,
-                                   transition: Transition,
-                                   endPrevious: Boolean = true,
-                                   action: V.() -> Unit) {
+fun <V : ViewGroup> withTransition(
+    sceneRoot: V,
+    transition: Transition,
+    endPrevious: Boolean = true,
+    action: V.() -> Unit
+) {
     if (endPrevious) {
         TransitionManager.endTransitions(sceneRoot)
     }

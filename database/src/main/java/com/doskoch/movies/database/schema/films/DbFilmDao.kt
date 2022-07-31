@@ -16,5 +16,4 @@ abstract class DbFilmDao(database: RoomDatabase) : BaseDao<DbFilm>(database) {
 
     @Query("delete from DbFilm")
     abstract fun clear()
-
 }

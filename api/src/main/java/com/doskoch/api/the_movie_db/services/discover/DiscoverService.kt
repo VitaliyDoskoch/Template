@@ -21,5 +21,4 @@ interface DiscoverService {
         @Query("sort_by")
         sortBy: String = "primary_release_date.desc"
     ): Single<Response<GetMoviesResponse>>
-
 }

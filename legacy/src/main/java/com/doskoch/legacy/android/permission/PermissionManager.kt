@@ -23,9 +23,11 @@ class PermissionManager(
         findFragment()?.listener = this::onRequestPermissionsResult
     }
 
-    fun requestPermissions(permissions: Array<out String>,
-                           requestCode: Int,
-                           checkRationale: Boolean) {
+    fun requestPermissions(
+        permissions: Array<out String>,
+        requestCode: Int,
+        checkRationale: Boolean
+    ) {
         val fragment = findFragment() ?: newFragment()
 
         val denied = permissions.filter {
@@ -45,10 +47,12 @@ class PermissionManager(
         }
     }
 
-    private fun onRequestPermissionsResult(fragment: PermissionManagerFragment,
-                                           requestCode: Int,
-                                           permissions: Array<out String>,
-                                           grantResults: IntArray) {
+    private fun onRequestPermissionsResult(
+        fragment: PermissionManagerFragment,
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
         removeFragment(fragment)
 
         val denied = permissions.filterIndexed { index, _ ->

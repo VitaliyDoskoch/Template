@@ -44,7 +44,6 @@ class SplashFragmentTest {
     )
     val viewModel = mockk<SplashViewModel>(relaxed = true)
 
-
     lateinit var displayTimeoutData: MutableLiveData<State<Any>>
     lateinit var scenario: FragmentScenario<SplashFragment>
 

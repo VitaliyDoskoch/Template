@@ -10,9 +10,11 @@ package com.doskoch.movies.database
  * @param [getId] function, which retrieves field or combination of fields,
  * which should be unique per entity and will be used for comparison.
  */
-fun <D : BaseDao<E>, E : Any, K : Any> D.updateRelations(old: List<E>,
-                                                         new: List<E>,
-                                                         getId: (entity: E) -> K) {
+fun <D : BaseDao<E>, E : Any, K : Any> D.updateRelations(
+    old: List<E>,
+    new: List<E>,
+    getId: (entity: E) -> K
+) {
     val oldIds = old.map(getId)
     val newIds = new.map(getId)
 

@@ -12,5 +12,4 @@ class CommonErrorHandler<R : Response<*>> : Function<Throwable, Single<R>> {
             if (throwable is com.doskoch.api.the_movie_db.components.exceptions.RetrofitException) throwable.toNetworkException() else throwable
         )
     }
-
 }

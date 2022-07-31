@@ -3,7 +3,6 @@ package com.doskoch.movies.core.components.ui.views
 import android.text.TextUtils
 import android.view.View
 import android.widget.TextView
-import androidx.annotation.ColorInt
 import androidx.annotation.StringRes
 import com.doskoch.movies.core.R
 import com.google.android.material.snackbar.Snackbar

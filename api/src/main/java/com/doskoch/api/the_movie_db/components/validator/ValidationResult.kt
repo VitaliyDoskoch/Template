@@ -24,7 +24,8 @@ data class ValidationResult(
                     ".\n"
                 ) { (name, value) ->
                     "$name: $value"
-                })
+                }
+            )
         }
 
         result.nested?.forEach {

@@ -33,9 +33,11 @@ class TextTransition(val alphaModifier: Float = 0.5f) : Transition() {
         }
     }
 
-    override fun createAnimator(sceneRoot: ViewGroup,
-                                startValues: TransitionValues?,
-                                endValues: TransitionValues?): Animator? {
+    override fun createAnimator(
+        sceneRoot: ViewGroup,
+        startValues: TransitionValues?,
+        endValues: TransitionValues?
+    ): Animator? {
         val view = endValues?.view as? TextView
 
         return if (startValues != null && view != null) {

@@ -12,5 +12,4 @@ class ExpectedException(
     }
 
     override val message: String? = "\nerrorCode: $errorCode"
-
 }

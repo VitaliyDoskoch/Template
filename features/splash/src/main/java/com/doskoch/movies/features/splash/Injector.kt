@@ -5,8 +5,7 @@ import com.doskoch.legacy.kotlin.DestroyableLazy
 import com.doskoch.movies.features.splash.view.SplashFragment
 import com.doskoch.movies.features.splash.viewModel.SplashViewModel
 
-interface SplashFeature {
-}
+interface SplashFeature
 
 object SplashFeatureInjector {
     var provider: DestroyableLazy<SplashFeature>? = null
@@ -23,5 +22,4 @@ object Modules {
     )
 
     fun splashViewModel() = SplashViewModel.Module(MIN_SPLASH_DISPLAY_TIME)
-
 }

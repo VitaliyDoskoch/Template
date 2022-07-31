@@ -7,5 +7,4 @@ import retrofit2.Response
 interface ResponseHandlerProvider {
 
     fun <R : Response<*>> provideHandler(): Function<R, Single<R>>
-
 }

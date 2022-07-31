@@ -8,16 +8,11 @@ import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.ShapeDrawable
 import android.os.Build
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.style.ForegroundColorSpan
 import android.util.TypedValue
-import android.view.Menu
 import androidx.annotation.AttrRes
 import androidx.annotation.ColorInt
 import androidx.core.graphics.ColorUtils
 import androidx.core.graphics.drawable.toBitmap
-import androidx.core.view.MenuItemCompat
 
 /**
  * Finds the color, stored in the theme.
@@ -85,9 +80,11 @@ fun Drawable.getDominantColorFromPixels(): Int {
  * @param [darkColor] the target color, if the background is light.
  */
 @ColorInt
-fun chooseContrastColor(@ColorInt backgroundColor: Int,
-                        @ColorInt lightColor: Int,
-                        @ColorInt darkColor: Int): Int {
+fun chooseContrastColor(
+    @ColorInt backgroundColor: Int,
+    @ColorInt lightColor: Int,
+    @ColorInt darkColor: Int
+): Int {
     val background = Color.rgb(
         Color.red(backgroundColor),
         Color.green(backgroundColor),

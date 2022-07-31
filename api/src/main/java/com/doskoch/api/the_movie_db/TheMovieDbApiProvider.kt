@@ -2,17 +2,17 @@ package com.doskoch.api.the_movie_db
 
 import android.util.Log
 import com.doskoch.api.BuildConfig
-import com.doskoch.api.the_movie_db.components.interceptors.AuthorizationInterceptor
 import com.doskoch.api.the_movie_db.components.callAdapter.CallAdapterFactory
 import com.doskoch.api.the_movie_db.components.callAdapter.CallAdapterWrapper
 import com.doskoch.api.the_movie_db.components.handlerProviders.CallHandlerProvider
+import com.doskoch.api.the_movie_db.components.handlers.CallHandler
+import com.doskoch.api.the_movie_db.components.handlers.CommonErrorHandler
+import com.doskoch.api.the_movie_db.components.handlers.CommonResponseHandler
+import com.doskoch.api.the_movie_db.components.interceptors.AuthorizationInterceptor
 import com.doskoch.api.the_movie_db.components.interceptors.NetworkInterceptor
 import com.doskoch.api.the_movie_db.components.service.ServiceConnector
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonParser
-import com.doskoch.api.the_movie_db.components.handlers.CallHandler
-import com.doskoch.api.the_movie_db.components.handlers.CommonErrorHandler
-import com.doskoch.api.the_movie_db.components.handlers.CommonResponseHandler
 import io.reactivex.Single
 import okhttp3.Interceptor
 import okhttp3.logging.HttpLoggingInterceptor

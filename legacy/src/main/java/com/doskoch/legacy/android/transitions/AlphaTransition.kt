@@ -29,9 +29,11 @@ class AlphaTransition : Transition() {
         }
     }
 
-    override fun createAnimator(sceneRoot: ViewGroup,
-                                startValues: TransitionValues?,
-                                endValues: TransitionValues?): Animator? {
+    override fun createAnimator(
+        sceneRoot: ViewGroup,
+        startValues: TransitionValues?,
+        endValues: TransitionValues?
+    ): Animator? {
         val view = endValues?.view
 
         return if (startValues != null && view != null) {

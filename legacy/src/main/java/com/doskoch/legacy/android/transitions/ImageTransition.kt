@@ -38,9 +38,11 @@ class ImageTransition(private val alphaModifier: Float = 0.5f) : Transition() {
         }
     }
 
-    override fun createAnimator(sceneRoot: ViewGroup,
-                                startValues: TransitionValues?,
-                                endValues: TransitionValues?): Animator? {
+    override fun createAnimator(
+        sceneRoot: ViewGroup,
+        startValues: TransitionValues?,
+        endValues: TransitionValues?
+    ): Animator? {
         val view = endValues?.view
 
         return if (startValues != null && view != null) {
@@ -57,9 +59,11 @@ class ImageTransition(private val alphaModifier: Float = 0.5f) : Transition() {
         }
     }
 
-    private fun backgroundAnimator(view: View,
-                                   startValues: TransitionValues,
-                                   endValues: TransitionValues): Animator? {
+    private fun backgroundAnimator(
+        view: View,
+        startValues: TransitionValues,
+        endValues: TransitionValues
+    ): Animator? {
         val startValue = (startValues.values[BACKGROUND] as Drawable?)?.mutate()
         val endValue = (endValues.values[BACKGROUND] as Drawable?)?.mutate()
 
@@ -79,9 +83,11 @@ class ImageTransition(private val alphaModifier: Float = 0.5f) : Transition() {
         }
     }
 
-    private fun imageAnimator(view: View,
-                              startValues: TransitionValues,
-                              endValues: TransitionValues): Animator? {
+    private fun imageAnimator(
+        view: View,
+        startValues: TransitionValues,
+        endValues: TransitionValues
+    ): Animator? {
         return (view as? ImageView)?.let {
             val startValue = (startValues.values[IMAGE] as Drawable?)?.mutate()
             val endValue = (endValues.values[IMAGE] as Drawable?)?.mutate()
@@ -106,9 +112,11 @@ class ImageTransition(private val alphaModifier: Float = 0.5f) : Transition() {
         }
     }
 
-    private fun fromImageToImageAnimator(startValue: Drawable,
-                                         endValue: Drawable,
-                                         applyFunc: () -> Unit): Animator {
+    private fun fromImageToImageAnimator(
+        startValue: Drawable,
+        endValue: Drawable,
+        applyFunc: () -> Unit
+    ): Animator {
         val startIntermediateAlpha = (startValue.alpha * alphaModifier).toInt()
         val endIntermediateAlpha = (endValue.alpha * alphaModifier).toInt()
 

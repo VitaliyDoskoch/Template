@@ -7,10 +7,10 @@ import com.doskoch.api.the_movie_db.NO_INTERNET
 import com.doskoch.api.the_movie_db.TIMEOUT
 import com.doskoch.api.the_movie_db.UNKNOWN
 import com.doskoch.api.the_movie_db.UNKNOWN_HOST
+import com.doskoch.api.the_movie_db.components.exceptions.NetworkException
 import com.doskoch.movies.core.R
 import com.doskoch.movies.core.components.exceptions.ExpectedException
 import com.doskoch.movies.core.components.exceptions.ExpectedException.ErrorCode
-import com.doskoch.api.the_movie_db.components.exceptions.NetworkException
 import java.util.concurrent.TimeoutException
 
 /**

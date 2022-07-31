@@ -1,13 +1,8 @@
 package com.doskoch.movies.core.functions
 
-import android.content.Context
-import android.net.ConnectivityManager
-import android.net.Network
-import com.doskoch.legacy.android.functions.registerNetworkCallback
-import com.doskoch.legacy.android.functions.unregisterNetworkCallback
-//import io.reactivex.Completable
+// import io.reactivex.Completable
 
-//fun Context.waitForNetwork(): Completable {
+// fun Context.waitForNetwork(): Completable {
 //    return Completable.create { emitter ->
 //        try {
 //            val callback = object : ConnectivityManager.NetworkCallback() {
@@ -25,4 +20,4 @@ import com.doskoch.legacy.android.functions.unregisterNetworkCallback
 //            }
 //        }
 //    }
-//}
+// }

@@ -1,15 +1,9 @@
 package com.doskoch.movies.core.components.database
 
-import com.doskoch.movies.core.components.exceptions.ExpectedException
-import com.doskoch.movies.core.components.exceptions.ExpectedException.ErrorCode.FAILED_TO_LOAD_DATA
-import com.doskoch.movies.core.components.exceptions.ExpectedException.ErrorCode.FAILED_TO_SAVE_CHANGES
 import com.doskoch.movies.database.AppDatabase
-import com.doskoch.movies.database.BaseEntity
-import com.doskoch.movies.database.observeChanges
-//import io.reactivex.Completable
-//import io.reactivex.Flowable
-//import io.reactivex.Single
-import kotlin.reflect.KClass
+// import io.reactivex.Completable
+// import io.reactivex.Flowable
+// import io.reactivex.Single
 
 class DatabaseConnector(private val database: AppDatabase) {
 

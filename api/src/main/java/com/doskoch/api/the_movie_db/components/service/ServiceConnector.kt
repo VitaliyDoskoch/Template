@@ -14,5 +14,4 @@ class ServiceConnector<S : Any>(
             callHandlerProvider?.provideHandler<R>()?.invoke(single) ?: single
         }
     }
-
 }

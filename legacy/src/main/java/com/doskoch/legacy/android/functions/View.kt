@@ -2,13 +2,10 @@ package com.doskoch.legacy.android.functions
 
 import android.text.InputFilter
 import android.text.InputType
-import android.view.ContextThemeWrapper
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewTreeObserver
 import android.widget.EditText
 import android.widget.TextView
-import androidx.annotation.StyleRes
 import java.util.*
 
 /**

@@ -1,7 +1,6 @@
 package com.doskoch.legacy.android.functions
 
 import android.os.Build
-import android.util.Log
 
 /**
  * Creates the build info report, that does not require any permission. See [Build].

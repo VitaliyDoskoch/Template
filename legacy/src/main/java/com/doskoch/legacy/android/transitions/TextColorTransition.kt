@@ -34,9 +34,11 @@ class TextColorTransition : Transition() {
         }
     }
 
-    override fun createAnimator(sceneRoot: ViewGroup,
-                                startValues: TransitionValues?,
-                                endValues: TransitionValues?): Animator? {
+    override fun createAnimator(
+        sceneRoot: ViewGroup,
+        startValues: TransitionValues?,
+        endValues: TransitionValues?
+    ): Animator? {
         val view = endValues?.view as? TextView
 
         return if (startValues != null && view != null) {
@@ -53,9 +55,11 @@ class TextColorTransition : Transition() {
         }
     }
 
-    private fun textColorAnimator(view: TextView,
-                                  startValues: TransitionValues,
-                                  endValues: TransitionValues): Animator? {
+    private fun textColorAnimator(
+        view: TextView,
+        startValues: TransitionValues,
+        endValues: TransitionValues
+    ): Animator? {
         @ColorInt
         val startValue = startValues.values[TEXT_COLOR] as Int
 
@@ -70,9 +74,11 @@ class TextColorTransition : Transition() {
         }
     }
 
-    private fun hintColorAnimator(view: TextView,
-                                  startValues: TransitionValues,
-                                  endValues: TransitionValues): Animator? {
+    private fun hintColorAnimator(
+        view: TextView,
+        startValues: TransitionValues,
+        endValues: TransitionValues
+    ): Animator? {
         @ColorInt
         val startValue = startValues.values[HINT_COLOR] as Int
 

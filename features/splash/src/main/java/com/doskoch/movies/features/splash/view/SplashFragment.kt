@@ -8,10 +8,8 @@ import androidx.annotation.VisibleForTesting
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import com.doskoch.movies.features.splash.Modules
 import com.doskoch.movies.features.splash.R
-import com.doskoch.movies.features.splash.SplashFeature
 import com.doskoch.movies.features.splash.viewModel.SplashViewModel
 
 class SplashFragment : Fragment() {

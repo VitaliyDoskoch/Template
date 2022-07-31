@@ -1,4 +1,4 @@
-rootProject.name = "Movies"
+rootProject.name = "Template"
 
 dependencyResolutionManagement {
     repositories {

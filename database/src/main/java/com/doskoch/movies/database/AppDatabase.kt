@@ -5,22 +5,16 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.doskoch.movies.database.schema.films.DbFavouriteFilm
-import com.doskoch.movies.database.schema.films.DbFavouriteFilmDao
-import com.doskoch.movies.database.schema.films.DbFilm
-import com.doskoch.movies.database.schema.films.DbFilmDao
-import com.doskoch.movies.database.schema.films.FilmDao
+import com.doskoch.movies.database.common.CollectionsConverter
+import com.doskoch.movies.database.schema.DbEntity
 
 @Database(
     entities = [
-        DbFilm::class,
-        DbFavouriteFilm::class
+        DbEntity::class
     ],
     version = 1
 )
-@TypeConverters(
-    CollectionsConverter::class
-)
+@TypeConverters(CollectionsConverter::class)
 abstract class AppDatabase : RoomDatabase() {
 
     companion object {
@@ -31,9 +25,4 @@ abstract class AppDatabase : RoomDatabase() {
                 .build()
         }
     }
-
-    abstract fun dbFilmDao(): DbFilmDao
-    abstract fun dbFavouriteFilmDao(): DbFavouriteFilmDao
-
-    abstract fun filmDao(): FilmDao
 }

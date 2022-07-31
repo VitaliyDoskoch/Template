@@ -1,7 +1,5 @@
 package com.doskoch.movies.core.functions
 
-import android.content.Context
-
 // fun Context.waitForNetwork(): Completable {
 //    return Completable.create { emitter ->
 //        try {

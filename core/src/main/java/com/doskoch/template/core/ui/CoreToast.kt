@@ -1,4 +1,4 @@
-package com.doskoch.template.core.components.ui.views
+package com.doskoch.template.core.ui
 
 import android.annotation.SuppressLint
 import android.content.Context

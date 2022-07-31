@@ -7,8 +7,6 @@
     android:layout_height="match_parent"
     android:paddingStart="@dimen/base"
     android:paddingEnd="@dimen/base"
-    android:background="?colorPrimary"
-    tools:theme="@style/AppTheme.Light"
     >
     
 

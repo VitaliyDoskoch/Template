@@ -1,4 +1,4 @@
-package com.doskoch.template.core.components.ui.views
+package com.doskoch.template.core.ui
 
 import android.text.TextUtils
 import android.view.View

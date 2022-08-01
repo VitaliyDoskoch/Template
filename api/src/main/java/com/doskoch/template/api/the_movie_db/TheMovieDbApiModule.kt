@@ -16,7 +16,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 import timber.log.Timber
 import java.lang.reflect.Modifier
 import java.util.concurrent.TimeUnit
-import kotlin.reflect.KClass
 
 const val TIMBER_LOG_LEVEL = Log.DEBUG
 val HTTP_LOG_LEVEL = if (BuildConfig.is_logging_enabled) BODY else BASIC
@@ -53,7 +52,7 @@ object TheMovieDbApiModule {
             readTimeout(READ_TIMEOUT, TimeUnit.MILLISECONDS)
             addInterceptors(
                 listOf(
-                    AuthorizationInterceptor { BuildConfig.the_movie_db_api_key },
+                    AuthorizationInterceptor { "BuildConfig.the_movie_db_api_key" },
                     httpLoggingInterceptor
                 )
             )

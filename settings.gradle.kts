@@ -10,10 +10,8 @@ dependencyResolutionManagement {
 
 include(":app")
 include(":core")
-include(":database")
-
 include(":api")
+include(":database")
+include(":legacy")
 
 include(":features:splash")
-
-include(":legacy")

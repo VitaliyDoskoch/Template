@@ -30,6 +30,25 @@ android {
             buildConfigField("Boolean", "is_logging_enabled", "false")
         }
     }
+
+    flavorDimensions "build"
+
+    productFlavors {
+        /* For faster builds */
+        lightweight {
+            dimension = "build"
+            minSdkVersion targetSdkVersion
+            resConfigs "en", "port"
+            ndk {
+                abiFilters "x86"
+            }
+            splits.abi.enable = false
+            splits.density.enable = false
+        }
+        full {
+            dimension = "build"
+        }
+    }
 }
 
 dependencies {

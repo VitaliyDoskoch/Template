@@ -7,9 +7,11 @@ object Versions {
 
     const val material = "1.2.0-alpha03"
 
-    const val coreKtx = "1.2.0"
+    const val recyclerView = "1.1.0"
+    const val swipeRefreshLayout = "1.0.0"
+
+    const val coreKtx = "1.8.0"
     const val annotations = "1.0.0"
-    const val navigationFragmentKtx = "2.2.1"
 
     const val room = "2.2.5"
 
@@ -27,12 +29,13 @@ object Dependencies {
 
     const val material = "com.google.android.material:material:${Versions.material}"
 
+    const val recyclerView = "androidx.recyclerview:recyclerview:${Versions.recyclerView}"
+    const val swipeRefreshLayout = "androidx.swiperefreshlayout:swiperefreshlayout:${Versions.swipeRefreshLayout}"
+
     const val coreKtx = "androidx.core:core-ktx:${Versions.coreKtx}"
     const val annotations = "androidx.annotation:annotation:${Versions.annotations}"
-    const val navigationFragmentKtx = "androidx.navigation:navigation-fragment-ktx:${Versions.navigationFragmentKtx}"
 
     const val room = "androidx.room:room-ktx:${Versions.room}"
-    const val roomRxJava2 = "androidx.room:room-rxjava2:${Versions.room}"
     const val roomCompiler = "androidx.room:room-compiler:${Versions.room}"
 
     const val retrofit2 = "com.squareup.retrofit2:retrofit:${Versions.retrofit2}"

@@ -34,4 +34,5 @@ android {
 
 dependencies {
     implementation Dependencies.kotlin
+    implementation Dependencies.coroutines
 }

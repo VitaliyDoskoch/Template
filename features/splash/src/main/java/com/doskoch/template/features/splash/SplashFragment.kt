@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.VisibleForTesting
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 
 class SplashFragment : Fragment() {
@@ -18,7 +17,7 @@ class SplashFragment : Fragment() {
 
     private lateinit var module: Module
 
-    private val viewModel by viewModels<SplashViewModel> { module.viewModelFactory }
+//    private val viewModel by viewModels<SplashViewModel> { module.viewModelFactory }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_splash, container)

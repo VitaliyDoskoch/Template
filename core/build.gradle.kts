@@ -12,7 +12,6 @@ dependencies {
     api (project(":legacy"))
 
     api(Dependencies.timber)
-    api(Dependencies.navigationFragmentKtx)
-
-    implementation(Dependencies.material)
+    api(Dependencies.material)
+    api(Dependencies.coreKtx)
 }

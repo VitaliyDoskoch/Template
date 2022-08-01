@@ -24,7 +24,5 @@ dependencies {
     implementation(fileTree("dir" to "libs", "include" to listOf("*.jar")))
 
     kapt(Dependencies.roomCompiler)
-
-    implementation(Dependencies.room)
-    implementation(Dependencies.roomRxJava2)
+    api(Dependencies.room)
 }

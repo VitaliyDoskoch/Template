@@ -8,7 +8,7 @@ apply(from = "$rootDir/android.gradle")
 
 android {
     defaultConfig {
-        applicationId = "com.doskoch.movies"
+        applicationId = "com.doskoch.template"
     }
 
     buildTypes {
@@ -31,9 +31,6 @@ dependencies {
     implementation(fileTree("dir" to "libs", "include" to listOf("*.jar")))
 
     implementation(project(":core"))
-
-    implementation(project(":api"))
-
     implementation(project(":features:splash"))
 
     debugImplementation(Dependencies.leakCanary)

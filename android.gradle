@@ -37,7 +37,6 @@ android {
         /* For faster builds */
         lightweight {
             dimension = "build"
-            minSdkVersion targetSdkVersion
             resConfigs "en", "port"
             ndk {
                 abiFilters "x86"

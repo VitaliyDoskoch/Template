@@ -4,6 +4,15 @@ plugins {
 
 apply(from = "$rootDir/android.gradle")
 
+android {
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = Versions.compose
+    }
+}
+
 dependencies {
     implementation(fileTree("dir" to "libs", "include" to listOf("*.jar")))
 
@@ -12,6 +21,7 @@ dependencies {
     api (project(":legacy"))
 
     api(Dependencies.timber)
-    api(Dependencies.material)
     api(Dependencies.coreKtx)
+    api(Dependencies.material)
+    api(Dependencies.compose)
 }

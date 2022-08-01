@@ -1,3 +1,9 @@
+import org.gradle.api.artifacts.dsl.DependencyHandler
+
+fun DependencyHandler.api(items: Collection<String>) = items.forEach { add("api", it) }
+
+fun DependencyHandler.implementation(items: Collection<String>) = items.forEach { add("implementation", it) }
+
 object Versions {
     const val kotlin = "1.6.10"
     const val coroutines = "1.3.9"
@@ -6,6 +12,7 @@ object Versions {
     const val leakCanary = "2.2"
 
     const val material = "1.2.0-alpha03"
+    const val compose = "1.1.1"
 
     const val recyclerView = "1.1.0"
     const val swipeRefreshLayout = "1.0.0"
@@ -27,13 +34,18 @@ object Dependencies {
     const val timber = "com.jakewharton.timber:timber:${Versions.timber}"
     const val leakCanary = "com.squareup.leakcanary:leakcanary-android:${Versions.leakCanary}"
 
+    const val coreKtx = "androidx.core:core-ktx:${Versions.coreKtx}"
+    const val annotations = "androidx.annotation:annotation:${Versions.annotations}"
     const val material = "com.google.android.material:material:${Versions.material}"
+    val compose = listOf(
+        "androidx.compose.ui:ui:${Versions.compose}",
+        "androidx.compose.ui:ui-tooling:${Versions.compose}",
+        "androidx.compose.foundation:foundation:${Versions.compose}",
+        "androidx.compose.material:material:${Versions.compose}"
+    )
 
     const val recyclerView = "androidx.recyclerview:recyclerview:${Versions.recyclerView}"
     const val swipeRefreshLayout = "androidx.swiperefreshlayout:swiperefreshlayout:${Versions.swipeRefreshLayout}"
-
-    const val coreKtx = "androidx.core:core-ktx:${Versions.coreKtx}"
-    const val annotations = "androidx.annotation:annotation:${Versions.annotations}"
 
     const val room = "androidx.room:room-ktx:${Versions.room}"
     const val roomCompiler = "androidx.room:room-compiler:${Versions.room}"

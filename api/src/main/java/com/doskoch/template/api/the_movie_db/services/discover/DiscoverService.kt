@@ -2,7 +2,6 @@ package com.doskoch.template.api.the_movie_db.services.discover
 
 import androidx.annotation.IntRange
 import com.doskoch.template.api.the_movie_db.services.discover.responses.GetMoviesResponse
-import io.reactivex.Single
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -20,5 +19,5 @@ interface DiscoverService {
         toReleaseDate: String,
         @Query("sort_by")
         sortBy: String = "primary_release_date.desc"
-    ): Single<Response<GetMoviesResponse>>
+    ): Response<GetMoviesResponse>
 }

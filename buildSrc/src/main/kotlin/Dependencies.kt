@@ -36,7 +36,6 @@ object Dependencies {
     const val roomCompiler = "androidx.room:room-compiler:${Versions.room}"
 
     const val retrofit2 = "com.squareup.retrofit2:retrofit:${Versions.retrofit2}"
-    const val retrofit2AdapterRxJava2 = "com.squareup.retrofit2:adapter-rxjava2:${Versions.retrofit2}"
     const val retrofit2ConverterGson = "com.squareup.retrofit2:converter-gson:${Versions.retrofit2}"
     const val okhttpLoggingInterceptor = "com.squareup.okhttp3:logging-interceptor:${Versions.okhttpLoggingInterceptor}"
     const val gson = "com.google.code.gson:gson:${Versions.gson}"

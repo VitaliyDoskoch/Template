@@ -1,9 +1,10 @@
 package com.doskoch.template.core.error
 
-import android.annotation.SuppressLint
 import android.content.Context
 import com.doskoch.template.api.the_movie_db.common.error.ErrorResponse
+import com.doskoch.template.api.the_movie_db.functions.errorResponse
 import com.doskoch.template.core.R
+import retrofit2.HttpException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 import java.util.concurrent.TimeoutException
@@ -24,10 +25,6 @@ sealed class CoreError {
         override fun localizedMessage(context: Context) = context.getString(R.string.error_failed_to_save_changes)
     }
 
-    class OperationIsCanceled : CoreError() {
-        override fun localizedMessage(context: Context) = context.getString(R.string.error_operation_is_canceled)
-    }
-
     class NoInternet : CoreError() {
         override fun localizedMessage(context: Context) = context.getString(R.string.error_no_internet)
     }
@@ -36,18 +33,11 @@ sealed class CoreError {
         override fun localizedMessage(context: Context) = context.getString(R.string.error_timeout)
     }
 
+    class OperationIsCanceled : CoreError() {
+        override fun localizedMessage(context: Context) = context.getString(R.string.error_operation_is_canceled)
+    }
+
     sealed class Remote(private val remoteMessage: String?) : CoreError() {
-
-        companion object {
-            fun create(exception: HttpException): CoreError = exception.extractMessage()
-                ?.let { create(it.code, it.message) }
-                ?: Unspecified(null)
-
-            private fun create(code: ErrorResponse.Code?, message: String) = when (code) {
-                ErrorResponse.Code.UNKNOWN -> Unspecified(message)
-                else -> Unspecified(message)
-            }
-        }
 
         override fun localizedMessage(context: Context) = remoteMessage ?: context.getString(R.string.error_http)
 
@@ -57,12 +47,17 @@ sealed class CoreError {
 
 fun Throwable.toCoreError(ifUnknown: CoreError) = toCoreError { ifUnknown }
 
-fun Throwable.toCoreError(ifUnknown: (Throwable) -> CoreError = { CoreError.Unknown() }) = when (this) {
+fun Throwable.toCoreError(ifUnknown: (Throwable) -> CoreError) = when (this) {
     is UnknownHostException -> CoreError.NoInternet()
     is SocketTimeoutException, is TimeoutException -> CoreError.Timeout()
     is InterruptedException -> CoreError.OperationIsCanceled()
-    is AppIsOutdatedException -> CoreError.AppIsOutdated()
-    is ShutdownException -> CoreError.Shutdown()
-    is HttpException -> CoreError.Remote.create(this)
+    is HttpException -> errorResponse()
+        ?.let { response ->
+            when(response.code) {
+                ErrorResponse.Code.UNKNOWN -> CoreError.Remote.Unspecified(message)
+                else -> null
+            }
+        }
+        ?: CoreError.Remote.Unspecified(null)
     else -> ifUnknown(this)
 }

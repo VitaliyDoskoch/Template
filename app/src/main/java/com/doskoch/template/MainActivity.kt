@@ -7,7 +7,7 @@ import androidx.compose.material.Text
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.text.font.FontStyle
 import androidx.fragment.app.FragmentActivity
-import com.doskoch.template.core.theme.BaseTheme
+import com.doskoch.template.core.theme.BasicTheme
 
 class MainActivity : FragmentActivity() {
 
@@ -16,7 +16,7 @@ class MainActivity : FragmentActivity() {
 //        setContentView(R.layout.activity_main)
         setContentView(ComposeView(this).apply {
             setContent {
-                BaseTheme {
+                BasicTheme {
                     Column {
                         Text(text = "lorem", style = MaterialTheme.typography.h1.copy(fontStyle = FontStyle.Italic))
                         Text(text = "lorem", style = MaterialTheme.typography.h2)

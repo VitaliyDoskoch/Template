@@ -16,7 +16,7 @@ private val Roboto = FontFamily(
     Font(R.font.roboto_bold, FontWeight.Bold)
 )
 
-val BaseTypography = Typography(
+val BasicTypography = Typography(
     h1 = TextStyle(
         fontFamily = Roboto,
         fontWeight = FontWeight.Light,

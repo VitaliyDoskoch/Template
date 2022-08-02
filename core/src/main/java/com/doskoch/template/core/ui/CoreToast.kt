@@ -17,7 +17,6 @@ class CoreToast(context: Context, message: String, duration: Int) : Toast(contex
 
         val background = GradientDrawable().apply {
             setColor(context.getThemeColor(R.attr.colorPrimaryDark))
-            cornerRadius = context.resources.getDimensionPixelSize(R.dimen.base_large_x5).toFloat()
         }
 
         layout.findViewById<TextView>(R.id.toastMessageTextView).apply {

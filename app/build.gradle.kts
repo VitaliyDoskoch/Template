@@ -11,6 +11,13 @@ android {
         applicationId = "com.doskoch.template"
     }
 
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = Versions.compose
+    }
+
     buildTypes {
         debug {
             isMinifyEnabled = false

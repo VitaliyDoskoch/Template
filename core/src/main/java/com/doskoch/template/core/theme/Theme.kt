@@ -21,11 +21,11 @@ private val LocalExtraColors = staticCompositionLocalOf<ExtraColors?> { null }
 
 @Composable
 fun BasicTheme(content: @Composable () -> Unit) {
-    val extraColors = if(isSystemInDarkTheme()) BasicDarkExtraColors else BasicLightExtraColors
+    val extraColors = if (isSystemInDarkTheme()) BasicDarkExtraColors else BasicLightExtraColors
 
     CompositionLocalProvider(LocalExtraColors provides extraColors) {
         MaterialTheme(
-            colors = if(isSystemInDarkTheme()) BasicDarkColors else BasicLightColors,
+            colors = if (isSystemInDarkTheme()) BasicDarkColors else BasicLightColors,
             typography = BasicTypography,
             shapes = BasicShapes,
             content = content

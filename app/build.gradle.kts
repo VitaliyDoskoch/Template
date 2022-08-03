@@ -5,17 +5,11 @@ plugins {
 }
 
 apply(from = "$rootDir/android.gradle")
+apply(from = "$rootDir/compose.gradle")
 
 android {
     defaultConfig {
         applicationId = "com.doskoch.template"
-    }
-
-    buildFeatures {
-        compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = Versions.compose
     }
 
     buildTypes {
@@ -37,7 +31,10 @@ android {
 dependencies {
     implementation(fileTree("dir" to "libs", "include" to listOf("*.jar")))
 
+    implementation(project(":api"))
+    implementation(project(":database"))
     implementation(project(":core"))
+
     implementation(project(":features:splash"))
 
     debugImplementation(Dependencies.leakCanary)

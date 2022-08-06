@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -32,6 +34,7 @@ fun SplashScreen(vm: SplashViewModel) {
         Column(
             modifier = Modifier
                 .padding(paddingValues)
+                .systemBarsPadding()
                 .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -41,7 +44,7 @@ fun SplashScreen(vm: SplashViewModel) {
                 painter = painterResource(R.drawable.im_app_icon),
                 contentDescription = null,
                 modifier = Modifier
-                    .size(64.dp)
+                    .size(140.dp)
             )
 
             Spacer(modifier = Modifier.weight(1f))

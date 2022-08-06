@@ -2,7 +2,9 @@ package com.doskoch.template.features.splash
 
 import androidx.lifecycle.ViewModel
 
-class SplashViewModel(private val module: Module) : ViewModel() {
+class SplashViewModel(
+    private val minDisplayTime: Long
+) : ViewModel() {
 
-    data class Module(val minDisplayTime: Long)
+    val text = "SplashScreen"
 }

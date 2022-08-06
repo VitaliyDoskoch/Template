@@ -1,17 +1,22 @@
 package com.doskoch.template
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.doskoch.template.features.splash.SplashScreen
 
 @Composable
 fun MainNavigation() {
-    Scaffold() {
-        Box(Modifier.fillMaxSize()
-            .background(Color.Red))
+    val navController = rememberNavController()
+
+    NavHost(navController = navController, startDestination = Destinations.Splash.name) {
+        composable(Destinations.Splash.name) {
+            SplashScreen()
+        }
     }
+}
+
+private enum class Destinations {
+    Splash
 }

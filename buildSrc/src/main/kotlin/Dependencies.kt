@@ -45,7 +45,8 @@ object Dependencies {
         "androidx.compose.ui:ui:${Versions.compose}",
         "androidx.compose.ui:ui-tooling:${Versions.compose}",
         "androidx.compose.foundation:foundation:${Versions.compose}",
-        "androidx.compose.material:material:${Versions.compose}"
+        "androidx.compose.material:material:${Versions.compose}",
+        "androidx.navigation:navigation-compose:${Versions.navigationKtx}"
     )
 
     const val fragmentKtx = "androidx.fragment:fragment-ktx:${Versions.fragmentKtx}"

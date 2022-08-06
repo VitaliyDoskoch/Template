@@ -38,4 +38,7 @@ dependencies {
     implementation(project(":features:splash"))
 
     debugImplementation(Dependencies.leakCanary)
+
+    implementation(Dependencies.fragmentKtx)
+    implementation(Dependencies.navigationKtx)
 }

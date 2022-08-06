@@ -1,10 +1,10 @@
-package com.doskoch.template.api.the_movie_db
+package com.doskoch.template.api.jikan
 
 import android.util.Log
 import com.doskoch.template.api.BuildConfig
-import com.doskoch.template.api.the_movie_db.common.interceptors.AuthorizationInterceptor
-import com.doskoch.template.api.the_movie_db.functions.addInterceptors
-import com.doskoch.template.api.the_movie_db.services.discover.DiscoverService
+import com.doskoch.template.api.jikan.interceptors.ApiVersionInterceptor
+import com.doskoch.template.api.jikan.functions.addInterceptors
+import com.doskoch.template.api.jikan.services.TopService
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonParser
 import okhttp3.OkHttpClient
@@ -23,10 +23,10 @@ val HTTP_LOG_LEVEL = if (BuildConfig.is_logging_enabled) BODY else BASIC
 const val CONNECT_TIMEOUT = 45_000L
 const val READ_TIMEOUT = 45_000L
 
-const val BASE_URL = "https://api.themoviedb.org/4/"
+const val BASE_URL = "https://api.jikan.moe/"
 
 @Suppress("MemberVisibilityCanBePrivate")
-object TheMovieDbApiModule {
+object JikanApiProvider {
 
     internal val httpLoggingInterceptor by lazy {
         HttpLoggingInterceptor(object : HttpLoggingInterceptor.Logger {
@@ -52,7 +52,7 @@ object TheMovieDbApiModule {
             readTimeout(READ_TIMEOUT, TimeUnit.MILLISECONDS)
             addInterceptors(
                 listOf(
-                    AuthorizationInterceptor { "BuildConfig.the_movie_db_api_key" },
+                    ApiVersionInterceptor(BASE_URL),
                     httpLoggingInterceptor
                 )
             )
@@ -78,5 +78,5 @@ object TheMovieDbApiModule {
             .build()
     }
 
-    val discoverService by lazy { retrofit.create(DiscoverService::class.java) }
+    val topService by lazy { retrofit.create(TopService::class.java) }
 }

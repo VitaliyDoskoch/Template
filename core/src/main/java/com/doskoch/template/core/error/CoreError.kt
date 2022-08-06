@@ -1,8 +1,8 @@
 package com.doskoch.template.core.error
 
 import android.content.Context
-import com.doskoch.template.api.the_movie_db.common.error.ErrorResponse
-import com.doskoch.template.api.the_movie_db.functions.errorResponse
+import com.doskoch.template.api.jikan.common.error.ErrorResponse
+import com.doskoch.template.api.jikan.functions.errorResponse
 import com.doskoch.template.core.R
 import retrofit2.HttpException
 import java.net.SocketTimeoutException

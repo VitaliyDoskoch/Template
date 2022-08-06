@@ -1,4 +1,4 @@
-package com.doskoch.template.api.the_movie_db.functions
+package com.doskoch.template.api.jikan.functions
 
 import retrofit2.Converter
 import retrofit2.Retrofit

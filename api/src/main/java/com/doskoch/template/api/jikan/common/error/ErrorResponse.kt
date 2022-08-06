@@ -1,4 +1,4 @@
-package com.doskoch.template.api.the_movie_db.common.error
+package com.doskoch.template.api.jikan.common.error
 
 import com.google.gson.annotations.SerializedName
 

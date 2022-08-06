@@ -11,14 +11,17 @@ object Versions {
     const val timber = "4.6.1"
     const val leakCanary = "2.2"
 
+    const val coreKtx = "1.8.0"
+    const val annotations = "1.0.0"
+
     const val material = "1.2.0-alpha03"
     const val compose = "1.1.1"
 
+    const val fragmentKtx = "1.5.1"
+    const val navigationKtx = "2.5.1"
+
     const val recyclerView = "1.1.0"
     const val swipeRefreshLayout = "1.0.0"
-
-    const val coreKtx = "1.8.0"
-    const val annotations = "1.0.0"
 
     const val room = "2.2.5"
 
@@ -36,12 +39,19 @@ object Dependencies {
 
     const val coreKtx = "androidx.core:core-ktx:${Versions.coreKtx}"
     const val annotations = "androidx.annotation:annotation:${Versions.annotations}"
+
     const val material = "com.google.android.material:material:${Versions.material}"
     val compose = listOf(
         "androidx.compose.ui:ui:${Versions.compose}",
         "androidx.compose.ui:ui-tooling:${Versions.compose}",
         "androidx.compose.foundation:foundation:${Versions.compose}",
         "androidx.compose.material:material:${Versions.compose}"
+    )
+
+    const val fragmentKtx = "androidx.fragment:fragment-ktx:${Versions.fragmentKtx}"
+    val navigationKtx = listOf(
+        "androidx.navigation:navigation-fragment-ktx:${Versions.navigationKtx}",
+        "androidx.navigation:navigation-ui-ktx:${Versions.navigationKtx}"
     )
 
     const val recyclerView = "androidx.recyclerview:recyclerview:${Versions.recyclerView}"

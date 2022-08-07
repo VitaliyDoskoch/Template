@@ -3,7 +3,7 @@ package com.doskoch.template.authorization.signIn
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.doskoch.template.authorization.AuthorizationFeatureNavigator
-import com.doskoch.template.authorization.AuthorizationNavigator
+import com.doskoch.template.authorization.AuthorizationNestedNavigator
 import com.doskoch.template.core.error.CoreError
 import com.doskoch.template.core.error.GlobalErrorHandler
 import com.doskoch.template.core.error.toCoreError
@@ -13,10 +13,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 class SignInViewModel(
-    private val navigator: AuthorizationNavigator,
+    private val navigator: AuthorizationNestedNavigator,
     private val validateEmailUseCase: ValidateEmailUseCase,
     private val globalErrorHandler: GlobalErrorHandler,
     private val featureNavigator: AuthorizationFeatureNavigator

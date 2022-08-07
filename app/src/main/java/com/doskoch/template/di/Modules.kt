@@ -6,8 +6,7 @@ import com.doskoch.template.GlobalErrorHandlerHolder
 import com.doskoch.template.api.jikan.JikanApi
 import com.doskoch.template.authorization.AuthorizationFeature
 import com.doskoch.template.authorization.AuthorizationFeatureNavigator
-import com.doskoch.template.authorization.AuthorizationNavigator
-import com.doskoch.template.core.error.GlobalErrorHandler
+import com.doskoch.template.authorization.AuthorizationNestedNavigator
 import com.doskoch.template.database.AppDatabase
 import com.doskoch.template.features.splash.SplashFeatureNavigator
 import com.doskoch.template.features.splash.SplashFeature
@@ -36,7 +35,7 @@ fun authorizationFeatureModule(component: AppComponent) = object : Authorization
             .let(component.navigator::toMain)
     }
 
-    override val innerNavigator = AuthorizationNavigator()
+    override val nestedNavigator = AuthorizationNestedNavigator()
 
     override val globalErrorHandler = component.globalErrorHandlerHolder.handler
 }

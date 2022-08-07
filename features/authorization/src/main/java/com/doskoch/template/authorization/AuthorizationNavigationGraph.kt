@@ -13,10 +13,10 @@ fun AuthorizationNavigationGraph() {
     val navController = rememberNavController()
 
     LaunchedEffect(navController) {
-        Injector.innerNavigator.navController = navController
+        Injector.nestedNavigator.navController = navController
     }
 
-    NavHost(navController = navController, startDestination = AuthorizationNavigator.startDestination.name) {
+    NavHost(navController = navController, startDestination = AuthorizationNestedNavigator.startDestination.name) {
         composable(Destinations.SignUp.name) {
             SignUpScreen()
         }

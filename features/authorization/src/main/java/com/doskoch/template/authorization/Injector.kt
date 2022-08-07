@@ -8,7 +8,7 @@ import com.doskoch.template.core.error.GlobalErrorHandler
 
 interface AuthorizationFeature {
     val navigator: AuthorizationFeatureNavigator
-    val innerNavigator: AuthorizationNavigator
+    val nestedNavigator: AuthorizationNestedNavigator
     val globalErrorHandler: GlobalErrorHandler
 }
 
@@ -26,11 +26,11 @@ internal val Injector: AuthorizationFeature
 object Module {
 
     val signUpViewModel: SignUpViewModel
-        get() = SignUpViewModel(navigator = Injector.innerNavigator)
+        get() = SignUpViewModel(navigator = Injector.nestedNavigator)
 
     val signInViewModel: SignInViewModel
         get() = SignInViewModel(
-            navigator = Injector.innerNavigator,
+            navigator = Injector.nestedNavigator,
             validateEmailUseCase = ValidateEmailUseCase(),
             globalErrorHandler = Injector.globalErrorHandler,
             featureNavigator = Injector.navigator

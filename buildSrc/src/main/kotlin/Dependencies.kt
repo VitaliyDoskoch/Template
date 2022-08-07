@@ -17,6 +17,8 @@ object Versions {
     const val material = "1.2.0-alpha03"
     const val compose = "1.2.0"
 
+    const val accompanist = "0.26.0-alpha"
+
     const val fragmentKtx = "1.5.1"
     const val navigationKtx = "2.5.1"
 
@@ -55,6 +57,8 @@ object Dependencies {
         "androidx.compose.material:material:${Versions.compose}",
         "androidx.navigation:navigation-compose:${Versions.navigationKtx}"
     )
+
+    val accompanist = "com.google.accompanist:accompanist-systemuicontroller:${Versions.accompanist}"
 
     const val fragmentKtx = "androidx.fragment:fragment-ktx:${Versions.fragmentKtx}"
     val navigationKtx = listOf(

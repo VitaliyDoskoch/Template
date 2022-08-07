@@ -17,6 +17,7 @@ dependencies {
     api(Dependencies.coreKtx)
     api(Dependencies.material)
     api(Dependencies.compose)
+    api(Dependencies.accompanist)
     api(Dependencies.coil)
     api(Dependencies.paging)
     api(Dependencies.pagingCompose)

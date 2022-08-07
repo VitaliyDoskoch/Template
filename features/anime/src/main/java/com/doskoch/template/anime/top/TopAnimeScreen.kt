@@ -18,6 +18,7 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -39,6 +40,7 @@ import com.doskoch.template.anime.R
 import com.doskoch.template.anime.data.AnimeItem
 import com.doskoch.template.anime.di.Module
 import com.doskoch.template.core.theme.Dimensions
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import java.text.DecimalFormat
 
 @OptIn(ExperimentalPagingApi::class)
@@ -62,6 +64,13 @@ private fun TopAnimeScreen(
 ) {
     Scaffold(
         topBar = {
+            val systemUiController = rememberSystemUiController()
+            val statusBarColor = MaterialTheme.colors.primary
+
+            SideEffect {
+                systemUiController.setStatusBarColor(statusBarColor)
+            }
+
             TopAppBar(
                 modifier = Modifier
                     .statusBarsPadding()

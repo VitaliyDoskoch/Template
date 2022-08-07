@@ -1,18 +1,25 @@
 package com.doskoch.template.core.ui
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonColors
 import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.dp
 import com.doskoch.template.core.theme.Dimensions
 import java.util.*
 
@@ -21,24 +28,48 @@ fun CoreButton(
     text: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    enabled: Boolean = true
+    enabled: Boolean = true,
+    isLoading: Boolean = false
 ) {
     Button(
         onClick = onClick,
         modifier = modifier,
         enabled = enabled
     ) {
-        Text(
-            text = text.uppercase(),
+        Row(
             modifier = Modifier
-                .padding(horizontal = Dimensions.space_16, vertical = Dimensions.space_4)
+                .padding(horizontal = Dimensions.space_8, vertical = Dimensions.space_4)
                 .fillMaxWidth(),
-            style = MaterialTheme.typography.button,
-            color = if(enabled) MaterialTheme.colors.secondary else MaterialTheme.colors.onBackground,
-            textAlign = TextAlign.Center,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis
-        )
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = text.uppercase(),
+                modifier = Modifier
+                    .padding(start = Dimensions.space_32)
+                    .weight(1f),
+                style = MaterialTheme.typography.button,
+                color = if(enabled) MaterialTheme.colors.secondary else MaterialTheme.colors.onBackground,
+                textAlign = TextAlign.Center,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
+
+            if(isLoading) {
+                CircularProgressIndicator(
+                    modifier = Modifier
+                        .padding(start = Dimensions.space_8)
+                        .size(Dimensions.icon_24),
+                    color = MaterialTheme.colors.secondary,
+                    strokeWidth = 3.dp
+                )
+            } else {
+                Box(
+                    modifier = Modifier
+                        .padding(start = Dimensions.space_8)
+                        .size(Dimensions.icon_24)
+                )
+            }
+        }
     }
 }
 
@@ -58,7 +89,7 @@ fun CoreTextButton(
             text = text.uppercase(),
             modifier = Modifier
                 .padding(horizontal = Dimensions.space_16, vertical = Dimensions.space_4)
-                .fillMaxWidth(),
+                .weight(1f),
             style = MaterialTheme.typography.button,
             color = MaterialTheme.colors.primary,
             textAlign = TextAlign.Center,

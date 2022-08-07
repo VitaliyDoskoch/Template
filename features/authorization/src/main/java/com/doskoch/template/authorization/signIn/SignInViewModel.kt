@@ -8,6 +8,7 @@ import com.doskoch.template.core.error.CoreError
 import com.doskoch.template.core.error.GlobalErrorHandler
 import com.doskoch.template.core.error.toCoreError
 import com.doskoch.template.core.functions.perform
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -27,18 +28,16 @@ class SignInViewModel(
     private fun onNavigateBack() = viewModelScope.launch { navigator.navigateUp() }
 
     private fun onUpdateEmail(value: String) = viewModelScope.launch {
-        _state.update {
-            it.copy(
-                email = value,
-                error = null,
-                isProceedButtonEnabled = value.isNotBlank()
-            )
-        }
+        _state.update { it.copy(email = value, error = null, isProceedButtonEnabled = value.isNotBlank()) }
     }
 
     private fun onProceed() = perform(
         action = {
+            if(state.value.isLoading) return@perform
+
             if(validateEmailUseCase.invoke(state.value.email.trim())) {
+                _state.update { it.copy(isLoading = true) }
+                delay(2_000)
                 featureNavigator.toMain()
             } else {
                 _state.update { it.copy(error = CoreError.InvalidEmail()) }

@@ -99,7 +99,8 @@ private fun SignInScreen(state: SignInViewModel.State) {
                     .imePadding()
                     .fillMaxWidth()
                     .requiredHeight(Dimensions.button_height),
-                enabled = state.isProceedButtonEnabled
+                enabled = state.isProceedButtonEnabled,
+                isLoading = state.isLoading
             )
         }
     }

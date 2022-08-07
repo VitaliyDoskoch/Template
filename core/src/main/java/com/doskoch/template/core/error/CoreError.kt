@@ -49,7 +49,7 @@ sealed class CoreError {
     }
 }
 
-fun Throwable.toCoreError(ifUnknown: CoreError) = toCoreError { ifUnknown }
+fun Throwable.toCoreError(ifUnknown: CoreError = CoreError.Unknown()) = toCoreError { ifUnknown }
 
 fun Throwable.toCoreError(ifUnknown: (Throwable) -> CoreError) = when (this) {
     is UnknownHostException -> CoreError.NoInternet()

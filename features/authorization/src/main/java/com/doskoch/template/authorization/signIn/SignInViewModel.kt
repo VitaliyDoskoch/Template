@@ -7,6 +7,7 @@ import com.doskoch.template.authorization.AuthorizationNavigator
 import com.doskoch.template.core.error.CoreError
 import com.doskoch.template.core.error.GlobalErrorHandler
 import com.doskoch.template.core.error.toCoreError
+import com.doskoch.template.core.functions.perform
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -35,18 +36,16 @@ class SignInViewModel(
         }
     }
 
-    private fun onProceed() = viewModelScope.launch {
-        try {
+    private fun onProceed() = perform(
+        action = {
             if(validateEmailUseCase.invoke(state.value.email.trim())) {
                 featureNavigator.toMain()
             } else {
                 _state.update { it.copy(error = CoreError.InvalidEmail()) }
             }
-        } catch (t: Throwable) {
-            Timber.e(t)
-            globalErrorHandler.showError(CoreError.Unknown())
-        }
-    }
+        },
+        onError = { globalErrorHandler.showError(it.toCoreError()) }
+    )
 
     data class State(
         val email: String,

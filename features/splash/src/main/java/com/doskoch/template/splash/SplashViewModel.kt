@@ -1,4 +1,4 @@
-package com.doskoch.template.features.splash
+package com.doskoch.template.splash
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

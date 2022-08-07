@@ -8,8 +8,8 @@ import com.doskoch.template.authorization.AuthorizationFeature
 import com.doskoch.template.authorization.AuthorizationFeatureNavigator
 import com.doskoch.template.authorization.AuthorizationNestedNavigator
 import com.doskoch.template.database.AppDatabase
-import com.doskoch.template.features.splash.SplashFeatureNavigator
-import com.doskoch.template.features.splash.SplashFeature
+import com.doskoch.template.splash.SplashFeatureNavigator
+import com.doskoch.template.splash.SplashFeature
 import com.doskoch.template.navigation.Destinations
 import com.doskoch.template.navigation.MainNavigator
 

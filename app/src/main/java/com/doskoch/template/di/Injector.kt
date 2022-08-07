@@ -6,7 +6,7 @@ import com.doskoch.template.GlobalErrorHandlerHolder
 import com.doskoch.template.api.jikan.JikanApiInjector
 import com.doskoch.template.authorization.AuthorizationFeatureInjector
 import com.doskoch.template.database.AppDatabase
-import com.doskoch.template.features.splash.SplashFeatureInjector
+import com.doskoch.template.splash.SplashFeatureInjector
 import com.doskoch.template.navigation.MainNavigator
 import timber.log.Timber
 

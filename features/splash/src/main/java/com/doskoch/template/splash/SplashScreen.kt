@@ -1,4 +1,4 @@
-package com.doskoch.template.features.splash
+package com.doskoch.template.splash
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.doskoch.legacy.android.viewModel.viewModelFactory
 import com.doskoch.template.core.theme.Dimensions
+import com.doskoch.template.splash.R
 
 @Composable
 fun SplashScreen() {

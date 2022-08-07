@@ -5,6 +5,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.doskoch.template.anime.AnimeNavigationGraph
 import com.doskoch.template.authorization.AuthorizationNavigationGraph
 import com.doskoch.template.di.AppInjector
 import com.doskoch.template.splash.SplashScreen
@@ -24,8 +25,8 @@ fun MainNavigationGraph() {
         composable(Destinations.Authorization.name) {
             AuthorizationNavigationGraph()
         }
-        composable(Destinations.Main.name) {
-
+        composable(Destinations.Anime.name) {
+            AnimeNavigationGraph()
         }
     }
 }
@@ -33,5 +34,5 @@ fun MainNavigationGraph() {
 enum class Destinations {
     Splash,
     Authorization,
-    Main
+    Anime
 }

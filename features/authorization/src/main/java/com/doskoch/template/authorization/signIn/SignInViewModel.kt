@@ -37,7 +37,7 @@ class SignInViewModel(
             if(validateEmailUseCase.invoke(state.value.email.trim())) {
                 _state.update { it.copy(isLoading = true) }
                 delay(2_000)
-                featureNavigator.toMain()
+                featureNavigator.toAnime()
             } else {
                 _state.update { it.copy(error = CoreError.InvalidEmail()) }
             }

@@ -3,6 +3,9 @@ package com.doskoch.template.di
 import android.app.Application
 import androidx.navigation.navOptions
 import com.doskoch.template.GlobalErrorHandlerHolder
+import com.doskoch.template.anime.AnimeFeature
+import com.doskoch.template.anime.AnimeFeatureNavigator
+import com.doskoch.template.anime.AnimeNestedNavigator
 import com.doskoch.template.api.jikan.JikanApi
 import com.doskoch.template.authorization.AuthorizationFeature
 import com.doskoch.template.authorization.AuthorizationFeatureNavigator
@@ -31,11 +34,21 @@ fun splashFeatureModule(component: AppComponent) = object : SplashFeature {
 
 fun authorizationFeatureModule(component: AppComponent) = object : AuthorizationFeature {
     override val navigator = object : AuthorizationFeatureNavigator {
-        override fun toMain() = navOptions { popUpTo(Destinations.Authorization.name) { inclusive = true } }
-            .let(component.navigator::toMain)
+        override fun toAnime() = navOptions { popUpTo(Destinations.Authorization.name) { inclusive = true } }
+            .let(component.navigator::toAnime)
     }
 
     override val nestedNavigator = AuthorizationNestedNavigator()
+
+    override val globalErrorHandler = component.globalErrorHandlerHolder.handler
+}
+
+fun animeFeatureModule(component: AppComponent) = object : AnimeFeature {
+    override val navigator = object : AnimeFeatureNavigator {
+
+    }
+
+    override val nestedNavigator = AnimeNestedNavigator()
 
     override val globalErrorHandler = component.globalErrorHandlerHolder.handler
 }

@@ -1,7 +1,6 @@
 package com.doskoch.template.authorization
 
 import androidx.navigation.NavController
-import androidx.navigation.NavOptions
 
 class AuthorizationNestedNavigator {
 

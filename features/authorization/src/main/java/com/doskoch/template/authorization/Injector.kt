@@ -13,7 +13,7 @@ interface AuthorizationFeature {
 }
 
 interface AuthorizationFeatureNavigator {
-    fun toMain()
+    fun toAnime()
 }
 
 object AuthorizationFeatureInjector {

@@ -11,7 +11,7 @@ class MainNavigator {
 
     fun toAuthorization(options: NavOptions) = navController.navigate(Destinations.Authorization.name, options)
 
-    fun toMain(options: NavOptions) = navController.navigate(Destinations.Main.name, options)
+    fun toAnime(options: NavOptions) = navController.navigate(Destinations.Anime.name, options)
 
     companion object {
         val startDestination = Destinations.Splash

@@ -3,6 +3,7 @@ package com.doskoch.template.di
 import android.app.Application
 import com.doskoch.legacy.kotlin.DestroyableLazy
 import com.doskoch.template.GlobalErrorHandlerHolder
+import com.doskoch.template.anime.AnimeFeatureInjector
 import com.doskoch.template.api.jikan.JikanApiInjector
 import com.doskoch.template.authorization.AuthorizationFeatureInjector
 import com.doskoch.template.database.AppDatabase
@@ -33,6 +34,11 @@ object AppInjector {
 
         AuthorizationFeatureInjector.provider = DestroyableLazy(
             initialize = { authorizationFeatureModule(component).also(this::logCreation) },
+            onDestroyInstance = this::logDestruction
+        )
+
+        AnimeFeatureInjector.provider = DestroyableLazy(
+            initialize = { animeFeatureModule(component).also(this::logCreation) },
             onDestroyInstance = this::logDestruction
         )
     }

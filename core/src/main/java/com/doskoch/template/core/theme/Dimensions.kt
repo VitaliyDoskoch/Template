@@ -30,12 +30,12 @@ data class AbstractDimensions(
     val icon_12: Dp,
     val icon_16: Dp,
     val icon_20: Dp,
-
     val icon_24: Dp,
-
     val icon_28: Dp,
     val icon_32: Dp,
-    val icon_40: Dp
+    val icon_40: Dp,
+
+    val button_height: Dp
 )
 
 val NormalDimensions = AbstractDimensions(
@@ -63,7 +63,9 @@ val NormalDimensions = AbstractDimensions(
     icon_24 = 24.dp,
     icon_28 = 28.dp,
     icon_32 = 32.dp,
-    icon_40 = 40.dp
+    icon_40 = 40.dp,
+
+    button_height = 52.dp
 )
 
 val SmallDimensions = AbstractDimensions(
@@ -91,7 +93,9 @@ val SmallDimensions = AbstractDimensions(
     icon_24 = 24.dp,
     icon_28 = 26.dp,
     icon_32 = 28.dp,
-    icon_40 = 30.dp
+    icon_40 = 30.dp,
+
+    button_height = 48.dp
 )
 
 val Dimensions: AbstractDimensions

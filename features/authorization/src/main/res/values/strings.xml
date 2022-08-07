@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="project_description">It is an example project, designed to show a good Android app architecture implementation.
+        It uses the free Jikan api under the hood.</string>
+    <string name="sign_in_motivation">Please, sign in to unlock extra features e.g. adding to favorites.
+        Don\'t worry - the flow is mocked ;)</string>
+    <string name="sign_in">Sign in</string>
+    <string name="or">or</string>
+    <string name="skip">Skip</string>
+</resources>

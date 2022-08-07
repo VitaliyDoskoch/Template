@@ -33,7 +33,7 @@ fun SplashScreen() {
 }
 
 @Composable
-fun SplashScreen(vm: SplashViewModel) {
+private fun SplashScreen(vm: SplashViewModel) {
     Scaffold { paddingValues ->
         Column(
             modifier = Modifier

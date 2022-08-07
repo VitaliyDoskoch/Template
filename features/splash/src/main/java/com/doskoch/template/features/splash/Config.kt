@@ -1,3 +1,4 @@
 package com.doskoch.template.features.splash
 
-const val MIN_SPLASH_DISPLAY_TIME = 1_000L
+//TODO: change to 1 sec
+const val MIN_SPLASH_DISPLAY_TIME = 1L

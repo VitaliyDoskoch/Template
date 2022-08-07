@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Template</string>
     <string name="version">Version %s</string>
     <string name="developed_by">Developed by Vitaliy Doskoch</string>
 </resources>

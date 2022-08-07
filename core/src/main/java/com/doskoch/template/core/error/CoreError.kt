@@ -37,6 +37,10 @@ sealed class CoreError {
         override fun localizedMessage(context: Context) = context.getString(R.string.error_operation_is_canceled)
     }
 
+    class InvalidEmail : CoreError() {
+        override fun localizedMessage(context: Context) = context.getString(R.string.error_invalid_email)
+    }
+
     sealed class Remote(private val remoteMessage: String?) : CoreError() {
 
         override fun localizedMessage(context: Context) = remoteMessage ?: context.getString(R.string.error_http)

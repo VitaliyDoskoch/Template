@@ -56,7 +56,7 @@ fun CoreTextInputField(
         },
         enabled = enabled,
         readOnly = readOnly,
-        textStyle = MaterialTheme.typography.body2.copy(color = MaterialTheme.colors.onPrimary),
+        textStyle = MaterialTheme.typography.body2.copy(color = MaterialTheme.colors.onBackground),
         keyboardOptions = keyboardOptions,
         keyboardActions = keyboardActions,
         singleLine = singleLine,
@@ -98,6 +98,7 @@ fun CoreTextInputField(
                         text = errorMessage,
                         modifier = Modifier
                             .padding(top = Dimensions.space_4),
+                        style = MaterialTheme.typography.body2,
                         color = MaterialTheme.colors.error,
                         maxLines = 3,
                         overflow = TextOverflow.Ellipsis

@@ -20,11 +20,13 @@ import java.util.*
 fun CoreButton(
     text: String,
     onClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true
 ) {
     Button(
         onClick = onClick,
-        modifier = modifier
+        modifier = modifier,
+        enabled = enabled
     ) {
         Text(
             text = text.uppercase(),
@@ -32,7 +34,7 @@ fun CoreButton(
                 .padding(horizontal = Dimensions.space_16, vertical = Dimensions.space_4)
                 .fillMaxWidth(),
             style = MaterialTheme.typography.button,
-            color = MaterialTheme.colors.secondary,
+            color = if(enabled) MaterialTheme.colors.secondary else MaterialTheme.colors.onBackground,
             textAlign = TextAlign.Center,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis

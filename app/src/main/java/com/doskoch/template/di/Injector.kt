@@ -2,6 +2,7 @@ package com.doskoch.template.di
 
 import android.app.Application
 import com.doskoch.legacy.kotlin.DestroyableLazy
+import com.doskoch.template.GlobalErrorHandlerHolder
 import com.doskoch.template.api.jikan.JikanApiInjector
 import com.doskoch.template.authorization.AuthorizationFeatureInjector
 import com.doskoch.template.database.AppDatabase
@@ -12,6 +13,7 @@ import timber.log.Timber
 interface AppComponent {
     val application: Application
     val navigator: MainNavigator
+    val globalErrorHandlerHolder: GlobalErrorHandlerHolder
     val appDatabase: AppDatabase
 }
 

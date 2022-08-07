@@ -26,10 +26,14 @@ fun MainNavigationGraph() {
         composable(Destinations.Authorization.name) {
             AuthorizationNavigationGraph()
         }
+        composable(Destinations.Main.name) {
+
+        }
     }
 }
 
 enum class Destinations {
     Splash,
-    Authorization
+    Authorization,
+    Main
 }

@@ -13,6 +13,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -22,7 +23,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.doskoch.legacy.android.viewModel.viewModelFactory
 import com.doskoch.template.authorization.Module
 import com.doskoch.template.authorization.R
-import com.doskoch.template.core.error.CoreError
 import com.doskoch.template.core.theme.Dimensions
 import com.doskoch.template.core.ui.CoreButton
 import com.doskoch.template.core.ui.CoreTextInputField
@@ -38,29 +38,19 @@ fun SignInScreen() {
 @Composable
 private fun SignInScreen(vm: SignInViewModel) {
     SignInScreen(
-        onNavigateBack = {},
-        email = "",
-        onEmailChange = {},
-        error = null,
-        onProceed = {}
+        state = vm.state.collectAsState().value
     )
 }
 
 @Composable
-private fun SignInScreen(
-    onNavigateBack: () -> Unit,
-    email: String,
-    onEmailChange: (String) -> Unit,
-    error: CoreError?,
-    onProceed: () -> Unit
-) {
+private fun SignInScreen(state: SignInViewModel.State) {
     Scaffold(
         topBar = {
             CoreTopAppBar(
                 modifier = Modifier
                     .statusBarsPadding(),
                 iconPainter = painterResource(R.drawable.ic_arrow_back),
-                onNavigationClick = onNavigateBack
+                onNavigationClick = state.actions.onNavigateBack
             )
         }
     ) { paddingValues ->
@@ -90,25 +80,26 @@ private fun SignInScreen(
             )
 
             CoreTextInputField(
-                value = email,
-                onValueChange = onEmailChange,
+                value = state.email,
+                onValueChange = state.actions.onUpdateEmail,
                 modifier = Modifier
                     .padding(start = Dimensions.space_16, top = Dimensions.space_16, end = Dimensions.space_16)
                     .fillMaxWidth(),
                 hint = stringResource(R.string.email_hint),
-                errorMessage = error?.localizedMessage(LocalContext.current)
+                errorMessage = state.error?.localizedMessage(LocalContext.current)
             )
 
             Spacer(modifier = Modifier.weight(1f))
 
             CoreButton(
                 text = stringResource(R.string.proceed),
-                onClick = onProceed,
+                onClick = state.actions.onProceed,
                 modifier = Modifier
                     .padding(Dimensions.space_16)
                     .imePadding()
                     .fillMaxWidth()
-                    .requiredHeight(Dimensions.button_height)
+                    .requiredHeight(Dimensions.button_height),
+                enabled = state.isProceedButtonEnabled
             )
         }
     }

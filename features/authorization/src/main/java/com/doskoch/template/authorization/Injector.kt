@@ -1,6 +1,7 @@
 package com.doskoch.template.authorization
 
 import com.doskoch.legacy.kotlin.DestroyableLazy
+import com.doskoch.template.authorization.signIn.SignInViewModel
 import com.doskoch.template.authorization.signUp.SignUpViewModel
 
 interface AuthorizationFeature {
@@ -23,4 +24,7 @@ object Module {
 
     val signUpViewModel: SignUpViewModel
         get() = SignUpViewModel(Injector.innerNavigator)
+
+    val signInViewModel: SignInViewModel
+        get() = SignInViewModel()
 }

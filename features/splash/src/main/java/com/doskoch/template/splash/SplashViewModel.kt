@@ -2,15 +2,15 @@ package com.doskoch.template.splash
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.doskoch.template.splash.di.SplashFeatureDataSource
+import com.doskoch.template.splash.di.SplashFeatureRepository
 import com.doskoch.template.splash.di.SplashFeatureNavigator
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class SplashViewModel(
     private val minDisplayTime: Long,
-    private val dataSource: SplashFeatureDataSource,
-    private val navigator: SplashFeatureNavigator
+    private val repository: SplashFeatureRepository,
+    private val featureNavigator: SplashFeatureNavigator
 ) : ViewModel() {
 
     init {
@@ -20,10 +20,10 @@ class SplashViewModel(
     private fun launchTimer() = viewModelScope.launch {
         delay(minDisplayTime)
 
-        if(dataSource.authorized()) {
-            navigator.toAnime()
+        if(repository.authorized()) {
+            featureNavigator.toAnime()
         } else {
-            navigator.toAuthorization()
+            featureNavigator.toAuthorization()
         }
     }
 }

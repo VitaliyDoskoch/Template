@@ -1,20 +1,10 @@
-package com.doskoch.template.authorization
+package com.doskoch.template.authorization.di
 
 import com.doskoch.legacy.kotlin.DestroyableLazy
 import com.doskoch.template.authorization.signIn.SignInViewModel
-import com.doskoch.template.authorization.signIn.ValidateEmailUseCase
+import com.doskoch.template.authorization.signIn.useCase.AuthorizeUseCase
+import com.doskoch.template.authorization.signIn.useCase.ValidateEmailUseCase
 import com.doskoch.template.authorization.signUp.SignUpViewModel
-import com.doskoch.template.core.error.GlobalErrorHandler
-
-interface AuthorizationFeature {
-    val navigator: AuthorizationFeatureNavigator
-    val nestedNavigator: AuthorizationNestedNavigator
-    val globalErrorHandler: GlobalErrorHandler
-}
-
-interface AuthorizationFeatureNavigator {
-    fun toAnime()
-}
 
 object AuthorizationFeatureInjector {
     var provider: DestroyableLazy<AuthorizationFeature>? = null
@@ -26,13 +16,17 @@ internal val Injector: AuthorizationFeature
 object Module {
 
     val signUpViewModel: SignUpViewModel
-        get() = SignUpViewModel(navigator = Injector.nestedNavigator)
+        get() = SignUpViewModel(
+            nestedNavigator = Injector.nestedNavigator,
+            featureNavigator = Injector.featureNavigator
+        )
 
     val signInViewModel: SignInViewModel
         get() = SignInViewModel(
-            navigator = Injector.nestedNavigator,
+            nestedNavigator = Injector.nestedNavigator,
             validateEmailUseCase = ValidateEmailUseCase(),
             globalErrorHandler = Injector.globalErrorHandler,
-            featureNavigator = Injector.navigator
+            featureNavigator = Injector.featureNavigator,
+            authorizeUseCase = AuthorizeUseCase(repository = Injector.repository)
         )
 }

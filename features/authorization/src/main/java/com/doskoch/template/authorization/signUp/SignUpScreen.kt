@@ -1,6 +1,5 @@
 package com.doskoch.template.authorization.signUp
 
-import android.graphics.fonts.FontStyle
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -23,7 +22,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.doskoch.legacy.android.viewModel.viewModelFactory
-import com.doskoch.template.authorization.Module
+import com.doskoch.template.authorization.di.Module
 import com.doskoch.template.authorization.R
 import com.doskoch.template.core.theme.Dimensions
 import com.doskoch.template.core.ui.CoreButton

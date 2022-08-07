@@ -43,4 +43,6 @@ dependencies {
 
     implementation(Dependencies.fragmentKtx)
     implementation(Dependencies.navigationKtx)
+
+    compileOnly(Dependencies.dataStore)
 }

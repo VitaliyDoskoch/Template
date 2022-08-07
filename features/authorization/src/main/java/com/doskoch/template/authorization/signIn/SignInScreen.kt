@@ -21,7 +21,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.doskoch.legacy.android.viewModel.viewModelFactory
-import com.doskoch.template.authorization.Module
+import com.doskoch.template.authorization.di.Module
 import com.doskoch.template.authorization.R
 import com.doskoch.template.core.theme.Dimensions
 import com.doskoch.template.core.ui.CoreButton

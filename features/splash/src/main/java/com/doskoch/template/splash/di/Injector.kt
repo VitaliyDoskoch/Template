@@ -16,8 +16,8 @@ object Module {
     val splashViewModel: SplashViewModel
         get() = SplashViewModel(
             minDisplayTime = MIN_SPLASH_DISPLAY_TIME,
-            dataSource = Injector.dataSource,
-            navigator = Injector.navigator
+            repository = Injector.repository,
+            featureNavigator = Injector.featureNavigator
         )
 
 }

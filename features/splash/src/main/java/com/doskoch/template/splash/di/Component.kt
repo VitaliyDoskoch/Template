@@ -1,8 +1,8 @@
 package com.doskoch.template.splash.di
 
 interface SplashFeature {
-    val navigator: SplashFeatureNavigator
-    val dataSource: SplashFeatureDataSource
+    val featureNavigator: SplashFeatureNavigator
+    val repository: SplashFeatureRepository
 }
 
 interface SplashFeatureNavigator {
@@ -10,6 +10,6 @@ interface SplashFeatureNavigator {
     fun toAnime()
 }
 
-interface SplashFeatureDataSource {
+interface SplashFeatureRepository {
     suspend fun authorized(): Boolean
 }

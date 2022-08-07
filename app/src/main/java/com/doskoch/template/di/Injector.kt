@@ -3,6 +3,7 @@ package com.doskoch.template.di
 import android.app.Application
 import com.doskoch.legacy.kotlin.DestroyableLazy
 import com.doskoch.template.api.jikan.JikanApiInjector
+import com.doskoch.template.authorization.AuthorizationFeatureInjector
 import com.doskoch.template.database.AppDatabase
 import com.doskoch.template.features.splash.SplashFeatureInjector
 import com.doskoch.template.navigation.MainNavigator
@@ -24,11 +25,17 @@ object AppInjector {
         JikanApiInjector.component = jikanApiModule(component).also(this::logCreation)
 
         SplashFeatureInjector.provider = DestroyableLazy(
-            { splashFeatureModule(component).also(this::logCreation) },
-            this::logDestruction
+            initialize = { splashFeatureModule(component).also(this::logCreation) },
+            onDestroyInstance = this::logDestruction
+        )
+
+        AuthorizationFeatureInjector.provider = DestroyableLazy(
+            initialize = { authorizationFeatureModule(component).also(this::logCreation) },
+            onDestroyInstance = this::logDestruction
         )
     }
 
+    @Suppress("UNUSED_PARAMETER")
     private inline fun <reified M> logCreation(module: M) {
         Timber.i("Creating ${M::class.java.simpleName}")
     }

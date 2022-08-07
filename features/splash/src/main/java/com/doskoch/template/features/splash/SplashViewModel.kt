@@ -7,7 +7,7 @@ import kotlinx.coroutines.launch
 
 class SplashViewModel(
     private val minDisplayTime: Long,
-    private val navigator: SplashNavigator
+    private val navigator: SplashFeatureNavigator
 ) : ViewModel() {
 
     init {
@@ -16,6 +16,6 @@ class SplashViewModel(
 
     private fun launchTimer() = viewModelScope.launch {
         delay(minDisplayTime)
-        navigator.toSignUp()
+        navigator.toAuthorization()
     }
 }

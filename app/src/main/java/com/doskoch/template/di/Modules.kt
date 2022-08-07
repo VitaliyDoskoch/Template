@@ -1,11 +1,13 @@
 package com.doskoch.template.di
 
 import android.app.Application
-import androidx.navigation.NavOptions
 import androidx.navigation.navOptions
 import com.doskoch.template.api.jikan.JikanApi
+import com.doskoch.template.authorization.AuthorizationFeature
+import com.doskoch.template.authorization.AuthorizationFeatureNavigator
+import com.doskoch.template.authorization.AuthorizationNavigator
 import com.doskoch.template.database.AppDatabase
-import com.doskoch.template.features.splash.SplashNavigator
+import com.doskoch.template.features.splash.SplashFeatureNavigator
 import com.doskoch.template.features.splash.SplashFeature
 import com.doskoch.template.navigation.MainNavigator
 
@@ -18,8 +20,16 @@ fun appModule(application: Application) = object : AppComponent {
 fun jikanApiModule(component: AppComponent) = object : JikanApi {}
 
 fun splashFeatureModule(component: AppComponent) = object : SplashFeature {
-    override val navigator = object : SplashNavigator {
-        override fun toSignUp() = navOptions { popUpTo(MainNavigator.startDestination.name) { inclusive = true } }
-            .let(component.navigator::toSignUp)
+    override val navigator = object : SplashFeatureNavigator {
+        override fun toAuthorization() = navOptions { popUpTo(MainNavigator.startDestination.name) { inclusive = true } }
+            .let(component.navigator::toAuthorization)
     }
+}
+
+fun authorizationFeatureModule(component: AppComponent) = object : AuthorizationFeature {
+    override val navigator = object : AuthorizationFeatureNavigator {
+
+    }
+
+    override val innerNavigator = AuthorizationNavigator()
 }

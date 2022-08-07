@@ -6,6 +6,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.doskoch.template.authorization.AuthorizationNavigationGraph
 import com.doskoch.template.authorization.signUp.SignUpScreen
 import com.doskoch.template.di.AppInjector
 import com.doskoch.template.features.splash.SplashScreen
@@ -22,13 +23,13 @@ fun MainNavigationGraph() {
         composable(Destinations.Splash.name) {
             SplashScreen()
         }
-        composable(Destinations.SignUp.name) {
-            SignUpScreen()
+        composable(Destinations.Authorization.name) {
+            AuthorizationNavigationGraph()
         }
     }
 }
 
 enum class Destinations {
     Splash,
-    SignUp;
+    Authorization
 }

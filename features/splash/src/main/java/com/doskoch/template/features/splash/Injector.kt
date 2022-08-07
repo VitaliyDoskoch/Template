@@ -3,18 +3,18 @@ package com.doskoch.template.features.splash
 import com.doskoch.legacy.kotlin.DestroyableLazy
 
 interface SplashFeature {
-    val navigator: SplashNavigator
+    val navigator: SplashFeatureNavigator
 }
 
-interface SplashNavigator {
-    fun toSignUp()
+interface SplashFeatureNavigator {
+    fun toAuthorization()
 }
 
 object SplashFeatureInjector {
     var provider: DestroyableLazy<SplashFeature>? = null
 }
 
-internal val Injector
+internal val Injector: SplashFeature
     get() = SplashFeatureInjector.provider!!.value
 
 object Module {

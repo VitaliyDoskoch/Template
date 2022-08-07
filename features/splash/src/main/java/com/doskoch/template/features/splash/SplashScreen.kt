@@ -16,7 +16,6 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -55,7 +54,7 @@ fun SplashScreen(vm: SplashViewModel) {
             Text(
                 text = stringResource(R.string.app_name),
                 modifier = Modifier
-                    .padding(start = Dimensions.space_medium, end = Dimensions.space_medium)
+                    .padding(start = Dimensions.space_16, end = Dimensions.space_16)
                     .fillMaxWidth(),
                 style = MaterialTheme.typography.h4,
                 color = MaterialTheme.colors.primary,
@@ -69,10 +68,10 @@ fun SplashScreen(vm: SplashViewModel) {
                     stringResource(R.string.version, packageManager.getPackageInfo(packageName, 0).versionName)
                 },
                 modifier = Modifier
-                    .padding(start = Dimensions.space_medium, end = Dimensions.space_medium)
+                    .padding(start = Dimensions.space_16, end = Dimensions.space_16)
                     .wrapContentWidth()
                     .background(color = MaterialTheme.colors.secondary, shape = MaterialTheme.shapes.large)
-                    .padding(horizontal = Dimensions.space_medium, vertical = Dimensions.space_small_x6),
+                    .padding(horizontal = Dimensions.space_16, vertical = Dimensions.space_4),
                 style = MaterialTheme.typography.body2,
                 color = MaterialTheme.colors.primary,
                 textAlign = TextAlign.Center
@@ -82,10 +81,10 @@ fun SplashScreen(vm: SplashViewModel) {
                 text = stringResource(R.string.developed_by),
                 modifier = Modifier
                     .padding(
-                        start = Dimensions.space_medium,
-                        top = Dimensions.space_medium,
-                        end = Dimensions.space_medium,
-                        bottom = Dimensions.space_large_x2
+                        start = Dimensions.space_16,
+                        top = Dimensions.space_16,
+                        end = Dimensions.space_16,
+                        bottom = Dimensions.space_24
                     )
                     .fillMaxWidth(),
                 style = MaterialTheme.typography.body1,

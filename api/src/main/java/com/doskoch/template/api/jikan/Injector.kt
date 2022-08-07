@@ -1,8 +1,6 @@
 package com.doskoch.template.api.jikan
 
-interface JikanApi {
-    val isNetworkAvailable: () -> Boolean
-}
+interface JikanApi
 
 object JikanApiInjector {
     lateinit var component: JikanApi

@@ -2,6 +2,8 @@ package com.doskoch.template.di.modules
 
 import android.app.Application
 import com.doskoch.template.GlobalErrorHandlerHolder
+import com.doskoch.template.api.jikan.JikanApiProvider
+import com.doskoch.template.core.data.repository.AnimeRepository
 import com.doskoch.template.core.data.store.AuthorizationDataStore
 import com.doskoch.template.database.AppDatabase
 import com.doskoch.template.di.AppComponent
@@ -11,6 +13,8 @@ fun appModule(application: Application) = object : AppComponent {
     override val application = application
     override val navigator = MainNavigator()
     override val globalErrorHandlerHolder = GlobalErrorHandlerHolder()
-    override val authorizationDataStore = AuthorizationDataStore(application)
-    override val appDatabase: AppDatabase = AppDatabase.buildDatabase(application)
+
+    override val authorizationDataStore by lazy { AuthorizationDataStore(application) }
+    override val animeRepository by lazy { AnimeRepository(JikanApiProvider.topService) }
+    override val appDatabase by lazy { AppDatabase.buildDatabase(application) }
 }

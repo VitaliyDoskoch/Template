@@ -12,7 +12,7 @@ interface TopService {
 
     @ApiVersion(4)
     @GET("top/anime")
-    fun getTopAnime(
+    suspend fun getTopAnime(
         @Query("type") type: AnimeType,
         @Query("filter") filter: AnimeFilter,
         @IntRange(from = 1)

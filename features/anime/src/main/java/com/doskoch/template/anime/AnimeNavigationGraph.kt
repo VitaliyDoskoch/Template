@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.doskoch.template.anime.di.Injector
+import com.doskoch.template.anime.top.TopAnimeScreen
 
 @Composable
 fun AnimeNavigationGraph() {
@@ -17,7 +18,7 @@ fun AnimeNavigationGraph() {
 
     NavHost(navController = navController, startDestination = AnimeNestedNavigator.startDestination.name) {
         composable(Destinations.Top.name) {
-
+            TopAnimeScreen()
         }
         composable(Destinations.Favorite.name) {
 

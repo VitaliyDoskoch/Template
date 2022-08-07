@@ -20,6 +20,11 @@ object Versions {
     const val fragmentKtx = "1.5.1"
     const val navigationKtx = "2.5.1"
 
+    const val coil = "2.1.0"
+
+    const val paging = "3.1.1"
+    const val pagingCompose = "1.0.0-alpha15"
+
     const val recyclerView = "1.1.0"
     const val swipeRefreshLayout = "1.0.0"
 
@@ -56,6 +61,11 @@ object Dependencies {
         "androidx.navigation:navigation-fragment-ktx:${Versions.navigationKtx}",
         "androidx.navigation:navigation-ui-ktx:${Versions.navigationKtx}"
     )
+
+    const val coil = "io.coil-kt:coil-compose:${Versions.coil}"
+
+    const val paging = "androidx.paging:paging-runtime:${Versions.paging}"
+    const val pagingCompose = "androidx.paging:paging-compose:${Versions.pagingCompose}"
 
     const val recyclerView = "androidx.recyclerview:recyclerview:${Versions.recyclerView}"
     const val swipeRefreshLayout = "androidx.swiperefreshlayout:swiperefreshlayout:${Versions.swipeRefreshLayout}"

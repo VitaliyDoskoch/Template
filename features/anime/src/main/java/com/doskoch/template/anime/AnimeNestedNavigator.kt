@@ -11,6 +11,6 @@ class AnimeNestedNavigator {
     fun toFavorite() = navController
 
     companion object {
-        internal val startDestination = Destinations.All
+        internal val startDestination = Destinations.Top
     }
 }

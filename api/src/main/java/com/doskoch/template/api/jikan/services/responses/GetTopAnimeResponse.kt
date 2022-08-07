@@ -40,7 +40,7 @@ data class GetTopAnimeResponse(
         @SerializedName("rank")
         val rank: Int,
         @SerializedName("score")
-        val score: Int,
+        val score: Float,
         @SerializedName("scored_by")
         val scoredBy: Int,
         @SerializedName("serializations")

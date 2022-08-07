@@ -5,6 +5,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.doskoch.template.anime.di.Injector
 
 @Composable
 fun AnimeNavigationGraph() {
@@ -15,7 +16,7 @@ fun AnimeNavigationGraph() {
     }
 
     NavHost(navController = navController, startDestination = AnimeNestedNavigator.startDestination.name) {
-        composable(Destinations.All.name) {
+        composable(Destinations.Top.name) {
 
         }
         composable(Destinations.Favorite.name) {
@@ -25,6 +26,6 @@ fun AnimeNavigationGraph() {
 }
 
 internal enum class Destinations {
-    All,
+    Top,
     Favorite
 }

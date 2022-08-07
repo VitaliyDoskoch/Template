@@ -17,4 +17,6 @@ dependencies {
     api(Dependencies.coreKtx)
     api(Dependencies.material)
     api(Dependencies.compose)
+
+    implementation(Dependencies.dataStore)
 }

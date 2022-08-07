@@ -2,21 +2,16 @@ package com.doskoch.template.di
 
 import android.app.Application
 import com.doskoch.legacy.kotlin.DestroyableLazy
-import com.doskoch.template.GlobalErrorHandlerHolder
 import com.doskoch.template.anime.AnimeFeatureInjector
 import com.doskoch.template.api.jikan.JikanApiInjector
 import com.doskoch.template.authorization.AuthorizationFeatureInjector
-import com.doskoch.template.database.AppDatabase
-import com.doskoch.template.splash.SplashFeatureInjector
-import com.doskoch.template.navigation.MainNavigator
+import com.doskoch.template.di.modules.animeFeatureModule
+import com.doskoch.template.di.modules.appModule
+import com.doskoch.template.di.modules.authorizationFeatureModule
+import com.doskoch.template.di.modules.jikanApiModule
+import com.doskoch.template.di.modules.splashFeatureModule
+import com.doskoch.template.splash.di.SplashFeatureInjector
 import timber.log.Timber
-
-interface AppComponent {
-    val application: Application
-    val navigator: MainNavigator
-    val globalErrorHandlerHolder: GlobalErrorHandlerHolder
-    val appDatabase: AppDatabase
-}
 
 object AppInjector {
 

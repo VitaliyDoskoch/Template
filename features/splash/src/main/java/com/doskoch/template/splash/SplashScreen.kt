@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.doskoch.legacy.android.viewModel.viewModelFactory
 import com.doskoch.template.core.theme.Dimensions
-import com.doskoch.template.splash.R
+import com.doskoch.template.splash.di.Module
 
 @Composable
 fun SplashScreen() {

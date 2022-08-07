@@ -23,11 +23,13 @@ object Versions {
     const val recyclerView = "1.1.0"
     const val swipeRefreshLayout = "1.0.0"
 
-    const val room = "2.2.5"
-
     const val retrofit2 = "2.8.1"
     const val okhttpLoggingInterceptor = "4.2.1"
     const val gson = "2.8.6"
+
+    const val dataStore = "1.0.0"
+
+    const val room = "2.2.5"
 }
 
 object Dependencies {
@@ -58,11 +60,13 @@ object Dependencies {
     const val recyclerView = "androidx.recyclerview:recyclerview:${Versions.recyclerView}"
     const val swipeRefreshLayout = "androidx.swiperefreshlayout:swiperefreshlayout:${Versions.swipeRefreshLayout}"
 
-    const val room = "androidx.room:room-ktx:${Versions.room}"
-    const val roomCompiler = "androidx.room:room-compiler:${Versions.room}"
-
     const val retrofit2 = "com.squareup.retrofit2:retrofit:${Versions.retrofit2}"
     const val retrofit2ConverterGson = "com.squareup.retrofit2:converter-gson:${Versions.retrofit2}"
     const val okhttpLoggingInterceptor = "com.squareup.okhttp3:logging-interceptor:${Versions.okhttpLoggingInterceptor}"
     const val gson = "com.google.code.gson:gson:${Versions.gson}"
+
+    const val dataStore = "androidx.datastore:datastore-preferences:${Versions.dataStore}"
+
+    const val room = "androidx.room:room-ktx:${Versions.room}"
+    const val roomCompiler = "androidx.room:room-compiler:${Versions.room}"
 }

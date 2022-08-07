@@ -15,7 +15,6 @@
         android:paddingEnd="16dp"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
-        android:gravity="center"
         android:maxLines="5"
         android:ellipsize="end"
         tools:text="@tools:sample/lorem/random"

@@ -28,8 +28,8 @@ class AnimeRemoteMediator(
 
         return try {
             val data = loadAnimeUseCase.invoke(
-                AnimeType.Tv,
-                AnimeFilter.Popularity,
+                type = AnimeType.Tv,
+                filter = AnimeFilter.Popularity,
                 key = key,
                 pageSize = if(key == INITIAL_PAGE) state.config.initialLoadSize else state.config.pageSize
             )

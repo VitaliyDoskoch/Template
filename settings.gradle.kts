@@ -15,3 +15,4 @@ include(":database")
 include(":legacy")
 
 include(":features:splash")
+include(":features:authorization")

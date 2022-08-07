@@ -36,6 +36,7 @@ dependencies {
     implementation(project(":core"))
 
     implementation(project(":features:splash"))
+    implementation(project(":features:authorization"))
 
     debugImplementation(Dependencies.leakCanary)
 

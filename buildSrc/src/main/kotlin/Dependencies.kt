@@ -5,7 +5,7 @@ fun DependencyHandler.api(items: Collection<String>) = items.forEach { add("api"
 fun DependencyHandler.implementation(items: Collection<String>) = items.forEach { add("implementation", it) }
 
 object Versions {
-    const val kotlin = "1.7.0"
+    const val kotlin = "1.7.10"
     const val coroutines = "1.3.9"
 
     const val timber = "4.6.1"

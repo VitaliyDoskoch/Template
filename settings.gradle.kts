@@ -16,3 +16,4 @@ include(":legacy")
 
 include(":features:splash")
 include(":features:authorization")
+include(":features:anime")

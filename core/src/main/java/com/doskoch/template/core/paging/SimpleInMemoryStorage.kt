@@ -53,7 +53,7 @@ class SimpleInMemoryStorage<K, V> {
     }
 
     private fun triggerInvalidation() {
-        invalidationCallbacks.forEach { it.invoke() }
+        invalidationCallbacks.toMutableList().forEach { it.invoke() }
     }
 
     data class PageKeys<K>(val previous: K?, val current: K, val next: K?)

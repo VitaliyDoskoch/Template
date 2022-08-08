@@ -2,6 +2,7 @@ package com.doskoch.template.anime.top.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import com.doskoch.template.anime.INITIAL_PAGE
 import com.doskoch.template.anime.data.AnimeItem
 import com.doskoch.template.core.paging.SimpleInMemoryStorage
 
@@ -20,16 +21,15 @@ class AnimeInMemoryPagingSource(
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, AnimeItem> {
         return try {
-            val startPosition = params.key ?: 0
+            val key = params.key ?: INITIAL_PAGE
 
-            val items = storage.items
-                .drop(startPosition)
-                .take(params.loadSize)
+            val keys = storage.keysOf(key)
+            val items = storage.pageOf(key).orEmpty()
 
             LoadResult.Page(
                 data = items,
-                prevKey = null,
-                nextKey = (startPosition + params.loadSize).takeIf { items.size == params.loadSize }
+                prevKey = keys?.previous,
+                nextKey = keys?.next
             )
         } catch (t: Throwable) {
             LoadResult.Error(t)

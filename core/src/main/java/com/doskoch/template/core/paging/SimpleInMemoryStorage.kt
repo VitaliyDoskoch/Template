@@ -1,5 +1,6 @@
 package com.doskoch.template.core.paging
 
+@Suppress("MemberVisibilityCanBePrivate")
 class SimpleInMemoryStorage<K, V> {
 
     private val invalidationCallbacks = mutableListOf<() -> Unit>()
@@ -9,8 +10,8 @@ class SimpleInMemoryStorage<K, V> {
     val items: List<V>
         get() = storage.values.flatten()
 
-    val lastKeys: PageKeys<K>?
-        get() = storage.keys.toList().lastOrNull()
+    val keys: Set<PageKeys<K>>
+        get() = storage.keys
 
     fun addInvalidationCallback(callback: () -> Unit) {
         invalidationCallbacks.add(callback)
@@ -20,26 +21,40 @@ class SimpleInMemoryStorage<K, V> {
         invalidationCallbacks.remove(callback)
     }
 
-    fun store(prevKey: K?, nextKey: K?, page: List<V>) {
-        storage[PageKeys(prevKey, nextKey)] = page
+    fun keysOf(key: K) = keys.find { it.current == key }
+
+    fun pageOf(key: K) = keys
+        .find { it.current == key }
+        ?.let { storage[it] }
+
+    fun store(previousKey: K?, currentKey: K, nextKey: K?, page: List<V>) = synchronized(storage){
+        storage[PageKeys(previousKey, currentKey, nextKey)] = page
         triggerInvalidation()
     }
 
-    fun clear() {
+    fun clear() = synchronized(storage){
         storage.clear()
         triggerInvalidation()
     }
 
-    fun updateItem(old: V, new: V) {
-        storage.toList()
-            .find { (_, items) -> items.contains(old) }
-            ?.let { (keys, items) -> storage[keys] = items.toMutableList().apply { set(indexOf(old), new) } }
-        triggerInvalidation()
+    fun replace(old: V, new: V) {
+        var index = -1
+        val page = storage.toList().find { (_, items) ->
+            index = items.indexOf(old)
+            index != -1
+        }
+
+        synchronized(storage) {
+            page?.let { (keys, items) ->
+                storage[keys] = items.toMutableList().apply { set(index, new) }
+            }
+            triggerInvalidation()
+        }
     }
 
     private fun triggerInvalidation() {
         invalidationCallbacks.forEach { it.invoke() }
     }
 
-    data class PageKeys<K>(val prev: K?, val next: K?)
+    data class PageKeys<K>(val previous: K?, val current: K, val next: K?)
 }

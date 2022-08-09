@@ -23,10 +23,14 @@ fun AnimeNavigationGraph() {
         composable(Destinations.Favorite.name) {
 
         }
+        composable(Destinations.Details.name) {
+
+        }
     }
 }
 
 internal enum class Destinations {
     Top,
-    Favorite
+    Favorite,
+    Details
 }

@@ -4,14 +4,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.doskoch.template.authorization.di.AuthorizationFeatureNavigator
 import com.doskoch.template.authorization.AuthorizationNestedNavigator
-import com.doskoch.template.authorization.di.AuthorizationFeatureRepository
 import com.doskoch.template.authorization.signIn.useCase.AuthorizeUseCase
 import com.doskoch.template.authorization.signIn.useCase.ValidateEmailUseCase
-import com.doskoch.template.core.error.CoreError
-import com.doskoch.template.core.error.GlobalErrorHandler
-import com.doskoch.template.core.error.toCoreError
+import com.doskoch.template.core.components.error.CoreError
+import com.doskoch.template.core.components.error.GlobalErrorHandler
+import com.doskoch.template.core.components.error.toCoreError
 import com.doskoch.template.core.functions.perform
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update

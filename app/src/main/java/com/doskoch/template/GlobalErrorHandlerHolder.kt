@@ -1,7 +1,6 @@
 package com.doskoch.template
 
-import com.doskoch.template.core.error.CoreError
-import com.doskoch.template.core.error.GlobalErrorHandler
+import com.doskoch.template.core.components.error.GlobalErrorHandler
 
 class GlobalErrorHandlerHolder {
 

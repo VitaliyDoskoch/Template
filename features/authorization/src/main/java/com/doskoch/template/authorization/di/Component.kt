@@ -1,7 +1,7 @@
 package com.doskoch.template.authorization.di
 
 import com.doskoch.template.authorization.AuthorizationNestedNavigator
-import com.doskoch.template.core.error.GlobalErrorHandler
+import com.doskoch.template.core.components.error.GlobalErrorHandler
 
 interface AuthorizationFeature {
     val featureNavigator: AuthorizationFeatureNavigator

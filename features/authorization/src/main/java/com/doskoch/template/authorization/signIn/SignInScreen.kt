@@ -23,10 +23,10 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.doskoch.legacy.android.viewModel.viewModelFactory
 import com.doskoch.template.authorization.di.Module
 import com.doskoch.template.authorization.R
-import com.doskoch.template.core.theme.Dimensions
-import com.doskoch.template.core.ui.CoreButton
-import com.doskoch.template.core.ui.CoreTextInputField
-import com.doskoch.template.core.ui.CoreTopAppBar
+import com.doskoch.template.core.components.theme.Dimensions
+import com.doskoch.template.core.components.ui.CoreButton
+import com.doskoch.template.core.components.ui.CoreTextInputField
+import com.doskoch.template.core.components.ui.CoreTopAppBar
 
 @Composable
 fun SignInScreen() {

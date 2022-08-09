@@ -8,9 +8,8 @@ import com.doskoch.template.anime.INITIAL_PAGE
 import com.doskoch.template.anime.data.AnimeFilter
 import com.doskoch.template.anime.data.AnimeItem
 import com.doskoch.template.anime.data.AnimeType
-import com.doskoch.template.anime.di.AnimeFeatureRepository
 import com.doskoch.template.anime.top.useCase.LoadAnimeUseCase
-import com.doskoch.template.core.paging.SimpleInMemoryStorage
+import com.doskoch.template.core.components.paging.SimpleInMemoryStorage
 import timber.log.Timber
 
 @OptIn(ExperimentalPagingApi::class)

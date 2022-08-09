@@ -1,4 +1,4 @@
-package com.doskoch.template.core.ui
+package com.doskoch.template.core.components.ui
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.padding
@@ -12,7 +12,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.doskoch.template.core.R
-import com.doskoch.template.core.theme.Dimensions
+import com.doskoch.template.core.components.theme.Dimensions
 
 @Composable
 fun CoreTopAppBar(

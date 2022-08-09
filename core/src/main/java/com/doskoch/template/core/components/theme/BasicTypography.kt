@@ -1,4 +1,4 @@
-package com.doskoch.template.core.theme
+package com.doskoch.template.core.components.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle

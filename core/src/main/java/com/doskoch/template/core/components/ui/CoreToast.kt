@@ -1,4 +1,4 @@
-package com.doskoch.template.core.ui
+package com.doskoch.template.core.components.ui
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -8,7 +8,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.doskoch.legacy.android.functions.dpToPx
-import com.doskoch.legacy.android.functions.getThemeColor
 import com.doskoch.template.core.R
 
 @SuppressLint("InflateParams")

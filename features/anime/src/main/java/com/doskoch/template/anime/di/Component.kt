@@ -5,8 +5,8 @@ import com.doskoch.template.anime.data.AnimeFilter
 import com.doskoch.template.anime.data.AnimeItem
 import com.doskoch.template.anime.data.AnimeType
 import com.doskoch.template.anime.data.PagedData
-import com.doskoch.template.core.error.GlobalErrorHandler
-import com.doskoch.template.core.paging.SimpleInMemoryStorage
+import com.doskoch.template.core.components.error.GlobalErrorHandler
+import com.doskoch.template.core.components.paging.SimpleInMemoryStorage
 
 interface AnimeFeature {
     val navigator: AnimeFeatureNavigator

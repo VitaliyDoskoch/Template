@@ -2,6 +2,7 @@ package com.doskoch.template.navigation
 
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
+import kotlinx.coroutines.flow.MutableSharedFlow
 
 class MainNavigator {
 

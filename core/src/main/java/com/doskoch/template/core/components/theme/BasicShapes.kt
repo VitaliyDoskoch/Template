@@ -1,4 +1,4 @@
-package com.doskoch.template.core.theme
+package com.doskoch.template.core.components.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Shapes

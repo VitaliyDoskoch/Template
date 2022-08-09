@@ -41,7 +41,7 @@ import com.doskoch.legacy.android.viewModel.viewModelFactory
 import com.doskoch.template.anime.R
 import com.doskoch.template.anime.data.AnimeItem
 import com.doskoch.template.anime.di.Module
-import com.doskoch.template.core.theme.Dimensions
+import com.doskoch.template.core.components.theme.Dimensions
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import java.text.DecimalFormat
 

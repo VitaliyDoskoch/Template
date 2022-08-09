@@ -1,4 +1,4 @@
-package com.doskoch.template.core.ui
+package com.doskoch.template.core.components.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -20,7 +20,7 @@ import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.doskoch.template.core.theme.Dimensions
+import com.doskoch.template.core.components.theme.Dimensions
 
 @Composable
 fun CoreTextInputField(

@@ -4,9 +4,9 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.core.view.WindowCompat
 import androidx.fragment.app.FragmentActivity
-import com.doskoch.template.core.error.CoreError
-import com.doskoch.template.core.error.GlobalErrorHandler
-import com.doskoch.template.core.ui.CoreToast
+import com.doskoch.template.core.components.error.CoreError
+import com.doskoch.template.core.components.error.GlobalErrorHandler
+import com.doskoch.template.core.components.ui.CoreToast
 import com.doskoch.template.di.AppInjector
 
 class MainActivity : FragmentActivity() {

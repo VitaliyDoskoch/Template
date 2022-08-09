@@ -1,4 +1,4 @@
-package com.doskoch.template.core.paging
+package com.doskoch.template.core.components.paging
 
 @Suppress("MemberVisibilityCanBePrivate")
 class SimpleInMemoryStorage<K, V> {

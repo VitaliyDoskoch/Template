@@ -4,7 +4,7 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.doskoch.template.anime.INITIAL_PAGE
 import com.doskoch.template.anime.data.AnimeItem
-import com.doskoch.template.core.paging.SimpleInMemoryStorage
+import com.doskoch.template.core.components.paging.SimpleInMemoryStorage
 
 class AnimeInMemoryPagingSource(
     private val storage: SimpleInMemoryStorage<Int, AnimeItem>

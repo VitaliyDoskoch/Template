@@ -6,9 +6,8 @@ import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
-import androidx.navigation.compose.rememberNavController
-import com.doskoch.template.core.theme.BasicTheme
-import com.doskoch.template.core.theme.WithDimensions
+import com.doskoch.template.core.components.theme.BasicTheme
+import com.doskoch.template.core.components.theme.WithDimensions
 import com.doskoch.template.navigation.MainNavigationGraph
 
 class MainFragment : Fragment() {

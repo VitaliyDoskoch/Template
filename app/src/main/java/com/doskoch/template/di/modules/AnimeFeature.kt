@@ -4,10 +4,9 @@ import com.doskoch.template.anime.di.AnimeFeature
 import com.doskoch.template.anime.di.AnimeFeatureNavigator
 import com.doskoch.template.anime.AnimeNestedNavigator
 import com.doskoch.template.anime.data.AnimeItem
-import com.doskoch.template.anime.di.AnimeFeatureRepository
 import com.doskoch.template.api.jikan.JikanApiProvider
 import com.doskoch.template.core.data.repository.AnimeRepository
-import com.doskoch.template.core.paging.SimpleInMemoryStorage
+import com.doskoch.template.core.components.paging.SimpleInMemoryStorage
 import com.doskoch.template.di.AppComponent
 import com.doskoch.template.repositories.AnimeFeatureConverter
 import com.doskoch.template.repositories.AnimeFeatureRepositoryImpl

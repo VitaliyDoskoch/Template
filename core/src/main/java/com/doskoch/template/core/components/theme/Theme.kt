@@ -1,4 +1,4 @@
-package com.doskoch.template.core.theme
+package com.doskoch.template.core.components.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme

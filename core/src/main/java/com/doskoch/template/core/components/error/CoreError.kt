@@ -1,4 +1,4 @@
-package com.doskoch.template.core.error
+package com.doskoch.template.core.components.error
 
 import android.content.Context
 import com.doskoch.template.api.jikan.common.error.ErrorResponse

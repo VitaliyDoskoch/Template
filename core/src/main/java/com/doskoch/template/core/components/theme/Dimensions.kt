@@ -1,4 +1,4 @@
-package com.doskoch.template.core.theme
+package com.doskoch.template.core.components.theme
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider

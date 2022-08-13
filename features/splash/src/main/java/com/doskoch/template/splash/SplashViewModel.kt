@@ -2,8 +2,8 @@ package com.doskoch.template.splash
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.doskoch.template.splash.di.SplashFeatureRepository
 import com.doskoch.template.splash.di.SplashFeatureNavigator
+import com.doskoch.template.splash.di.SplashFeatureRepository
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 

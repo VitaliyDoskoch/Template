@@ -1,5 +1,6 @@
-package com.doskoch.template.core.components
+package com.doskoch.template.core.components.event
 
+import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
@@ -8,8 +9,6 @@ import kotlinx.coroutines.launch
 class EventQueue<E> {
 
     private val state = MutableStateFlow(emptyList<ProcessableEvent<E>>())
-
-    fun add(event: E) = state.update { it + ProcessableEvent(processing = false, event) }
 
     suspend fun collect(process: suspend (E) -> Unit) {
         coroutineScope {
@@ -32,7 +31,7 @@ class EventQueue<E> {
         }
     }
 
-    private data class ProcessableEvent<E>(var processing: Boolean, val event: E) {
-        override fun toString() = "$processing $event"
-    }
+    fun ViewModel.add(event: E) = state.update { it + ProcessableEvent(processing = false, event) }
+
+    private data class ProcessableEvent<E>(var processing: Boolean, val event: E)
 }

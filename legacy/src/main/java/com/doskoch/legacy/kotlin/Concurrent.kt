@@ -16,7 +16,7 @@ fun runAndWaitForEvent(action: (onComplete: () -> Unit) -> Unit) {
 }
 
 /**
- * Runs the [action] and waits for an invocation of of the onComplete.
+ * Runs the [action] and waits for an invocation of the onComplete.
  */
 fun runAndWaitForEvent(timeout: Long, timeUnit: TimeUnit, action: (onComplete: () -> Unit) -> Unit) {
 

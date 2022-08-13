@@ -20,7 +20,7 @@ class SplashViewModel(
     private fun launchTimer() = viewModelScope.launch {
         delay(minDisplayTime)
 
-        if(repository.authorized()) {
+        if (repository.authorized()) {
             featureNavigator.toAnime()
         } else {
             featureNavigator.toAuthorization()

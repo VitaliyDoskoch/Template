@@ -15,6 +15,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Divider
 import androidx.compose.material.DropdownMenu
 import androidx.compose.material.DropdownMenuItem
@@ -23,8 +26,6 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
@@ -39,9 +40,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.PopupProperties
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadState
@@ -54,6 +55,7 @@ import com.doskoch.template.anime.data.AnimeItem
 import com.doskoch.template.anime.data.AnimeType
 import com.doskoch.template.anime.data.stringId
 import com.doskoch.template.anime.di.Module
+import com.doskoch.template.core.components.error.toCoreError
 import com.doskoch.template.core.components.theme.Dimensions
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
@@ -85,19 +87,58 @@ private fun TopAnimeScreen(
         }
     ) { paddingValues ->
         val items = state.pagingData.collectAsLazyPagingItems()
+        val refresh = items.loadState.mediator?.refresh
 
         SwipeRefresh(
-            state = rememberSwipeRefreshState(isRefreshing = items.loadState.mediator?.refresh is LoadState.Loading),
-            onRefresh = items::refresh
+            state = rememberSwipeRefreshState(
+                isRefreshing = refresh is LoadState.Loading && items.itemCount > 0
+            ),
+            onRefresh = items::refresh,
+            modifier = Modifier
+                .padding(paddingValues)
+                .navigationBarsPadding()
+                .fillMaxSize()
         ) {
-            LazyColumn(
-                modifier = Modifier
-                    .padding(paddingValues)
-                    .navigationBarsPadding()
-                    .fillMaxSize()
-            ) {
-                items(items, key = AnimeItem::id) {
-                    it?.let { AnimeItem(item = it, onFavoriteClick = {}) }
+            when {
+                refresh is LoadState.Loading && items.itemCount == 0 -> {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                    ) {
+                        CircularProgressIndicator(
+                            modifier = Modifier
+                                .align(Alignment.Center)
+                                .size(Dimensions.icon_40)
+                        )
+                    }
+                }
+                refresh is LoadState.Error -> {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .verticalScroll(rememberScrollState())
+                    ) {
+                        Text(
+                            text = refresh.error.toCoreError().localizedMessage(LocalContext.current),
+                            modifier = Modifier
+                                .align(Alignment.Center)
+                                .padding(Dimensions.space_16)
+                                .fillMaxWidth(),
+                            style = MaterialTheme.typography.body1,
+                            textAlign = TextAlign.Center
+                        )
+                    }
+                }
+                refresh is LoadState.NotLoading || items.itemCount > 0 -> {
+                    LazyColumn(
+                        modifier = Modifier
+                            .padding(paddingValues)
+                            .fillMaxSize()
+                    ) {
+                        items(items, key = AnimeItem::id) {
+                            it?.let { AnimeItem(item = it, onFavoriteClick = {}) }
+                        }
+                    }
                 }
             }
         }
@@ -233,13 +274,13 @@ private fun AnimeItem(
             }
 
             Icon(
-                painter = painterResource(if(item.isFavorite) R.drawable.ic_star_filled else R.drawable.ic_start_outline),
+                painter = painterResource(if (item.isFavorite) R.drawable.ic_star_filled else R.drawable.ic_start_outline),
                 contentDescription = stringResource(R.string.desc_icon_add_to_favorite),
                 modifier = Modifier
                     .align(Alignment.Bottom)
                     .padding(end = Dimensions.space_16, bottom = Dimensions.space_16)
                     .clickable(onClick = onFavoriteClick),
-                tint = if(item.isFavorite) MaterialTheme.colors.secondary else MaterialTheme.colors.onBackground
+                tint = if (item.isFavorite) MaterialTheme.colors.secondary else MaterialTheme.colors.onBackground
             )
         }
 

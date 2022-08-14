@@ -11,7 +11,7 @@ import com.doskoch.template.repositories.AuthorizationFeatureRepositoryImpl
 fun authorizationFeatureModule(component: AppComponent) = object : AuthorizationFeature {
     override val featureNavigator = object : AuthorizationFeatureNavigator {
         override fun toAnime() = navOptions { popUpTo(Destinations.Authorization.name) { inclusive = true } }
-            .let(component.navigator::toAnime)
+            .let(component.mainNavigator::toAnime)
     }
 
     override val nestedNavigator = AuthorizationNestedNavigator()

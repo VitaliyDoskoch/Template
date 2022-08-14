@@ -15,7 +15,7 @@ fun MainNavigationGraph() {
     val navController = rememberNavController()
 
     LaunchedEffect(navController) {
-        AppInjector.component.navigator.navController = navController
+        AppInjector.component.mainNavigator.events.collect { it.invoke(navController) }
     }
 
     NavHost(navController = navController, startDestination = MainNavigator.startDestination.name) {

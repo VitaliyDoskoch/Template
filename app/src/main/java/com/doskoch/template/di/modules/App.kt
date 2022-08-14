@@ -11,7 +11,7 @@ import com.doskoch.template.navigation.MainNavigator
 
 fun appModule(application: Application) = object : AppComponent {
     override val application = application
-    override val navigator = MainNavigator()
+    override val mainNavigator = MainNavigator()
     override val globalErrorHandler = GlobalErrorHandlerImpl()
 
     override val authorizationDataStore by lazy { AuthorizationDataStore(application) }

@@ -32,7 +32,7 @@ class EventQueue<E> {
     }
 
     interface Producer {
-        fun <E> EventQueue<E>.add(event: E) = state.update { it + ProcessableEvent(processing = false, event) }
+        fun <E> EventQueue<E>.enqueue(event: E) = state.update { it + ProcessableEvent(processing = false, event) }
     }
 
     private data class ProcessableEvent<E>(var processing: Boolean, val event: E)

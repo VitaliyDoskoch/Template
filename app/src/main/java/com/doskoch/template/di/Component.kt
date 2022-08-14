@@ -9,7 +9,7 @@ import com.doskoch.template.navigation.MainNavigator
 
 interface AppComponent {
     val application: Application
-    val navigator: MainNavigator
+    val mainNavigator: MainNavigator
     val globalErrorHandler: GlobalErrorHandler
     val authorizationDataStore: AuthorizationDataStore
     val animeRepository: AnimeRepository

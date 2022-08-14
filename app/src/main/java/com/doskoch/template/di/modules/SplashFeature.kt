@@ -11,9 +11,9 @@ fun splashFeatureModule(component: AppComponent) = object : SplashFeature {
     override val featureNavigator = object : SplashFeatureNavigator {
         val navOptions = navOptions { popUpTo(MainNavigator.startDestination.name) { inclusive = true } }
 
-        override fun toAuthorization() = component.navigator.toAuthorization(navOptions)
+        override fun toAuthorization() = component.mainNavigator.toAuthorization(navOptions)
 
-        override fun toAnime() = component.navigator.toAnime(navOptions)
+        override fun toAnime() = component.mainNavigator.toAnime(navOptions)
     }
 
     override val repository = SplashFeatureRepositoryImpl(

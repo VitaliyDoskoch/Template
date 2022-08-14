@@ -13,7 +13,7 @@ class GlobalErrorHandlerImpl : GlobalErrorHandler, EventQueue.Producer {
         if(error is CoreError.Unknown) {
             Timber.w("$error")
         }
-        events.add(error)
+        events.enqueue(error)
         return true
     }
 }

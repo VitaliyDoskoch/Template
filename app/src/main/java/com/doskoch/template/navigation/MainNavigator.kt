@@ -1,18 +1,17 @@
 package com.doskoch.template.navigation
 
-import androidx.navigation.NavController
 import androidx.navigation.NavOptions
-import kotlinx.coroutines.flow.MutableSharedFlow
+import com.doskoch.template.core.components.event.EventQueue
+import com.doskoch.template.core.components.navigation.CoreNavigator
+import com.doskoch.template.core.components.navigation.NavAction
 
-class MainNavigator {
+class MainNavigator : CoreNavigator {
 
-    lateinit var navController: NavController
+    override val events = EventQueue<NavAction>()
 
-    fun navigateUp() = navController.navigateUp()
+    fun toAuthorization(options: NavOptions) = events.enqueue { navigate(Destinations.Authorization.name, options) }
 
-    fun toAuthorization(options: NavOptions) = navController.navigate(Destinations.Authorization.name, options)
-
-    fun toAnime(options: NavOptions) = navController.navigate(Destinations.Anime.name, options)
+    fun toAnime(options: NavOptions) = events.enqueue { navigate(Destinations.Anime.name, options) }
 
     companion object {
         val startDestination = Destinations.Splash

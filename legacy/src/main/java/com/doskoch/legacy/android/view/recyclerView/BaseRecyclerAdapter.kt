@@ -1,4 +1,4 @@
-package com.doskoch.legacy.android.recyclerView
+package com.doskoch.legacy.android.view.recyclerView
 
 import androidx.annotation.CallSuper
 import androidx.recyclerview.widget.DiffUtil

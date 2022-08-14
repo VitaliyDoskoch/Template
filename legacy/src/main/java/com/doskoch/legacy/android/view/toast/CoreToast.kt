@@ -1,4 +1,4 @@
-package com.doskoch.template.core.components.ui
+package com.doskoch.legacy.android.view.toast
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -7,8 +7,8 @@ import android.view.LayoutInflater
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import com.doskoch.legacy.R
 import com.doskoch.legacy.android.functions.dpToPx
-import com.doskoch.template.core.R
 
 @SuppressLint("InflateParams")
 class CoreToast(context: Context, message: String, duration: Int) : Toast(context) {

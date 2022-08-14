@@ -7,9 +7,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.doskoch.template.core.components.error.CoreError
-import com.doskoch.template.core.components.error.GlobalErrorHandler
-import com.doskoch.template.core.components.ui.CoreToast
+import com.doskoch.legacy.android.view.toast.CoreToast
 import com.doskoch.template.di.AppInjector
 import kotlinx.coroutines.launch
 
@@ -29,7 +27,7 @@ class MainActivity : FragmentActivity() {
             val context = this@MainActivity
 
             (AppInjector.component.globalErrorHandler as GlobalErrorHandlerImpl).events.collect { error ->
-                CoreToast(context, error.localizedMessage(context), Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, error.localizedMessage(context), Toast.LENGTH_SHORT).show()
             }
         }
     }

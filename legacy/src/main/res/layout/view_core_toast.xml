@@ -18,7 +18,6 @@
         android:maxLines="5"
         android:ellipsize="end"
         tools:text="@tools:sample/lorem/random"
-        tools:background="?colorPrimary"
         />
 
 </FrameLayout>

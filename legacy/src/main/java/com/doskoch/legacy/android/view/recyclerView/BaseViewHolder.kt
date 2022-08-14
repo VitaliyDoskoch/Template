@@ -1,4 +1,4 @@
-package com.doskoch.legacy.android.recyclerView
+package com.doskoch.legacy.android.view.recyclerView
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView

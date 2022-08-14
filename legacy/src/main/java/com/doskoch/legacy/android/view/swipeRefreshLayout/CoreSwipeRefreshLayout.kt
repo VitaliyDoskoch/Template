@@ -1,4 +1,4 @@
-package com.doskoch.legacy.android.swipeRefreshLayout
+package com.doskoch.legacy.android.view.swipeRefreshLayout
 
 import android.content.Context
 import android.util.AttributeSet

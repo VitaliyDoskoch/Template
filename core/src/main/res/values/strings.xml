@@ -2,6 +2,7 @@
 <resources>
     
     <string name="desc_navigate_back">Navigate back</string>
+    <string name="retry">Retry</string>
     
     <!-- CoreError -->
     <string name="error_unknown">An unknown error occurred.</string>

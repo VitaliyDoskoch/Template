@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Button
+import androidx.compose.material.ButtonColors
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
@@ -23,13 +24,15 @@ fun CoreButton(
     text: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
+    colors: ButtonColors = ButtonDefaults.buttonColors(),
     enabled: Boolean = true,
     isLoading: Boolean = false
 ) {
     Button(
         onClick = onClick,
         modifier = modifier,
-        enabled = enabled
+        enabled = enabled,
+        colors = colors
     ) {
         Row(
             modifier = Modifier
@@ -43,7 +46,6 @@ fun CoreButton(
                     .padding(start = Dimensions.space_32)
                     .weight(1f),
                 style = MaterialTheme.typography.button,
-                color = if(enabled) MaterialTheme.colors.secondary else MaterialTheme.colors.onBackground,
                 textAlign = TextAlign.Center,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis

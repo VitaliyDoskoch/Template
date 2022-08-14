@@ -55,8 +55,11 @@ import com.doskoch.template.anime.data.AnimeItem
 import com.doskoch.template.anime.data.AnimeType
 import com.doskoch.template.anime.data.stringId
 import com.doskoch.template.anime.di.Module
+import com.doskoch.template.core.components.error.CoreError
 import com.doskoch.template.core.components.error.toCoreError
 import com.doskoch.template.core.components.theme.Dimensions
+import com.doskoch.template.core.components.ui.ErrorItem
+import com.doskoch.template.core.components.ui.LoadingItem
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
@@ -130,6 +133,8 @@ private fun TopAnimeScreen(
                     }
                 }
                 refresh is LoadState.NotLoading || items.itemCount > 0 -> {
+                    val append = items.loadState.mediator?.append
+
                     LazyColumn(
                         modifier = Modifier
                             .padding(paddingValues)
@@ -137,6 +142,18 @@ private fun TopAnimeScreen(
                     ) {
                         items(items, key = AnimeItem::id) {
                             it?.let { AnimeItem(item = it, onFavoriteClick = {}) }
+                        }
+
+                        when {
+                            append is LoadState.Loading -> item(key = "loading") {
+                                LoadingItem()
+                            }
+                            append is LoadState.Error -> item(key = "error") {
+                                ErrorItem(
+                                    error = append.error.toCoreError(),
+                                    onRetry = items::retry
+                                )
+                            }
                         }
                     }
                 }

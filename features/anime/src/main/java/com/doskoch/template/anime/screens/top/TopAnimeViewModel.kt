@@ -10,6 +10,8 @@ import com.doskoch.template.anime.data.AnimeType
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 
 class TopAnimeViewModel(
@@ -62,7 +64,7 @@ class TopAnimeViewModel(
                 actions = Actions(
                     onAnimeTypeClick = vm::onAnimeTypeClick,
                     onDismissAnimeTypeMenu = vm::onDismissAnimeTypeMenu,
-                    onUpdateAnimeType = vm::onUpdateAnimeType,
+                    onUpdateAnimeType = vm::onUpdateAnimeType
                 )
             )
         }

@@ -58,7 +58,10 @@ object Dependencies {
         "androidx.navigation:navigation-compose:${Versions.navigationKtx}"
     )
 
-    val accompanist = "com.google.accompanist:accompanist-systemuicontroller:${Versions.accompanist}"
+    val accompanist = listOf(
+        "com.google.accompanist:accompanist-systemuicontroller:${Versions.accompanist}",
+        "com.google.accompanist:accompanist-swiperefresh:${Versions.accompanist}"
+    )
 
     const val fragmentKtx = "androidx.fragment:fragment-ktx:${Versions.fragmentKtx}"
     val navigationKtx = listOf(

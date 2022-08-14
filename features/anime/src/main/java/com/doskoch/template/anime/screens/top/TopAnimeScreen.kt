@@ -44,6 +44,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.PopupProperties
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.paging.ExperimentalPagingApi
+import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import coil.compose.AsyncImage
@@ -54,6 +55,8 @@ import com.doskoch.template.anime.data.AnimeType
 import com.doskoch.template.anime.data.stringId
 import com.doskoch.template.anime.di.Module
 import com.doskoch.template.core.components.theme.Dimensions
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import java.text.DecimalFormat
 
@@ -83,14 +86,19 @@ private fun TopAnimeScreen(
     ) { paddingValues ->
         val items = state.pagingData.collectAsLazyPagingItems()
 
-        LazyColumn(
-            modifier = Modifier
-                .padding(paddingValues)
-                .navigationBarsPadding()
-                .fillMaxSize()
+        SwipeRefresh(
+            state = rememberSwipeRefreshState(isRefreshing = items.loadState.mediator?.refresh is LoadState.Loading),
+            onRefresh = items::refresh
         ) {
-            items(items, key = AnimeItem::id) {
-                it?.let { AnimeItem(item = it, onFavoriteClick = {}) }
+            LazyColumn(
+                modifier = Modifier
+                    .padding(paddingValues)
+                    .navigationBarsPadding()
+                    .fillMaxSize()
+            ) {
+                items(items, key = AnimeItem::id) {
+                    it?.let { AnimeItem(item = it, onFavoriteClick = {}) }
+                }
             }
         }
     }

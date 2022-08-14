@@ -3,11 +3,15 @@ package com.doskoch.template.api.jikan.common.error
 import com.google.gson.annotations.SerializedName
 
 data class ErrorResponse(
-    @SerializedName("code")
-    val code: Code
+    @SerializedName("status")
+    val status: Int,
+    @SerializedName("type")
+    val type: Type?,
+    @SerializedName("message")
+    val message: String
 ) {
-    enum class Code {
-        @SerializedName("UNKNOWN")
-        UNKNOWN
+    enum class Type {
+        @SerializedName("RateLimitException")
+        RateLimitException
     }
 }

@@ -46,6 +46,8 @@ sealed class CoreError {
         override fun localizedMessage(context: Context) = remoteMessage ?: context.getString(R.string.error_http)
 
         class Unspecified(remoteMessage: String?) : Remote(remoteMessage)
+
+        class RateLimit(remoteMessage: String?) : Remote(remoteMessage)
     }
 }
 
@@ -57,9 +59,9 @@ fun Throwable.toCoreError(ifUnknown: (Throwable) -> CoreError) = when (this) {
     is InterruptedException -> CoreError.OperationIsCanceled()
     is HttpException -> errorResponse()
         ?.let { response ->
-            when(response.code) {
-                ErrorResponse.Code.UNKNOWN -> CoreError.Remote.Unspecified(message)
-                else -> null
+            when(response.type) {
+                ErrorResponse.Type.RateLimitException -> CoreError.Remote.RateLimit(response.message)
+                else -> CoreError.Remote.Unspecified(response.message)
             }
         }
         ?: CoreError.Remote.Unspecified(null)

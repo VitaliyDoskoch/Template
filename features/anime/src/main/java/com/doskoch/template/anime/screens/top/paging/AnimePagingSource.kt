@@ -1,6 +1,7 @@
 package com.doskoch.template.anime.screens.top.paging
 
 import androidx.paging.PagingSource
+import androidx.paging.PagingSource.LoadResult.Page.Companion.COUNT_UNDEFINED
 import androidx.paging.PagingState
 import com.doskoch.template.anime.INITIAL_PAGE
 import com.doskoch.template.anime.data.AnimeItem
@@ -18,7 +19,10 @@ class AnimePagingSource(
         registerInvalidatedCallback { storage.removeInvalidationCallback(invalidationCallback) }
     }
 
-    override fun getRefreshKey(state: PagingState<Int, AnimeItem>): Int? = null
+    override fun getRefreshKey(state: PagingState<Int, AnimeItem>): Int? = state.anchorPosition?.let { anchorPosition ->
+        val anchorPage = state.closestPageToPosition(anchorPosition)
+        storage.keys.find { storage.pageOf(it.current) === anchorPage?.data }?.current
+    }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, AnimeItem> {
         return try {
@@ -27,7 +31,18 @@ class AnimePagingSource(
             val keys = storage.keysOf(key)
             val items = storage.pageOf(key).orEmpty()
 
-            LoadResult.Page(data = items, prevKey = keys?.previous, nextKey = keys?.next)
+            val itemsBefore = items.firstOrNull()?.let {
+                storage.items.indexOf(it)
+            } ?: COUNT_UNDEFINED
+            val itemsAfter = items.lastOrNull()?.let { storage.items.indices.last - storage.items.indexOf(it) } ?: COUNT_UNDEFINED
+
+            LoadResult.Page(
+                data = items,
+                prevKey = keys?.previous,
+                nextKey = keys?.next,
+                itemsBefore = itemsBefore,
+//                itemsAfter = itemsAfter
+            )
         } catch (t: Throwable) {
             Timber.e(t)
             LoadResult.Error(t)

@@ -20,31 +20,39 @@ class TopAnimeViewModel(
     val state = _state.asStateFlow()
 
     private fun onAnimeTypeClick() {
+        _state.update { it.copy(showAnimeTypeMenu = true) }
+    }
 
+    private fun onDismissAnimeTypeMenu() {
+        _state.update { it.copy(showAnimeTypeMenu = false) }
     }
 
     private fun onUpdateAnimeType(type: AnimeType) {
-        _state.update { it.copy(animeType = type) }
+        _state.update { it.copy(animeType = type, showAnimeTypeMenu = false) }
     }
 
     data class State(
         val animeType: AnimeType,
+        val showAnimeTypeMenu: Boolean,
         val pagingData: Flow<PagingData<AnimeItem>>,
         val actions: Actions
     ) {
 
         data class Actions(
             val onAnimeTypeClick: () -> Unit,
+            val onDismissAnimeTypeMenu: () -> Unit,
             val onUpdateAnimeType: (AnimeType) -> Unit
         )
 
         companion object {
             fun default(vm: TopAnimeViewModel) = State(
                 animeType = AnimeType.Tv,
+                showAnimeTypeMenu = false,
                 pagingData = vm.pager.flow.cachedIn(vm.viewModelScope),
                 actions = Actions(
                     onAnimeTypeClick = vm::onAnimeTypeClick,
-                    onUpdateAnimeType = vm::onUpdateAnimeType
+                    onDismissAnimeTypeMenu = vm::onDismissAnimeTypeMenu,
+                    onUpdateAnimeType = vm::onUpdateAnimeType,
                 )
             )
         }

@@ -21,13 +21,13 @@ import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -36,13 +36,13 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.paging.ExperimentalPagingApi
-import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import coil.compose.AsyncImage
 import com.doskoch.legacy.android.viewModel.viewModelFactory
 import com.doskoch.template.anime.R
 import com.doskoch.template.anime.data.AnimeItem
+import com.doskoch.template.anime.data.stringId
 import com.doskoch.template.anime.di.Module
 import com.doskoch.template.core.components.theme.Dimensions
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
@@ -59,31 +59,21 @@ fun TopAnimeScreen() {
 @Composable
 private fun TopAnimeScreen(vm: TopAnimeViewModel) {
     TopAnimeScreen(
-        items = vm.items.collectAsLazyPagingItems()
+        state = vm.state.collectAsState().value
     )
 }
 
 @Composable
 private fun TopAnimeScreen(
-    items: LazyPagingItems<AnimeItem>
+    state: TopAnimeViewModel.State
 ) {
     Scaffold(
         topBar = {
-            val systemUiController = rememberSystemUiController()
-            val statusBarColor = MaterialTheme.colors.primary
-
-            SideEffect {
-                systemUiController.setStatusBarColor(statusBarColor)
-            }
-
-            TopAppBar(
-                modifier = Modifier
-                    .statusBarsPadding()
-            ) {
-
-            }
+            TopBar(state = state)
         }
     ) { paddingValues ->
+        val items = state.pagingData.collectAsLazyPagingItems()
+
         LazyColumn(
             modifier = Modifier
                 .padding(paddingValues)
@@ -93,6 +83,43 @@ private fun TopAnimeScreen(
             items(items, key = AnimeItem::id) {
                 it?.let { AnimeItem(item = it, onFavoriteClick = {}) }
             }
+        }
+    }
+}
+
+@Composable
+private fun TopBar(state: TopAnimeViewModel.State) {
+    val systemUiController = rememberSystemUiController()
+    val statusBarColor = MaterialTheme.colors.primary
+
+    SideEffect {
+        systemUiController.setStatusBarColor(statusBarColor)
+    }
+
+    TopAppBar(
+        modifier = Modifier
+            .statusBarsPadding()
+    ) {
+        Row(
+            modifier = Modifier
+                .clip(MaterialTheme.shapes.small)
+                .clickable(onClick = state.actions.onAnimeTypeClick)
+                .padding(horizontal = Dimensions.space_16, vertical = Dimensions.space_8),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = stringResource(state.animeType.stringId),
+                style = MaterialTheme.typography.subtitle1,
+                color = MaterialTheme.colors.onPrimary
+            )
+
+            Icon(
+                painter = painterResource(R.drawable.ic_arrow_down),
+                contentDescription = null,
+                modifier = Modifier
+                    .size(Dimensions.icon_24),
+                tint = MaterialTheme.colors.onPrimary
+            )
         }
     }
 }

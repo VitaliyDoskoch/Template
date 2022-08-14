@@ -8,7 +8,6 @@ class AnimeRepository(
     private val service: TopService
 ) {
 
-    suspend fun loadAnime(type: AnimeType, filter: AnimeFilter, page: Int, pageSize: Int) =
-        service.getTopAnime(type, filter, page, pageSize)
+    suspend fun loadAnime(type: AnimeType, page: Int, pageSize: Int) = service.getTopAnime(type, AnimeFilter.Popularity, page, pageSize)
 
 }

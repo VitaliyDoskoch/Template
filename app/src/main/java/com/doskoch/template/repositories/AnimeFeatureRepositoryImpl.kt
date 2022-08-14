@@ -18,7 +18,6 @@ class AnimeFeatureRepositoryImpl(
     override suspend fun loadAnime(type: AnimeType, filter: AnimeFilter, page: Int, pageSize: Int): PagedData {
         val response = repository.loadAnime(
             type = converter.toRemoteType(type),
-            filter = converter.toRemoteFilter(filter),
             page = page,
             pageSize = pageSize
         )
@@ -40,13 +39,6 @@ class AnimeFeatureConverter {
         AnimeType.Special -> RemoteAnimeType.Special
         AnimeType.Ona -> RemoteAnimeType.Ona
         AnimeType.Music -> RemoteAnimeType.Music
-    }
-
-    fun toRemoteFilter(filter: AnimeFilter) = when(filter) {
-        AnimeFilter.Airing -> RemoteAnimeFilter.Airing
-        AnimeFilter.Upcoming -> RemoteAnimeFilter.Upcoming
-        AnimeFilter.Popularity -> RemoteAnimeFilter.Popularity
-        AnimeFilter.Favorite -> RemoteAnimeFilter.Favorite
     }
 
     fun toAnimeItem(data: GetTopAnimeResponse.Data) = with(data) {

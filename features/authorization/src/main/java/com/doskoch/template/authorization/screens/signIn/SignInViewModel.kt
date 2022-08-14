@@ -56,6 +56,13 @@ class SignInViewModel(
         val isLoading: Boolean,
         val actions: Actions
     ) {
+
+        data class Actions(
+            val onNavigateBack: () -> Unit,
+            val onUpdateEmail: (String) -> Unit,
+            val onProceed: () -> Unit
+        )
+
         companion object {
             fun default(vm: SignInViewModel): State = State(
                 email = "",
@@ -70,10 +77,4 @@ class SignInViewModel(
             )
         }
     }
-
-    data class Actions(
-        val onNavigateBack: () -> Unit,
-        val onUpdateEmail: (String) -> Unit,
-        val onProceed: () -> Unit
-    )
 }

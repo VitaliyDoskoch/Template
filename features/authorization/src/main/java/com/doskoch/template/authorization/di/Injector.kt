@@ -18,7 +18,7 @@ object Module {
     val signUpViewModel: SignUpViewModel
         get() = SignUpViewModel(
             nestedNavigator = Injector.nestedNavigator,
-            featureNavigator = Injector.featureNavigator
+            globalNavigator = Injector.globalNavigator
         )
 
     val signInViewModel: SignInViewModel
@@ -26,7 +26,7 @@ object Module {
             nestedNavigator = Injector.nestedNavigator,
             validateEmailUseCase = ValidateEmailUseCase(),
             globalErrorHandler = Injector.globalErrorHandler,
-            featureNavigator = Injector.featureNavigator,
+            globalNavigator = Injector.globalNavigator,
             authorizeUseCase = AuthorizeUseCase(repository = Injector.repository)
         )
 }

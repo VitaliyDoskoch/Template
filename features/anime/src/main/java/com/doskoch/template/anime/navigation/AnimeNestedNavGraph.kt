@@ -1,4 +1,4 @@
-package com.doskoch.template.anime
+package com.doskoch.template.anime.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -9,11 +9,11 @@ import com.doskoch.template.anime.di.Injector
 import com.doskoch.template.anime.top.TopAnimeScreen
 
 @Composable
-fun AnimeNavigationGraph() {
+fun AnimeNestedNavGraph() {
     val navController = rememberNavController()
 
     LaunchedEffect(navController) {
-        Injector.nestedNavigator.navController = navController
+        Injector.nestedNavigator.events.collect { it.invoke(navController) }
     }
 
     NavHost(navController = navController, startDestination = AnimeNestedNavigator.startDestination.name) {

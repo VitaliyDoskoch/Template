@@ -1,11 +1,11 @@
 package com.doskoch.template.splash.di
 
 interface SplashFeature {
-    val featureNavigator: SplashFeatureNavigator
+    val globalNavigator: SplashFeatureGlobalNavigator
     val repository: SplashFeatureRepository
 }
 
-interface SplashFeatureNavigator {
+interface SplashFeatureGlobalNavigator {
     fun toAuthorization()
     fun toAnime()
 }

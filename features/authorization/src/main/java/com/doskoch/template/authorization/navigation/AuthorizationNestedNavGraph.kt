@@ -1,4 +1,4 @@
-package com.doskoch.template.authorization
+package com.doskoch.template.authorization.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -10,11 +10,11 @@ import com.doskoch.template.authorization.signIn.SignInScreen
 import com.doskoch.template.authorization.signUp.SignUpScreen
 
 @Composable
-fun AuthorizationNavigationGraph() {
+fun AuthorizationNestedNavGraph() {
     val navController = rememberNavController()
 
     LaunchedEffect(navController) {
-        Injector.nestedNavigator.navController = navController
+        Injector.nestedNavigator.events.collect { it.invoke(navController) }
     }
 
     NavHost(navController = navController, startDestination = AuthorizationNestedNavigator.startDestination.name) {

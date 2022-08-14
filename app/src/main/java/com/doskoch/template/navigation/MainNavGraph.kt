@@ -5,13 +5,13 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.doskoch.template.anime.AnimeNavigationGraph
-import com.doskoch.template.authorization.AuthorizationNavigationGraph
+import com.doskoch.template.anime.navigation.AnimeNestedNavGraph
+import com.doskoch.template.authorization.navigation.AuthorizationNestedNavGraph
 import com.doskoch.template.di.AppInjector
 import com.doskoch.template.splash.SplashScreen
 
 @Composable
-fun MainNavigationGraph() {
+fun MainNavGraph() {
     val navController = rememberNavController()
 
     LaunchedEffect(navController) {
@@ -23,10 +23,10 @@ fun MainNavigationGraph() {
             SplashScreen()
         }
         composable(Destinations.Authorization.name) {
-            AuthorizationNavigationGraph()
+            AuthorizationNestedNavGraph()
         }
         composable(Destinations.Anime.name) {
-            AnimeNavigationGraph()
+            AnimeNestedNavGraph()
         }
     }
 }

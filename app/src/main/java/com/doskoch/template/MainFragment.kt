@@ -8,7 +8,7 @@ import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
 import com.doskoch.template.core.components.theme.BasicTheme
 import com.doskoch.template.core.components.theme.WithDimensions
-import com.doskoch.template.navigation.MainNavigationGraph
+import com.doskoch.template.navigation.MainNavGraph
 
 class MainFragment : Fragment() {
 
@@ -17,7 +17,7 @@ class MainFragment : Fragment() {
         setContent {
             WithDimensions {
                 BasicTheme {
-                    MainNavigationGraph()
+                    MainNavGraph()
                 }
             }
         }

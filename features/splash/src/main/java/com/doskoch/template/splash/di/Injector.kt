@@ -17,7 +17,7 @@ object Module {
         get() = SplashViewModel(
             minDisplayTime = MIN_SPLASH_DISPLAY_TIME,
             repository = Injector.repository,
-            featureNavigator = Injector.featureNavigator
+            globalNavigator = Injector.globalNavigator
         )
 
 }

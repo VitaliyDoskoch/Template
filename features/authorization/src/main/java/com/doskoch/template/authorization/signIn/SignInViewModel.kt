@@ -2,8 +2,8 @@ package com.doskoch.template.authorization.signIn
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.doskoch.template.authorization.AuthorizationNestedNavigator
-import com.doskoch.template.authorization.di.AuthorizationFeatureNavigator
+import com.doskoch.template.authorization.navigation.AuthorizationNestedNavigator
+import com.doskoch.template.authorization.di.AuthorizationFeatureGlobalNavigator
 import com.doskoch.template.authorization.signIn.useCase.AuthorizeUseCase
 import com.doskoch.template.authorization.signIn.useCase.ValidateEmailUseCase
 import com.doskoch.template.core.components.error.CoreError
@@ -19,7 +19,7 @@ class SignInViewModel(
     private val nestedNavigator: AuthorizationNestedNavigator,
     private val validateEmailUseCase: ValidateEmailUseCase,
     private val globalErrorHandler: GlobalErrorHandler,
-    private val featureNavigator: AuthorizationFeatureNavigator,
+    private val globalNavigator: AuthorizationFeatureGlobalNavigator,
     private val authorizeUseCase: AuthorizeUseCase
 ) : ViewModel() {
 
@@ -41,7 +41,7 @@ class SignInViewModel(
 
                 authorizeUseCase.invoke()
 
-                featureNavigator.toAnime()
+                globalNavigator.toAnime()
             } else {
                 _state.update { it.copy(error = CoreError.InvalidEmail()) }
             }

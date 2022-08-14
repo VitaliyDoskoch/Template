@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
 class TopAnimeViewModel(
-    private val pager: Pager<Int, AnimeItem>
+    private val pagerFactory: PagerFactory
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(State.default(this))
@@ -28,7 +28,17 @@ class TopAnimeViewModel(
     }
 
     private fun onUpdateAnimeType(type: AnimeType) {
-        _state.update { it.copy(animeType = type, showAnimeTypeMenu = false) }
+        _state.update {
+            it.copy(
+                animeType = type,
+                showAnimeTypeMenu = false,
+                pagingData = pagerFactory.create(type).flow.cachedIn(viewModelScope)
+            )
+        }
+    }
+
+    fun interface PagerFactory {
+        fun create(animeType: AnimeType): Pager<Int, AnimeItem>
     }
 
     data class State(
@@ -48,7 +58,7 @@ class TopAnimeViewModel(
             fun default(vm: TopAnimeViewModel) = State(
                 animeType = AnimeType.Tv,
                 showAnimeTypeMenu = false,
-                pagingData = vm.pager.flow.cachedIn(vm.viewModelScope),
+                pagingData = vm.pagerFactory.create(AnimeType.Tv).flow.cachedIn(vm.viewModelScope),
                 actions = Actions(
                     onAnimeTypeClick = vm::onAnimeTypeClick,
                     onDismissAnimeTypeMenu = vm::onDismissAnimeTypeMenu,

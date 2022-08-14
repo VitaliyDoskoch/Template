@@ -8,6 +8,7 @@ import com.doskoch.template.anime.INITIAL_LOAD_SIZE
 import com.doskoch.template.anime.INITIAL_PAGE
 import com.doskoch.template.anime.PAGE_SIZE
 import com.doskoch.template.anime.data.AnimeItem
+import com.doskoch.template.anime.data.AnimeType
 import com.doskoch.template.anime.screens.top.TopAnimeViewModel
 import com.doskoch.template.anime.screens.top.paging.AnimePagingSource
 import com.doskoch.template.anime.screens.top.paging.AnimeRemoteMediator
@@ -24,19 +25,20 @@ internal val Injector: AnimeFeature
 object Module {
 
     val topAnimeViewModel: TopAnimeViewModel
-        get() = TopAnimeViewModel(pager = pager)
-
-    private val animeRemoteMediator: AnimeRemoteMediator
-        get() = AnimeRemoteMediator(
-            loadAnimeUseCase = LoadAnimeUseCase(repository = Injector.repository),
-            storage = Injector.storage
+        get() = TopAnimeViewModel(
+            pagerFactory = { animeType -> pager(animeType = animeType) }
         )
 
-    private val pager: Pager<Int, AnimeItem>
-        get() = Pager(
-            config = PagingConfig(pageSize = PAGE_SIZE, initialLoadSize = INITIAL_LOAD_SIZE),
-            remoteMediator = animeRemoteMediator,
-            initialKey = INITIAL_PAGE,
-            pagingSourceFactory = { AnimePagingSource(storage = Injector.storage) }
-        )
+    private fun pager(animeType: AnimeType) = Pager(
+        config = PagingConfig(pageSize = PAGE_SIZE, initialLoadSize = INITIAL_LOAD_SIZE),
+        remoteMediator = animeRemoteMediator(animeType = animeType),
+        initialKey = INITIAL_PAGE,
+        pagingSourceFactory = { AnimePagingSource(storage = Injector.storage) }
+    )
+
+    private fun animeRemoteMediator(animeType: AnimeType) = AnimeRemoteMediator(
+        animeType = animeType,
+        loadAnimeUseCase = LoadAnimeUseCase(repository = Injector.repository),
+        storage = Injector.storage
+    )
 }

@@ -1,6 +1,5 @@
 package com.doskoch.template.repositories
 
-import com.doskoch.template.anime.data.AnimeFilter
 import com.doskoch.template.anime.data.AnimeItem
 import com.doskoch.template.anime.data.AnimeType
 import com.doskoch.template.anime.data.PagedData
@@ -8,14 +7,13 @@ import com.doskoch.template.anime.di.AnimeFeatureRepository
 import com.doskoch.template.api.jikan.services.responses.GetTopAnimeResponse
 import com.doskoch.template.core.data.repository.AnimeRepository
 import com.doskoch.template.api.jikan.common.enum.AnimeType as RemoteAnimeType
-import com.doskoch.template.api.jikan.common.enum.AnimeFilter as RemoteAnimeFilter
 
 class AnimeFeatureRepositoryImpl(
     private val repository: AnimeRepository,
     private val converter: AnimeFeatureConverter
 ) : AnimeFeatureRepository {
 
-    override suspend fun loadAnime(type: AnimeType, filter: AnimeFilter, page: Int, pageSize: Int): PagedData {
+    override suspend fun loadAnime(type: AnimeType, page: Int, pageSize: Int): PagedData {
         val response = repository.loadAnime(
             type = converter.toRemoteType(type),
             page = page,

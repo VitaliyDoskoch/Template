@@ -18,7 +18,7 @@ fun animeFeatureModule(component: AppComponent) = object : AnimeFeature {
 
     override val nestedNavigator = AnimeNestedNavigator()
 
-    override val globalErrorHandler = component.globalErrorHandlerHolder.handler
+    override val globalErrorHandler = component.globalErrorHandler
 
     override val repository = AnimeFeatureRepositoryImpl(
         repository = AnimeRepository(JikanApiProvider.topService),

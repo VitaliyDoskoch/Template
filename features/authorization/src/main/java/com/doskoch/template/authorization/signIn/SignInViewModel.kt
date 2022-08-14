@@ -2,8 +2,8 @@ package com.doskoch.template.authorization.signIn
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.doskoch.template.authorization.di.AuthorizationFeatureNavigator
 import com.doskoch.template.authorization.AuthorizationNestedNavigator
+import com.doskoch.template.authorization.di.AuthorizationFeatureNavigator
 import com.doskoch.template.authorization.signIn.useCase.AuthorizeUseCase
 import com.doskoch.template.authorization.signIn.useCase.ValidateEmailUseCase
 import com.doskoch.template.core.components.error.CoreError
@@ -34,9 +34,9 @@ class SignInViewModel(
 
     private fun onProceed() = perform(
         action = {
-            if(state.value.isLoading) return@perform
+            if (state.value.isLoading) return@perform
 
-            if(validateEmailUseCase.invoke(state.value.email.trim())) {
+            if (validateEmailUseCase.invoke(state.value.email.trim())) {
                 _state.update { it.copy(isLoading = true) }
 
                 authorizeUseCase.invoke()
@@ -46,7 +46,7 @@ class SignInViewModel(
                 _state.update { it.copy(error = CoreError.InvalidEmail()) }
             }
         },
-        onError = { globalErrorHandler.showError(it.toCoreError()) }
+        onError = { globalErrorHandler.handle(it.toCoreError()) }
     )
 
     data class State(

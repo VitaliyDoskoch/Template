@@ -4,10 +4,14 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.core.view.WindowCompat
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.doskoch.template.core.components.error.CoreError
 import com.doskoch.template.core.components.error.GlobalErrorHandler
 import com.doskoch.template.core.components.ui.CoreToast
 import com.doskoch.template.di.AppInjector
+import kotlinx.coroutines.launch
 
 class MainActivity : FragmentActivity() {
 
@@ -17,14 +21,14 @@ class MainActivity : FragmentActivity() {
 
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
-        initGlobalErrorHandler()
+        observeGlobalErrorHandler()
     }
 
-    private fun initGlobalErrorHandler() {
-        AppInjector.component.globalErrorHandlerHolder.handler = object : GlobalErrorHandler {
+    private fun observeGlobalErrorHandler() = lifecycleScope.launch {
+        repeatOnLifecycle(Lifecycle.State.RESUMED) {
             val context = this@MainActivity
 
-            override fun showError(error: CoreError) {
+            (AppInjector.component.globalErrorHandler as GlobalErrorHandlerImpl).events.collect { error ->
                 CoreToast(context, error.localizedMessage(context), Toast.LENGTH_SHORT).show()
             }
         }

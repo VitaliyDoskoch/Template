@@ -67,7 +67,7 @@ private fun SplashScreen(vm: SplashViewModel) {
 
             Text(
                 text = LocalContext.current.run {
-                    stringResource(R.string.version, packageManager.getPackageInfo(packageName, 0).versionName)
+                    stringResource(R.string.app_version, packageManager.getPackageInfo(packageName, 0).versionName)
                 },
                 modifier = Modifier
                     .padding(start = Dimensions.space_16, end = Dimensions.space_16)

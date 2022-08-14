@@ -8,10 +8,10 @@ import com.doskoch.template.anime.INITIAL_LOAD_SIZE
 import com.doskoch.template.anime.INITIAL_PAGE
 import com.doskoch.template.anime.PAGE_SIZE
 import com.doskoch.template.anime.data.AnimeItem
-import com.doskoch.template.anime.screens.all.TopAnimeViewModel
-import com.doskoch.template.anime.screens.all.paging.AnimeInMemoryPagingSource
-import com.doskoch.template.anime.screens.all.paging.AnimeRemoteMediator
-import com.doskoch.template.anime.screens.all.useCase.LoadAnimeUseCase
+import com.doskoch.template.anime.screens.top.TopAnimeViewModel
+import com.doskoch.template.anime.screens.top.paging.AnimePagingSource
+import com.doskoch.template.anime.screens.top.paging.AnimeRemoteMediator
+import com.doskoch.template.anime.screens.top.useCase.LoadAnimeUseCase
 
 object AnimeFeatureInjector {
     var provider: DestroyableLazy<AnimeFeature>? = null
@@ -37,6 +37,6 @@ object Module {
             config = PagingConfig(pageSize = PAGE_SIZE, initialLoadSize = INITIAL_LOAD_SIZE),
             remoteMediator = animeRemoteMediator,
             initialKey = INITIAL_PAGE,
-            pagingSourceFactory = { AnimeInMemoryPagingSource(storage = Injector.storage) }
+            pagingSourceFactory = { AnimePagingSource(storage = Injector.storage) }
         )
 }

@@ -1,4 +1,4 @@
-package com.doskoch.template.anime.screens.all
+package com.doskoch.template.anime.screens.top
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

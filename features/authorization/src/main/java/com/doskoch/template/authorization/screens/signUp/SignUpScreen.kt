@@ -89,7 +89,7 @@ private fun SignUpScreen(
             Spacer(modifier = Modifier.weight(1f))
 
             Text(
-                text = stringResource(R.string.sign_in_motivation),
+                text = stringResource(R.string.sign_in_label),
                 modifier = Modifier
                     .padding(start = Dimensions.space_16, end = Dimensions.space_16)
                     .fillMaxWidth(),

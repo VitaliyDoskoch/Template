@@ -1,4 +1,4 @@
-package com.doskoch.template.anime.screens.all
+package com.doskoch.template.anime.screens.top
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -22,9 +22,12 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -107,7 +110,7 @@ private fun AnimeItem(
         ) {
             AsyncImage(
                 model = item.imageUrl,
-                contentDescription = stringResource(R.string.desc_anime_image),
+                contentDescription = stringResource(R.string.desc_item_image),
                 modifier = Modifier
                     .padding(start = Dimensions.space_16, top = Dimensions.space_16, bottom = Dimensions.space_16)
                     .size(80.dp),
@@ -149,7 +152,7 @@ private fun AnimeItem(
                         append("$score ")
                         addStyle(SpanStyle(fontWeight = FontWeight.Bold), 0, score.length)
 
-                        append(stringResource(R.string.by_users, item.scoredBy))
+                        append(LocalContext.current.resources.getQuantityString(R.plurals.by_users, item.scoredBy, item.scoredBy))
                     },
                     modifier = Modifier
                         .fillMaxWidth(),
@@ -162,7 +165,7 @@ private fun AnimeItem(
 
             Icon(
                 painter = painterResource(if(item.isFavorite) R.drawable.ic_star_filled else R.drawable.ic_start_outline),
-                contentDescription = stringResource(R.string.desc_add_to_favorite),
+                contentDescription = stringResource(R.string.desc_icon_add_to_favorite),
                 modifier = Modifier
                     .align(Alignment.Bottom)
                     .padding(end = Dimensions.space_16, bottom = Dimensions.space_16)

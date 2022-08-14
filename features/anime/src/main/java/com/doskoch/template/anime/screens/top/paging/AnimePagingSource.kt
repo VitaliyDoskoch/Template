@@ -1,14 +1,15 @@
-package com.doskoch.template.anime.screens.all.paging
+package com.doskoch.template.anime.screens.top.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.doskoch.template.anime.INITIAL_PAGE
 import com.doskoch.template.anime.data.AnimeItem
 import com.doskoch.template.core.components.paging.SimpleInMemoryStorage
+import timber.log.Timber
 
-class AnimeInMemoryPagingSource(
+class AnimePagingSource(
     private val storage: SimpleInMemoryStorage<Int, AnimeItem>
-) : PagingSource<Int, AnimeItem>(){
+) : PagingSource<Int, AnimeItem>() {
 
     private val invalidationCallback = { invalidate() }
 
@@ -26,12 +27,9 @@ class AnimeInMemoryPagingSource(
             val keys = storage.keysOf(key)
             val items = storage.pageOf(key).orEmpty()
 
-            LoadResult.Page(
-                data = items,
-                prevKey = keys?.previous,
-                nextKey = keys?.next
-            )
+            LoadResult.Page(data = items, prevKey = keys?.previous, nextKey = keys?.next)
         } catch (t: Throwable) {
+            Timber.e(t)
             LoadResult.Error(t)
         }
     }

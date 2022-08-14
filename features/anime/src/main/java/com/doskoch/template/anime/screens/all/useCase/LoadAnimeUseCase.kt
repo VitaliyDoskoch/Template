@@ -1,4 +1,4 @@
-package com.doskoch.template.anime.top.useCase
+package com.doskoch.template.anime.screens.all.useCase
 
 import com.doskoch.template.anime.data.AnimeFilter
 import com.doskoch.template.anime.data.AnimeType

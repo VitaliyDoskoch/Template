@@ -8,10 +8,10 @@ import com.doskoch.template.anime.INITIAL_LOAD_SIZE
 import com.doskoch.template.anime.INITIAL_PAGE
 import com.doskoch.template.anime.PAGE_SIZE
 import com.doskoch.template.anime.data.AnimeItem
-import com.doskoch.template.anime.top.TopAnimeViewModel
-import com.doskoch.template.anime.top.paging.AnimeInMemoryPagingSource
-import com.doskoch.template.anime.top.paging.AnimeRemoteMediator
-import com.doskoch.template.anime.top.useCase.LoadAnimeUseCase
+import com.doskoch.template.anime.screens.all.TopAnimeViewModel
+import com.doskoch.template.anime.screens.all.paging.AnimeInMemoryPagingSource
+import com.doskoch.template.anime.screens.all.paging.AnimeRemoteMediator
+import com.doskoch.template.anime.screens.all.useCase.LoadAnimeUseCase
 
 object AnimeFeatureInjector {
     var provider: DestroyableLazy<AnimeFeature>? = null

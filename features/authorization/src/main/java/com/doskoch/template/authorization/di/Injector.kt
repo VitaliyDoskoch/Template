@@ -1,10 +1,10 @@
 package com.doskoch.template.authorization.di
 
 import com.doskoch.legacy.kotlin.DestroyableLazy
-import com.doskoch.template.authorization.signIn.SignInViewModel
-import com.doskoch.template.authorization.signIn.useCase.AuthorizeUseCase
-import com.doskoch.template.authorization.signIn.useCase.ValidateEmailUseCase
-import com.doskoch.template.authorization.signUp.SignUpViewModel
+import com.doskoch.template.authorization.screens.signIn.SignInViewModel
+import com.doskoch.template.authorization.screens.signIn.useCase.AuthorizeUseCase
+import com.doskoch.template.authorization.screens.signIn.useCase.ValidateEmailUseCase
+import com.doskoch.template.authorization.screens.signUp.SignUpViewModel
 
 object AuthorizationFeatureInjector {
     var provider: DestroyableLazy<AuthorizationFeature>? = null

@@ -1,4 +1,4 @@
-package com.doskoch.template.authorization.signIn.useCase
+package com.doskoch.template.authorization.screens.signIn.useCase
 
 import com.doskoch.template.authorization.di.AuthorizationFeatureRepository
 import kotlinx.coroutines.CoroutineDispatcher

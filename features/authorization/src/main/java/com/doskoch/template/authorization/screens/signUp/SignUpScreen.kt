@@ -1,4 +1,4 @@
-package com.doskoch.template.authorization.signUp
+package com.doskoch.template.authorization.screens.signUp
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column

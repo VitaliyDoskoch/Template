@@ -6,8 +6,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.doskoch.template.authorization.di.Injector
-import com.doskoch.template.authorization.signIn.SignInScreen
-import com.doskoch.template.authorization.signUp.SignUpScreen
+import com.doskoch.template.authorization.screens.signIn.SignInScreen
+import com.doskoch.template.authorization.screens.signUp.SignUpScreen
 
 @Composable
 fun AuthorizationNestedNavGraph() {

@@ -1,4 +1,4 @@
-package com.doskoch.template.anime.details
+package com.doskoch.template.anime.screens.details
 
 import androidx.compose.runtime.Composable
 

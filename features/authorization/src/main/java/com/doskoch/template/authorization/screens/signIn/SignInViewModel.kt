@@ -1,11 +1,11 @@
-package com.doskoch.template.authorization.signIn
+package com.doskoch.template.authorization.screens.signIn
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.doskoch.template.authorization.navigation.AuthorizationNestedNavigator
 import com.doskoch.template.authorization.di.AuthorizationFeatureGlobalNavigator
-import com.doskoch.template.authorization.signIn.useCase.AuthorizeUseCase
-import com.doskoch.template.authorization.signIn.useCase.ValidateEmailUseCase
+import com.doskoch.template.authorization.screens.signIn.useCase.AuthorizeUseCase
+import com.doskoch.template.authorization.screens.signIn.useCase.ValidateEmailUseCase
 import com.doskoch.template.core.components.error.CoreError
 import com.doskoch.template.core.components.error.GlobalErrorHandler
 import com.doskoch.template.core.components.error.toCoreError

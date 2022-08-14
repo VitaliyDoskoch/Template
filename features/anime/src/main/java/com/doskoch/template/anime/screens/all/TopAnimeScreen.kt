@@ -1,4 +1,4 @@
-package com.doskoch.template.anime.top
+package com.doskoch.template.anime.screens.all
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement

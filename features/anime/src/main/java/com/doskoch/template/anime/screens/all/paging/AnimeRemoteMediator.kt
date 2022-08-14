@@ -1,4 +1,4 @@
-package com.doskoch.template.anime.top.paging
+package com.doskoch.template.anime.screens.all.paging
 
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
@@ -8,7 +8,7 @@ import com.doskoch.template.anime.INITIAL_PAGE
 import com.doskoch.template.anime.data.AnimeFilter
 import com.doskoch.template.anime.data.AnimeItem
 import com.doskoch.template.anime.data.AnimeType
-import com.doskoch.template.anime.top.useCase.LoadAnimeUseCase
+import com.doskoch.template.anime.screens.all.useCase.LoadAnimeUseCase
 import com.doskoch.template.core.components.paging.SimpleInMemoryStorage
 import timber.log.Timber
 

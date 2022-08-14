@@ -1,4 +1,4 @@
-package com.doskoch.template.authorization.signUp
+package com.doskoch.template.authorization.screens.signUp
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

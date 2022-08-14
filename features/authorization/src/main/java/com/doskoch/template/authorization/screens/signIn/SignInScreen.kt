@@ -1,4 +1,4 @@
-package com.doskoch.template.authorization.signIn
+package com.doskoch.template.authorization.screens.signIn
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer

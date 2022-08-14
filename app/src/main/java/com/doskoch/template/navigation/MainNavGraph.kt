@@ -8,7 +8,7 @@ import androidx.navigation.compose.rememberNavController
 import com.doskoch.template.anime.navigation.AnimeNestedNavGraph
 import com.doskoch.template.authorization.navigation.AuthorizationNestedNavGraph
 import com.doskoch.template.di.AppInjector
-import com.doskoch.template.splash.SplashScreen
+import com.doskoch.template.splash.screens.splash.SplashScreen
 
 @Composable
 fun MainNavGraph() {

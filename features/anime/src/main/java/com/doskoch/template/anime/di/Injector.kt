@@ -26,7 +26,8 @@ object Module {
 
     val topAnimeViewModel: TopAnimeViewModel
         get() = TopAnimeViewModel(
-            pagerFactory = { animeType -> pager(animeType = animeType) }
+            pagerFactory = { animeType -> pager(animeType = animeType) },
+            storage = Injector.storage
         )
 
     private fun pager(animeType: AnimeType) = Pager(

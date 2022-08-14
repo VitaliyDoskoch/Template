@@ -7,6 +7,7 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.doskoch.template.anime.data.AnimeItem
 import com.doskoch.template.anime.data.AnimeType
+import com.doskoch.template.core.components.paging.SimpleInMemoryStorage
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -15,7 +16,8 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 
 class TopAnimeViewModel(
-    private val pagerFactory: PagerFactory
+    private val pagerFactory: PagerFactory,
+    private val storage: SimpleInMemoryStorage<Int, AnimeItem>
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(State.default(this))
@@ -30,6 +32,8 @@ class TopAnimeViewModel(
     }
 
     private fun onUpdateAnimeType(type: AnimeType) {
+        storage.clear()
+
         _state.update {
             it.copy(
                 animeType = type,

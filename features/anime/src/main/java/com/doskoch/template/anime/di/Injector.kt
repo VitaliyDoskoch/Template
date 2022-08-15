@@ -13,6 +13,7 @@ import com.doskoch.template.anime.screens.top.TopAnimeViewModel
 import com.doskoch.template.anime.screens.top.paging.AnimePagingSource
 import com.doskoch.template.anime.screens.top.paging.AnimeRemoteMediator
 import com.doskoch.template.anime.screens.top.useCase.LoadAnimeUseCase
+import com.doskoch.template.anime.screens.top.useCase.LogoutUseCase
 
 object AnimeFeatureInjector {
     var provider: DestroyableLazy<AnimeFeature>? = null
@@ -26,8 +27,16 @@ object Module {
 
     val topAnimeViewModel: TopAnimeViewModel
         get() = TopAnimeViewModel(
+            logoutUseCase = logoutUseCase,
             pagerFactory = { animeType -> pager(animeType = animeType) },
-            storage = Injector.storage
+            storage = Injector.storage,
+            globalErrorHandler = Injector.globalErrorHandler
+        )
+
+    private val logoutUseCase: LogoutUseCase
+        get() = LogoutUseCase(
+            repository = Injector.repository,
+            globalNavigator = Injector.globalNavigator
         )
 
     private fun pager(animeType: AnimeType) = Pager(

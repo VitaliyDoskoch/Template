@@ -13,6 +13,8 @@ class MainNavigator : CoreNavigator {
 
     fun toAnime(options: NavOptions) = events.enqueue { navigate(Destinations.Anime.name, options) }
 
+    fun toSplash(options: NavOptions) = events.enqueue { navigate(Destinations.Splash.name, options) }
+
     companion object {
         val startDestination = Destinations.Splash
     }

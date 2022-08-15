@@ -20,15 +20,19 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.AlertDialog
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Divider
 import androidx.compose.material.DropdownMenu
 import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
+import androidx.compose.material.TextButton
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
@@ -94,6 +98,15 @@ private fun TopAnimeScreen(vm: TopAnimeViewModel) {
 private fun TopAnimeScreen(
     state: TopAnimeViewModel.State
 ) {
+    ScreenContent(state = state)
+
+    if(state.showLogoutDialog) {
+        LogoutDialog(state = state)
+    }
+}
+
+@Composable
+private fun ScreenContent(state: TopAnimeViewModel.State) {
     Scaffold(
         topBar = {
             TopBar(state = state)
@@ -242,6 +255,25 @@ private fun TopBar(state: TopAnimeViewModel.State) {
                 content = { AnimeTypeItems(state = state) }
             )
         }
+
+        Row(
+            modifier = Modifier
+                .weight(1f),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.End
+        ) {
+            IconButton(
+                onClick = state.actions.onLogoutClick
+            ) {
+                Icon(
+                    painter = painterResource(R.drawable.ic_logout),
+                    contentDescription = stringResource(R.string.desc_logout),
+                    modifier = Modifier
+                        .size(24.dp),
+                    tint = MaterialTheme.colors.secondary
+                )
+            }
+        }
     }
 }
 
@@ -345,4 +377,33 @@ private fun AnimeItem(
                 .fillMaxWidth()
         )
     }
+}
+
+@Composable
+private fun LogoutDialog(state: TopAnimeViewModel.State) {
+    AlertDialog(
+        onDismissRequest = state.actions.onDismissLogoutDialog,
+        title = {
+            Text(
+                text = stringResource(R.string.dialog_logout_title),
+                style = MaterialTheme.typography.subtitle1
+            )
+        },
+        text = {
+            Text(
+                text = stringResource(R.string.dialog_logout_message),
+                style = MaterialTheme.typography.body2
+            )
+        },
+        confirmButton = {
+            TextButton(onClick = state.actions.onConfirmLogoutClick) {
+                Text(text = stringResource(R.string.dialog_logout_confirm_button))
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = state.actions.onDismissLogoutDialog) {
+                Text(text = stringResource(R.string.dialog_logout_dismiss_button))
+            }
+        }
+    )
 }

@@ -17,10 +17,14 @@ interface AnimeFeature {
 
 interface AnimeFeatureGlobalNavigator {
 
+    fun toSplash()
+
 }
 
 interface AnimeFeatureRepository {
 
     suspend fun loadAnime(type: AnimeType, page: Int, pageSize: Int): PagedData
+
+    suspend fun logout()
 
 }

@@ -148,12 +148,11 @@ private fun TopAnimeScreen(
                     val state = rememberLazyListState()
                     LazyColumn(
                         modifier = Modifier
-                            .padding(paddingValues)
                             .fillMaxSize()
                             .simpleVerticalScrollbar(state, 8.dp),
                         state = state
                     ) {
-                        items(items, key = AnimeItem::id) {
+                        items(items) {
                             it?.let { AnimeItem(item = it, onFavoriteClick = {}) }
                         }
 
@@ -180,9 +179,6 @@ fun Modifier.simpleVerticalScrollbar(
     state: LazyListState,
     width: Dp = 8.dp
 ): Modifier {
-    val targetAlpha = if (state.isScrollInProgress) 1f else 0f
-    val duration = if (state.isScrollInProgress) 150 else 500
-
     return drawWithContent {
         drawContent()
 

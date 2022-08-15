@@ -31,17 +31,15 @@ class AnimePagingSource(
             val keys = storage.keysOf(key)
             val items = storage.pageOf(key).orEmpty()
 
-            val itemsBefore = items.firstOrNull()?.let {
-                storage.items.indexOf(it)
-            } ?: COUNT_UNDEFINED
-            val itemsAfter = items.lastOrNull()?.let { storage.items.indices.last - storage.items.indexOf(it) } ?: COUNT_UNDEFINED
+            val itemsBefore = items.firstOrNull()?.let { storage.items.indexOf(it) } ?: 0
+            val itemsAfter = items.lastOrNull()?.let { storage.items.indices.last - storage.items.indexOf(it) } ?: 0
 
             LoadResult.Page(
                 data = items,
                 prevKey = keys?.previous,
                 nextKey = keys?.next,
                 itemsBefore = itemsBefore,
-//                itemsAfter = itemsAfter
+                itemsAfter = itemsAfter
             )
         } catch (t: Throwable) {
             Timber.e(t)

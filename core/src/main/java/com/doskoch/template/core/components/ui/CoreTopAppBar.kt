@@ -3,6 +3,7 @@ package com.doskoch.template.core.components.ui
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -32,13 +33,12 @@ fun CoreTopAppBar(
         modifier = modifier,
         navigationIcon = {
             iconPainter?.let {
-                Icon(
-                    painter = it,
-                    contentDescription = stringResource(R.string.desc_navigate_back),
-                    modifier = Modifier
-                        .padding(start = Dimensions.space_8)
-                        .clickable(onClick = onNavigationClick)
-                )
+                IconButton(onClick = onNavigationClick) {
+                    Icon(
+                        painter = it,
+                        contentDescription = stringResource(R.string.desc_navigate_back)
+                    )
+                }
             }
         },
         backgroundColor = backgroundColor,

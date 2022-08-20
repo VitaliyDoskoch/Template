@@ -1,7 +1,5 @@
 package com.doskoch.template.anime.screens.top
 
-import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -20,7 +18,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.AlertDialog
 import androidx.compose.material.CircularProgressIndicator
@@ -37,7 +34,6 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -69,7 +65,6 @@ import com.doskoch.template.anime.data.AnimeItem
 import com.doskoch.template.anime.data.AnimeType
 import com.doskoch.template.anime.data.stringId
 import com.doskoch.template.anime.di.Module
-import com.doskoch.template.core.components.error.CoreError
 import com.doskoch.template.core.components.error.toCoreError
 import com.doskoch.template.core.components.theme.Dimensions
 import com.doskoch.template.core.components.ui.ErrorItem
@@ -158,15 +153,22 @@ private fun ScreenContent(state: TopAnimeViewModel.State) {
                 refresh is LoadState.NotLoading || items.itemCount > 0 -> {
                     val append = items.loadState.mediator?.append
 
-                    val state = rememberLazyListState()
+                    val _state = rememberLazyListState()
                     LazyColumn(
                         modifier = Modifier
                             .fillMaxSize()
-                            .simpleVerticalScrollbar(state, 8.dp),
-                        state = state
+                            .simpleVerticalScrollbar(_state, 8.dp),
+                        state = _state
                     ) {
                         items(items) {
-                            it?.let { AnimeItem(item = it, onFavoriteClick = {}) }
+                            it?.let {
+                                AnimeItem(
+                                    item = it,
+                                    onFavoriteClick = {},
+                                    modifier = Modifier
+                                        .clickable { state.actions.onItemClick(it) }
+                                )
+                            }
                         }
 
                         when {
@@ -297,9 +299,12 @@ private fun ColumnScope.AnimeTypeItems(state: TopAnimeViewModel.State) {
 @Composable
 private fun AnimeItem(
     item: AnimeItem,
-    onFavoriteClick: () -> Unit
+    onFavoriteClick: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
-    Box {
+    Box(
+        modifier = modifier
+    ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth(),

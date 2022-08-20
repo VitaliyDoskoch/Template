@@ -9,6 +9,7 @@ import com.doskoch.template.anime.INITIAL_PAGE
 import com.doskoch.template.anime.PAGE_SIZE
 import com.doskoch.template.anime.data.AnimeItem
 import com.doskoch.template.anime.data.AnimeType
+import com.doskoch.template.anime.screens.details.AnimeDetailsViewModel
 import com.doskoch.template.anime.screens.top.TopAnimeViewModel
 import com.doskoch.template.anime.screens.top.paging.AnimePagingSource
 import com.doskoch.template.anime.screens.top.paging.AnimeRemoteMediator
@@ -30,7 +31,8 @@ object Module {
             logoutUseCase = logoutUseCase,
             pagerFactory = { animeType -> pager(animeType = animeType) },
             storage = Injector.storage,
-            globalErrorHandler = Injector.globalErrorHandler
+            globalErrorHandler = Injector.globalErrorHandler,
+            nestedNavigator = Injector.nestedNavigator
         )
 
     private val logoutUseCase: LogoutUseCase
@@ -51,4 +53,7 @@ object Module {
         loadAnimeUseCase = LoadAnimeUseCase(repository = Injector.repository),
         storage = Injector.storage
     )
+
+    val animeDetailsViewModel: AnimeDetailsViewModel
+        get() = AnimeDetailsViewModel()
 }

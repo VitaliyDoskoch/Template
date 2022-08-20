@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.doskoch.template.anime.di.Injector
+import com.doskoch.template.anime.screens.details.AnimeDetailsScreen
 import com.doskoch.template.anime.screens.top.TopAnimeScreen
 
 @Composable
@@ -24,7 +25,7 @@ fun AnimeNestedNavGraph() {
 
         }
         composable(Destinations.Details.name) {
-
+            AnimeDetailsScreen()
         }
     }
 }

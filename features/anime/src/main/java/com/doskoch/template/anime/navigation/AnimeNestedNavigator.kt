@@ -8,7 +8,7 @@ class AnimeNestedNavigator : CoreNavigator {
 
     override val events = EventQueue<NavAction>()
 
-    fun navigateUp() = events.enqueue { navigateUp() }
+    fun toDetails() = events.enqueue { navigate(Destinations.Details.name) }
 
     companion object {
         internal val startDestination = Destinations.Top

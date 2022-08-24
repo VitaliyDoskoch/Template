@@ -65,7 +65,7 @@ class TopAnimeViewModel(
         onError = { globalErrorHandler.handle(it.toCoreError()) }
     )
 
-    private fun onItemClick(item: AnimeItem) = viewModelScope.launch { nestedNavigator.toDetails() }
+    private fun onItemClick(item: AnimeItem) = viewModelScope.launch { nestedNavigator.toDetails(item.id) }
 
     fun interface PagerFactory {
         fun create(animeType: AnimeType): Pager<Int, AnimeItem>

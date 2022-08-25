@@ -29,9 +29,11 @@ fun AnimeNestedNavGraph() {
             TopAnimeScreen()
         }
         Node.Details.composable(this) {
-            argument(animeId, it.arguments).let {
-                Timber.e("animeId is $it")
-            }
+            argument(first, it.arguments).let { Timber.e("first=$it") }
+            argument(second, it.arguments).let { Timber.e("second=$it") }
+            argument(third, it.arguments).let { Timber.e("third=$it") }
+            argument(fourth, it.arguments).let { Timber.e("fourth=$it") }
+            argument(fifth, it.arguments).let { Timber.e("fifth=$it") }
             AnimeDetailsScreen()
         }
     }
@@ -41,12 +43,23 @@ internal sealed class Node : NavigationNode() {
     object Top : Node() {
         override val params = NodeParams("top")
     }
+
     object Details : Node() {
         override val params = NodeParams(
             nodeName = "details",
-            arguments = listOf(typedArgument("animeId", NavType.IntType))
+            arguments = listOf(
+                typedArgument("first", NavType.IntType),
+                typedArgument("second", NavType.BoolType),
+                typedArgument("third", NavType.BoolType) { defaultValue = true },
+                typedArgument("fourth", NavType.LongType) { defaultValue = 0L },
+                typedArgument("fifth", NavType.LongType)
+            )
         )
 
-        val animeId: TypedArgument<Int> by params.arguments
+        val first: TypedArgument<Int> by params.arguments
+        val second: TypedArgument<Boolean> by params.arguments
+        val third: TypedArgument<Boolean> by params.arguments
+        val fourth: TypedArgument<Long> by params.arguments
+        val fifth: TypedArgument<Long> by params.arguments
     }
 }

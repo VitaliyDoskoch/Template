@@ -5,19 +5,42 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import timber.log.Timber
 
 abstract class NavigationNode {
     abstract val params: NodeParams
 
     fun <T> argument(typedArgument: TypedArgument<T>, bundle: Bundle?): T = typedArgument.type[bundle!!, typedArgument.value.name]!!
 
-    fun <T> route(vararg arguments: Pair<TypedArgument<T>, T>) = buildString {
-        append(params.nodeName)
+    fun route(builder: NavigationNode.RouteBuilder.() -> Unit = {}): String {
+        return RouteBuilder()
+            .apply(builder)
+            .build()
+    }
 
-        params.arguments.forEach { (argumentName) ->
-            arguments
-                .find { (typedArgument) -> typedArgument.value.name == argumentName }
-                ?.let { (_, value) -> append("/$value") }
+    inner class RouteBuilder internal constructor() {
+        private val arguments = mutableMapOf<TypedArgument<*>, Any>()
+
+        fun <T : Any> add(argument: Pair<TypedArgument<T>, T>): NavigationNode.RouteBuilder {
+            arguments[argument.first] = argument.second
+            return this@RouteBuilder
+        }
+
+        internal fun build() = buildString {
+            append(params.nodeName)
+
+            val hasDefault = params.arguments.values.groupBy { it.value.argument.isNullable || it.value.argument.isDefaultValuePresent }
+
+            hasDefault[false]?.forEach { argument ->
+                arguments[argument]
+                    ?.let { value -> append("/$value") } ?: throw NoSuchElementException("The required argument is missing")
+            }
+
+            hasDefault[true]
+                ?.joinToString(prefix = "?", separator = "&") { argument ->
+                    "${argument.value.name}=${arguments[argument] ?: argument.value}"
+                }
+                ?.let { append(it) }
         }
     }
 }

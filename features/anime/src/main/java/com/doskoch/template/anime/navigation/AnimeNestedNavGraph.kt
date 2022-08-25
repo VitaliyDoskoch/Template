@@ -13,6 +13,7 @@ import com.doskoch.template.core.components.navigation.NavigationNode
 import com.doskoch.template.core.components.navigation.NodeParams
 import com.doskoch.template.core.components.navigation.TypedArgument
 import com.doskoch.template.core.components.navigation.composable
+import com.doskoch.template.core.components.navigation.typedArgument
 import timber.log.Timber
 
 @Composable
@@ -43,7 +44,7 @@ internal sealed class Node : NavigationNode() {
     object Details : Node() {
         override val params = NodeParams(
             nodeName = "details",
-            arguments = listOf(navArgument("animeId") { type = NavType.IntType })
+            arguments = listOf(typedArgument("animeId", NavType.IntType))
         )
 
         val animeId: TypedArgument<Int> by params.arguments

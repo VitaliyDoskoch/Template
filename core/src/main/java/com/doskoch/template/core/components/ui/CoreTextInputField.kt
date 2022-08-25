@@ -47,16 +47,14 @@ fun CoreTextInputField(
         value = value,
         onValueChange = {
             if (maxLength != null) {
-                if (it.length <= maxLength) {
-                    onValueChange(it)
-                }
+                onValueChange(it.take(maxLength))
             } else {
                 onValueChange(it)
             }
         },
         enabled = enabled,
         readOnly = readOnly,
-        textStyle = MaterialTheme.typography.body2.copy(color = MaterialTheme.colors.onBackground),
+        textStyle = MaterialTheme.typography.body2,
         keyboardOptions = keyboardOptions,
         keyboardActions = keyboardActions,
         singleLine = singleLine,

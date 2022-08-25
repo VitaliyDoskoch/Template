@@ -87,7 +87,7 @@ private fun SignInScreen(state: SignInViewModel.State) {
                     .fillMaxWidth(),
                 hint = stringResource(R.string.email_hint),
                 errorMessage = state.error?.localizedMessage(LocalContext.current),
-                maxLines = 1
+                singleLine = true
             )
 
             Spacer(modifier = Modifier.weight(1f))

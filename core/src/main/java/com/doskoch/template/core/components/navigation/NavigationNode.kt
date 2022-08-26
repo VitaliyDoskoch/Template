@@ -7,6 +7,7 @@ import androidx.navigation.NavDeepLink
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.google.gson.Gson
+import kotlin.reflect.KProperty
 
 abstract class NavigationNode(private val name: String) {
     open val arguments: List<TypedArgument<*>> = emptyList()
@@ -25,36 +26,31 @@ abstract class NavigationNode(private val name: String) {
                 ?.let { append(it) }
         }
 
-    fun route(builder: NavigationNode.RouteBuilder.() -> Unit = {}): String {
-        return RouteBuilder()
-            .apply(builder)
-            .build()
-    }
-
     fun <T> TypedArgument<T>.extractFrom(bundle: Bundle?): T = type[bundle!!, value.name]!!
 
-    inner class RouteBuilder internal constructor() {
-        private val arguments = mutableMapOf<TypedArgument<*>, Any>()
+    fun route(builder: NavigationNode.RouteBuilder.() -> Unit = {}): String = RouteBuilder().apply(builder).build()
 
-        fun <T : Any> setArgument(argument: Pair<TypedArgument<T>, T>): NavigationNode.RouteBuilder {
-            arguments[argument.first] = argument.second
-            return this@RouteBuilder
+    inner class RouteBuilder internal constructor() {
+        private val args = mutableMapOf<TypedArgument<*>, Any>()
+
+        infix fun <T : Any> TypedArgument<T>.set(value: T) {
+            args[this] = value
         }
 
         internal fun build() = buildString {
             append(name)
 
-            val hasDefault = this@NavigationNode.arguments.groupBy { it.value.argument.isNullable || it.value.argument.isDefaultValuePresent }
+            val hasDefault = arguments.groupBy { it.value.argument.isNullable || it.value.argument.isDefaultValuePresent }
 
             hasDefault[false]?.forEach { argument ->
                 //TODO: manage Gson
-                arguments[argument]
+                args[argument]
                     ?.let { value -> append("/${Gson().toJson(value, value::class.java)}") } ?: throw NoSuchElementException("The required argument is missing")
             }
 
             hasDefault[true]
                 ?.joinToString(prefix = "?", separator = "&") { argument ->
-                    "${argument.value.name}=${arguments[argument] ?: argument.value}"
+                    "${argument.value.name}=${args[argument] ?: argument.value}"
                 }
                 ?.let { append(it) }
         }

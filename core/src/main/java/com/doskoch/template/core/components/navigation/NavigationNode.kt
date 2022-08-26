@@ -31,9 +31,7 @@ abstract class NavigationNode(private val name: String) {
             .build()
     }
 
-    fun <T> argument(typedArgument: TypedArgument<T>, bundle: Bundle?): T {
-        return typedArgument.type.get(bundle!!, typedArgument.value.name)!!
-    }
+    fun <T> TypedArgument<T>.extractFrom(bundle: Bundle?): T = type[bundle!!, value.name]!!
 
     inner class RouteBuilder internal constructor() {
         private val arguments = mutableMapOf<TypedArgument<*>, Any>()

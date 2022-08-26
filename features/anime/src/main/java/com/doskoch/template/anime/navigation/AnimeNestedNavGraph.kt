@@ -26,7 +26,7 @@ fun AnimeNestedNavGraph() {
             TopAnimeScreen()
         }
         Node.Details.composable(this) {
-            argument(dummy, it.arguments).let { Timber.e("dummy is: $it") }
+            dummy.extractFrom(it.arguments).let { Timber.e("dummy is: $it") }
             AnimeDetailsScreen()
         }
     }

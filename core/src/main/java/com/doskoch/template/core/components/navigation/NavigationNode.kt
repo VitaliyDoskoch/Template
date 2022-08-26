@@ -21,7 +21,7 @@ abstract class NavigationNode {
     inner class RouteBuilder internal constructor() {
         private val arguments = mutableMapOf<TypedArgument<*>, Any>()
 
-        fun <T : Any> add(argument: Pair<TypedArgument<T>, T>): NavigationNode.RouteBuilder {
+        fun <T : Any> setArgument(argument: Pair<TypedArgument<T>, T>): NavigationNode.RouteBuilder {
             arguments[argument.first] = argument.second
             return this@RouteBuilder
         }

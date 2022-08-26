@@ -1,5 +1,6 @@
 package com.doskoch.template.anime.navigation
 
+import android.os.Parcelable
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.navigation.NavType
@@ -14,6 +15,7 @@ import com.doskoch.template.core.components.navigation.NodeParams
 import com.doskoch.template.core.components.navigation.TypedArgument
 import com.doskoch.template.core.components.navigation.composable
 import com.doskoch.template.core.components.navigation.typedArgument
+import kotlinx.parcelize.Parcelize
 import timber.log.Timber
 
 @Composable
@@ -34,6 +36,7 @@ fun AnimeNestedNavGraph() {
             argument(third, it.arguments).let { Timber.e("third=$it") }
             argument(fourth, it.arguments).let { Timber.e("fourth=$it") }
             argument(fifth, it.arguments).let { Timber.e("fifth=$it") }
+            argument(sixth, it.arguments).let { Timber.e("sixth=$it") }
             AnimeDetailsScreen()
         }
     }
@@ -52,7 +55,8 @@ internal sealed class Node : NavigationNode() {
                 typedArgument("second", NavType.BoolType),
                 typedArgument("third", NavType.BoolType) { defaultValue = true },
                 typedArgument("fourth", NavType.LongType) { defaultValue = 0L },
-                typedArgument("fifth", NavType.LongType)
+                typedArgument("fifth", NavType.LongType),
+                typedArgument("sixth", NavType.ParcelableType(Dummy::class.java))
             )
         )
 
@@ -61,5 +65,9 @@ internal sealed class Node : NavigationNode() {
         val third: TypedArgument<Boolean> by params.arguments
         val fourth: TypedArgument<Long> by params.arguments
         val fifth: TypedArgument<Long> by params.arguments
+        val sixth: TypedArgument<Dummy> by params.arguments
     }
 }
+
+@Parcelize
+data class Dummy(val name: String): Parcelable

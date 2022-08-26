@@ -7,7 +7,7 @@ import androidx.navigation.navArgument
 
 data class TypedArgument<T>(val value: NamedNavArgument, val type: NavType<T>)
 
-fun typedArgument(name: String, type: NavType<*>, builder: NavArgumentBuilder.() -> Unit = {}) = TypedArgument(
+fun <T> typedArgument(name: String, type: NavType<T>, builder: NavArgumentBuilder.() -> Unit = {}) = TypedArgument(
     value = navArgument(name) {
         builder.invoke(this)
         this.type = type

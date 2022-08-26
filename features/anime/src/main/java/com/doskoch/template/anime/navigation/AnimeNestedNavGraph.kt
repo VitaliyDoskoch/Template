@@ -10,7 +10,6 @@ import com.doskoch.template.anime.screens.top.TopAnimeScreen
 import com.doskoch.template.core.components.navigation.JsonNavType
 import com.doskoch.template.core.components.navigation.NavigationNode
 import com.doskoch.template.core.components.navigation.NodeParams
-import com.doskoch.template.core.components.navigation.TypedArgument
 import com.doskoch.template.core.components.navigation.composable
 import com.doskoch.template.core.components.navigation.typedArgument
 import timber.log.Timber
@@ -28,7 +27,7 @@ fun AnimeNestedNavGraph() {
             TopAnimeScreen()
         }
         Node.Details.composable(this) {
-            argument(first, it.arguments).let { Timber.e("first=$it") }
+            argument(dummy, it.arguments).let { Timber.e("dummy is: $it") }
             AnimeDetailsScreen()
         }
     }
@@ -40,14 +39,9 @@ internal sealed class Node : NavigationNode() {
     }
 
     object Details : Node() {
-        override val params = NodeParams(
-            nodeName = "details",
-            arguments = listOf(
-                typedArgument("first", JsonNavType<Dummy>(false))
-            )
-        )
+        val dummy = typedArgument("dummy", JsonNavType<Dummy>(false))
 
-        val first: TypedArgument<Dummy> by params.arguments
+        override val params = NodeParams(name = "details", arguments = listOf(dummy))
     }
 }
 

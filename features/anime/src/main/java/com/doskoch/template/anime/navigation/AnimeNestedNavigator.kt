@@ -10,7 +10,7 @@ class AnimeNestedNavigator : CoreNavigator {
 
     fun toDetails(animeId: Int) = events.enqueue {
         navigate(Node.Details.route {
-            setArgument(Node.Details.first to Dummy("name"))
+            setArgument(Node.Details.dummy to Dummy("name"))
         })
     }
 

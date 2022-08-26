@@ -6,7 +6,6 @@ import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.google.gson.Gson
-import timber.log.Timber
 
 abstract class NavigationNode {
     abstract val params: NodeParams
@@ -30,11 +29,12 @@ abstract class NavigationNode {
         }
 
         internal fun build() = buildString {
-            append(params.nodeName)
+            append(params.name)
 
-            val hasDefault = params.arguments.values.groupBy { it.value.argument.isNullable || it.value.argument.isDefaultValuePresent }
+            val hasDefault = params.arguments.groupBy { it.value.argument.isNullable || it.value.argument.isDefaultValuePresent }
 
             hasDefault[false]?.forEach { argument ->
+                //TODO: manage Gson
                 arguments[argument]
                     ?.let { value -> append("/${Gson().toJson(value, value::class.java)}") } ?: throw NoSuchElementException("The required argument is missing")
             }
@@ -54,7 +54,7 @@ val <N : NavigationNode> N.composable: NavGraphBuilder.(@Composable N.(NavBackSt
 
         composable(
             route = node.params.path,
-            arguments = node.params.arguments.values.map { it.value },
+            arguments = node.params.arguments.map { it.value },
             deepLinks = node.params.deepLinks,
             content = { navBackStackEntry -> content(node, navBackStackEntry) }
         )

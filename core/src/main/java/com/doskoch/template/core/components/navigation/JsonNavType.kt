@@ -14,4 +14,4 @@ class JsonNavType<T>(private val kClass: Class<T>, nullable: Boolean) : NavType<
 }
 
 @Suppress("FunctionName")
-inline fun <reified T> JsonNavType(nullable: Boolean) = JsonNavType(T::class.java, nullable)
+inline fun <reified T> JsonNavType() = JsonNavType(T::class.java, null is T)

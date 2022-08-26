@@ -53,7 +53,10 @@ abstract class NavigationNode(private val name: String) {
                 ?.joinToString(prefix = "?", separator = "&") { argument ->
                     val value = args[argument]
                         ?.let { if(argument.type is JsonNavType) Gson().toJson(it, it::class.java) else it }
-                    "${argument.value.name}=${value ?: argument.value.argument.defaultValue}"
+                    val defaultValue = argument.value.argument.defaultValue
+                        ?.let { if(argument.type is JsonNavType) Gson().toJson(it, it::class.java) else it }
+
+                    "${argument.value.name}=${value ?: defaultValue}"
                 }
                 ?.let { append(it) }
         }

@@ -29,9 +29,10 @@ fun AnimeNestedNavGraph() {
         Node.Details.composable(this) {
             requiredBool.extractFrom(it.arguments).let { Timber.e("requiredBool: $it") }
             optionalInt.extractFrom(it.arguments).let { Timber.e("optionalInt: $it") }
-            optionalJson.extractFrom(it.arguments).let { Timber.e("optionalJson: $it") }
+            optionalNullableJson.extractFrom(it.arguments).let { Timber.e("optionalNullableJson: $it") }
             requiredJson.extractFrom(it.arguments).let { Timber.e("requiredJson: $it") }
             optionalString.extractFrom(it.arguments).let { Timber.e("optionalString: $it") }
+            optionalNonNullableJson.extractFrom(it.arguments).let { Timber.e("optionalNonNullableJson: $it") }
             AnimeDetailsScreen()
         }
     }
@@ -43,11 +44,12 @@ internal sealed class Node(name: String) : NavigationNode(name) {
     object Details : Node("details") {
         val requiredBool = typedArgument("requiredBool", NavType.BoolType)
         val optionalInt = typedArgument("optionalInt", NavType.IntType) { defaultValue = 0 }
-        val optionalJson = typedArgument("optionalJson", JsonNavType<Lol>(true)) { nullable = true; defaultValue = null }
-        val requiredJson = typedArgument("requiredJson", JsonNavType<Dummy>(false))
+        val optionalNullableJson = typedArgument("optionalNullableJson", JsonNavType<Lol?>()) { nullable = true; defaultValue = null }
+        val requiredJson = typedArgument("requiredJson", JsonNavType<Dummy>())
         val optionalString = typedArgument("optionalString", NavType.StringType) { defaultValue = "optionalString" }
+        val optionalNonNullableJson = typedArgument("optionalNonNullableJson", JsonNavType<Lol>()) { defaultValue = Lol("lol") }
 
-        override val arguments = listOf(requiredBool, optionalInt, optionalJson, requiredJson, optionalString)
+        override val arguments = listOf(requiredBool, optionalInt, optionalNullableJson, requiredJson, optionalString, optionalNonNullableJson)
     }
 }
 

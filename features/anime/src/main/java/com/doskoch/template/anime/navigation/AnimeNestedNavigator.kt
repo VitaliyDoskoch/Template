@@ -10,7 +10,11 @@ class AnimeNestedNavigator : CoreNavigator {
 
     fun toDetails(animeId: Int) = events.enqueue {
         navigate(Node.Details.route {
-            Node.Details.dummy.set(Dummy("name"))
+            Node.Details.requiredBool setTo true
+            Node.Details.optionalInt setTo 100
+
+            Node.Details.requiredJson setTo Dummy("dummy")
+            Node.Details.optionalString setTo "non-default"
         })
     }
 

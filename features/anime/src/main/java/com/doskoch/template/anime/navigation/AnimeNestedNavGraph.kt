@@ -2,6 +2,7 @@ package com.doskoch.template.anime.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.doskoch.template.anime.di.Injector
@@ -26,7 +27,11 @@ fun AnimeNestedNavGraph() {
             TopAnimeScreen()
         }
         Node.Details.composable(this) {
-            dummy.extractFrom(it.arguments).let { Timber.e("dummy is: $it") }
+            requiredBool.extractFrom(it.arguments).let { Timber.e("requiredBool: $it") }
+            optionalInt.extractFrom(it.arguments).let { Timber.e("optionalInt: $it") }
+            optionalJson.extractFrom(it.arguments).let { Timber.e("optionalJson: $it") }
+            requiredJson.extractFrom(it.arguments).let { Timber.e("requiredJson: $it") }
+            optionalString.extractFrom(it.arguments).let { Timber.e("optionalString: $it") }
             AnimeDetailsScreen()
         }
     }
@@ -36,10 +41,15 @@ internal sealed class Node(name: String) : NavigationNode(name) {
     object Top : Node("top")
 
     object Details : Node("details") {
-        val dummy = typedArgument("dummy", JsonNavType<Dummy>(false))
+        val requiredBool = typedArgument("requiredBool", NavType.BoolType)
+        val optionalInt = typedArgument("optionalInt", NavType.IntType) { defaultValue = 0 }
+        val optionalJson = typedArgument("optionalJson", JsonNavType<Lol>(true)) { nullable = true; defaultValue = null }
+        val requiredJson = typedArgument("requiredJson", JsonNavType<Dummy>(false))
+        val optionalString = typedArgument("optionalString", NavType.StringType) { defaultValue = "optionalString" }
 
-        override val arguments = listOf(dummy)
+        override val arguments = listOf(requiredBool, optionalInt, optionalJson, requiredJson, optionalString)
     }
 }
 
+data class Lol(val name: String)
 data class Dummy(val name: String)

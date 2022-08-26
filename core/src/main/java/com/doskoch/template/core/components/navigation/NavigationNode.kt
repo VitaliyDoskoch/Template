@@ -7,7 +7,7 @@ import androidx.navigation.NavDeepLink
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.google.gson.Gson
-import kotlin.reflect.KProperty
+import timber.log.Timber
 
 abstract class NavigationNode(private val name: String) {
     open val arguments: List<TypedArgument<*>> = emptyList()
@@ -26,31 +26,34 @@ abstract class NavigationNode(private val name: String) {
                 ?.let { append(it) }
         }
 
-    fun <T> TypedArgument<T>.extractFrom(bundle: Bundle?): T = type[bundle!!, value.name]!!
+    fun <T> TypedArgument<T>.extractFrom(bundle: Bundle?): T? = type[bundle!!, value.name]
 
     fun route(builder: NavigationNode.RouteBuilder.() -> Unit = {}): String = RouteBuilder().apply(builder).build()
 
     inner class RouteBuilder internal constructor() {
-        private val args = mutableMapOf<TypedArgument<*>, Any>()
+        private val args = mutableMapOf<TypedArgument<*>, Any?>()
 
-        infix fun <T : Any> TypedArgument<T>.set(value: T) {
+        infix fun <T : Any?> TypedArgument<T>.setTo(value: T) {
             args[this] = value
         }
 
         internal fun build() = buildString {
             append(name)
 
-            val hasDefault = arguments.groupBy { it.value.argument.isNullable || it.value.argument.isDefaultValuePresent }
+            val byHasDefault = arguments.groupBy { it.value.argument.isNullable || it.value.argument.isDefaultValuePresent }
 
-            hasDefault[false]?.forEach { argument ->
-                //TODO: manage Gson
+            byHasDefault[false]?.forEach { argument ->
                 args[argument]
-                    ?.let { value -> append("/${Gson().toJson(value, value::class.java)}") } ?: throw NoSuchElementException("The required argument is missing")
+                    ?.let { if(argument.type is JsonNavType) Gson().toJson(it, it::class.java) else it }
+                    ?.let { append("/$it") }
+                    ?: throw NoSuchElementException("The required argument is missing")
             }
 
-            hasDefault[true]
+            byHasDefault[true]
                 ?.joinToString(prefix = "?", separator = "&") { argument ->
-                    "${argument.value.name}=${args[argument] ?: argument.value}"
+                    val value = args[argument]
+                        ?.let { if(argument.type is JsonNavType) Gson().toJson(it, it::class.java) else it }
+                    "${argument.value.name}=${value ?: argument.value.argument.defaultValue}"
                 }
                 ?.let { append(it) }
         }

@@ -3,21 +3,36 @@ package com.doskoch.template.core.components.navigation
 import android.os.Bundle
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavBackStackEntry
+import androidx.navigation.NavDeepLink
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.google.gson.Gson
 
-abstract class NavigationNode {
-    abstract val params: NodeParams
+abstract class NavigationNode(private val name: String) {
+    open val arguments: List<TypedArgument<*>> = emptyList()
+    open val deepLinks: List<NavDeepLink> = emptyList()
 
-    fun <T> argument(typedArgument: TypedArgument<T>, bundle: Bundle?): T {
-        return typedArgument.type.get(bundle!!, typedArgument.value.name)!!
-    }
+    val route: String
+        get() = buildString {
+            append(name)
+
+            val byHasDefault = arguments.groupBy { it.value.argument.isNullable || it.value.argument.isDefaultValuePresent }
+
+            byHasDefault[false]?.forEach { argument -> append("/{", argument.value.name, "}") }
+
+            byHasDefault[true]
+                ?.joinToString(prefix = "?", separator = "&") { argument -> "${argument.value.name}={${argument.value.name}}" }
+                ?.let { append(it) }
+        }
 
     fun route(builder: NavigationNode.RouteBuilder.() -> Unit = {}): String {
         return RouteBuilder()
             .apply(builder)
             .build()
+    }
+
+    fun <T> argument(typedArgument: TypedArgument<T>, bundle: Bundle?): T {
+        return typedArgument.type.get(bundle!!, typedArgument.value.name)!!
     }
 
     inner class RouteBuilder internal constructor() {
@@ -29,9 +44,9 @@ abstract class NavigationNode {
         }
 
         internal fun build() = buildString {
-            append(params.name)
+            append(name)
 
-            val hasDefault = params.arguments.groupBy { it.value.argument.isNullable || it.value.argument.isDefaultValuePresent }
+            val hasDefault = this@NavigationNode.arguments.groupBy { it.value.argument.isNullable || it.value.argument.isDefaultValuePresent }
 
             hasDefault[false]?.forEach { argument ->
                 //TODO: manage Gson
@@ -53,9 +68,9 @@ val <N : NavigationNode> N.composable: NavGraphBuilder.(@Composable N.(NavBackSt
         val node = this@composable
 
         composable(
-            route = node.params.path,
-            arguments = node.params.arguments.map { it.value },
-            deepLinks = node.params.deepLinks,
+            route = node.route,
+            arguments = node.arguments.map { it.value },
+            deepLinks = node.deepLinks,
             content = { navBackStackEntry -> content(node, navBackStackEntry) }
         )
     }

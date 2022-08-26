@@ -5,12 +5,15 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import com.google.gson.Gson
 import timber.log.Timber
 
 abstract class NavigationNode {
     abstract val params: NodeParams
 
-    fun <T> argument(typedArgument: TypedArgument<T>, bundle: Bundle?): T = typedArgument.type[bundle!!, typedArgument.value.name]!!
+    fun <T> argument(typedArgument: TypedArgument<T>, bundle: Bundle?): T {
+        return typedArgument.type.get(bundle!!, typedArgument.value.name)!!
+    }
 
     fun route(builder: NavigationNode.RouteBuilder.() -> Unit = {}): String {
         return RouteBuilder()
@@ -33,7 +36,7 @@ abstract class NavigationNode {
 
             hasDefault[false]?.forEach { argument ->
                 arguments[argument]
-                    ?.let { value -> append("/$value") } ?: throw NoSuchElementException("The required argument is missing")
+                    ?.let { value -> append("/${Gson().toJson(value, value::class.java)}") } ?: throw NoSuchElementException("The required argument is missing")
             }
 
             hasDefault[true]

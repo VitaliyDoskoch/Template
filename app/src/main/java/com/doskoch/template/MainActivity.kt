@@ -13,6 +13,8 @@ import kotlinx.coroutines.launch
 
 class MainActivity : FragmentActivity() {
 
+    private val globalErrorHandler = AppInjector.component.globalErrorHandler as GlobalErrorHandlerImpl
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -26,7 +28,7 @@ class MainActivity : FragmentActivity() {
         repeatOnLifecycle(Lifecycle.State.RESUMED) {
             val context = this@MainActivity
 
-            (AppInjector.component.globalErrorHandler as GlobalErrorHandlerImpl).events.collect { error ->
+            globalErrorHandler.events.collect { error ->
                 Toast.makeText(context, error.localizedMessage(context), Toast.LENGTH_SHORT).show()
             }
         }

@@ -21,8 +21,20 @@ class SignInViewModel(
     private val authorizeUseCase: AuthorizeUseCase
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow(State.default(this))
+    private val _state = MutableStateFlow(initialState())
     val state = _state.asStateFlow()
+
+    private fun initialState(): State = State(
+        email = "",
+        error = null,
+        isProceedButtonEnabled = false,
+        isLoading = false,
+        actions = State.Actions(
+            onNavigateBack = this::onNavigateBack,
+            onUpdateEmail = this::onUpdateEmail,
+            onProceed = this::onProceed
+        )
+    )
 
     private fun onNavigateBack() = viewModelScope.launch { navigator.navigateUp() }
 
@@ -54,25 +66,10 @@ class SignInViewModel(
         val isLoading: Boolean,
         val actions: Actions
     ) {
-
         data class Actions(
             val onNavigateBack: () -> Unit,
             val onUpdateEmail: (String) -> Unit,
             val onProceed: () -> Unit
         )
-
-        companion object {
-            fun default(vm: SignInViewModel): State = State(
-                email = "",
-                error = null,
-                isProceedButtonEnabled = false,
-                isLoading = false,
-                actions = Actions(
-                    onNavigateBack = vm::onNavigateBack,
-                    onUpdateEmail = vm::onUpdateEmail,
-                    onProceed = vm::onProceed
-                )
-            )
-        }
     }
 }

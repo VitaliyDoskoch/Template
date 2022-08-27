@@ -3,7 +3,7 @@ package com.doskoch.template.authorization.di
 import com.doskoch.legacy.kotlin.DestroyableLazy
 import com.doskoch.template.authorization.screens.signIn.SignInViewModel
 import com.doskoch.template.authorization.screens.signIn.useCase.AuthorizeUseCase
-import com.doskoch.template.authorization.screens.signIn.useCase.ValidateEmailUseCase
+import com.doskoch.template.authorization.screens.signIn.useCase.IsEmailValidUseCase
 import com.doskoch.template.authorization.screens.signUp.SignUpViewModel
 
 object AuthorizationFeatureInjector {
@@ -21,7 +21,7 @@ internal object Module {
 
     fun signInViewModel() = SignInViewModel(
         navigator = Injector.navigator,
-        validateEmailUseCase = ValidateEmailUseCase(),
+        isEmailValidUseCase = IsEmailValidUseCase(),
         globalErrorHandler = Injector.globalErrorHandler,
         authorizeUseCase = AuthorizeUseCase(repository = Injector.repository)
     )

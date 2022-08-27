@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.doskoch.template.authorization.navigation.AuthorizationFeatureNavigator
 import com.doskoch.template.authorization.screens.signIn.useCase.AuthorizeUseCase
-import com.doskoch.template.authorization.screens.signIn.useCase.ValidateEmailUseCase
+import com.doskoch.template.authorization.screens.signIn.useCase.IsEmailValidUseCase
 import com.doskoch.template.core.components.error.CoreError
 import com.doskoch.template.core.components.error.GlobalErrorHandler
 import com.doskoch.template.core.components.error.toCoreError
@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 
 class SignInViewModel(
     private val navigator: AuthorizationFeatureNavigator,
-    private val validateEmailUseCase: ValidateEmailUseCase,
+    private val isEmailValidUseCase: IsEmailValidUseCase,
     private val globalErrorHandler: GlobalErrorHandler,
     private val authorizeUseCase: AuthorizeUseCase
 ) : ViewModel() {
@@ -46,11 +46,9 @@ class SignInViewModel(
         action = {
             if (state.value.isLoading) return@perform
 
-            if (validateEmailUseCase.invoke(state.value.email.trim())) {
+            if (isEmailValidUseCase.invoke(state.value.email.trim())) {
                 _state.update { it.copy(isLoading = true) }
-
                 authorizeUseCase.invoke()
-
                 navigator.toAnime()
             } else {
                 _state.update { it.copy(error = CoreError.InvalidEmail()) }

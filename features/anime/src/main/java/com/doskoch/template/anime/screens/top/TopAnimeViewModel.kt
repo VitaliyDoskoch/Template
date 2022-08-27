@@ -27,8 +27,24 @@ class TopAnimeViewModel(
     private val navigator: AnimeFeatureNavigator
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow(State.default(this))
+    private val _state = MutableStateFlow(initialState())
     val state = _state.asStateFlow()
+
+    private fun initialState(): State = State(
+        animeType = AnimeType.Tv,
+        showAnimeTypeMenu = false,
+        showLogoutDialog = false,
+        pagingData = pagerFactory.create(AnimeType.Tv).flow.cachedIn(viewModelScope),
+        actions = State.Actions(
+            onAnimeTypeClick = this::onAnimeTypeClick,
+            onDismissAnimeTypeMenu = this::onDismissAnimeTypeMenu,
+            onUpdateAnimeType = this::onUpdateAnimeType,
+            onLogoutClick = this::onLogoutClick,
+            onDismissLogoutDialog = this::onDismissLogoutDialog,
+            onConfirmLogoutClick = this::onConfirmLogoutClick,
+            onItemClick = this::onItemClick
+        )
+    )
 
     private fun onAnimeTypeClick() {
         _state.update { it.copy(showAnimeTypeMenu = true) }
@@ -79,7 +95,6 @@ class TopAnimeViewModel(
         val pagingData: Flow<PagingData<AnimeItem>>,
         val actions: Actions
     ) {
-
         data class Actions(
             val onAnimeTypeClick: () -> Unit,
             val onDismissAnimeTypeMenu: () -> Unit,
@@ -89,23 +104,5 @@ class TopAnimeViewModel(
             val onConfirmLogoutClick: () -> Unit,
             val onItemClick: (AnimeItem) -> Unit
         )
-
-        companion object {
-            fun default(vm: TopAnimeViewModel) = State(
-                animeType = AnimeType.Tv,
-                showAnimeTypeMenu = false,
-                showLogoutDialog = false,
-                pagingData = vm.pagerFactory.create(AnimeType.Tv).flow.cachedIn(vm.viewModelScope),
-                actions = Actions(
-                    onAnimeTypeClick = vm::onAnimeTypeClick,
-                    onDismissAnimeTypeMenu = vm::onDismissAnimeTypeMenu,
-                    onUpdateAnimeType = vm::onUpdateAnimeType,
-                    onLogoutClick = vm::onLogoutClick,
-                    onDismissLogoutDialog = vm::onDismissLogoutDialog,
-                    onConfirmLogoutClick = vm::onConfirmLogoutClick,
-                    onItemClick = vm::onItemClick
-                )
-            )
-        }
     }
 }

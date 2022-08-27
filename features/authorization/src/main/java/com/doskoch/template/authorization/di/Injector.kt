@@ -10,23 +10,21 @@ object AuthorizationFeatureInjector {
     var provider: DestroyableLazy<AuthorizationFeature>? = null
 }
 
-internal val Injector: AuthorizationFeature
+private val Injector: AuthorizationFeature
     get() = AuthorizationFeatureInjector.provider!!.value
 
-object Module {
+internal object Module {
 
-    val signUpViewModel: SignUpViewModel
-        get() = SignUpViewModel(
-            nestedNavigator = Injector.nestedNavigator,
-            globalNavigator = Injector.globalNavigator
-        )
+    fun signUpViewModel() = SignUpViewModel(
+        nestedNavigator = Injector.nestedNavigator,
+        globalNavigator = Injector.globalNavigator
+    )
 
-    val signInViewModel: SignInViewModel
-        get() = SignInViewModel(
-            nestedNavigator = Injector.nestedNavigator,
-            validateEmailUseCase = ValidateEmailUseCase(),
-            globalErrorHandler = Injector.globalErrorHandler,
-            globalNavigator = Injector.globalNavigator,
-            authorizeUseCase = AuthorizeUseCase(repository = Injector.repository)
-        )
+    fun signInViewModel() = SignInViewModel(
+        nestedNavigator = Injector.nestedNavigator,
+        validateEmailUseCase = ValidateEmailUseCase(),
+        globalErrorHandler = Injector.globalErrorHandler,
+        globalNavigator = Injector.globalNavigator,
+        authorizeUseCase = AuthorizeUseCase(repository = Injector.repository)
+    )
 }

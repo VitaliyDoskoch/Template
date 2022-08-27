@@ -9,6 +9,7 @@ import com.doskoch.template.navigation.Destinations
 import com.doskoch.template.repositories.AuthorizationFeatureRepositoryImpl
 
 fun authorizationFeatureModule(component: AppComponent) = object : AuthorizationFeature {
+
     override val globalNavigator = object : AuthorizationFeatureGlobalNavigator {
         override fun toAnime() = navOptions { popUpTo(Destinations.Authorization.name) { inclusive = true } }
             .let(component.mainNavigator::toAnime)

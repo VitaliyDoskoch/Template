@@ -59,7 +59,7 @@ import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import coil.compose.AsyncImage
-import com.doskoch.legacy.android.viewModel.viewModelFactory
+import com.doskoch.legacy.android.viewModel.typedViewModelFactory
 import com.doskoch.template.anime.R
 import com.doskoch.template.anime.data.AnimeItem
 import com.doskoch.template.anime.data.AnimeType
@@ -78,7 +78,7 @@ import java.text.DecimalFormat
 @Composable
 fun TopAnimeScreen() {
     TopAnimeScreen(
-        vm = viewModel(factory = viewModelFactory { Module.topAnimeViewModel })
+        vm = viewModel(factory = typedViewModelFactory { Module.topAnimeViewModel })
     )
 }
 

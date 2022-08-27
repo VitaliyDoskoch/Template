@@ -8,16 +8,15 @@ object SplashFeatureInjector {
     var provider: DestroyableLazy<SplashFeature>? = null
 }
 
-internal val Injector: SplashFeature
+private val Injector: SplashFeature
     get() = SplashFeatureInjector.provider!!.value
 
-object Module {
+internal object Module {
 
-    val splashViewModel: SplashViewModel
-        get() = SplashViewModel(
-            minDisplayTime = MIN_SPLASH_DISPLAY_TIME,
-            repository = Injector.repository,
-            globalNavigator = Injector.globalNavigator
-        )
+    fun splashViewModel() = SplashViewModel(
+        minDisplayTime = MIN_SPLASH_DISPLAY_TIME,
+        repository = Injector.repository,
+        globalNavigator = Injector.globalNavigator
+    )
 
 }

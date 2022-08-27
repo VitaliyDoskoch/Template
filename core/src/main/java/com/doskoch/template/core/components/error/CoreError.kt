@@ -41,13 +41,13 @@ sealed class CoreError {
         override fun localizedMessage(context: Context) = context.getString(R.string.error_invalid_email)
     }
 
-    sealed class Remote(private val remoteMessage: String?) : CoreError() {
+    sealed class Remote(val status: Int, val message: String?) : CoreError() {
 
-        override fun localizedMessage(context: Context) = remoteMessage ?: context.getString(R.string.error_http)
+        override fun localizedMessage(context: Context) = message ?: context.getString(R.string.error_http)
 
-        class Unspecified(remoteMessage: String?) : Remote(remoteMessage)
+        class Unspecified : Remote(-1, null)
 
-        class RateLimit(remoteMessage: String?) : Remote(remoteMessage)
+        class RateLimit(status: Int, message: String?) : Remote(status, message)
     }
 }
 
@@ -60,10 +60,10 @@ fun Throwable.toCoreError(ifUnknown: (Throwable) -> CoreError) = when (this) {
     is HttpException -> errorResponse()
         ?.let { response ->
             when(response.type) {
-                ErrorResponse.Type.RateLimitException -> CoreError.Remote.RateLimit(response.message)
-                else -> CoreError.Remote.Unspecified(response.message)
+                ErrorResponse.Type.RateLimitException -> CoreError.Remote.RateLimit(response.status, response.message)
+                else -> CoreError.Remote.Unspecified()
             }
         }
-        ?: CoreError.Remote.Unspecified(null)
+        ?: CoreError.Remote.Unspecified()
     else -> ifUnknown(this)
 }

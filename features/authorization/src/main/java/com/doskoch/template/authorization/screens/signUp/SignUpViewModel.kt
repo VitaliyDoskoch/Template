@@ -2,16 +2,14 @@ package com.doskoch.template.authorization.screens.signUp
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.doskoch.template.authorization.navigation.AuthorizationNestedNavigator
-import com.doskoch.template.authorization.di.AuthorizationFeatureGlobalNavigator
+import com.doskoch.template.authorization.navigation.AuthorizationFeatureNavigator
 import kotlinx.coroutines.launch
 
 class SignUpViewModel(
-    private val nestedNavigator: AuthorizationNestedNavigator,
-    private val globalNavigator: AuthorizationFeatureGlobalNavigator
+    private val navigator: AuthorizationFeatureNavigator
 ) : ViewModel() {
 
-    fun onSignIn() = viewModelScope.launch { nestedNavigator.toSignIn() }
+    fun onSignIn() = viewModelScope.launch { navigator.toSignIn() }
 
-    fun onSkip() = viewModelScope.launch { globalNavigator.toAnime() }
+    fun onSkip() = viewModelScope.launch { navigator.toAnime() }
 }

@@ -2,8 +2,7 @@ package com.doskoch.template.authorization.screens.signIn
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.doskoch.template.authorization.navigation.AuthorizationNestedNavigator
-import com.doskoch.template.authorization.di.AuthorizationFeatureGlobalNavigator
+import com.doskoch.template.authorization.navigation.AuthorizationFeatureNavigator
 import com.doskoch.template.authorization.screens.signIn.useCase.AuthorizeUseCase
 import com.doskoch.template.authorization.screens.signIn.useCase.ValidateEmailUseCase
 import com.doskoch.template.core.components.error.CoreError
@@ -16,17 +15,16 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class SignInViewModel(
-    private val nestedNavigator: AuthorizationNestedNavigator,
+    private val navigator: AuthorizationFeatureNavigator,
     private val validateEmailUseCase: ValidateEmailUseCase,
     private val globalErrorHandler: GlobalErrorHandler,
-    private val globalNavigator: AuthorizationFeatureGlobalNavigator,
     private val authorizeUseCase: AuthorizeUseCase
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(State.default(this))
     val state = _state.asStateFlow()
 
-    private fun onNavigateBack() = viewModelScope.launch { nestedNavigator.navigateUp() }
+    private fun onNavigateBack() = viewModelScope.launch { navigator.navigateUp() }
 
     private fun onUpdateEmail(value: String) = viewModelScope.launch {
         _state.update { it.copy(email = value, error = null, isProceedButtonEnabled = value.isNotBlank()) }
@@ -41,7 +39,7 @@ class SignInViewModel(
 
                 authorizeUseCase.invoke()
 
-                globalNavigator.toAnime()
+                navigator.toAnime()
             } else {
                 _state.update { it.copy(error = CoreError.InvalidEmail()) }
             }

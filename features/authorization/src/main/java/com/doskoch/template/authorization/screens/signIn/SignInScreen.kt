@@ -31,7 +31,7 @@ import com.doskoch.template.core.components.ui.CoreTopAppBar
 @Composable
 fun SignInScreen() {
     SignInScreen(
-        vm = viewModel(factory = typedViewModelFactory { Module.signInViewModel })
+        vm = viewModel(factory = typedViewModelFactory { Module.signInViewModel() })
     )
 }
 

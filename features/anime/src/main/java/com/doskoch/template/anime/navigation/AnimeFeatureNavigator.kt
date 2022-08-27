@@ -4,9 +4,11 @@ import com.doskoch.template.core.components.event.EventQueue
 import com.doskoch.template.core.components.navigation.CoreNavigator
 import com.doskoch.template.core.components.navigation.NavAction
 
-class AnimeNestedNavigator : CoreNavigator {
+abstract class AnimeFeatureNavigator : CoreNavigator {
 
     override val events = EventQueue<NavAction>()
+
+    abstract fun toSplash()
 
     fun toDetails(animeId: Int) = events.enqueue {
         navigate(Node.Details.route {

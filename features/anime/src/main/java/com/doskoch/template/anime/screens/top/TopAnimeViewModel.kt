@@ -7,7 +7,7 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.doskoch.template.anime.data.AnimeItem
 import com.doskoch.template.anime.data.AnimeType
-import com.doskoch.template.anime.navigation.AnimeNestedNavigator
+import com.doskoch.template.anime.navigation.AnimeFeatureNavigator
 import com.doskoch.template.anime.screens.top.useCase.LogoutUseCase
 import com.doskoch.template.core.components.error.GlobalErrorHandler
 import com.doskoch.template.core.components.error.toCoreError
@@ -16,8 +16,6 @@ import com.doskoch.template.core.functions.perform
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -26,7 +24,7 @@ class TopAnimeViewModel(
     private val pagerFactory: PagerFactory,
     private val storage: SimpleInMemoryStorage<Int, AnimeItem>,
     private val globalErrorHandler: GlobalErrorHandler,
-    private val nestedNavigator: AnimeNestedNavigator
+    private val navigator: AnimeFeatureNavigator
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(State.default(this))
@@ -61,11 +59,14 @@ class TopAnimeViewModel(
     }
 
     private fun onConfirmLogoutClick() = perform(
-        action = { logoutUseCase.invoke() },
+        action = {
+            logoutUseCase.invoke()
+            navigator.toSplash()
+        },
         onError = { globalErrorHandler.handle(it.toCoreError()) }
     )
 
-    private fun onItemClick(item: AnimeItem) = viewModelScope.launch { nestedNavigator.toDetails(item.id) }
+    private fun onItemClick(item: AnimeItem) = viewModelScope.launch { navigator.toDetails(item.id) }
 
     fun interface PagerFactory {
         fun create(animeType: AnimeType): Pager<Int, AnimeItem>

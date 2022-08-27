@@ -3,10 +3,11 @@ package com.doskoch.template.navigation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.doskoch.template.anime.navigation.AnimeNestedNavGraph
-import com.doskoch.template.authorization.navigation.AuthorizationNestedNavGraph
+import com.doskoch.template.anime.navigation.AnimeFeatureNavGraph
+import com.doskoch.template.authorization.navigation.AuthorizationFeatureNavGraph
+import com.doskoch.template.core.components.navigation.NavigationNode
+import com.doskoch.template.core.components.navigation.composable
 import com.doskoch.template.di.AppInjector
 import com.doskoch.template.splash.screens.splash.SplashScreen
 
@@ -18,21 +19,21 @@ fun MainNavGraph() {
         AppInjector.component.mainNavigator.events.collect { it.invoke(navController) }
     }
 
-    NavHost(navController = navController, startDestination = MainNavigator.startDestination.name) {
-        composable(Destinations.Splash.name) {
+    NavHost(navController = navController, startDestination = MainNavigator.startDestination.route) {
+        Node.Splash.composable(this) {
             SplashScreen()
         }
-        composable(Destinations.Authorization.name) {
-            AuthorizationNestedNavGraph()
+        Node.Authorization.composable(this) {
+            AuthorizationFeatureNavGraph()
         }
-        composable(Destinations.Anime.name) {
-            AnimeNestedNavGraph()
+        Node.Anime.composable(this) {
+            AnimeFeatureNavGraph()
         }
     }
 }
 
-enum class Destinations {
-    Splash,
-    Authorization,
-    Anime
+internal sealed class Node(name: String) : NavigationNode(name) {
+    object Splash : Node("splash")
+    object Authorization : Node("authorization")
+    object Anime : Node("anime")
 }

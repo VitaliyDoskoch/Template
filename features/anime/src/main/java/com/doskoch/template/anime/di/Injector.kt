@@ -32,13 +32,12 @@ object Module {
             pagerFactory = { animeType -> pager(animeType = animeType) },
             storage = Injector.storage,
             globalErrorHandler = Injector.globalErrorHandler,
-            nestedNavigator = Injector.nestedNavigator
+            navigator = Injector.navigator
         )
 
     private val logoutUseCase: LogoutUseCase
         get() = LogoutUseCase(
-            repository = Injector.repository,
-            globalNavigator = Injector.globalNavigator
+            repository = Injector.repository
         )
 
     private fun pager(animeType: AnimeType) = Pager(

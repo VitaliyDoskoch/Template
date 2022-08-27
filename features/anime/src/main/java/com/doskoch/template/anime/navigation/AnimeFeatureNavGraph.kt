@@ -15,14 +15,14 @@ import com.doskoch.template.core.components.navigation.typedArgument
 import timber.log.Timber
 
 @Composable
-fun AnimeNestedNavGraph() {
+fun AnimeFeatureNavGraph() {
     val navController = rememberNavController()
 
     LaunchedEffect(navController) {
-        Injector.nestedNavigator.events.collect { it.invoke(navController) }
+        Injector.navigator.events.collect { it.invoke(navController) }
     }
 
-    NavHost(navController = navController, startDestination = AnimeNestedNavigator.startNode.route) {
+    NavHost(navController = navController, startDestination = AnimeFeatureNavigator.startNode.route) {
         Node.Top.composable(this) {
             TopAnimeScreen()
         }

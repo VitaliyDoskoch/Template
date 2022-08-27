@@ -1,6 +1,7 @@
 package com.doskoch.template.navigation
 
 import androidx.navigation.NavOptions
+import androidx.navigation.NavOptionsBuilder
 import com.doskoch.template.core.components.event.EventQueue
 import com.doskoch.template.core.components.navigation.CoreNavigator
 import com.doskoch.template.core.components.navigation.NavAction
@@ -9,13 +10,13 @@ class MainNavigator : CoreNavigator {
 
     override val events = EventQueue<NavAction>()
 
-    fun toAuthorization(options: NavOptions) = events.enqueue { navigate(Destinations.Authorization.name, options) }
+    fun toAuthorization(options: NavOptions) = events.enqueue { navigate(Node.Authorization.route(), options) }
 
-    fun toAnime(options: NavOptions) = events.enqueue { navigate(Destinations.Anime.name, options) }
+    fun toAnime(options: NavOptions) = events.enqueue { navigate(Node.Anime.route(), options) }
 
-    fun toSplash(options: NavOptions) = events.enqueue { navigate(Destinations.Splash.name, options) }
+    fun toSplash(options: NavOptions) = events.enqueue { navigate(Node.Splash.route(), options) }
 
     companion object {
-        val startDestination = Destinations.Splash
+        internal val startDestination = Node.Splash
     }
 }

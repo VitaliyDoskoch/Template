@@ -1,17 +1,12 @@
 package com.doskoch.template.authorization.di
 
-import com.doskoch.template.authorization.navigation.AuthorizationNestedNavigator
+import com.doskoch.template.authorization.navigation.AuthorizationFeatureNavigator
 import com.doskoch.template.core.components.error.GlobalErrorHandler
 
 interface AuthorizationFeature {
-    val globalNavigator: AuthorizationFeatureGlobalNavigator
-    val nestedNavigator: AuthorizationNestedNavigator
+    val navigator: AuthorizationFeatureNavigator
     val globalErrorHandler: GlobalErrorHandler
     val repository: AuthorizationFeatureRepository
-}
-
-interface AuthorizationFeatureGlobalNavigator {
-    fun toAnime()
 }
 
 interface AuthorizationFeatureRepository {

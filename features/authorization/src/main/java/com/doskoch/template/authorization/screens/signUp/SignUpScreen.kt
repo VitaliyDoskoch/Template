@@ -31,7 +31,7 @@ import com.doskoch.template.core.components.ui.CoreTextButton
 @Composable
 fun SignUpScreen() {
     SignUpScreen(
-        vm = viewModel(factory = typedViewModelFactory { Module.signUpViewModel })
+        vm = viewModel(factory = typedViewModelFactory { Module.signUpViewModel() })
     )
 }
 

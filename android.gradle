@@ -1,20 +1,17 @@
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
-//apply plugin: 'de.mannodermaus.android-junit5'
+apply plugin: "kotlin-android"
+apply plugin: "kotlin-kapt"
+apply plugin: "kotlin-parcelize"
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 32
 
     defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 30
+        minSdkVersion 24
+        targetSdkVersion 32
         versionCode 1
-        versionName '0.0.1'
+        versionName "1.0.0"
 
-        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
-//        testInstrumentationRunnerArgument 'runnerBuilder',
-//            'de.mannodermaus.junit5.AndroidJUnit5Builder'
-//        testInstrumentationRunnerArguments clearPackageData: 'true'
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     compileOptions {
@@ -28,30 +25,33 @@ android {
 
     buildTypes {
         debug {
-            buildConfigField('Boolean', 'is_logging_enabled', 'true')
+            buildConfigField("Boolean", "is_logging_enabled", "true")
         }
         release {
-            buildConfigField('Boolean', 'is_logging_enabled', 'false')
+            buildConfigField("Boolean", "is_logging_enabled", "false")
         }
     }
 
-    packagingOptions {
-        pickFirst 'META-INF/LICENSE*'
+    flavorDimensions "build"
+
+    productFlavors {
+        /* For faster builds */
+        lightweight {
+            dimension = "build"
+            resConfigs "en", "port"
+            ndk {
+                abiFilters "x86"
+            }
+            splits.abi.enable = false
+            splits.density.enable = false
+        }
+        full {
+            dimension = "build"
+        }
     }
 }
 
 dependencies {
-    implementation libraries.kotlin
-
-    testImplementation testLibraries.kotlinTestJunit
-    testImplementation testLibraries.junitJupiterApi
-    testImplementation testLibraries.mockk
-    testRuntimeOnly testLibraries.junitJupiterEngine
-
-    androidTestImplementation testLibraries.kotlinTestJunit
-    androidTestImplementation testLibraries.junitJupiterApi
-    androidTestImplementation testLibraries.junit5AndroidTestCore
-    androidTestImplementation testLibraries.mockkAndroid
-    androidTestRuntimeOnly testLibraries.junit5AndroidTestRunner
-    androidTestUtil testLibraries.testOrchestrator
+    implementation Dependencies.kotlin
+    implementation Dependencies.coroutines
 }

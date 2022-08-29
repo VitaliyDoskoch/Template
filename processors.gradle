@@ -1,6 +1,0 @@
-ext {
-    processors = [
-        roomCompiler: 'androidx.room:room-compiler:2.2.5',
-        glide       : 'com.github.bumptech.glide:compiler:4.9.0'
-    ]
-}

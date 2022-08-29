@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <!-- SignUpScreen -->
+    <string name="project_description">It is an example project, designed to show a good Android app architecture implementation.
+        It uses the free Jikan api under the hood.</string>
+    <string name="sign_in_label">Please, sign in to unlock extra features e.g. adding to favorites.
+        Don\'t worry - the flow is mocked ;)</string>
+    <string name="sign_in">Sign in</string>
+    <string name="or">or</string>
+    <string name="skip">Skip</string>
+    
+    <!-- SignInScreen -->
+    <string name="log_in_with_email">Log in with your email</string>
+    <string name="log_in_with_email_hint">Don\'t worry - no mail will be sent.
+        Just type the valid email address to pass the simple validation</string>
+    <string name="email_hint">Email</string>
+    <string name="proceed">Proceed</string>
+</resources>

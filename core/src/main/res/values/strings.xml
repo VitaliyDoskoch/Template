@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <string name="desc_navigate_back">Navigate back</string>
+    <string name="retry">Retry</string>
+    
+    <!-- CoreError -->
+    <string name="error_unknown">An unknown error occurred.</string>
+    <string name="error_failed_to_load_data">Failed to load data.</string>
+    <string name="error_failed_to_save_changes">Failed to save changes.</string>
+    <string name="error_no_internet">No internet connection.</string>
+    <string name="error_timeout">Connection timeout.</string>
+    <string name="error_operation_is_canceled">Operation is cancelled.</string>
+    <string name="error_http">An error occurred while connecting to server.</string>
+    <string name="error_invalid_email">The entered email is invalid.</string>
+
+</resources>

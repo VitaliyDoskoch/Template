@@ -1,21 +1,27 @@
-# Add project specific ProGuard rules here.
-# You can control the set of applied configuration files using the
-# proguardFiles setting in build.gradle.
-#
-# For more details, see
-#   http://developer.android.com/guide/developing/tools/proguard.html
+-printconfiguration build/tmp/full-r8-config.txt
 
-# If your project uses WebView with JS, uncomment the following
-# and specify the fully qualified class name to the JavaScript interface
-# class:
-#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
-#   public *;
-#}
+-keepparameternames
+-renamesourcefileattribute SourceFile
+-keepattributes SourceFile, LineNumberTable
 
-# Uncomment this to preserve the line number information for
-# debugging stack traces.
-#-keepattributes SourceFile,LineNumberTable
+-keepattributes Exceptions, InnerClasses, Signature, Deprecated, *Annotation*, EnclosingMethod
 
-# If you keep the line number information, uncomment this to
-# hide the original source file name.
-#-renamesourcefileattribute SourceFile
+-keepclassmembers enum * { public *; }
+
+-keepnames class * extends android.os.Parcelable
+-keepnames class * extends java.io.Serializable
+
+-keep public class * extends java.lang.Exception
+
+-keepclassmembers, allowshrinking, allowobfuscation interface * { @retrofit2.http.* <methods>; }
+-keepclasseswithmembers class * { @retrofit2.http.* <methods>; }
+
+-keep class * extends com.google.gson.TypeAdapter
+-keep class * implements com.google.gson.TypeAdapterFactory
+-keep class * implements com.google.gson.JsonSerializer
+-keep class * implements com.google.gson.JsonDeserializer
+
+-keep,allowobfuscation,allowshrinking class com.google.gson.reflect.TypeToken
+-keep,allowobfuscation,allowshrinking class * extends com.google.gson.reflect.TypeToken
+
+-keepclassmembers,allowobfuscation class * { @com.google.gson.annotations.SerializedName <fields>;}

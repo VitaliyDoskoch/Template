@@ -64,9 +64,9 @@ class InputTypeTransition(private val alphaModifier: Float = 0.5f) : Transition(
                     addListener(object : Animator.AnimatorListener {
                         var applied = false
 
-                        override fun onAnimationStart(animation: Animator?) = Unit
+                        override fun onAnimationStart(animation: Animator) = Unit
 
-                        override fun onAnimationEnd(animation: Animator?) {
+                        override fun onAnimationEnd(animation: Animator) {
                             view.setTextColor(initialColor)
                             if (!applied) {
                                 view.inputType = endValue
@@ -75,9 +75,9 @@ class InputTypeTransition(private val alphaModifier: Float = 0.5f) : Transition(
                             }
                         }
 
-                        override fun onAnimationCancel(animation: Animator?) = Unit
+                        override fun onAnimationCancel(animation: Animator) = Unit
 
-                        override fun onAnimationRepeat(animation: Animator?) {
+                        override fun onAnimationRepeat(animation: Animator) {
                             view.inputType = endValue
                             view.typeface = initialTypeFace
                             view.setSelection(selectionEnd)

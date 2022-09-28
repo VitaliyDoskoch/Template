@@ -1,10 +1,7 @@
 plugins {
     id("com.android.library")
-    id("kotlin-android")
-    id("kotlin-kapt")
+    id("android-module")
 }
-
-apply(from = "$rootDir/android.gradle")
 
 android {
     defaultConfig {
@@ -21,8 +18,6 @@ android {
 }
 
 dependencies {
-    implementation(fileTree("dir" to "libs", "include" to listOf("*.jar")))
-
     kapt(Dependencies.roomCompiler)
-    api(Dependencies.room)
+    implementation(Dependencies.room)
 }

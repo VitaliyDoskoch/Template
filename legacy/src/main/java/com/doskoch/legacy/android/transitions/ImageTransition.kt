@@ -125,15 +125,15 @@ class ImageTransition(private val alphaModifier: Float = 0.5f) : Transition() {
                 ObjectAnimator.ofInt(startValue, "alpha", startValue.alpha, startIntermediateAlpha)
                     .apply {
                         addListener(object : Animator.AnimatorListener {
-                            override fun onAnimationStart(animation: Animator?) = Unit
+                            override fun onAnimationStart(animation: Animator) = Unit
 
-                            override fun onAnimationEnd(animation: Animator?) {
+                            override fun onAnimationEnd(animation: Animator) {
                                 applyFunc.invoke()
                             }
 
-                            override fun onAnimationCancel(animation: Animator?) = Unit
+                            override fun onAnimationCancel(animation: Animator) = Unit
 
-                            override fun onAnimationRepeat(animation: Animator?) = Unit
+                            override fun onAnimationRepeat(animation: Animator) = Unit
                         })
                     },
                 ObjectAnimator.ofInt(endValue, "alpha", endIntermediateAlpha, endValue.alpha)
@@ -144,14 +144,14 @@ class ImageTransition(private val alphaModifier: Float = 0.5f) : Transition() {
     private fun fromImageToNullAnimator(startValue: Drawable, applyFunc: () -> Unit): Animator {
         return ObjectAnimator.ofInt(startValue, "alpha", startValue.alpha, 0).apply {
             addListener(object : Animator.AnimatorListener {
-                override fun onAnimationStart(animation: Animator?) = Unit
+                override fun onAnimationStart(animation: Animator) = Unit
 
-                override fun onAnimationEnd(animation: Animator?) {
+                override fun onAnimationEnd(animation: Animator) {
                     applyFunc.invoke()
                 }
 
-                override fun onAnimationCancel(animation: Animator?) = Unit
-                override fun onAnimationRepeat(animation: Animator?) = Unit
+                override fun onAnimationCancel(animation: Animator) = Unit
+                override fun onAnimationRepeat(animation: Animator) = Unit
             })
         }
     }
@@ -159,15 +159,15 @@ class ImageTransition(private val alphaModifier: Float = 0.5f) : Transition() {
     private fun fromNullToImageAnimator(endValue: Drawable, applyFunc: () -> Unit): Animator {
         return ObjectAnimator.ofInt(endValue, "alpha", 0, endValue.alpha).apply {
             addListener(object : Animator.AnimatorListener {
-                override fun onAnimationStart(animation: Animator?) {
+                override fun onAnimationStart(animation: Animator) {
                     applyFunc.invoke()
                 }
 
-                override fun onAnimationEnd(animation: Animator?) = Unit
+                override fun onAnimationEnd(animation: Animator) = Unit
 
-                override fun onAnimationCancel(animation: Animator?) = Unit
+                override fun onAnimationCancel(animation: Animator) = Unit
 
-                override fun onAnimationRepeat(animation: Animator?) = Unit
+                override fun onAnimationRepeat(animation: Animator) = Unit
             })
         }
     }

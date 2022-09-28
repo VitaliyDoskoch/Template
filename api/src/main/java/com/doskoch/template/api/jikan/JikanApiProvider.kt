@@ -18,7 +18,7 @@ import java.lang.reflect.Modifier
 import java.util.concurrent.TimeUnit
 
 const val TIMBER_LOG_LEVEL = Log.DEBUG
-val HTTP_LOG_LEVEL = if (BuildConfig.is_logging_enabled) BODY else BASIC
+val HTTP_LOG_LEVEL = if (BuildConfig.isLoggingEnabled) BODY else BASIC
 
 const val CONNECT_TIMEOUT = 45_000L
 const val READ_TIMEOUT = 45_000L

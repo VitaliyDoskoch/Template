@@ -1,17 +1,10 @@
 plugins {
     id("com.android.application")
-    id("kotlin-android")
-    id("kotlin-kapt")
+    id("android-module")
+    id("compose")
 }
 
-apply(from = "$rootDir/android.gradle")
-apply(from = "$rootDir/compose.gradle")
-
 android {
-    defaultConfig {
-        applicationId = "com.doskoch.template"
-    }
-
     buildTypes {
         debug {
             isMinifyEnabled = false
@@ -29,8 +22,6 @@ android {
 }
 
 dependencies {
-    implementation(fileTree("dir" to "libs", "include" to listOf("*.jar")))
-
     implementation(project(":api"))
     implementation(project(":database"))
     implementation(project(":core"))

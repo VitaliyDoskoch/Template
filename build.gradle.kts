@@ -4,9 +4,12 @@ buildscript {
         mavenCentral()
     }
 
+    val classpathProperties = java.util.Properties().apply {
+        load(java.io.FileInputStream(File(rootDir, "classpath.properties")))
+    }
+
     dependencies {
-        classpath("com.android.tools.build:gradle:7.3.0")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}")
+        classpathProperties.values.forEach { classpath(it) }
     }
 }
 

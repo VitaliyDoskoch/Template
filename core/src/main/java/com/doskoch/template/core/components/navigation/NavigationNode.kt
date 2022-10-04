@@ -26,8 +26,6 @@ abstract class NavigationNode(private val name: String) {
                 ?.let { append(it) }
         }
 
-    fun <T> TypedArgument<T>.extractFrom(bundle: Bundle?): T? = type[bundle!!, value.name]
-
     fun route(builder: NavigationNode.RouteBuilder.() -> Unit = {}): String = RouteBuilder().apply(builder).build()
 
     inner class RouteBuilder internal constructor() {

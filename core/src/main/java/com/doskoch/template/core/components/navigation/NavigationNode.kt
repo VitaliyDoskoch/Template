@@ -1,13 +1,11 @@
 package com.doskoch.template.core.components.navigation
 
-import android.os.Bundle
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavDeepLink
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.google.gson.Gson
-import timber.log.Timber
 
 abstract class NavigationNode(private val name: String) {
     open val arguments: List<TypedArgument<*>> = emptyList()
@@ -26,39 +24,36 @@ abstract class NavigationNode(private val name: String) {
                 ?.let { append(it) }
         }
 
-    fun route(builder: NavigationNode.RouteBuilder.() -> Unit = {}): String = RouteBuilder().apply(builder).build()
+    protected fun buildRoute(paramList: List<NavParameter<*>>) = buildString {
+        val params = paramList.associateBy { it.typedArgument }
 
-    inner class RouteBuilder internal constructor() {
-        private val args = mutableMapOf<TypedArgument<*>, Any?>()
+        append(name)
 
-        infix fun <T : Any?> TypedArgument<T>.setTo(value: T) {
-            args[this] = value
+        val byHasDefault = arguments.groupBy { it.value.argument.isNullable || it.value.argument.isDefaultValuePresent }
+
+        byHasDefault[false]?.forEach { argument ->
+            params[argument]
+                ?.value
+                ?.let { if(argument.type is JsonNavType) Gson().toJson(it, it::class.java) else it }
+                ?.let { append("/$it") }
+                ?: throw NoSuchElementException("The required argument is missing")
         }
 
-        internal fun build() = buildString {
-            append(name)
-
-            val byHasDefault = arguments.groupBy { it.value.argument.isNullable || it.value.argument.isDefaultValuePresent }
-
-            byHasDefault[false]?.forEach { argument ->
-                args[argument]
+        byHasDefault[true]
+            ?.joinToString(prefix = "?", separator = "&") { argument ->
+                val value = params[argument]?.value
                     ?.let { if(argument.type is JsonNavType) Gson().toJson(it, it::class.java) else it }
-                    ?.let { append("/$it") }
-                    ?: throw NoSuchElementException("The required argument is missing")
+                val defaultValue = argument.defaultValue
+                    ?.let { if(argument.type is JsonNavType) Gson().toJson(it, it::class.java) else it }
+
+                "${argument.value.name}=${value ?: defaultValue}"
             }
-
-            byHasDefault[true]
-                ?.joinToString(prefix = "?", separator = "&") { argument ->
-                    val value = args[argument]
-                        ?.let { if(argument.type is JsonNavType) Gson().toJson(it, it::class.java) else it }
-                    val defaultValue = argument.value.argument.defaultValue
-                        ?.let { if(argument.type is JsonNavType) Gson().toJson(it, it::class.java) else it }
-
-                    "${argument.value.name}=${value ?: defaultValue}"
-                }
-                ?.let { append(it) }
-        }
+            ?.let { append(it) }
     }
+
+    protected infix fun <T> TypedArgument<T>.setValue(value: T) = NavParameter(this, value)
+
+    data class NavParameter<T>(val typedArgument: TypedArgument<T>, val value: T)
 }
 
 val <N : NavigationNode> N.composable: NavGraphBuilder.(@Composable N.(NavBackStackEntry) -> Unit) -> Unit

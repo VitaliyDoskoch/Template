@@ -11,7 +11,7 @@ abstract class AuthorizationFeatureNavigator : CoreNavigator {
 
     fun navigateUp() = events.enqueue { navigateUp() }
 
-    fun toSignIn() = events.enqueue { navigate(Node.SignIn.route()) }
+    fun toSignIn() = events.enqueue { navigate(Node.SignIn.route) }
 
     companion object {
         internal val startNode = Node.SignUp

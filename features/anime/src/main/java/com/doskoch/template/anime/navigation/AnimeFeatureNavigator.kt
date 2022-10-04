@@ -1,5 +1,6 @@
 package com.doskoch.template.anime.navigation
 
+import com.doskoch.template.anime.navigation.Node.Top.setValue
 import com.doskoch.template.core.components.event.EventQueue
 import com.doskoch.template.core.components.navigation.CoreNavigator
 import com.doskoch.template.core.components.navigation.NavAction
@@ -11,13 +12,12 @@ abstract class AnimeFeatureNavigator : CoreNavigator {
     abstract fun toSplash()
 
     fun toDetails(animeId: Int) = events.enqueue {
-        navigate(Node.Details.route {
-            Node.Details.requiredBool setTo true
-            Node.Details.optionalInt setTo 100
-
-            Node.Details.requiredJson setTo Dummy("dummy")
-            Node.Details.optionalString setTo "non-default"
-        })
+        navigate(Node.Details.buildRoute(
+            rBool = true,
+            oInt = 100,
+            rJson = Dummy("dummy"),
+            oString = "non-default"
+        ))
     }
 
     companion object {

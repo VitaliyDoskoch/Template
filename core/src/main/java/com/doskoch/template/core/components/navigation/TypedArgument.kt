@@ -8,10 +8,13 @@ import androidx.navigation.navArgument
 
 data class TypedArgument<T>(val value: NamedNavArgument, val type: NavType<T>) {
     @Suppress("UNCHECKED_CAST")
+    val defaultValue: T = value.argument.defaultValue as T
+
+    @Suppress("UNCHECKED_CAST")
     fun valueFrom(bundle: Bundle): T = type[bundle, value.name] as T
 }
 
-inline fun <reified T> typedArgument(name: String, type: NavType<T>, ) = TypedArgument(
+inline fun <reified T> typedArgument(name: String, type: NavType<T>) = TypedArgument(
     value = navArgument(name) {
         this.type = type
         this.nullable = null is T

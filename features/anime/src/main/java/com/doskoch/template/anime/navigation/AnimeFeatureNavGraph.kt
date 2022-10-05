@@ -10,6 +10,7 @@ import com.doskoch.template.anime.screens.details.AnimeDetailsScreen
 import com.doskoch.template.anime.screens.top.TopAnimeScreen
 import com.doskoch.template.core.components.navigation.JsonNavType
 import com.doskoch.template.core.components.navigation.NavigationNode
+import com.doskoch.template.core.components.navigation.NonNullStringType
 import com.doskoch.template.core.components.navigation.composable
 import com.doskoch.template.core.components.navigation.typedArgument
 import timber.log.Timber
@@ -46,7 +47,7 @@ internal sealed class Node(name: String) : NavigationNode(name) {
         val optionalInt = typedArgument("optionalInt", NavType.IntType, defaultValue = 0)
         val optionalNullableJson = typedArgument("optionalNullableJson", JsonNavType<Lol?>(), defaultValue = null)
         val requiredJson = typedArgument("requiredJson", JsonNavType<Dummy>())
-        val optionalString = typedArgument("optionalString", NavType.StringType, defaultValue = "optionalString")
+        val optionalString = typedArgument("optionalString", NavType.NonNullStringType, defaultValue = "optionalString")
         val optionalNonNullableJson = typedArgument("optionalNonNullableJson", JsonNavType<Lol>(), defaultValue = Lol("lol"))
 
         fun buildRoute(

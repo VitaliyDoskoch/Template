@@ -6,9 +6,10 @@ import androidx.navigation.NavDeepLink
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.google.gson.Gson
+import timber.log.Timber
 
 abstract class NavigationNode(private val name: String) {
-    open val arguments: List<TypedArgument<*>> = emptyList()
+    open val arguments: List<TypedArgument<*>> by lazy(::retrieveArguments)
     open val deepLinks: List<NavDeepLink> = emptyList()
 
     val route: String
@@ -54,6 +55,11 @@ abstract class NavigationNode(private val name: String) {
     protected infix fun <T> TypedArgument<T>.setValue(value: T) = NavParameter(this, value)
 
     data class NavParameter<T>(val typedArgument: TypedArgument<T>, val value: T)
+
+    private fun retrieveArguments() = javaClass.declaredFields
+        .filter { it.type.isAssignableFrom(TypedArgument::class.java) }
+        .onEach { it.isAccessible = true }
+        .map { it.get(this) as TypedArgument<*> }
 }
 
 val <N : NavigationNode> N.composable: NavGraphBuilder.(@Composable N.(NavBackStackEntry) -> Unit) -> Unit

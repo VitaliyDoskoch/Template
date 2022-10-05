@@ -2,7 +2,6 @@ package com.doskoch.template.core.components.navigation
 
 import android.os.Bundle
 import androidx.navigation.NamedNavArgument
-import androidx.navigation.NavArgumentBuilder
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
 

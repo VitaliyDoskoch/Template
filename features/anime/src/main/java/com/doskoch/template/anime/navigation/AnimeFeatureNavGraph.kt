@@ -49,7 +49,8 @@ internal sealed class Node(name: String) : NavigationNode(name) {
         val optionalString = typedArgument("optionalString", NavType.StringType, defaultValue = "optionalString")
         val optionalNonNullableJson = typedArgument("optionalNonNullableJson", JsonNavType<Lol>(), defaultValue = Lol("lol"))
 
-        override val arguments = listOf(requiredBool, optionalInt, optionalNullableJson, requiredJson, optionalString, optionalNonNullableJson)
+        override val arguments =
+            listOf(requiredBool, optionalInt, optionalNullableJson, requiredJson, optionalString, optionalNonNullableJson)
 
         fun buildRoute(
             rBool: Boolean,
@@ -59,14 +60,12 @@ internal sealed class Node(name: String) : NavigationNode(name) {
             oString: String = optionalString.defaultValue.orEmpty(),
             oNonNullableJson: Lol = optionalNonNullableJson.defaultValue
         ) = buildRoute(
-            listOf(
-                requiredBool setValue rBool,
-                optionalInt setValue oInt,
-                optionalNullableJson setValue oNullableJson,
-                requiredJson setValue rJson,
-                optionalString setValue oString,
-                optionalNonNullableJson setValue oNonNullableJson
-            )
+            requiredBool setValue rBool,
+            optionalInt setValue oInt,
+            optionalNullableJson setValue oNullableJson,
+            requiredJson setValue rJson,
+            optionalString setValue oString,
+            optionalNonNullableJson setValue oNonNullableJson
         )
     }
 }

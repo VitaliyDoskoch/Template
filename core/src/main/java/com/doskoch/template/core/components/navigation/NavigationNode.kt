@@ -24,8 +24,8 @@ abstract class NavigationNode(private val name: String) {
                 ?.let { append(it) }
         }
 
-    protected fun buildRoute(paramList: List<NavParameter<*>>) = buildString {
-        val params = paramList.associateBy { it.typedArgument }
+    protected fun buildRoute(vararg parameters: NavParameter<*>) = buildString {
+        val params = parameters.associateBy { it.typedArgument }
 
         append(name)
 

@@ -39,10 +39,9 @@ object Module {
         )
 
     private fun pager(animeType: AnimeType) = Pager(
-        config = PagingConfig(pageSize = PAGE_SIZE, initialLoadSize = INITIAL_LOAD_SIZE),
+        config = PagingConfig(pageSize = PAGE_SIZE, initialLoadSize = INITIAL_LOAD_SIZE, enablePlaceholders = true),
         remoteMediator = animeRemoteMediator(animeType = animeType),
-        initialKey = INITIAL_PAGE,
-        pagingSourceFactory = { Injector.storage.SimplePagingSource(1) }
+        pagingSourceFactory = { Injector.storage.SimplePagingSource() }
     )
 
     private fun animeRemoteMediator(animeType: AnimeType) = AnimeRemoteMediator(

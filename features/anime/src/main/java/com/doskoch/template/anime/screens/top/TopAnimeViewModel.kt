@@ -55,7 +55,7 @@ class TopAnimeViewModel(
     }
 
     private fun onUpdateAnimeType(type: AnimeType) {
-        storage.clear()
+//        storage.clear()//TODO
 
         _state.update {
             it.copy(

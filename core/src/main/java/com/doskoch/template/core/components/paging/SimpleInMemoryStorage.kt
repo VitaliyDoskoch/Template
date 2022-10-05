@@ -17,27 +17,14 @@ class SimpleInMemoryStorage<K : Any, V : Any> {
     val keys: Set<PageKeys<K>>
         get() = storage.keys
 
-    fun addInvalidationCallback(callback: () -> Unit) {
-        invalidationCallbacks.add(callback)
-    }
+    fun keysOf(currentKey: K) = keys.find { it.current == currentKey }
 
-    fun removeInvalidationCallback(callback: () -> Unit) {
-        invalidationCallbacks.remove(callback)
-    }
-
-    fun keysOf(key: K) = keys.find { it.current == key }
-
-    fun pageOf(key: K) = keys
-        .find { it.current == key }
+    fun pageOf(currentKey: K) = keys
+        .find { it.current == currentKey }
         ?.let { storage[it] }
 
-    fun store(previousKey: K?, currentKey: K, nextKey: K?, page: List<V>) = synchronized(storage){
-        storage[PageKeys(previousKey, currentKey, nextKey)] = page
-        triggerInvalidation()
-    }
-
-    fun clear() = synchronized(storage){
-        storage.clear()
+    fun inTransaction(action: SimpleInMemoryStorage<K, V>.Modifier.() -> Unit) = synchronized(storage) {
+        action(Modifier())
         triggerInvalidation()
     }
 
@@ -45,35 +32,48 @@ class SimpleInMemoryStorage<K : Any, V : Any> {
         invalidationCallbacks.toMutableList().forEach { it.invoke() }
     }
 
+    inner class Modifier {
+
+        fun store(previousKey: K?, currentKey: K, nextKey: K?, page: List<V>) {
+            storage[PageKeys(previousKey, currentKey, nextKey)] = page
+        }
+
+        fun clear() {
+            storage.clear()
+        }
+    }
+
     data class PageKeys<K>(val previous: K?, val current: K, val next: K?)
 
-    inner class SimplePagingSource(val initialKey: K) : PagingSource<K, V>() {
+    inner class SimplePagingSource : PagingSource<Int, V>() {
+
+        private val pageSize = 10
 
         init {
-            val invalidationCallback = { invalidate() }
+            val invalidationCallback = { Timber.e("invalidation"); invalidate() }
 
-            addInvalidationCallback(invalidationCallback)
-            registerInvalidatedCallback { removeInvalidationCallback(invalidationCallback) }
+            invalidationCallbacks.add(invalidationCallback)
+            registerInvalidatedCallback { invalidationCallbacks.remove(invalidationCallback) }
         }
 
-        override fun getRefreshKey(state: PagingState<K, V>): K? = state.anchorPosition?.let { anchorPosition ->
-            val anchorPage = state.closestPageToPosition(anchorPosition)
-            keys.find { pageOf(it.current) === anchorPage?.data }?.current
-        }
+        override fun getRefreshKey(state: PagingState<Int, V>): Int? = state.anchorPosition
+            ?.also { Timber.e("anchorPosition: $it") }
+            ?.let { state.closestPageToPosition(it)?.data?.firstOrNull() }
+            ?.let { items.indexOf(it) }
+            ?.takeIf { it != -1 }
 
-        override suspend fun load(params: LoadParams<K>): LoadResult<K, V> = try {
-            val key = params.key ?: initialKey
-
-            val keys = keysOf(key)
-            val items = pageOf(key).orEmpty()
+        override suspend fun load(params: LoadParams<Int>): LoadResult<Int, V> = try {
+            val position = params.key ?: 0
 
             LoadResult.Page(
-                data = items,
-                prevKey = keys?.previous,
-                nextKey = keys?.next,
-//                itemsBefore = itemsBefore,
-//                itemsAfter = itemsAfter
-            )
+                data = items.drop(position).take(pageSize),
+                prevKey = (position - pageSize).takeIf { it in items.indices },
+                nextKey = (position + pageSize).takeIf { it in items.indices },
+                itemsBefore = position,
+                itemsAfter = (items.size - (position + pageSize)).coerceAtLeast(0)
+            ).also {
+                Timber.e("position = $position, prevKey = ${it.prevKey}, nextKey = ${it.nextKey}, itemsBefore = ${it.itemsBefore}, itemsAfter = ${it.itemsAfter}, items = ${it.data.size}, storageItems = ${items.size}")
+            }
         } catch (t: Throwable) {
             Timber.e(t)
             LoadResult.Error(t)

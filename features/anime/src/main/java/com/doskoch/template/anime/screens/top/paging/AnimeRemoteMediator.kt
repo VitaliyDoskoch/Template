@@ -32,16 +32,18 @@ class AnimeRemoteMediator(
                 pageSize = if(key == INITIAL_PAGE) state.config.initialLoadSize else state.config.pageSize
             )
 
-            if(loadType == LoadType.REFRESH) {
-                storage.clear()
-            }
+            storage.inTransaction {
+                if(loadType == LoadType.REFRESH) {
+                    clear()
+                }
 
-            storage.store(
-                previousKey = if(key > INITIAL_PAGE) key - 1 else null,
-                currentKey = key,
-                nextKey = if(data.hasNext) key + 1 else null,
-                page = data.items
-            )
+                store(
+                    previousKey = if(key > INITIAL_PAGE) key - 1 else null,
+                    currentKey = key,
+                    nextKey = if(data.hasNext) key + 1 else null,
+                    page = data.items
+                )
+            }
 
             MediatorResult.Success(endOfPaginationReached = !data.hasNext)
         } catch (t: Throwable) {

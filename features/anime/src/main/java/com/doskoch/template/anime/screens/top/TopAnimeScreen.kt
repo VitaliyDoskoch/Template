@@ -58,6 +58,7 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
+import androidx.paging.compose.itemsIndexed
 import coil.compose.AsyncImage
 import com.doskoch.legacy.android.viewModel.typedViewModelFactory
 import com.doskoch.template.anime.R
@@ -67,6 +68,7 @@ import com.doskoch.template.anime.data.stringId
 import com.doskoch.template.anime.di.Module
 import com.doskoch.template.core.components.error.toCoreError
 import com.doskoch.template.core.components.theme.Dimensions
+import com.doskoch.template.core.components.theme.extraColors
 import com.doskoch.template.core.components.ui.ErrorItem
 import com.doskoch.template.core.components.ui.LoadingItem
 import com.google.accompanist.swiperefresh.SwipeRefresh
@@ -160,10 +162,11 @@ private fun ScreenContent(state: TopAnimeViewModel.State) {
                             .simpleVerticalScrollbar(_state, 8.dp),
                         state = _state
                     ) {
-                        items(items) {
+                        itemsIndexed(items) { position, it ->
                             it?.let {
                                 AnimeItem(
                                     item = it,
+                                    position = position,
                                     onFavoriteClick = {},
                                     modifier = Modifier
                                         .clickable { state.actions.onItemClick(it) }
@@ -299,6 +302,7 @@ private fun ColumnScope.AnimeTypeItems(state: TopAnimeViewModel.State) {
 @Composable
 private fun AnimeItem(
     item: AnimeItem,
+    position: Int,
     onFavoriteClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -375,6 +379,15 @@ private fun AnimeItem(
                 tint = if (item.isFavorite) MaterialTheme.colors.secondary else MaterialTheme.colors.onBackground
             )
         }
+
+        Text(
+            text = position.toString(),
+            modifier = Modifier
+                .align(Alignment.TopEnd)
+                .padding(Dimensions.space_16),
+            style = MaterialTheme.typography.h4,
+            color = Color.Red
+        )
 
         Divider(
             modifier = Modifier

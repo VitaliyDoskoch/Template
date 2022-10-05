@@ -52,14 +52,14 @@ abstract class NavigationNode(private val name: String) {
             ?.let { append(it) }
     }
 
-    protected infix fun <T> TypedArgument<T>.setValue(value: T) = NavParameter(this, value)
-
-    data class NavParameter<T>(val typedArgument: TypedArgument<T>, val value: T)
-
     private fun retrieveArguments() = javaClass.declaredFields
         .filter { it.type.isAssignableFrom(TypedArgument::class.java) }
         .onEach { it.isAccessible = true }
         .map { it.get(this) as TypedArgument<*> }
+
+    protected infix fun <T> TypedArgument<T>.setValue(value: T) = NavParameter(this, value)
+
+    data class NavParameter<T>(val typedArgument: TypedArgument<T>, val value: T)
 }
 
 val <N : NavigationNode> N.composable: NavGraphBuilder.(@Composable N.(NavBackStackEntry) -> Unit) -> Unit

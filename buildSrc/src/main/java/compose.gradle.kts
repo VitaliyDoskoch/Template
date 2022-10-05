@@ -26,6 +26,4 @@ android {
 dependencies {
     implementation(Dependencies.compose)
     implementation(Dependencies.accompanist)
-    implementation(Dependencies.coil)
-    implementation(Dependencies.pagingCompose)
 }

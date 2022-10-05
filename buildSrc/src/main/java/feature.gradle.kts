@@ -9,5 +9,4 @@ dependencies {
     implementation(Dependencies.timber)
     implementation(Dependencies.coreKtx)
     implementation(Dependencies.material)
-    implementation(Dependencies.paging)
 }

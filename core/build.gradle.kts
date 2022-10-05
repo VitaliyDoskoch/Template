@@ -14,8 +14,6 @@ dependencies {
     api(Dependencies.coreKtx)
     api(Dependencies.material)
 
-    api(Dependencies.paging)
-
     implementation(Dependencies.gson)
     implementation(Dependencies.retrofit2)
     implementation(Dependencies.dataStore)

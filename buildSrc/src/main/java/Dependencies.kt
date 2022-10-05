@@ -14,24 +14,15 @@ object Dependencies {
         "androidx.compose.ui:ui-tooling:${Versions.compose}",
         "androidx.compose.foundation:foundation:${Versions.compose}",
         "androidx.compose.material:material:${Versions.compose}",
-        "androidx.navigation:navigation-compose:${Versions.navigationKtx}"
+        "io.coil-kt:coil-compose:${Versions.coilCompose}",
+        "androidx.navigation:navigation-compose:${Versions.navigationCompose}",
+        "androidx.paging:paging-compose:${Versions.pagingCompose}"
     )
 
     val accompanist = listOf(
         "com.google.accompanist:accompanist-systemuicontroller:${Versions.accompanist}",
         "com.google.accompanist:accompanist-swiperefresh:${Versions.accompanist}"
     )
-
-    const val fragmentKtx = "androidx.fragment:fragment-ktx:${Versions.fragmentKtx}"
-    val navigationKtx = listOf(
-        "androidx.navigation:navigation-fragment-ktx:${Versions.navigationKtx}",
-        "androidx.navigation:navigation-ui-ktx:${Versions.navigationKtx}"
-    )
-
-    const val coil = "io.coil-kt:coil-compose:${Versions.coil}"
-
-    const val paging = "androidx.paging:paging-runtime:${Versions.paging}"
-    const val pagingCompose = "androidx.paging:paging-compose:${Versions.pagingCompose}"
 
     const val recyclerView = "androidx.recyclerview:recyclerview:${Versions.recyclerView}"
     const val swipeRefreshLayout = "androidx.swiperefreshlayout:swiperefreshlayout:${Versions.swipeRefreshLayout}"
@@ -57,17 +48,13 @@ object Dependencies {
         const val annotations = "1.0.0"
 
         const val material = "1.2.0-alpha03"
+
         const val compose = "1.2.0"
+        const val navigationCompose = "2.5.1"
+        const val pagingCompose = "1.0.0-alpha16"
+        const val coilCompose = "2.1.0"
 
         const val accompanist = "0.26.0-alpha"
-
-        const val fragmentKtx = "1.5.1"
-        const val navigationKtx = "2.5.1"
-
-        const val coil = "2.1.0"
-
-        const val paging = "3.1.1"
-        const val pagingCompose = "1.0.0-alpha15"
 
         const val recyclerView = "1.1.0"
         const val swipeRefreshLayout = "1.0.0"

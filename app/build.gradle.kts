@@ -32,8 +32,5 @@ dependencies {
 
     debugImplementation(Dependencies.leakCanary)
 
-    implementation(Dependencies.fragmentKtx)
-    implementation(Dependencies.navigationKtx)
-
     compileOnly(Dependencies.dataStore)
 }

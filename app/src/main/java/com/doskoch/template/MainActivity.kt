@@ -2,13 +2,16 @@ package com.doskoch.template
 
 import android.os.Bundle
 import android.widget.Toast
+import androidx.compose.ui.platform.ComposeView
 import androidx.core.view.WindowCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.doskoch.legacy.android.view.toast.CoreToast
+import com.doskoch.template.core.components.theme.BasicTheme
+import com.doskoch.template.core.components.theme.WithDimensions
 import com.doskoch.template.di.AppInjector
+import com.doskoch.template.navigation.MainNavGraph
 import kotlinx.coroutines.launch
 
 class MainActivity : FragmentActivity() {
@@ -17,9 +20,20 @@ class MainActivity : FragmentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
         WindowCompat.setDecorFitsSystemWindows(window, false)
+
+        setContentView(
+            ComposeView(this).apply {
+                setContent {
+                    WithDimensions {
+                        BasicTheme {
+                            MainNavGraph()
+                        }
+                    }
+                }
+            }
+        )
 
         observeGlobalErrorHandler()
     }

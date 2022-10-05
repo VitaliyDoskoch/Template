@@ -1,7 +1,11 @@
 package com.doskoch.template.core.components.paging
 
+import androidx.paging.PagingSource
+import androidx.paging.PagingState
+import timber.log.Timber
+
 @Suppress("MemberVisibilityCanBePrivate")
-class SimpleInMemoryStorage<K, V> {
+class SimpleInMemoryStorage<K : Any, V : Any> {
 
     private val invalidationCallbacks = mutableListOf<() -> Unit>()
 
@@ -37,24 +41,42 @@ class SimpleInMemoryStorage<K, V> {
         triggerInvalidation()
     }
 
-    fun replace(old: V, new: V) {
-        var index = -1
-        val page = storage.toList().find { (_, items) ->
-            index = items.indexOf(old)
-            index != -1
-        }
-
-        synchronized(storage) {
-            page?.let { (keys, items) ->
-                storage[keys] = items.toMutableList().apply { set(index, new) }
-            }
-            triggerInvalidation()
-        }
-    }
-
     private fun triggerInvalidation() {
         invalidationCallbacks.toMutableList().forEach { it.invoke() }
     }
 
     data class PageKeys<K>(val previous: K?, val current: K, val next: K?)
+
+    inner class SimplePagingSource(val initialKey: K) : PagingSource<K, V>() {
+
+        init {
+            val invalidationCallback = { invalidate() }
+
+            addInvalidationCallback(invalidationCallback)
+            registerInvalidatedCallback { removeInvalidationCallback(invalidationCallback) }
+        }
+
+        override fun getRefreshKey(state: PagingState<K, V>): K? = state.anchorPosition?.let { anchorPosition ->
+            val anchorPage = state.closestPageToPosition(anchorPosition)
+            keys.find { pageOf(it.current) === anchorPage?.data }?.current
+        }
+
+        override suspend fun load(params: LoadParams<K>): LoadResult<K, V> = try {
+            val key = params.key ?: initialKey
+
+            val keys = keysOf(key)
+            val items = pageOf(key).orEmpty()
+
+            LoadResult.Page(
+                data = items,
+                prevKey = keys?.previous,
+                nextKey = keys?.next,
+//                itemsBefore = itemsBefore,
+//                itemsAfter = itemsAfter
+            )
+        } catch (t: Throwable) {
+            Timber.e(t)
+            LoadResult.Error(t)
+        }
+    }
 }

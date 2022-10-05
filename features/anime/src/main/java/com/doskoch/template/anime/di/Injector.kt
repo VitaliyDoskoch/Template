@@ -7,11 +7,9 @@ import com.doskoch.legacy.kotlin.DestroyableLazy
 import com.doskoch.template.anime.INITIAL_LOAD_SIZE
 import com.doskoch.template.anime.INITIAL_PAGE
 import com.doskoch.template.anime.PAGE_SIZE
-import com.doskoch.template.anime.data.AnimeItem
 import com.doskoch.template.anime.data.AnimeType
 import com.doskoch.template.anime.screens.details.AnimeDetailsViewModel
 import com.doskoch.template.anime.screens.top.TopAnimeViewModel
-import com.doskoch.template.anime.screens.top.paging.AnimePagingSource
 import com.doskoch.template.anime.screens.top.paging.AnimeRemoteMediator
 import com.doskoch.template.anime.screens.top.useCase.LoadAnimeUseCase
 import com.doskoch.template.anime.screens.top.useCase.LogoutUseCase
@@ -44,7 +42,7 @@ object Module {
         config = PagingConfig(pageSize = PAGE_SIZE, initialLoadSize = INITIAL_LOAD_SIZE),
         remoteMediator = animeRemoteMediator(animeType = animeType),
         initialKey = INITIAL_PAGE,
-        pagingSourceFactory = { AnimePagingSource(storage = Injector.storage) }
+        pagingSourceFactory = { Injector.storage.SimplePagingSource(1) }
     )
 
     private fun animeRemoteMediator(animeType: AnimeType) = AnimeRemoteMediator(

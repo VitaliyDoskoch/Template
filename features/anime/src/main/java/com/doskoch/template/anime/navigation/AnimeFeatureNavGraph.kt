@@ -45,10 +45,10 @@ internal sealed class Node(name: String) : NavigationNode(name) {
     object Details : Node("details") {
         val requiredBool = typedArgument("requiredBool", NavType.BoolType)
         val optionalInt = typedArgument("optionalInt", NavType.IntType, defaultValue = 0)
-        val optionalNullableJson = typedArgument("optionalNullableJson", JsonNavType<Lol?>(), defaultValue = null)
-        val requiredJson = typedArgument("requiredJson", JsonNavType<Dummy>())
+        val optionalNullableJson = typedArgument("optionalNullableJson", NavType.JsonNavType<Lol?>(), defaultValue = null)
+        val requiredJson = typedArgument("requiredJson", NavType.JsonNavType<Dummy>())
         val optionalString = typedArgument("optionalString", NavType.NotNullStringType, defaultValue = "optionalString")
-        val optionalNonNullableJson = typedArgument("optionalNonNullableJson", JsonNavType<Lol>(), defaultValue = Lol("lol"))
+        val optionalNonNullableJson = typedArgument("optionalNonNullableJson", NavType.JsonNavType<Lol>(), defaultValue = Lol("lol"))
 
         fun buildRoute(
             rBool: Boolean,

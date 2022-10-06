@@ -58,21 +58,32 @@ class SimpleInMemoryStorage<K : Any, V : Any> {
 
         override fun getRefreshKey(state: PagingState<Int, V>): Int? = state.anchorPosition
             ?.also { Timber.e("anchorPosition: $it") }
-            ?.let { state.closestPageToPosition(it)?.data?.firstOrNull() }
-            ?.let { items.indexOf(it) }
-            ?.takeIf { it != -1 }
+            ?.let { it - it % pageSize }
 
         override suspend fun load(params: LoadParams<Int>): LoadResult<Int, V> = try {
-            val position = params.key ?: 0
+            var position = params.key ?: 0
+            var loadSize = pageSize
+
+            if(params is LoadParams.Refresh) {
+                loadSize = pageSize * 3
+                if(position >= pageSize) {
+                    position -= pageSize
+                }
+            }
 
             LoadResult.Page(
-                data = items.drop(position).take(pageSize),
+                data = items.drop(position).take(loadSize),
                 prevKey = (position - pageSize).takeIf { it in items.indices },
-                nextKey = (position + pageSize).takeIf { it in items.indices },
+                nextKey = (position + loadSize).takeIf { it in items.indices },
                 itemsBefore = position,
-                itemsAfter = (items.size - (position + pageSize)).coerceAtLeast(0)
+                itemsAfter = (items.size - (position + loadSize)).coerceAtLeast(0)
             ).also {
-                Timber.e("position = $position, prevKey = ${it.prevKey}, nextKey = ${it.nextKey}, itemsBefore = ${it.itemsBefore}, itemsAfter = ${it.itemsAfter}, items = ${it.data.size}, storageItems = ${items.size}")
+                Timber.e(
+                    "position = $position, loadSize = $loadSize, " +
+                        "items = ${it.data.size}, storageItems = ${items.size}, " +
+                        "prevKey = ${it.prevKey}, nextKey = ${it.nextKey}, " +
+                        "itemsBefore = ${it.itemsBefore}, itemsAfter = ${it.itemsAfter}"
+                )
             }
         } catch (t: Throwable) {
             Timber.e(t)

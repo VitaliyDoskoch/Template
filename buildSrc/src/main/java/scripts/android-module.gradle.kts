@@ -14,7 +14,7 @@ android {
             compileSdk = maxSdk
 
             defaultConfig {
-                applicationId = "io.spilno.android"
+                applicationId = "com.doskoch.template"
                 versionCode = 1
                 versionName = "1.0.0"
             }

@@ -4,7 +4,6 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import timber.log.Timber
 
-@Suppress("MemberVisibilityCanBePrivate")
 class SimpleInMemoryStorage<K : Any, V : Any> {
 
     private val invalidationCallbacks = mutableListOf<() -> Unit>()
@@ -25,12 +24,10 @@ class SimpleInMemoryStorage<K : Any, V : Any> {
 
     fun inTransaction(action: SimpleInMemoryStorage<K, V>.Modifier.() -> Unit) = synchronized(storage) {
         action(Modifier())
-        triggerInvalidation()
+        invalidationCallbacks.forEach { it.invoke() }
     }
 
-    private fun triggerInvalidation() {
-        invalidationCallbacks.toMutableList().forEach { it.invoke() }
-    }
+    data class PageKeys<K>(val previous: K?, val current: K, val next: K?)
 
     inner class Modifier {
 
@@ -42,8 +39,6 @@ class SimpleInMemoryStorage<K : Any, V : Any> {
             storage.clear()
         }
     }
-
-    data class PageKeys<K>(val previous: K?, val current: K, val next: K?)
 
     inner class SimplePagingSource : PagingSource<Int, V>() {
 

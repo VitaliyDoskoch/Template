@@ -1,13 +1,10 @@
-package com.doskoch.template.repositories
+package com.doskoch.template.repositories.anime
 
-import com.doskoch.template.anime.data.AnimeItem
 import com.doskoch.template.anime.data.AnimeType
 import com.doskoch.template.anime.data.PagedData
 import com.doskoch.template.anime.di.AnimeFeatureRepository
-import com.doskoch.template.api.jikan.services.responses.GetTopAnimeResponse
 import com.doskoch.template.core.data.repository.AnimeRepository
 import com.doskoch.template.core.data.store.AuthorizationDataStore
-import com.doskoch.template.api.jikan.common.enum.AnimeType as RemoteAnimeType
 
 class AnimeFeatureRepositoryImpl(
     private val repository: AnimeRepository,
@@ -31,30 +28,5 @@ class AnimeFeatureRepositoryImpl(
 
     override suspend fun logout() {
         authorizationDataStore.updateAuthorized(false)
-    }
-}
-
-class AnimeFeatureConverter {
-
-    fun toRemoteType(type: AnimeType) = when(type) {
-        AnimeType.Tv -> RemoteAnimeType.Tv
-        AnimeType.Movie -> RemoteAnimeType.Movie
-        AnimeType.Ova -> RemoteAnimeType.Ova
-        AnimeType.Special -> RemoteAnimeType.Special
-        AnimeType.Ona -> RemoteAnimeType.Ona
-        AnimeType.Music -> RemoteAnimeType.Music
-    }
-
-    fun toAnimeItem(data: GetTopAnimeResponse.Data) = with(data) {
-        AnimeItem(
-            id = malId,
-            approved = approved,
-            imageUrl = images.webp.imageUrl,
-            title = title,
-            genres = genres.map { it.name },
-            score = score,
-            scoredBy = scoredBy,
-            isFavorite = false
-        )
     }
 }

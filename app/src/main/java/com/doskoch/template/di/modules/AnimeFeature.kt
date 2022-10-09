@@ -9,8 +9,8 @@ import com.doskoch.template.core.components.paging.SimpleInMemoryStorage
 import com.doskoch.template.core.data.repository.AnimeRepository
 import com.doskoch.template.di.AppComponent
 import com.doskoch.template.navigation.Node
-import com.doskoch.template.repositories.AnimeFeatureConverter
-import com.doskoch.template.repositories.AnimeFeatureRepositoryImpl
+import com.doskoch.template.repositories.anime.AnimeFeatureConverter
+import com.doskoch.template.repositories.anime.AnimeFeatureRepositoryImpl
 
 fun animeFeatureModule(component: AppComponent) = object : AnimeFeature {
     override val navigator = object : AnimeFeatureNavigator() {

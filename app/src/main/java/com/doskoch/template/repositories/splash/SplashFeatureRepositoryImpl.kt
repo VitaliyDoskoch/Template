@@ -1,4 +1,4 @@
-package com.doskoch.template.repositories
+package com.doskoch.template.repositories.splash
 
 import com.doskoch.template.core.data.store.AuthorizationDataStore
 import com.doskoch.template.splash.di.SplashFeatureRepository

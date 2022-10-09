@@ -1,4 +1,4 @@
-package com.doskoch.template.repositories
+package com.doskoch.template.repositories.authorization
 
 import com.doskoch.template.authorization.di.AuthorizationFeatureRepository
 import com.doskoch.template.core.data.store.AuthorizationDataStore

@@ -80,7 +80,7 @@ import java.text.DecimalFormat
 @Composable
 fun TopAnimeScreen() {
     TopAnimeScreen(
-        vm = viewModel(factory = typedViewModelFactory { Module.topAnimeViewModel })
+        vm = viewModel(factory = typedViewModelFactory { Module.topAnimeViewModel() })
     )
 }
 

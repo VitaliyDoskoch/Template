@@ -9,7 +9,6 @@ import com.doskoch.template.data.store.AuthorizationDataStore
 
 class AnimeFeatureRepositoryImpl(
     private val topService: TopService,
-    private val authorizationDataStore: AuthorizationDataStore,
     private val converter: AnimeFeatureConverter
 ) : AnimeFeatureRepository {
 
@@ -21,9 +20,5 @@ class AnimeFeatureRepositoryImpl(
             lastPage = response.pagination.lastVisiblePage,
             hasNext = response.pagination.hasNextPage
         )
-    }
-
-    override suspend fun logout() {
-        authorizationDataStore.updateAuthorized(false)
     }
 }

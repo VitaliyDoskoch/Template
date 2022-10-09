@@ -11,6 +11,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.doskoch.template.core.components.theme.BasicTheme
 import com.doskoch.template.core.components.theme.WithDimensions
 import com.doskoch.template.di.AppInjector
+import com.doskoch.template.error.GlobalErrorHandlerImpl
 import com.doskoch.template.navigation.MainNavGraph
 import kotlinx.coroutines.launch
 

@@ -24,7 +24,7 @@ class SimpleInMemoryStorage<K : Any, V : Any> {
 
     fun inTransaction(action: SimpleInMemoryStorage<K, V>.Modifier.() -> Unit) = synchronized(storage) {
         action(Modifier())
-        invalidationCallbacks.forEach { it.invoke() }
+        invalidationCallbacks.toMutableList().forEach { it.invoke() }
     }
 
     data class PageKeys<K>(val previous: K?, val current: K, val next: K?)

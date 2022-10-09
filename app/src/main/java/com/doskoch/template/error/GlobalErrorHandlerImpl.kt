@@ -1,4 +1,4 @@
-package com.doskoch.template
+package com.doskoch.template.error
 
 import com.doskoch.template.core.components.error.CoreError
 import com.doskoch.template.core.components.error.GlobalErrorHandler

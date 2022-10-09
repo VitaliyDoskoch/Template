@@ -14,7 +14,7 @@ import com.doskoch.template.anime.di.Module
 @Composable
 fun AnimeDetailsScreen() {
     AnimeDetailsScreen(
-        vm = viewModel(factory = typedViewModelFactory { Module.animeDetailsViewModel })
+        vm = viewModel(factory = typedViewModelFactory { Module.animeDetailsViewModel() })
     )
 }
 

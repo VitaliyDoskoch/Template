@@ -8,10 +8,9 @@ import androidx.paging.cachedIn
 import com.doskoch.template.anime.data.AnimeItem
 import com.doskoch.template.anime.data.AnimeType
 import com.doskoch.template.anime.navigation.AnimeFeatureNavigator
-import com.doskoch.template.anime.screens.top.useCase.LogoutUseCase
 import com.doskoch.template.core.components.error.GlobalErrorHandler
 import com.doskoch.template.core.components.error.toCoreError
-import com.doskoch.template.core.components.paging.SimpleInMemoryStorage
+import com.doskoch.template.core.components.useCase.LogoutUseCase
 import com.doskoch.template.core.functions.perform
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,7 +21,6 @@ import kotlinx.coroutines.launch
 class TopAnimeViewModel(
     private val logoutUseCase: LogoutUseCase,
     private val pagerFactory: PagerFactory,
-    private val storage: SimpleInMemoryStorage<Int, AnimeItem>,
     private val globalErrorHandler: GlobalErrorHandler,
     private val navigator: AnimeFeatureNavigator
 ) : ViewModel() {

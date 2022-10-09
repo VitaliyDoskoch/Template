@@ -5,14 +5,12 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import com.doskoch.legacy.kotlin.DestroyableLazy
 import com.doskoch.template.anime.INITIAL_LOAD_SIZE
-import com.doskoch.template.anime.INITIAL_PAGE
 import com.doskoch.template.anime.PAGE_SIZE
 import com.doskoch.template.anime.data.AnimeType
 import com.doskoch.template.anime.screens.details.AnimeDetailsViewModel
 import com.doskoch.template.anime.screens.top.TopAnimeViewModel
 import com.doskoch.template.anime.screens.top.paging.AnimeRemoteMediator
 import com.doskoch.template.anime.screens.top.useCase.LoadAnimeUseCase
-import com.doskoch.template.anime.screens.top.useCase.LogoutUseCase
 
 object AnimeFeatureInjector {
     var provider: DestroyableLazy<AnimeFeature>? = null
@@ -24,19 +22,12 @@ internal val Injector: AnimeFeature
 @ExperimentalPagingApi
 object Module {
 
-    val topAnimeViewModel: TopAnimeViewModel
-        get() = TopAnimeViewModel(
-            logoutUseCase = logoutUseCase,
-            pagerFactory = { animeType -> pager(animeType = animeType) },
-            storage = Injector.storage,
-            globalErrorHandler = Injector.globalErrorHandler,
-            navigator = Injector.navigator
-        )
-
-    private val logoutUseCase: LogoutUseCase
-        get() = LogoutUseCase(
-            repository = Injector.repository
-        )
+    fun topAnimeViewModel() = TopAnimeViewModel(
+        logoutUseCase = Injector.logoutUseCase,
+        pagerFactory = { animeType -> pager(animeType = animeType) },
+        globalErrorHandler = Injector.globalErrorHandler,
+        navigator = Injector.navigator
+    )
 
     private fun pager(animeType: AnimeType) = Pager(
         config = PagingConfig(pageSize = PAGE_SIZE, initialLoadSize = INITIAL_LOAD_SIZE, enablePlaceholders = true),
@@ -50,6 +41,5 @@ object Module {
         storage = Injector.storage
     )
 
-    val animeDetailsViewModel: AnimeDetailsViewModel
-        get() = AnimeDetailsViewModel()
+    fun animeDetailsViewModel() = AnimeDetailsViewModel()
 }

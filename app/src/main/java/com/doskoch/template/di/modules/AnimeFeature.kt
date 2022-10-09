@@ -6,7 +6,6 @@ import com.doskoch.template.anime.di.AnimeFeature
 import com.doskoch.template.anime.navigation.AnimeFeatureNavigator
 import com.doskoch.template.api.jikan.JikanApiProvider
 import com.doskoch.template.core.components.paging.SimpleInMemoryStorage
-import com.doskoch.template.core.data.repository.AnimeRepository
 import com.doskoch.template.di.AppComponent
 import com.doskoch.template.navigation.Node
 import com.doskoch.template.repositories.anime.AnimeFeatureConverter
@@ -22,7 +21,7 @@ fun animeFeatureModule(component: AppComponent) = object : AnimeFeature {
     override val globalErrorHandler = component.globalErrorHandler
 
     override val repository = AnimeFeatureRepositoryImpl(
-        repository = AnimeRepository(JikanApiProvider.topService),
+        topService = JikanApiProvider.topService,
         authorizationDataStore = component.authorizationDataStore,
         converter = AnimeFeatureConverter()
     )

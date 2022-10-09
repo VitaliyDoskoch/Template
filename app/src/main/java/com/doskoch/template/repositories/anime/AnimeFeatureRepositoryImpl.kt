@@ -5,7 +5,7 @@ import com.doskoch.template.anime.data.PagedData
 import com.doskoch.template.anime.di.AnimeFeatureRepository
 import com.doskoch.template.api.jikan.common.enum.AnimeFilter
 import com.doskoch.template.api.jikan.services.TopService
-import com.doskoch.template.core.data.store.AuthorizationDataStore
+import com.doskoch.template.data.store.AuthorizationDataStore
 
 class AnimeFeatureRepositoryImpl(
     private val topService: TopService,

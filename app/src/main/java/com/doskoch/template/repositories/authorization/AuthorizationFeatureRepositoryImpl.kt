@@ -1,7 +1,7 @@
 package com.doskoch.template.repositories.authorization
 
 import com.doskoch.template.authorization.di.AuthorizationFeatureRepository
-import com.doskoch.template.core.data.store.AuthorizationDataStore
+import com.doskoch.template.data.store.AuthorizationDataStore
 
 class AuthorizationFeatureRepositoryImpl(
     private val dataStore: AuthorizationDataStore

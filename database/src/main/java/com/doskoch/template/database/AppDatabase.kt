@@ -6,11 +6,12 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.doskoch.template.database.common.CollectionsConverter
-import com.doskoch.template.database.schema.DbEntity
+import com.doskoch.template.database.schema.anime.DbAnime
+import com.doskoch.template.database.schema.anime.DbAnimeDao
 
 @Database(
     entities = [
-        DbEntity::class
+        DbAnime::class
     ],
     version = 1
 )
@@ -25,4 +26,6 @@ abstract class AppDatabase : RoomDatabase() {
                 .build()
         }
     }
+
+    abstract fun dbAnimeDao(): DbAnimeDao
 }

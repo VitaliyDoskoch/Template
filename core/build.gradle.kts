@@ -8,7 +8,7 @@ dependencies {
     api(project(":legacy"))
 
     implementation(project(":api"))
-    implementation(project(":database"))
+    api(project(":database"))
 
     api(Dependencies.timber)
     api(Dependencies.coreKtx)

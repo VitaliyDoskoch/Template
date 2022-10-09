@@ -34,7 +34,10 @@ object Dependencies {
 
     const val dataStore = "androidx.datastore:datastore-preferences:${Versions.dataStore}"
 
-    const val room = "androidx.room:room-ktx:${Versions.room}"
+    val room = listOf(
+        "androidx.room:room-ktx:${Versions.room}",
+        "androidx.room:room-paging:${Versions.room}"
+    )
     const val roomCompiler = "androidx.room:room-compiler:${Versions.room}"
 
     object Versions {
@@ -65,6 +68,6 @@ object Dependencies {
 
         const val dataStore = "1.0.0"
 
-        const val room = "2.2.5"
+        const val room = "2.4.3"
     }
 }

@@ -12,12 +12,7 @@ abstract class AnimeFeatureNavigator : CoreNavigator {
     abstract fun toSplash()
 
     fun toDetails(animeId: Int) = events.enqueue {
-        navigate(Node.Details.buildRoute(
-            rBool = true,
-            oInt = 100,
-            rJson = Dummy("dummy"),
-            oString = "non-default"
-        ))
+        navigate(Node.Details.buildRoute(animeId = animeId))
     }
 
     companion object {

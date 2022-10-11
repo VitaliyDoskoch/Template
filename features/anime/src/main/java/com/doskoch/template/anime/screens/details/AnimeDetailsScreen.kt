@@ -7,19 +7,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.paging.ExperimentalPagingApi
-import com.doskoch.legacy.android.viewModel.typedViewModelFactory
 import com.doskoch.template.anime.di.Module
 
 @OptIn(ExperimentalPagingApi::class)
 @Composable
-fun AnimeDetailsScreen() {
-    AnimeDetailsScreen(
-        vm = viewModel(factory = typedViewModelFactory { Module.animeDetailsViewModel() })
-    )
-}
-
-@Composable
-private fun AnimeDetailsScreen(vm: AnimeDetailsViewModel) {
+fun AnimeDetailsScreen(vm: AnimeDetailsViewModel = viewModel { Module.animeDetailsViewModel() }) {
     Scaffold {
         Box(Modifier.padding(it))
     }

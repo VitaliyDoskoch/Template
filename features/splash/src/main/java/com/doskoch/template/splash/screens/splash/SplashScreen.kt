@@ -22,20 +22,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.doskoch.legacy.android.viewModel.typedViewModelFactory
 import com.doskoch.template.core.components.theme.Dimensions
 import com.doskoch.template.splash.R
 import com.doskoch.template.splash.di.Module
 
 @Composable
-fun SplashScreen() {
-    SplashScreen(
-        vm = viewModel(factory = typedViewModelFactory { Module.splashViewModel() })
-    )
-}
-
-@Composable
-private fun SplashScreen(vm: SplashViewModel) {
+fun SplashScreen(vm: SplashViewModel = viewModel { Module.splashViewModel() }) {
     Scaffold { paddingValues ->
         Column(
             modifier = Modifier

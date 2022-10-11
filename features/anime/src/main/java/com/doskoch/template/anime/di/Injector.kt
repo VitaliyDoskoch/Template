@@ -8,6 +8,7 @@ import com.doskoch.template.anime.INITIAL_LOAD_SIZE
 import com.doskoch.template.anime.PAGE_SIZE
 import com.doskoch.template.anime.data.AnimeType
 import com.doskoch.template.anime.screens.details.AnimeDetailsViewModel
+import com.doskoch.template.anime.screens.favorite.FavoriteAnimeViewModel
 import com.doskoch.template.anime.screens.top.TopAnimeViewModel
 import com.doskoch.template.anime.screens.top.paging.AnimeRemoteMediator
 import com.doskoch.template.anime.screens.top.useCase.LoadAnimeUseCase
@@ -40,6 +41,8 @@ object Module {
         loadAnimeUseCase = LoadAnimeUseCase(repository = Injector.repository),
         storage = Injector.storage
     )
+
+    fun favoriteAnimeViewModel() = FavoriteAnimeViewModel()
 
     fun animeDetailsViewModel() = AnimeDetailsViewModel()
 }

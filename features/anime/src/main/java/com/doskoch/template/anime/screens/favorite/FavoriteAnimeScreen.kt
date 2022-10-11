@@ -1,4 +1,4 @@
-package com.doskoch.template.anime.screens.top
+package com.doskoch.template.anime.screens.favorite
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -17,7 +17,6 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.AlertDialog
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.DropdownMenu
 import androidx.compose.material.DropdownMenuItem
@@ -26,11 +25,9 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
-import androidx.compose.material.TextButton
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.key
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -54,6 +51,7 @@ import com.doskoch.template.anime.R
 import com.doskoch.template.anime.data.AnimeType
 import com.doskoch.template.anime.data.stringId
 import com.doskoch.template.anime.di.Module
+import com.doskoch.template.anime.screens.top.TopAnimeViewModel
 import com.doskoch.template.anime.ui.AnimeItem
 import com.doskoch.template.core.components.error.toCoreError
 import com.doskoch.template.core.components.theme.Dimensions
@@ -65,14 +63,10 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @OptIn(ExperimentalPagingApi::class)
 @Composable
-fun TopAnimeScreen(vm: TopAnimeViewModel = viewModel { Module.topAnimeViewModel() }) {
-    val state = vm.state.collectAsState().value
-
-    ScreenContent(state = state)
-
-    if (state.showLogoutDialog) {
-        LogoutDialog(state = state)
-    }
+fun FavoriteAnimeScreen(
+    vm: FavoriteAnimeViewModel = viewModel { Module.favoriteAnimeViewModel() }
+) {
+//    ScreenContent()
 }
 
 @Composable
@@ -270,33 +264,4 @@ private fun ColumnScope.AnimeTypeItems(state: TopAnimeViewModel.State) {
             }
         }
     }
-}
-
-@Composable
-private fun LogoutDialog(state: TopAnimeViewModel.State) {
-    AlertDialog(
-        onDismissRequest = state.actions.onDismissLogoutDialog,
-        title = {
-            Text(
-                text = stringResource(R.string.dialog_logout_title),
-                style = MaterialTheme.typography.subtitle1
-            )
-        },
-        text = {
-            Text(
-                text = stringResource(R.string.dialog_logout_message),
-                style = MaterialTheme.typography.body2
-            )
-        },
-        confirmButton = {
-            TextButton(onClick = state.actions.onConfirmLogoutClick) {
-                Text(text = stringResource(R.string.dialog_logout_confirm_button))
-            }
-        },
-        dismissButton = {
-            TextButton(onClick = state.actions.onDismissLogoutDialog) {
-                Text(text = stringResource(R.string.dialog_logout_dismiss_button))
-            }
-        }
-    )
 }

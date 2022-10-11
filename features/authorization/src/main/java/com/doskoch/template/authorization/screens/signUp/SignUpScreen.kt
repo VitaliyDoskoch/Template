@@ -21,22 +21,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.doskoch.legacy.android.viewModel.typedViewModelFactory
-import com.doskoch.template.authorization.di.Module
 import com.doskoch.template.authorization.R
+import com.doskoch.template.authorization.di.Module
 import com.doskoch.template.core.components.theme.Dimensions
 import com.doskoch.template.core.components.ui.CoreButton
 import com.doskoch.template.core.components.ui.CoreTextButton
 
 @Composable
-fun SignUpScreen() {
-    SignUpScreen(
-        vm = viewModel(factory = typedViewModelFactory { Module.signUpViewModel() })
-    )
-}
-
-@Composable
-private fun SignUpScreen(vm: SignUpViewModel) {
+fun SignUpScreen(vm: SignUpViewModel = viewModel { Module.signUpViewModel() }) {
     SignUpScreen(
         onSignIn = vm::onSignIn,
         onSkip = vm::onSkip

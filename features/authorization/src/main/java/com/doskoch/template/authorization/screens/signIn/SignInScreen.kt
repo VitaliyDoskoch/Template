@@ -20,7 +20,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.doskoch.legacy.android.viewModel.typedViewModelFactory
 import com.doskoch.template.authorization.di.Module
 import com.doskoch.template.authorization.R
 import com.doskoch.template.core.components.theme.Dimensions
@@ -29,14 +28,7 @@ import com.doskoch.template.core.components.ui.CoreTextInputField
 import com.doskoch.template.core.components.ui.CoreTopAppBar
 
 @Composable
-fun SignInScreen() {
-    SignInScreen(
-        vm = viewModel(factory = typedViewModelFactory { Module.signInViewModel() })
-    )
-}
-
-@Composable
-private fun SignInScreen(vm: SignInViewModel) {
+fun SignInScreen(vm: SignInViewModel = viewModel { Module.signInViewModel() }) {
     SignInScreen(
         state = vm.state.collectAsState().value
     )

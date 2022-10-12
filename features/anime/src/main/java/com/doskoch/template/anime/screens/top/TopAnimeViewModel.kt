@@ -13,6 +13,7 @@ import com.doskoch.template.core.components.error.toCoreError
 import com.doskoch.template.core.functions.perform
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -30,7 +31,7 @@ class TopAnimeViewModel(
         animeType = AnimeType.Tv,
         showAnimeTypeMenu = false,
         showLogoutDialog = false,
-        pagingData = pagerFactory.create(AnimeType.Tv).flow.cachedIn(viewModelScope),
+        pagingData = emptyFlow(),// pagerFactory.create(AnimeType.Tv).flow.cachedIn(viewModelScope),
         actions = TopAnimeState.Actions(
             onAnimeTypeClick = this::onAnimeTypeClick,
             onDismissAnimeTypeMenu = this::onDismissAnimeTypeMenu,

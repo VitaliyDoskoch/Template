@@ -10,6 +10,7 @@
     <string name="anime_type_music">Music</string>
     <string name="desc_item_image">The image of the anime</string>
     <string name="desc_icon_add_to_favorite">Add the item to favorites</string>
+    <string name="desc_to_favorite">To favorite</string>
     <string name="desc_logout">Logout</string>
     <string name="dialog_logout_title">Do you want to log out?</string>
     <string name="dialog_logout_message">You always can sign in again!</string>

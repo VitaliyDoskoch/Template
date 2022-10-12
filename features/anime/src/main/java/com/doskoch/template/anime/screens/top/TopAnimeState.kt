@@ -16,6 +16,7 @@ data class TopAnimeState(
         val onAnimeTypeClick: () -> Unit,
         val onDismissAnimeTypeMenu: () -> Unit,
         val onUpdateAnimeType: (AnimeType) -> Unit,
+        val onFavoriteClick: () -> Unit,
         val onLogoutClick: () -> Unit,
         val onDismissLogoutDialog: () -> Unit,
         val onConfirmLogoutClick: () -> Unit,

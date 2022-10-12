@@ -11,9 +11,9 @@ abstract class AnimeFeatureNavigator : CoreNavigator {
 
     abstract fun toSplash()
 
-    fun toDetails(animeId: Int) = events.enqueue {
-        navigate(Node.Details.buildRoute(animeId = animeId))
-    }
+    fun toFavorite() = events.enqueue { navigate(Node.Favorite.route) }
+
+    fun toDetails(animeId: Int) = events.enqueue { navigate(Node.Details.buildRoute(animeId = animeId)) }
 
     companion object {
         internal val startNode = Node.Top

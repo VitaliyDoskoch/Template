@@ -236,13 +236,25 @@ private fun TopBar(state: TopAnimeState) {
             horizontalArrangement = Arrangement.End
         ) {
             IconButton(
+                onClick = state.actions.onFavoriteClick
+            ) {
+                Icon(
+                    painter = painterResource(R.drawable.ic_star_filled),
+                    contentDescription = stringResource(R.string.desc_to_favorite),
+                    modifier = Modifier
+                        .size(Dimensions.icon_24),
+                    tint = MaterialTheme.colors.secondary
+                )
+            }
+
+            IconButton(
                 onClick = state.actions.onLogoutClick
             ) {
                 Icon(
                     painter = painterResource(R.drawable.ic_logout),
                     contentDescription = stringResource(R.string.desc_logout),
                     modifier = Modifier
-                        .size(24.dp),
+                        .size(Dimensions.icon_24),
                     tint = MaterialTheme.colors.secondary
                 )
             }

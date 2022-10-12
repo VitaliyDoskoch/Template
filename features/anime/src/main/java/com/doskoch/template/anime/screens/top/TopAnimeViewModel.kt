@@ -3,7 +3,6 @@ package com.doskoch.template.anime.screens.top
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
-import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.doskoch.template.anime.data.AnimeItem
 import com.doskoch.template.anime.data.AnimeType
@@ -12,7 +11,6 @@ import com.doskoch.template.anime.navigation.AnimeFeatureNavigator
 import com.doskoch.template.core.components.error.GlobalErrorHandler
 import com.doskoch.template.core.components.error.toCoreError
 import com.doskoch.template.core.functions.perform
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -37,6 +35,7 @@ class TopAnimeViewModel(
             onAnimeTypeClick = this::onAnimeTypeClick,
             onDismissAnimeTypeMenu = this::onDismissAnimeTypeMenu,
             onUpdateAnimeType = this::onUpdateAnimeType,
+            onFavoriteClick = this::onFavoriteClick,
             onLogoutClick = this::onLogoutClick,
             onDismissLogoutDialog = this::onDismissLogoutDialog,
             onConfirmLogoutClick = this::onConfirmLogoutClick,
@@ -62,6 +61,10 @@ class TopAnimeViewModel(
                 pagingData = pagerFactory.create(type).flow.cachedIn(viewModelScope)
             )
         }
+    }
+
+    private fun onFavoriteClick() {
+        navigator.toFavorite()
     }
 
     private fun onLogoutClick() {

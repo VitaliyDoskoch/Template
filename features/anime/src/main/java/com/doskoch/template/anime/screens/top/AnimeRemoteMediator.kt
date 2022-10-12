@@ -1,4 +1,4 @@
-package com.doskoch.template.anime.screens.top.paging
+package com.doskoch.template.anime.screens.top
 
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType

@@ -1,11 +1,7 @@
 package com.doskoch.template.anime.screens.favorite
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.navigationBarsPadding
@@ -18,8 +14,6 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.DropdownMenu
-import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
@@ -28,10 +22,9 @@ import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
-import androidx.compose.runtime.key
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
@@ -48,11 +41,7 @@ import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemsIndexed
 import com.doskoch.template.anime.R
-import com.doskoch.template.anime.data.AnimeType
-import com.doskoch.template.anime.data.stringId
 import com.doskoch.template.anime.di.Module
-import com.doskoch.template.anime.screens.top.TopAnimeState
-import com.doskoch.template.anime.screens.top.TopAnimeViewModel
 import com.doskoch.template.anime.ui.AnimeItem
 import com.doskoch.template.core.components.error.toCoreError
 import com.doskoch.template.core.components.theme.Dimensions
@@ -67,11 +56,8 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 fun FavoriteAnimeScreen(
     vm: FavoriteAnimeViewModel = viewModel { Module.favoriteAnimeViewModel() }
 ) {
-//    ScreenContent()
-}
+    val state = vm.state.collectAsState().value
 
-@Composable
-private fun ScreenContent(state: TopAnimeState) {
     Scaffold(
         topBar = {
             TopBar(state = state)
@@ -187,7 +173,7 @@ fun Modifier.simpleVerticalScrollbar(
 }
 
 @Composable
-private fun TopBar(state: TopAnimeState) {
+private fun TopBar(state: FavoriteAnimeState) {
     val systemUiController = rememberSystemUiController()
     val statusBarColor = MaterialTheme.colors.primary
 
@@ -197,84 +183,25 @@ private fun TopBar(state: TopAnimeState) {
 
     TopAppBar(
         modifier = Modifier
-            .statusBarsPadding()
-    ) {
-        Row(
-            modifier = Modifier
-                .clip(MaterialTheme.shapes.small)
-                .clickable(onClick = state.actions.onAnimeTypeClick)
-                .padding(horizontal = Dimensions.space_16, vertical = Dimensions.space_8),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
+            .statusBarsPadding(),
+        title = {
             Text(
-                text = stringResource(state.animeType.stringId),
+                text = stringResource(R.string.favorite_toolbar_title),
                 style = MaterialTheme.typography.subtitle1,
                 color = MaterialTheme.colors.onPrimary
             )
-
-            Icon(
-                painter = painterResource(R.drawable.ic_arrow_down),
-                contentDescription = null,
-                modifier = Modifier
-                    .size(Dimensions.icon_24),
-                tint = MaterialTheme.colors.onPrimary
-            )
-
-            DropdownMenu(
-                expanded = state.showAnimeTypeMenu,
-                onDismissRequest = state.actions.onDismissAnimeTypeMenu,
-                modifier = Modifier
-                    .background(color = MaterialTheme.colors.secondary),
-                content = { AnimeTypeItems(state = state) }
-            )
-        }
-
-        Row(
-            modifier = Modifier
-                .weight(1f),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.End
-        ) {
+        },
+        navigationIcon = {
             IconButton(
-                onClick = state.actions.onFavoriteClick
+                onClick = state.actions.onBackClick
             ) {
                 Icon(
-                    painter = painterResource(R.drawable.ic_star_filled),
-                    contentDescription = stringResource(R.string.desc_to_favorite),
+                    painter = painterResource(R.drawable.ic_arrow_back),
+                    contentDescription = stringResource(R.string.desc_navigate_back),
                     modifier = Modifier
-                        .size(Dimensions.icon_24),
-                    tint = MaterialTheme.colors.secondary
-                )
-            }
-
-            IconButton(
-                onClick = state.actions.onLogoutClick
-            ) {
-                Icon(
-                    painter = painterResource(R.drawable.ic_logout),
-                    contentDescription = stringResource(R.string.desc_logout),
-                    modifier = Modifier
-                        .size(Dimensions.icon_24),
-                    tint = MaterialTheme.colors.secondary
+                        .size(Dimensions.icon_24)
                 )
             }
         }
-    }
-}
-
-@Composable
-private fun ColumnScope.AnimeTypeItems(state: TopAnimeState) {
-    AnimeType.values().forEach {
-        key(it) {
-            DropdownMenuItem(
-                onClick = { state.actions.onUpdateAnimeType(it) }
-            ) {
-                Text(
-                    text = stringResource(it.stringId),
-                    style = MaterialTheme.typography.body2,
-                    color = MaterialTheme.colors.onSecondary
-                )
-            }
-        }
-    }
+    )
 }

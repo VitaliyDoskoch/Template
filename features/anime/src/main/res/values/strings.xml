@@ -16,4 +16,7 @@
     <string name="dialog_logout_message">You always can sign in again!</string>
     <string name="dialog_logout_confirm_button">Confirm</string>
     <string name="dialog_logout_dismiss_button">Cancel</string>
+    
+    <!-- FavoriteAnimeScreen -->
+    <string name="favorite_toolbar_title">Favorite</string>
 </resources>

@@ -10,7 +10,7 @@ import com.doskoch.template.anime.data.AnimeType
 import com.doskoch.template.anime.screens.details.AnimeDetailsViewModel
 import com.doskoch.template.anime.screens.favorite.FavoriteAnimeViewModel
 import com.doskoch.template.anime.screens.top.TopAnimeViewModel
-import com.doskoch.template.anime.screens.top.paging.AnimeRemoteMediator
+import com.doskoch.template.anime.screens.top.AnimeRemoteMediator
 import com.doskoch.template.anime.screens.top.useCase.LoadAnimeUseCase
 
 object AnimeFeatureInjector {
@@ -42,7 +42,9 @@ object Module {
         storage = Injector.storage
     )
 
-    fun favoriteAnimeViewModel() = FavoriteAnimeViewModel()
+    fun favoriteAnimeViewModel() = FavoriteAnimeViewModel(
+        navigator = Injector.navigator
+    )
 
     fun animeDetailsViewModel() = AnimeDetailsViewModel()
 }

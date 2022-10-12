@@ -24,12 +24,12 @@ class SignInViewModel(
     private val _state = MutableStateFlow(initialState())
     val state = _state.asStateFlow()
 
-    private fun initialState(): State = State(
+    private fun initialState(): SignInState = SignInState(
         email = "",
         error = null,
         isProceedButtonEnabled = false,
         isLoading = false,
-        actions = State.Actions(
+        actions = SignInState.Actions(
             onNavigateBack = this::onNavigateBack,
             onUpdateEmail = this::onUpdateEmail,
             onProceed = this::onProceed
@@ -56,18 +56,4 @@ class SignInViewModel(
         },
         onError = { globalErrorHandler.handle(it.toCoreError()) }
     )
-
-    data class State(
-        val email: String,
-        val error: CoreError?,
-        val isProceedButtonEnabled: Boolean,
-        val isLoading: Boolean,
-        val actions: Actions
-    ) {
-        data class Actions(
-            val onNavigateBack: () -> Unit,
-            val onUpdateEmail: (String) -> Unit,
-            val onProceed: () -> Unit
-        )
-    }
 }

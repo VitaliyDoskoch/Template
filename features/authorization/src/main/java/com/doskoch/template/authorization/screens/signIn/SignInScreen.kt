@@ -29,13 +29,8 @@ import com.doskoch.template.core.components.ui.CoreTopAppBar
 
 @Composable
 fun SignInScreen(vm: SignInViewModel = viewModel { Module.signInViewModel() }) {
-    SignInScreen(
-        state = vm.state.collectAsState().value
-    )
-}
+    val state = vm.state.collectAsState().value
 
-@Composable
-private fun SignInScreen(state: SignInViewModel.State) {
     Scaffold(
         topBar = {
             CoreTopAppBar(

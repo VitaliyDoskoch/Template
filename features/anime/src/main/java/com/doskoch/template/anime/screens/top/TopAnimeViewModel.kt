@@ -7,10 +7,10 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.doskoch.template.anime.data.AnimeItem
 import com.doskoch.template.anime.data.AnimeType
+import com.doskoch.template.anime.di.LogoutUseCase
 import com.doskoch.template.anime.navigation.AnimeFeatureNavigator
 import com.doskoch.template.core.components.error.GlobalErrorHandler
 import com.doskoch.template.core.components.error.toCoreError
-import com.doskoch.template.core.components.useCase.LogoutUseCase
 import com.doskoch.template.core.functions.perform
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow

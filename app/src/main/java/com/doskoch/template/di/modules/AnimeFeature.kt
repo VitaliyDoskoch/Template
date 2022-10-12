@@ -7,6 +7,7 @@ import com.doskoch.template.anime.di.LogoutUseCase
 import com.doskoch.template.anime.navigation.AnimeFeatureNavigator
 import com.doskoch.template.api.jikan.JikanApiProvider
 import com.doskoch.template.core.components.paging.SimpleInMemoryStorage
+import com.doskoch.template.database.schema.anime.DbAnimeDao
 import com.doskoch.template.di.AppComponent
 import com.doskoch.template.navigation.Node
 import com.doskoch.template.repositories.anime.AnimeFeatureConverter
@@ -30,4 +31,6 @@ fun animeFeatureModule(component: AppComponent) = object : AnimeFeature {
     override val storage = SimpleInMemoryStorage<Int, AnimeItem>()
 
     override val logoutUseCase = LogoutUseCase(LogoutUseCaseImpl(component.authorizationDataStore)::invoke)
+
+    override val dbAnimeDao = component.appDatabase.dbAnimeDao()
 }

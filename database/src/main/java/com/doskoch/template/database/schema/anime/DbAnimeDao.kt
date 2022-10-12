@@ -11,4 +11,7 @@ abstract class DbAnimeDao(database: RoomDatabase) : BaseDao<DbAnime>(database) {
 
     @Query("SELECT * FROM DbAnime")
     abstract fun pagingSource(): PagingSource<Int, DbAnime>
+
+    @Query("DELETE FROM DbAnime")
+    abstract suspend fun clear()
 }

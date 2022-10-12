@@ -17,5 +17,5 @@ dependencies {
     implementation(Dependencies.gson)
     implementation(Dependencies.retrofit2)
     implementation(Dependencies.dataStore)
-    implementation(Dependencies.room)
+    api(Dependencies.room)
 }

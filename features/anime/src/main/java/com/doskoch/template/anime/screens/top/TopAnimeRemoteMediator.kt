@@ -12,7 +12,7 @@ import com.doskoch.template.core.components.paging.SimpleInMemoryStorage
 import timber.log.Timber
 
 @OptIn(ExperimentalPagingApi::class)
-class AnimeRemoteMediator(
+class TopAnimeRemoteMediator(
     private val animeType: AnimeType,
     private val loadAnimeUseCase: LoadAnimeUseCase,
     private val storage: SimpleInMemoryStorage<Int, AnimeItem>

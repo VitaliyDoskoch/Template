@@ -8,9 +8,11 @@ import com.doskoch.template.anime.INITIAL_LOAD_SIZE
 import com.doskoch.template.anime.PAGE_SIZE
 import com.doskoch.template.anime.data.AnimeType
 import com.doskoch.template.anime.screens.details.AnimeDetailsViewModel
+import com.doskoch.template.anime.screens.favorite.Converter
+import com.doskoch.template.anime.screens.favorite.FavoriteAnimeRemoteMediator
 import com.doskoch.template.anime.screens.favorite.FavoriteAnimeViewModel
 import com.doskoch.template.anime.screens.top.TopAnimeViewModel
-import com.doskoch.template.anime.screens.top.AnimeRemoteMediator
+import com.doskoch.template.anime.screens.top.TopAnimeRemoteMediator
 import com.doskoch.template.anime.screens.top.useCase.LoadAnimeUseCase
 
 object AnimeFeatureInjector {
@@ -36,14 +38,21 @@ object Module {
         pagingSourceFactory = { Injector.storage.SimplePagingSource() }
     )
 
-    private fun animeRemoteMediator(animeType: AnimeType) = AnimeRemoteMediator(
+    private fun animeRemoteMediator(animeType: AnimeType) = TopAnimeRemoteMediator(
         animeType = animeType,
         loadAnimeUseCase = LoadAnimeUseCase(repository = Injector.repository),
         storage = Injector.storage
     )
 
     fun favoriteAnimeViewModel() = FavoriteAnimeViewModel(
-        navigator = Injector.navigator
+        navigator = Injector.navigator,
+        remoteMediator = FavoriteAnimeRemoteMediator(
+            loadAnimeUseCase = LoadAnimeUseCase(Injector.repository),
+            dao = Injector.dbAnimeDao,
+            converter = Converter()
+        ),
+        dao = Injector.dbAnimeDao,
+        converter = Converter()
     )
 
     fun animeDetailsViewModel() = AnimeDetailsViewModel()

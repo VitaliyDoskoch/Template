@@ -51,6 +51,7 @@ import com.doskoch.template.anime.R
 import com.doskoch.template.anime.data.AnimeType
 import com.doskoch.template.anime.data.stringId
 import com.doskoch.template.anime.di.Module
+import com.doskoch.template.anime.screens.top.TopAnimeState
 import com.doskoch.template.anime.screens.top.TopAnimeViewModel
 import com.doskoch.template.anime.ui.AnimeItem
 import com.doskoch.template.core.components.error.toCoreError
@@ -70,7 +71,7 @@ fun FavoriteAnimeScreen(
 }
 
 @Composable
-private fun ScreenContent(state: TopAnimeViewModel.State) {
+private fun ScreenContent(state: TopAnimeState) {
     Scaffold(
         topBar = {
             TopBar(state = state)
@@ -186,7 +187,7 @@ fun Modifier.simpleVerticalScrollbar(
 }
 
 @Composable
-private fun TopBar(state: TopAnimeViewModel.State) {
+private fun TopBar(state: TopAnimeState) {
     val systemUiController = rememberSystemUiController()
     val statusBarColor = MaterialTheme.colors.primary
 
@@ -250,7 +251,7 @@ private fun TopBar(state: TopAnimeViewModel.State) {
 }
 
 @Composable
-private fun ColumnScope.AnimeTypeItems(state: TopAnimeViewModel.State) {
+private fun ColumnScope.AnimeTypeItems(state: TopAnimeState) {
     AnimeType.values().forEach {
         key(it) {
             DropdownMenuItem(

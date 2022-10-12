@@ -28,12 +28,12 @@ class TopAnimeViewModel(
     private val _state = MutableStateFlow(initialState())
     val state = _state.asStateFlow()
 
-    private fun initialState(): State = State(
+    private fun initialState(): TopAnimeState = TopAnimeState(
         animeType = AnimeType.Tv,
         showAnimeTypeMenu = false,
         showLogoutDialog = false,
         pagingData = pagerFactory.create(AnimeType.Tv).flow.cachedIn(viewModelScope),
-        actions = State.Actions(
+        actions = TopAnimeState.Actions(
             onAnimeTypeClick = this::onAnimeTypeClick,
             onDismissAnimeTypeMenu = this::onDismissAnimeTypeMenu,
             onUpdateAnimeType = this::onUpdateAnimeType,
@@ -84,23 +84,5 @@ class TopAnimeViewModel(
 
     fun interface PagerFactory {
         fun create(animeType: AnimeType): Pager<Int, AnimeItem>
-    }
-
-    data class State(
-        val animeType: AnimeType,
-        val showAnimeTypeMenu: Boolean,
-        val showLogoutDialog: Boolean,
-        val pagingData: Flow<PagingData<AnimeItem>>,
-        val actions: Actions
-    ) {
-        data class Actions(
-            val onAnimeTypeClick: () -> Unit,
-            val onDismissAnimeTypeMenu: () -> Unit,
-            val onUpdateAnimeType: (AnimeType) -> Unit,
-            val onLogoutClick: () -> Unit,
-            val onDismissLogoutDialog: () -> Unit,
-            val onConfirmLogoutClick: () -> Unit,
-            val onItemClick: (AnimeItem) -> Unit
-        )
     }
 }

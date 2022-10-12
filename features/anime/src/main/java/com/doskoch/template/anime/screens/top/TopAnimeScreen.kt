@@ -68,15 +68,6 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 fun TopAnimeScreen(vm: TopAnimeViewModel = viewModel { Module.topAnimeViewModel() }) {
     val state = vm.state.collectAsState().value
 
-    ScreenContent(state = state)
-
-    if (state.showLogoutDialog) {
-        LogoutDialog(state = state)
-    }
-}
-
-@Composable
-private fun ScreenContent(state: TopAnimeViewModel.State) {
     Scaffold(
         topBar = {
             TopBar(state = state)
@@ -163,6 +154,10 @@ private fun ScreenContent(state: TopAnimeViewModel.State) {
             }
         }
     }
+
+    if (state.showLogoutDialog) {
+        LogoutDialog(state = state)
+    }
 }
 
 @Composable
@@ -192,7 +187,7 @@ fun Modifier.simpleVerticalScrollbar(
 }
 
 @Composable
-private fun TopBar(state: TopAnimeViewModel.State) {
+private fun TopBar(state: TopAnimeState) {
     val systemUiController = rememberSystemUiController()
     val statusBarColor = MaterialTheme.colors.primary
 
@@ -256,7 +251,7 @@ private fun TopBar(state: TopAnimeViewModel.State) {
 }
 
 @Composable
-private fun ColumnScope.AnimeTypeItems(state: TopAnimeViewModel.State) {
+private fun ColumnScope.AnimeTypeItems(state: TopAnimeState) {
     AnimeType.values().forEach {
         key(it) {
             DropdownMenuItem(
@@ -273,7 +268,7 @@ private fun ColumnScope.AnimeTypeItems(state: TopAnimeViewModel.State) {
 }
 
 @Composable
-private fun LogoutDialog(state: TopAnimeViewModel.State) {
+private fun LogoutDialog(state: TopAnimeState) {
     AlertDialog(
         onDismissRequest = state.actions.onDismissLogoutDialog,
         title = {

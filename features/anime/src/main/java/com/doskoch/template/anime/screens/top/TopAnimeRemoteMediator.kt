@@ -21,7 +21,7 @@ class TopAnimeRemoteMediator(
     override suspend fun load(loadType: LoadType, state: PagingState<Int, AnimeItem>): MediatorResult {
         val key = when(loadType) {
             LoadType.REFRESH -> INITIAL_PAGE
-            LoadType.APPEND -> storage.keys.lastOrNull()?.next ?: return MediatorResult.Success(endOfPaginationReached = true)
+            LoadType.APPEND -> storage.pages.keys.lastOrNull() ?: return MediatorResult.Success(endOfPaginationReached = true)
             LoadType.PREPEND -> return MediatorResult.Success(endOfPaginationReached = true)
         }
 

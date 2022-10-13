@@ -10,25 +10,50 @@ class SimpleInMemoryStorage<K : Any, V : Any> {
 
     private val invalidationCallbacks = mutableSetOf<() -> Unit>()
 
-    private val storage = mutableMapOf<PageKeys<K>, List<V>>()
+    private val storage = mutableMapOf<K, List<V>?>()
 
-    val items: List<V>
-        get() = storage.values.flatten()
-
-    val keys: Set<PageKeys<K>>
-        get() = storage.keys
+    val pages: Map<K, List<V>?>
+        get() = storage.toMap()
 
     fun inTransaction(action: SimpleInMemoryStorage<K, V>.Modifier.() -> Unit) = synchronized(storage) {
         action(Modifier())
         invalidationCallbacks.toMutableList().forEach { it.invoke() }
     }
 
-    data class PageKeys<K>(val previous: K?, val current: K, val next: K?)
-
     inner class Modifier {
 
         fun store(previousKey: K?, currentKey: K, nextKey: K?, page: List<V>) {
-            storage[PageKeys(previousKey, currentKey, nextKey)] = page
+            if (storage.isEmpty()) {
+                previousKey?.let { storage[it] = null }
+                storage[currentKey] = page
+                nextKey?.let { storage[it] = null }
+            } else {
+                val keys = storage.keys.toList()
+                val index = keys.indexOf(currentKey)
+
+                when {
+                    index == -1 -> throw IllegalArgumentException(
+                        "currentKey ($currentKey) is not attached to any existing page via previousKey or nextKey parameters"
+                    )
+                    nextKey != null && nextKey == keys.getOrNull(index + 1) -> {
+                        val newMap = mutableMapOf<K, List<V>?>()
+
+                        previousKey?.let { newMap.putIfAbsent(it, null) }
+                        newMap[currentKey] = page
+                        newMap.putAll(storage)
+
+                        storage.clear()
+                        storage.putAll(newMap)
+                    }
+                    previousKey != null && previousKey == keys.getOrNull(index - 1) -> {
+                        storage[currentKey] = page
+                        nextKey?.let { storage.putIfAbsent(it, null) }
+                    }
+                    else -> throw IllegalArgumentException(
+                        "previousKey ($previousKey) or nextKey ($nextKey) parameters must point to an existing page"
+                    )
+                }
+            }
         }
 
         fun clear() {
@@ -40,7 +65,7 @@ class SimpleInMemoryStorage<K : Any, V : Any> {
 
         override val jumpingSupported = true
 
-        private val items = this@SimpleInMemoryStorage.items.toMutableList()
+        private val items: List<V> by lazy { pages.values.filterNotNull().flatten() }
 
         init {
             val invalidationCallback = { Timber.e("invalidation"); invalidate() }
@@ -57,8 +82,8 @@ class SimpleInMemoryStorage<K : Any, V : Any> {
 
         override suspend fun load(params: LoadParams<Int>): LoadResult<Int, V> = try {
             val key = params.key ?: 0
-            val limit = if(params is LoadParams.Prepend) min(key, params.loadSize) else params.loadSize
-            val offset = if(params is LoadParams.Prepend) (key - params.loadSize).coerceAtLeast(0) else key
+            val limit = if (params is LoadParams.Prepend) min(key, params.loadSize) else params.loadSize
+            val offset = if (params is LoadParams.Prepend) (key - params.loadSize).coerceAtLeast(0) else key
 
             LoadResult.Page(
                 data = items.drop(offset).take(limit),
@@ -75,7 +100,7 @@ class SimpleInMemoryStorage<K : Any, V : Any> {
                 )
             }
                 .let {
-                    if(invalid) {
+                    if (invalid) {
                         Timber.e("invalid")
                         LoadResult.Invalid()
                     } else it

@@ -38,6 +38,8 @@ class SimpleInMemoryStorage<K : Any, V : Any> {
 
     inner class SimplePagingSource : PagingSource<Int, V>() {
 
+        override val jumpingSupported = true
+
         private val items = this@SimpleInMemoryStorage.items.toMutableList()
 
         init {

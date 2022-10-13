@@ -8,7 +8,7 @@ import kotlin.math.min
 //TODO: remove logging
 class SimpleInMemoryStorage<K : Any, V : Any> {
 
-    private val invalidationCallbacks = mutableListOf<() -> Unit>()
+    private val invalidationCallbacks = mutableSetOf<() -> Unit>()
 
     private val storage = mutableMapOf<PageKeys<K>, List<V>>()
 
@@ -17,12 +17,6 @@ class SimpleInMemoryStorage<K : Any, V : Any> {
 
     val keys: Set<PageKeys<K>>
         get() = storage.keys
-
-    fun keysOf(currentKey: K) = keys.find { it.current == currentKey }
-
-    fun pageOf(currentKey: K) = keys
-        .find { it.current == currentKey }
-        ?.let { storage[it] }
 
     fun inTransaction(action: SimpleInMemoryStorage<K, V>.Modifier.() -> Unit) = synchronized(storage) {
         action(Modifier())
@@ -49,8 +43,8 @@ class SimpleInMemoryStorage<K : Any, V : Any> {
         init {
             val invalidationCallback = { Timber.e("invalidation"); invalidate() }
 
-            invalidationCallbacks.add(invalidationCallback)
             registerInvalidatedCallback { invalidationCallbacks.remove(invalidationCallback) }
+            invalidationCallbacks.add(invalidationCallback)
         }
 
         override fun getRefreshKey(state: PagingState<Int, V>): Int? = state.anchorPosition

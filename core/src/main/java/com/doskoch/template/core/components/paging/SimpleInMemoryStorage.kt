@@ -44,6 +44,8 @@ class SimpleInMemoryStorage<K : Any, V : Any> {
 
     inner class SimplePagingSource : PagingSource<Int, V>() {
 
+        private val items = this@SimpleInMemoryStorage.items.toMutableList()
+
         init {
             val invalidationCallback = { Timber.e("invalidation"); invalidate() }
 

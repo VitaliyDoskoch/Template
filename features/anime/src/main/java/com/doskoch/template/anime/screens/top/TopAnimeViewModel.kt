@@ -31,7 +31,7 @@ class TopAnimeViewModel(
         animeType = AnimeType.Tv,
         showAnimeTypeMenu = false,
         showLogoutDialog = false,
-        pagingData = emptyFlow(),// pagerFactory.create(AnimeType.Tv).flow.cachedIn(viewModelScope),
+        pagingData = pagerFactory.create(AnimeType.Tv).flow.cachedIn(viewModelScope),
         actions = TopAnimeState.Actions(
             onAnimeTypeClick = this::onAnimeTypeClick,
             onDismissAnimeTypeMenu = this::onDismissAnimeTypeMenu,

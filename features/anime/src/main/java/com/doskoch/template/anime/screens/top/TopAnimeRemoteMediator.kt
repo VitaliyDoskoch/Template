@@ -34,7 +34,7 @@ class TopAnimeRemoteMediator(
 
             storage.inTransaction {
                 if(loadType == LoadType.REFRESH) {
-                    clear()
+                    update(emptyMap())
                 }
 
                 store(

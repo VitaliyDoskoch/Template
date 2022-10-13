@@ -55,8 +55,9 @@ class SimpleInMemoryStorage<K : Any, V : Any> {
             }
         }
 
-        fun clear() {
+        fun update(newValue: Map<K, List<V>?>) {
             storage.clear()
+            storage.putAll(newValue)
         }
     }
 

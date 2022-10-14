@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.cachedIn
+import androidx.paging.insertFooterItem
 import com.doskoch.template.anime.data.AnimeItem
 import com.doskoch.template.anime.data.AnimeType
 import com.doskoch.template.anime.di.LogoutUseCase
@@ -14,6 +15,7 @@ import com.doskoch.template.core.functions.perform
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.emptyFlow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 

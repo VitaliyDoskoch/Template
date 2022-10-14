@@ -86,6 +86,42 @@ fun TopAnimeScreen(vm: TopAnimeViewModel = viewModel { Module.topAnimeViewModel(
                 .navigationBarsPadding()
                 .fillMaxSize()
         ) {
+            val _state = rememberLazyListState()
+
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .simpleVerticalScrollbar(_state, 8.dp),
+                state = _state
+            ) {
+                itemsIndexed(items) { position, it ->
+                    it?.let {
+                        AnimeItem(
+                            item = it,
+                            position = position,
+                            onFavoriteClick = {},
+                            modifier = Modifier
+                                .clickable { state.actions.onItemClick(it) }
+                        )
+                    }
+                }
+
+                if(items.itemCount > 0) {
+                    when (val append = items.loadState.mediator?.append) {
+                        is LoadState.Loading -> item(key = "loading") {
+                            LoadingItem()
+                        }
+                        is LoadState.Error -> item(key = "error") {
+                            ErrorItem(
+                                error = append.error.toCoreError(),
+                                onRetry = items::retry
+                            )
+                        }
+                        else -> {}
+                    }
+                }
+            }
+
             when {
                 refresh is LoadState.Loading && items.itemCount == 0 -> {
                     Box(
@@ -114,41 +150,6 @@ fun TopAnimeScreen(vm: TopAnimeViewModel = viewModel { Module.topAnimeViewModel(
                             style = MaterialTheme.typography.body1,
                             textAlign = TextAlign.Center
                         )
-                    }
-                }
-                refresh is LoadState.NotLoading || items.itemCount > 0 -> {
-                    val append = items.loadState.mediator?.append
-
-                    val _state = rememberLazyListState()
-                    LazyColumn(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .simpleVerticalScrollbar(_state, 8.dp),
-                        state = _state
-                    ) {
-                        itemsIndexed(items) { position, it ->
-                            it?.let {
-                                AnimeItem(
-                                    item = it,
-                                    position = position,
-                                    onFavoriteClick = {},
-                                    modifier = Modifier
-                                        .clickable { state.actions.onItemClick(it) }
-                                )
-                            }
-                        }
-
-                        when {
-                            append is LoadState.Loading -> item(key = "loading") {
-                                LoadingItem()
-                            }
-                            append is LoadState.Error -> item(key = "error") {
-                                ErrorItem(
-                                    error = append.error.toCoreError(),
-                                    onRetry = items::retry
-                                )
-                            }
-                        }
                     }
                 }
             }

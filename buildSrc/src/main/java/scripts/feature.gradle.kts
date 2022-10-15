@@ -4,9 +4,11 @@ plugins {
 }
 
 dependencies {
+    implementation(project(":api"))
+    implementation(project(":database"))
     implementation(project(":core"))
 
     implementation(Dependencies.timber)
     implementation(Dependencies.coreKtx)
-    implementation(Dependencies.material)
+//    implementation(Dependencies.material)
 }

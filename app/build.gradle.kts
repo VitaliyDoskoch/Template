@@ -32,5 +32,5 @@ dependencies {
 
     debugImplementation(Dependencies.leakCanary)
 
-    compileOnly(Dependencies.dataStore)
+    implementation(Dependencies.dataStore)
 }

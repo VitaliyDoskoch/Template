@@ -7,8 +7,8 @@ object Dependencies {
 
     const val coreKtx = "androidx.core:core-ktx:${Versions.coreKtx}"
     const val annotations = "androidx.annotation:annotation:${Versions.annotations}"
-
     const val material = "com.google.android.material:material:${Versions.material}"
+
     val compose = listOf(
         "androidx.compose.ui:ui:${Versions.compose}",
         "androidx.compose.ui:ui-tooling:${Versions.compose}",
@@ -49,7 +49,6 @@ object Dependencies {
 
         const val coreKtx = "1.8.0"
         const val annotations = "1.0.0"
-
         const val material = "1.2.0-alpha03"
 
         const val compose = "1.2.0"

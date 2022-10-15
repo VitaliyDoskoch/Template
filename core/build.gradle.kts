@@ -5,17 +5,10 @@ plugins {
 }
 
 dependencies {
-    api(project(":legacy"))
-
     implementation(project(":api"))
-    api(project(":database"))
+    implementation(project(":legacy"))
 
-    api(Dependencies.timber)
-    api(Dependencies.coreKtx)
-    api(Dependencies.material)
-
-    implementation(Dependencies.gson)
-    implementation(Dependencies.retrofit2)
-    implementation(Dependencies.dataStore)
-    api(Dependencies.room)
+    implementation(Dependencies.timber)
+    implementation(Dependencies.gson)   //for JsonNavType
+    compileOnly(Dependencies.retrofit2) //for HttpException
 }

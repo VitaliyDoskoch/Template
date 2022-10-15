@@ -1,7 +1,6 @@
 package com.doskoch.template.di.modules
 
 import androidx.navigation.navOptions
-import com.doskoch.template.repositories.splash.SplashFeatureRepositoryImpl
 import com.doskoch.template.di.AppComponent
 import com.doskoch.template.navigation.MainNavigator
 import com.doskoch.template.splash.di.SplashFeature
@@ -16,7 +15,5 @@ fun splashFeatureModule(component: AppComponent) = object : SplashFeature {
         override fun toAnime() = component.mainNavigator.toAnime(navOptions)
     }
 
-    override val repository = SplashFeatureRepositoryImpl(
-        dataStore = component.authorizationDataStore
-    )
+    override val authorizationDataStore = component.authorizationDataStore
 }

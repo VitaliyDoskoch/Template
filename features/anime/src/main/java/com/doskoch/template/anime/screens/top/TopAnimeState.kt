@@ -2,7 +2,8 @@ package com.doskoch.template.anime.screens.top
 
 import androidx.paging.PagingData
 import com.doskoch.template.anime.data.AnimeItem
-import com.doskoch.template.anime.data.AnimeType
+import com.doskoch.template.api.jikan.common.enum.AnimeType
+import com.doskoch.template.api.jikan.services.responses.GetTopAnimeResponse
 import kotlinx.coroutines.flow.Flow
 
 data class TopAnimeState(

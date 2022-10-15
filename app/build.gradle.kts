@@ -37,5 +37,4 @@ dependencies {
     implementation(Dependencies.material)
 
     implementation(Dependencies.room)
-    implementation(Dependencies.dataStore)
 }

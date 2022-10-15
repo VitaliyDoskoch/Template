@@ -51,14 +51,14 @@ import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemsIndexed
 import com.doskoch.template.anime.R
-import com.doskoch.template.anime.data.AnimeType
 import com.doskoch.template.anime.data.stringId
 import com.doskoch.template.anime.di.Module
 import com.doskoch.template.anime.ui.AnimeItem
+import com.doskoch.template.api.jikan.common.enum.AnimeType
 import com.doskoch.template.core.components.error.toCoreError
 import com.doskoch.template.core.components.theme.Dimensions
-import com.doskoch.template.core.components.ui.ErrorItem
-import com.doskoch.template.core.components.ui.LoadingItem
+import com.doskoch.template.core.ui.ErrorItem
+import com.doskoch.template.core.ui.LoadingItem
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.google.accompanist.systemuicontroller.rememberSystemUiController

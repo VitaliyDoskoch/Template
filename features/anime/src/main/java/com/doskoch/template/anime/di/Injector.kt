@@ -6,14 +6,13 @@ import androidx.paging.PagingConfig
 import com.doskoch.legacy.kotlin.DestroyableLazy
 import com.doskoch.template.anime.INITIAL_LOAD_SIZE
 import com.doskoch.template.anime.PAGE_SIZE
-import com.doskoch.template.anime.data.AnimeType
 import com.doskoch.template.anime.screens.details.AnimeDetailsViewModel
-import com.doskoch.template.anime.screens.favorite.Converter
-import com.doskoch.template.anime.screens.favorite.FavoriteAnimeRemoteMediator
 import com.doskoch.template.anime.screens.favorite.FavoriteAnimeViewModel
-import com.doskoch.template.anime.screens.top.TopAnimeViewModel
 import com.doskoch.template.anime.screens.top.TopAnimeRemoteMediator
+import com.doskoch.template.anime.screens.top.TopAnimeViewModel
 import com.doskoch.template.anime.screens.top.useCase.LoadAnimeUseCase
+import com.doskoch.template.api.jikan.common.enum.AnimeType
+import com.doskoch.template.core.useCase.authorization.LogoutUseCase
 
 object AnimeFeatureInjector {
     var provider: DestroyableLazy<AnimeFeature>? = null
@@ -26,7 +25,7 @@ internal val Injector: AnimeFeature
 object Module {
 
     fun topAnimeViewModel() = TopAnimeViewModel(
-        logoutUseCase = Injector.logoutUseCase,
+        logoutUseCase = LogoutUseCase(store = Injector.authorizationDataStore),
         pagerFactory = { animeType -> pager(animeType = animeType) },
         globalErrorHandler = Injector.globalErrorHandler,
         navigator = Injector.navigator
@@ -40,19 +39,12 @@ object Module {
 
     private fun animeRemoteMediator(animeType: AnimeType) = TopAnimeRemoteMediator(
         animeType = animeType,
-        loadAnimeUseCase = LoadAnimeUseCase(repository = Injector.repository),
+        loadAnimeUseCase = LoadAnimeUseCase(service = Injector.topService),
         storage = Injector.storage
     )
 
     fun favoriteAnimeViewModel() = FavoriteAnimeViewModel(
-        navigator = Injector.navigator,
-        remoteMediator = FavoriteAnimeRemoteMediator(
-            loadAnimeUseCase = LoadAnimeUseCase(Injector.repository),
-            dao = Injector.dbAnimeDao,
-            converter = Converter()
-        ),
-        dao = Injector.dbAnimeDao,
-        converter = Converter()
+        navigator = Injector.navigator
     )
 
     fun animeDetailsViewModel() = AnimeDetailsViewModel()

@@ -1,4 +1,4 @@
-package com.doskoch.template.core.components.ui
+package com.doskoch.template.core.ui
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row

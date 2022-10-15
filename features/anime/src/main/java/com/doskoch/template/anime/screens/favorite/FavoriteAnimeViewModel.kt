@@ -20,25 +20,14 @@ import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.map
 
 class FavoriteAnimeViewModel(
-    private val navigator: AnimeFeatureNavigator,
-    private val remoteMediator: FavoriteAnimeRemoteMediator,
-    private val dao: DbAnimeDao,
-    private val converter: Converter
+    private val navigator: AnimeFeatureNavigator
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(initialState())
     val state = _state.asStateFlow()
 
-    @OptIn(ExperimentalPagingApi::class)
     private fun initialState(): FavoriteAnimeState = FavoriteAnimeState(
-        pagingData = Pager(
-            config = PagingConfig(pageSize = PAGE_SIZE, initialLoadSize = INITIAL_LOAD_SIZE, enablePlaceholders = true),
-            remoteMediator = remoteMediator,
-            pagingSourceFactory = { dao.pagingSource() }
-        )
-            .flow
-            .map { it.map(converter::toAnimeItem) }
-            .cachedIn(viewModelScope),
+        pagingData = emptyFlow(),
         actions = FavoriteAnimeState.Actions(
             onBackClick = this::onBackClick,
             onItemClick = this::onItemClick

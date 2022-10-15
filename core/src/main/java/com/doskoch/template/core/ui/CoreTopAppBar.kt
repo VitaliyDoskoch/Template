@@ -1,4 +1,4 @@
-package com.doskoch.template.core.components.ui
+package com.doskoch.template.core.ui
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.padding

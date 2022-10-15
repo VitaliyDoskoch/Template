@@ -2,15 +2,7 @@ package com.doskoch.template.anime.data
 
 import androidx.annotation.StringRes
 import com.doskoch.template.anime.R
-
-enum class AnimeType {
-    Tv,
-    Movie,
-    Ova,
-    Special,
-    Ona,
-    Music
-}
+import com.doskoch.template.api.jikan.common.enum.AnimeType
 
 val AnimeType.stringId: Int
     @StringRes

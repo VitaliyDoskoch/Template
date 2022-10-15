@@ -1,10 +1,9 @@
 package com.doskoch.template.anime.screens.top.useCase
 
-import com.doskoch.template.anime.data.AnimeType
-import com.doskoch.template.anime.di.AnimeFeatureRepository
+import com.doskoch.template.api.jikan.common.enum.AnimeFilter
+import com.doskoch.template.api.jikan.common.enum.AnimeType
+import com.doskoch.template.api.jikan.services.TopService
 
-class LoadAnimeUseCase(
-    private val repository: AnimeFeatureRepository
-) {
-    suspend fun invoke(type: AnimeType, key: Int, pageSize: Int) = repository.loadAnime(type = type, page = key, pageSize = pageSize)
+class LoadAnimeUseCase(private val service: TopService) {
+    suspend fun invoke(type: AnimeType, key: Int, pageSize: Int) = service.getTopAnime(type, AnimeFilter.Popularity, key, pageSize)
 }

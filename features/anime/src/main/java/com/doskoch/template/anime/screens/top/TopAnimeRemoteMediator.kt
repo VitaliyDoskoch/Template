@@ -6,8 +6,9 @@ import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import com.doskoch.template.anime.INITIAL_PAGE
 import com.doskoch.template.anime.data.AnimeItem
-import com.doskoch.template.anime.data.AnimeType
 import com.doskoch.template.anime.screens.top.useCase.LoadAnimeUseCase
+import com.doskoch.template.api.jikan.common.enum.AnimeType
+import com.doskoch.template.api.jikan.services.responses.GetTopAnimeResponse
 import com.doskoch.template.core.components.paging.SimpleInMemoryStorage
 import timber.log.Timber
 
@@ -15,10 +16,10 @@ import timber.log.Timber
 class TopAnimeRemoteMediator(
     private val animeType: AnimeType,
     private val loadAnimeUseCase: LoadAnimeUseCase,
-    private val storage: SimpleInMemoryStorage<Int, AnimeItem>
-) : RemoteMediator<Int, AnimeItem>() {
+    private val storage: SimpleInMemoryStorage<Int, GetTopAnimeResponse.Data>
+) : RemoteMediator<Int, GetTopAnimeResponse.Data>() {
 
-    override suspend fun load(loadType: LoadType, state: PagingState<Int, AnimeItem>): MediatorResult {
+    override suspend fun load(loadType: LoadType, state: PagingState<Int, GetTopAnimeResponse.Data>): MediatorResult {
         val key = when(loadType) {
             LoadType.REFRESH -> INITIAL_PAGE
             LoadType.APPEND -> storage.pages.keys.lastOrNull() ?: return MediatorResult.Success(endOfPaginationReached = true)
@@ -26,7 +27,7 @@ class TopAnimeRemoteMediator(
         }
 
         return try {
-            val data = loadAnimeUseCase.invoke(
+            val response = loadAnimeUseCase.invoke(
                 type = animeType,
                 key = key,
                 pageSize = if(key == INITIAL_PAGE) state.config.initialLoadSize else state.config.pageSize
@@ -40,12 +41,12 @@ class TopAnimeRemoteMediator(
                 store(
                     previousKey = if(key > INITIAL_PAGE) key - 1 else null,
                     currentKey = key,
-                    nextKey = if(data.hasNext) key + 1 else null,
-                    page = data.items
+                    nextKey = if(response.pagination.hasNextPage) key + 1 else null,
+                    page = response.data
                 )
             }
 
-            MediatorResult.Success(endOfPaginationReached = !data.hasNext)
+            MediatorResult.Success(endOfPaginationReached = !response.pagination.hasNextPage)
         } catch (t: Throwable) {
             Timber.e(t)
             MediatorResult.Error(t)

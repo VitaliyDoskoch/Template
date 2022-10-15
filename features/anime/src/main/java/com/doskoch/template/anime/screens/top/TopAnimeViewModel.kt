@@ -4,17 +4,20 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.cachedIn
-import androidx.paging.insertFooterItem
+import androidx.paging.map
 import com.doskoch.template.anime.data.AnimeItem
-import com.doskoch.template.anime.data.AnimeType
-import com.doskoch.template.anime.di.LogoutUseCase
 import com.doskoch.template.anime.navigation.AnimeFeatureNavigator
+import com.doskoch.template.api.jikan.common.enum.AnimeType
+import com.doskoch.template.api.jikan.services.responses.GetTopAnimeResponse
 import com.doskoch.template.core.components.error.GlobalErrorHandler
 import com.doskoch.template.core.components.error.toCoreError
 import com.doskoch.template.core.functions.perform
+import com.doskoch.template.core.useCase.authorization.LogoutUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.emptyFlow
+import kotlinx.coroutines.flow.flatMap
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -26,6 +29,24 @@ class TopAnimeViewModel(
     private val navigator: AnimeFeatureNavigator
 ) : ViewModel() {
 
+    private val pagingFlow = flowOf(AnimeType.Tv)
+        .flatMapLatest { pagerFactory.create(it).flow }
+        .map {
+            it.map {
+                AnimeItem(
+                    id = it.malId,
+                    approved = it.approved,
+                    imageUrl = it.images.webp.imageUrl,
+                    title = it.title,
+                    genres = it.genres.map { it.name },
+                    score = it.score,
+                    scoredBy = it.scoredBy,
+                    isFavorite = false
+                )
+            }
+        }
+        .cachedIn(viewModelScope)
+
     private val _state = MutableStateFlow(initialState())
     val state = _state.asStateFlow()
 
@@ -33,7 +54,7 @@ class TopAnimeViewModel(
         animeType = AnimeType.Tv,
         showAnimeTypeMenu = false,
         showLogoutDialog = false,
-        pagingData = pagerFactory.create(AnimeType.Tv).flow.cachedIn(viewModelScope),
+        pagingData = pagingFlow,
         actions = TopAnimeState.Actions(
             onAnimeTypeClick = this::onAnimeTypeClick,
             onDismissAnimeTypeMenu = this::onDismissAnimeTypeMenu,
@@ -57,13 +78,7 @@ class TopAnimeViewModel(
     private fun onUpdateAnimeType(type: AnimeType) {
 //        storage.clear()//TODO
 
-        _state.update {
-            it.copy(
-                animeType = type,
-                showAnimeTypeMenu = false,
-                pagingData = pagerFactory.create(type).flow.cachedIn(viewModelScope)
-            )
-        }
+        _state.update { it.copy(animeType = type, showAnimeTypeMenu = false) }
     }
 
     private fun onFavoriteClick() {
@@ -89,6 +104,6 @@ class TopAnimeViewModel(
     private fun onItemClick(item: AnimeItem) = viewModelScope.launch { navigator.toDetails(item.id) }
 
     fun interface PagerFactory {
-        fun create(animeType: AnimeType): Pager<Int, AnimeItem>
+        fun create(animeType: AnimeType): Pager<Int, GetTopAnimeResponse.Data>
     }
 }

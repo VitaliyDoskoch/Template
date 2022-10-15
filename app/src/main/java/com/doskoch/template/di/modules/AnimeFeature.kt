@@ -3,16 +3,13 @@ package com.doskoch.template.di.modules
 import androidx.navigation.navOptions
 import com.doskoch.template.anime.data.AnimeItem
 import com.doskoch.template.anime.di.AnimeFeature
-import com.doskoch.template.anime.di.LogoutUseCase
 import com.doskoch.template.anime.navigation.AnimeFeatureNavigator
 import com.doskoch.template.api.jikan.JikanApiProvider
+import com.doskoch.template.api.jikan.services.TopService
+import com.doskoch.template.api.jikan.services.responses.GetTopAnimeResponse
 import com.doskoch.template.core.components.paging.SimpleInMemoryStorage
-import com.doskoch.template.database.schema.anime.DbAnimeDao
 import com.doskoch.template.di.AppComponent
 import com.doskoch.template.navigation.Node
-import com.doskoch.template.repositories.anime.AnimeFeatureConverter
-import com.doskoch.template.repositories.anime.AnimeFeatureRepositoryImpl
-import com.doskoch.template.useCase.LogoutUseCaseImpl
 
 fun animeFeatureModule(component: AppComponent) = object : AnimeFeature {
     override val navigator = object : AnimeFeatureNavigator() {
@@ -23,14 +20,11 @@ fun animeFeatureModule(component: AppComponent) = object : AnimeFeature {
 
     override val globalErrorHandler = component.globalErrorHandler
 
-    override val repository = AnimeFeatureRepositoryImpl(
-        topService = JikanApiProvider.topService,
-        converter = AnimeFeatureConverter()
-    )
+    override val authorizationDataStore = component.authorizationDataStore
 
-    override val storage = SimpleInMemoryStorage<Int, AnimeItem>()
+    override val topService = JikanApiProvider.topService
 
-    override val logoutUseCase = LogoutUseCase(LogoutUseCaseImpl(component.authorizationDataStore)::invoke)
+    override val storage = SimpleInMemoryStorage<Int, GetTopAnimeResponse.Data>()
 
     override val dbAnimeDao = component.appDatabase.dbAnimeDao()
 }

@@ -11,4 +11,5 @@ dependencies {
 
     implementation(Dependencies.timber)
     implementation(Dependencies.room)
+    implementation(Dependencies.dataStore)
 }

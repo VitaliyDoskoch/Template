@@ -1,15 +1,13 @@
 package com.doskoch.template.splash.di
 
+import com.doskoch.template.core.store.AuthorizationDataStore
+
 interface SplashFeature {
     val navigator: SplashFeatureNavigator
-    val repository: SplashFeatureRepository
+    val authorizationDataStore: AuthorizationDataStore
 }
 
 interface SplashFeatureNavigator {
     fun toAuthorization()
     fun toAnime()
-}
-
-interface SplashFeatureRepository {
-    suspend fun authorized(): Boolean
 }

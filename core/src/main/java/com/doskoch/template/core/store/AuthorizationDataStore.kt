@@ -1,4 +1,4 @@
-package com.doskoch.template.data.store
+package com.doskoch.template.core.store
 
 import android.content.Context
 import androidx.datastore.preferences.core.booleanPreferencesKey

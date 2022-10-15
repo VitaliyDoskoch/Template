@@ -5,7 +5,6 @@ import com.doskoch.template.authorization.di.AuthorizationFeature
 import com.doskoch.template.authorization.navigation.AuthorizationFeatureNavigator
 import com.doskoch.template.di.AppComponent
 import com.doskoch.template.navigation.Node
-import com.doskoch.template.repositories.authorization.AuthorizationFeatureRepositoryImpl
 
 fun authorizationFeatureModule(component: AppComponent) = object : AuthorizationFeature {
 
@@ -17,7 +16,5 @@ fun authorizationFeatureModule(component: AppComponent) = object : Authorization
 
     override val globalErrorHandler = component.globalErrorHandler
 
-    override val repository = AuthorizationFeatureRepositoryImpl(
-        dataStore = component.authorizationDataStore
-    )
+    override val authorizationDataStore = component.authorizationDataStore
 }

@@ -23,9 +23,9 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.doskoch.template.authorization.di.Module
 import com.doskoch.template.authorization.R
 import com.doskoch.template.core.components.theme.Dimensions
-import com.doskoch.template.core.components.ui.CoreButton
-import com.doskoch.template.core.components.ui.CoreTextInputField
-import com.doskoch.template.core.components.ui.CoreTopAppBar
+import com.doskoch.template.core.ui.CoreButton
+import com.doskoch.template.core.ui.CoreTextInputField
+import com.doskoch.template.core.ui.CoreTopAppBar
 
 @Composable
 fun SignInScreen(vm: SignInViewModel = viewModel { Module.signInViewModel() }) {

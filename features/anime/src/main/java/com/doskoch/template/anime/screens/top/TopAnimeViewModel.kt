@@ -11,13 +11,12 @@ import com.doskoch.template.api.jikan.common.enum.AnimeType
 import com.doskoch.template.api.jikan.services.responses.GetTopAnimeResponse
 import com.doskoch.template.core.components.error.GlobalErrorHandler
 import com.doskoch.template.core.components.error.toCoreError
-import com.doskoch.template.core.functions.perform
+import com.doskoch.template.core.functions.launchAction
 import com.doskoch.template.core.useCase.authorization.LogoutUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.flatMap
+import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -29,8 +28,28 @@ class TopAnimeViewModel(
     private val navigator: AnimeFeatureNavigator
 ) : ViewModel() {
 
-    private val pagingFlow = flowOf(AnimeType.Tv)
-        .flatMapLatest { pagerFactory.create(it).flow }
+    private val _state = MutableStateFlow(
+        TopAnimeState(
+            animeType = AnimeType.Tv,
+            showAnimeTypeMenu = false,
+            showLogoutDialog = false,
+            pagingDataFlow = emptyFlow(),
+            actions = TopAnimeState.Actions(
+                onAnimeTypeClick = this::onAnimeTypeClick,
+                onDismissAnimeTypeMenu = this::onDismissAnimeTypeMenu,
+                onUpdateAnimeType = this::onUpdateAnimeType,
+                onFavoriteClick = this::onFavoriteClick,
+                onLogoutClick = this::onLogoutClick,
+                onDismissLogoutDialog = this::onDismissLogoutDialog,
+                onConfirmLogoutClick = this::onConfirmLogoutClick,
+                onItemClick = this::onItemClick
+            )
+        )
+    )
+    val state = _state.asStateFlow()
+
+    private val pagingFlow = state
+        .flatMapLatest { pagerFactory.create(it.animeType).flow }
         .map {
             it.map {
                 AnimeItem(
@@ -47,25 +66,9 @@ class TopAnimeViewModel(
         }
         .cachedIn(viewModelScope)
 
-    private val _state = MutableStateFlow(initialState())
-    val state = _state.asStateFlow()
-
-    private fun initialState(): TopAnimeState = TopAnimeState(
-        animeType = AnimeType.Tv,
-        showAnimeTypeMenu = false,
-        showLogoutDialog = false,
-        pagingData = pagingFlow,
-        actions = TopAnimeState.Actions(
-            onAnimeTypeClick = this::onAnimeTypeClick,
-            onDismissAnimeTypeMenu = this::onDismissAnimeTypeMenu,
-            onUpdateAnimeType = this::onUpdateAnimeType,
-            onFavoriteClick = this::onFavoriteClick,
-            onLogoutClick = this::onLogoutClick,
-            onDismissLogoutDialog = this::onDismissLogoutDialog,
-            onConfirmLogoutClick = this::onConfirmLogoutClick,
-            onItemClick = this::onItemClick
-        )
-    )
+    init {
+        _state.update { it.copy(pagingDataFlow = pagingFlow) }
+    }
 
     private fun onAnimeTypeClick() {
         _state.update { it.copy(showAnimeTypeMenu = true) }
@@ -93,7 +96,7 @@ class TopAnimeViewModel(
         _state.update { it.copy(showLogoutDialog = false) }
     }
 
-    private fun onConfirmLogoutClick() = perform(
+    private fun onConfirmLogoutClick() = launchAction(
         action = {
             logoutUseCase.invoke()
             navigator.toSplash()

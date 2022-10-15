@@ -73,7 +73,7 @@ fun TopAnimeScreen(vm: TopAnimeViewModel = viewModel { Module.topAnimeViewModel(
             TopBar(state = state)
         }
     ) { paddingValues ->
-        val items = state.pagingData.collectAsLazyPagingItems()
+        val items = state.pagingDataFlow.collectAsLazyPagingItems()
         val refresh = items.loadState.mediator?.refresh
 
         SwipeRefresh(

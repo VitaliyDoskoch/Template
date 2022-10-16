@@ -6,14 +6,14 @@ import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import com.doskoch.template.anime.INITIAL_PAGE
 import com.doskoch.template.anime.screens.top.useCase.LoadAnimeUseCase
-import com.doskoch.template.api.jikan.common.enum.AnimeType
+import com.doskoch.template.api.jikan.common.enum.RemoteAnimeType
 import com.doskoch.template.api.jikan.services.responses.GetTopAnimeResponse
 import com.doskoch.template.core.components.paging.SimpleInMemoryStorage
 import timber.log.Timber
 
 @OptIn(ExperimentalPagingApi::class)
 class TopAnimeRemoteMediator(
-    private val animeType: AnimeType,
+    private val remoteAnimeType: RemoteAnimeType,
     private val loadAnimeUseCase: LoadAnimeUseCase,
     private val storage: SimpleInMemoryStorage<Int, GetTopAnimeResponse.Data>
 ) : RemoteMediator<Int, GetTopAnimeResponse.Data>() {
@@ -27,7 +27,7 @@ class TopAnimeRemoteMediator(
 
         return try {
             val response = loadAnimeUseCase.invoke(
-                type = animeType,
+                type = remoteAnimeType,
                 key = key,
                 pageSize = if(key == INITIAL_PAGE) state.config.initialLoadSize else state.config.pageSize
             )

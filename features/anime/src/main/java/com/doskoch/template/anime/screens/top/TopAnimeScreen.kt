@@ -51,10 +51,10 @@ import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemsIndexed
 import com.doskoch.template.anime.R
-import com.doskoch.template.anime.data.stringId
 import com.doskoch.template.anime.di.Module
+import com.doskoch.template.anime.screens.top.uiModel.AnimeTypeUiModel
 import com.doskoch.template.anime.ui.AnimeItem
-import com.doskoch.template.api.jikan.common.enum.AnimeType
+import com.doskoch.template.api.jikan.common.enum.RemoteAnimeType
 import com.doskoch.template.core.components.error.toCoreError
 import com.doskoch.template.core.components.theme.Dimensions
 import com.doskoch.template.core.ui.ErrorItem
@@ -73,7 +73,7 @@ fun TopAnimeScreen(vm: TopAnimeViewModel = viewModel { Module.topAnimeViewModel(
             TopBar(state = state)
         }
     ) { paddingValues ->
-        val items = state.pagingDataFlow.collectAsLazyPagingItems()
+        val items = state.pagingFlow.collectAsLazyPagingItems()
         val refresh = items.loadState.mediator?.refresh
 
         SwipeRefresh(
@@ -265,7 +265,7 @@ private fun TopBar(state: TopAnimeState) {
 
 @Composable
 private fun ColumnScope.AnimeTypeItems(state: TopAnimeState) {
-    AnimeType.values().forEach {
+    AnimeTypeUiModel.values().forEach {
         key(it) {
             DropdownMenuItem(
                 onClick = { state.actions.onUpdateAnimeType(it) }

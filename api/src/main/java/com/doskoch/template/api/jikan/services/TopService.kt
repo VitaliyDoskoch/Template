@@ -1,8 +1,8 @@
 package com.doskoch.template.api.jikan.services
 
 import androidx.annotation.IntRange
-import com.doskoch.template.api.jikan.common.enum.AnimeFilter
-import com.doskoch.template.api.jikan.common.enum.AnimeType
+import com.doskoch.template.api.jikan.common.enum.RemoteAnimeFilter
+import com.doskoch.template.api.jikan.common.enum.RemoteAnimeType
 import com.doskoch.template.api.jikan.interceptors.ApiVersion
 import com.doskoch.template.api.jikan.services.responses.GetTopAnimeResponse
 import retrofit2.http.GET
@@ -13,8 +13,8 @@ interface TopService {
     @ApiVersion(4)
     @GET("top/anime")
     suspend fun getTopAnime(
-        @Query("type") type: AnimeType,
-        @Query("filter") filter: AnimeFilter,
+        @Query("type") type: RemoteAnimeType,
+        @Query("filter") filter: RemoteAnimeFilter,
         @IntRange(from = 1)
         @Query("page") page: Int,
         @IntRange(from = 0)

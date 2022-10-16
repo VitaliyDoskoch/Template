@@ -2,7 +2,7 @@ package com.doskoch.template.api.jikan.common.enum
 
 import com.google.gson.annotations.SerializedName
 
-enum class AnimeFilter {
+enum class RemoteAnimeFilter {
     @SerializedName("airing")
     Airing,
 

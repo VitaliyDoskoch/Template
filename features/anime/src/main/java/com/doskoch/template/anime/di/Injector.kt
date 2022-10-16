@@ -11,7 +11,7 @@ import com.doskoch.template.anime.screens.favorite.FavoriteAnimeViewModel
 import com.doskoch.template.anime.screens.top.TopAnimeRemoteMediator
 import com.doskoch.template.anime.screens.top.TopAnimeViewModel
 import com.doskoch.template.anime.screens.top.useCase.LoadAnimeUseCase
-import com.doskoch.template.api.jikan.common.enum.AnimeType
+import com.doskoch.template.api.jikan.common.enum.RemoteAnimeType
 import com.doskoch.template.core.useCase.authorization.LogoutUseCase
 
 object AnimeFeatureInjector {
@@ -26,19 +26,19 @@ object Module {
 
     fun topAnimeViewModel() = TopAnimeViewModel(
         logoutUseCase = LogoutUseCase(store = Injector.authorizationDataStore),
-        pagerFactory = { animeType -> pager(animeType = animeType) },
+        pagerFactory = { animeType -> pager(remoteAnimeType = animeType) },
         globalErrorHandler = Injector.globalErrorHandler,
         navigator = Injector.navigator
     )
 
-    private fun pager(animeType: AnimeType) = Pager(
+    private fun pager(remoteAnimeType: RemoteAnimeType) = Pager(
         config = PagingConfig(pageSize = PAGE_SIZE, initialLoadSize = INITIAL_LOAD_SIZE, enablePlaceholders = true),
-        remoteMediator = animeRemoteMediator(animeType = animeType),
+        remoteMediator = animeRemoteMediator(remoteAnimeType = remoteAnimeType),
         pagingSourceFactory = { Injector.storage.SimplePagingSource() }
     )
 
-    private fun animeRemoteMediator(animeType: AnimeType) = TopAnimeRemoteMediator(
-        animeType = animeType,
+    private fun animeRemoteMediator(remoteAnimeType: RemoteAnimeType) = TopAnimeRemoteMediator(
+        remoteAnimeType = remoteAnimeType,
         loadAnimeUseCase = LoadAnimeUseCase(service = Injector.topService),
         storage = Injector.storage
     )

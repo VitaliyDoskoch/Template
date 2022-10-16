@@ -6,9 +6,11 @@ import androidx.paging.Pager
 import androidx.paging.cachedIn
 import androidx.paging.map
 import com.doskoch.template.anime.navigation.AnimeFeatureNavigator
+import com.doskoch.template.anime.screens.top.uiModel.AnimeTypeUiModel
+import com.doskoch.template.anime.screens.top.uiModel.toRemoteAnimeType
 import com.doskoch.template.anime.uiModel.AnimeUiModel
-import com.doskoch.template.anime.uiModel.toAnime
-import com.doskoch.template.api.jikan.common.enum.AnimeType
+import com.doskoch.template.anime.uiModel.toUiModel
+import com.doskoch.template.api.jikan.common.enum.RemoteAnimeType
 import com.doskoch.template.api.jikan.services.responses.GetTopAnimeResponse
 import com.doskoch.template.core.components.error.GlobalErrorHandler
 import com.doskoch.template.core.components.error.toCoreError
@@ -31,10 +33,10 @@ class TopAnimeViewModel(
 
     private val _state = MutableStateFlow(
         TopAnimeState(
-            animeType = AnimeType.Tv,
+            animeType = AnimeTypeUiModel.Tv,
             showAnimeTypeMenu = false,
             showLogoutDialog = false,
-            pagingDataFlow = emptyFlow(),
+            pagingFlow = emptyFlow(),
             actions = TopAnimeState.Actions(
                 onAnimeTypeClick = this::onAnimeTypeClick,
                 onDismissAnimeTypeMenu = this::onDismissAnimeTypeMenu,
@@ -50,12 +52,12 @@ class TopAnimeViewModel(
     val state = _state.asStateFlow()
 
     private val pagingFlow = state
-        .flatMapLatest { pagerFactory.create(it.animeType).flow }
-        .map { it.map(GetTopAnimeResponse.Data::toAnime) }
+        .flatMapLatest { pagerFactory.create(it.animeType.toRemoteAnimeType()).flow }
+        .map { it.map(GetTopAnimeResponse.Data::toUiModel) }
         .cachedIn(viewModelScope)
 
     init {
-        _state.update { it.copy(pagingDataFlow = pagingFlow) }
+        _state.update { it.copy(pagingFlow = pagingFlow) }
     }
 
     private fun onAnimeTypeClick() {
@@ -66,7 +68,7 @@ class TopAnimeViewModel(
         _state.update { it.copy(showAnimeTypeMenu = false) }
     }
 
-    private fun onUpdateAnimeType(type: AnimeType) {
+    private fun onUpdateAnimeType(type: AnimeTypeUiModel) {
 //        storage.clear()//TODO
 
         _state.update { it.copy(animeType = type, showAnimeTypeMenu = false) }
@@ -95,6 +97,6 @@ class TopAnimeViewModel(
     private fun onItemClick(item: AnimeUiModel) = viewModelScope.launch { navigator.toDetails(item.id) }
 
     fun interface PagerFactory {
-        fun create(animeType: AnimeType): Pager<Int, GetTopAnimeResponse.Data>
+        fun create(remoteAnimeType: RemoteAnimeType): Pager<Int, GetTopAnimeResponse.Data>
     }
 }

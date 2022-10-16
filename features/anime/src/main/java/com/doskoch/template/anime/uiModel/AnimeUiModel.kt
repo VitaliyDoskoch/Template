@@ -13,7 +13,7 @@ data class AnimeUiModel(
     val isFavorite: Boolean
 )
 
-fun GetTopAnimeResponse.Data.toAnime() = AnimeUiModel(
+fun GetTopAnimeResponse.Data.toUiModel() = AnimeUiModel(
     id = malId,
     approved = approved,
     imageUrl = images.webp.imageUrl,

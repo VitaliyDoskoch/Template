@@ -18,6 +18,7 @@ import com.doskoch.template.core.functions.launchAction
 import com.doskoch.template.core.useCase.authorization.LogoutUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
@@ -52,7 +53,9 @@ class TopAnimeViewModel(
     val state = _state.asStateFlow()
 
     private val pagingFlow = state
-        .flatMapLatest { pagerFactory.create(it.animeType.toRemoteAnimeType()).flow }
+        .map { it.animeType }
+        .distinctUntilChanged()
+        .flatMapLatest { pagerFactory.create(it.toRemoteAnimeType()).flow }
         .map { it.map(GetTopAnimeResponse.Data::toUiModel) }
         .cachedIn(viewModelScope)
 

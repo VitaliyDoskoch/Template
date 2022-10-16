@@ -1,6 +1,5 @@
 package com.doskoch.template.anime.di
 
-import com.doskoch.template.anime.data.AnimeItem
 import com.doskoch.template.anime.navigation.AnimeFeatureNavigator
 import com.doskoch.template.api.jikan.services.TopService
 import com.doskoch.template.api.jikan.services.responses.GetTopAnimeResponse

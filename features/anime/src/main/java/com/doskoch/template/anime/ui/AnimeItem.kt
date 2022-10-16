@@ -28,13 +28,13 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.doskoch.template.anime.R
-import com.doskoch.template.anime.data.AnimeItem
+import com.doskoch.template.anime.uiModel.AnimeUiModel
 import com.doskoch.template.core.components.theme.Dimensions
 import java.text.DecimalFormat
 
 @Composable
 fun AnimeItem(
-    item: AnimeItem,
+    item: AnimeUiModel,
     position: Int,
     onFavoriteClick: () -> Unit,
     modifier: Modifier = Modifier

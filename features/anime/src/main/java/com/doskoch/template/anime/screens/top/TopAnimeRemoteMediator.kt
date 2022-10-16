@@ -5,7 +5,6 @@ import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import com.doskoch.template.anime.INITIAL_PAGE
-import com.doskoch.template.anime.data.AnimeItem
 import com.doskoch.template.anime.screens.top.useCase.LoadAnimeUseCase
 import com.doskoch.template.api.jikan.common.enum.AnimeType
 import com.doskoch.template.api.jikan.services.responses.GetTopAnimeResponse

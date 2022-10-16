@@ -1,15 +1,15 @@
 package com.doskoch.template.anime.screens.favorite
 
 import androidx.paging.PagingData
-import com.doskoch.template.anime.data.AnimeItem
+import com.doskoch.template.anime.uiModel.AnimeUiModel
 import kotlinx.coroutines.flow.Flow
 
 data class FavoriteAnimeState(
-    val pagingData: Flow<PagingData<AnimeItem>>,
+    val pagingData: Flow<PagingData<AnimeUiModel>>,
     val actions: Actions
 ) {
     data class Actions(
         val onBackClick: () -> Unit,
-        val onItemClick: (AnimeItem) -> Unit
+        val onItemClick: (AnimeUiModel) -> Unit
     )
 }

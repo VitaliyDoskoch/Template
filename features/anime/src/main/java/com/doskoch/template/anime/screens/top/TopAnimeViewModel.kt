@@ -5,8 +5,9 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.cachedIn
 import androidx.paging.map
-import com.doskoch.template.anime.data.AnimeItem
 import com.doskoch.template.anime.navigation.AnimeFeatureNavigator
+import com.doskoch.template.anime.uiModel.AnimeUiModel
+import com.doskoch.template.anime.uiModel.toAnime
 import com.doskoch.template.api.jikan.common.enum.AnimeType
 import com.doskoch.template.api.jikan.services.responses.GetTopAnimeResponse
 import com.doskoch.template.core.components.error.GlobalErrorHandler
@@ -50,20 +51,7 @@ class TopAnimeViewModel(
 
     private val pagingFlow = state
         .flatMapLatest { pagerFactory.create(it.animeType).flow }
-        .map {
-            it.map {
-                AnimeItem(
-                    id = it.malId,
-                    approved = it.approved,
-                    imageUrl = it.images.webp.imageUrl,
-                    title = it.title,
-                    genres = it.genres.map { it.name },
-                    score = it.score,
-                    scoredBy = it.scoredBy,
-                    isFavorite = false
-                )
-            }
-        }
+        .map { it.map(GetTopAnimeResponse.Data::toAnime) }
         .cachedIn(viewModelScope)
 
     init {
@@ -104,7 +92,7 @@ class TopAnimeViewModel(
         onError = { globalErrorHandler.handle(it.toCoreError()) }
     )
 
-    private fun onItemClick(item: AnimeItem) = viewModelScope.launch { navigator.toDetails(item.id) }
+    private fun onItemClick(item: AnimeUiModel) = viewModelScope.launch { navigator.toDetails(item.id) }
 
     fun interface PagerFactory {
         fun create(animeType: AnimeType): Pager<Int, GetTopAnimeResponse.Data>

@@ -1,4 +1,4 @@
-package com.doskoch.template.anime.useCase
+package com.doskoch.template.anime.screens.top.useCase
 
 import com.doskoch.template.api.jikan.common.enum.RemoteAnimeFilter
 import com.doskoch.template.api.jikan.common.enum.RemoteAnimeType

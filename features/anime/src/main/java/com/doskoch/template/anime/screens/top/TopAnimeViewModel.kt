@@ -8,6 +8,7 @@ import androidx.paging.map
 import com.doskoch.template.anime.navigation.AnimeFeatureNavigator
 import com.doskoch.template.anime.screens.top.uiModel.AnimeTypeUiModel
 import com.doskoch.template.anime.screens.top.uiModel.toRemoteAnimeType
+import com.doskoch.template.anime.screens.top.useCase.ClearAnimeUseCase
 import com.doskoch.template.anime.uiModel.AnimeUiModel
 import com.doskoch.template.anime.uiModel.toUiModel
 import com.doskoch.template.api.jikan.common.enum.RemoteAnimeType
@@ -28,11 +29,12 @@ import kotlinx.coroutines.launch
 class TopAnimeViewModel(
     private val navigator: AnimeFeatureNavigator,
     private val pagerFactory: PagerFactory,
+    private val clearAnimeUseCase: ClearAnimeUseCase,
     private val logoutUseCase: LogoutUseCase,
     private val globalErrorHandler: GlobalErrorHandler
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow(
+    private val _state: MutableStateFlow<TopAnimeState> = MutableStateFlow(
         TopAnimeState(
             animeType = AnimeTypeUiModel.Tv,
             showAnimeTypeMenu = false,
@@ -71,11 +73,13 @@ class TopAnimeViewModel(
         _state.update { it.copy(showAnimeTypeMenu = false) }
     }
 
-    private fun onUpdateAnimeType(type: AnimeTypeUiModel) {
-//        storage.clear()//TODO
-
-        _state.update { it.copy(animeType = type, showAnimeTypeMenu = false) }
-    }
+    private fun onUpdateAnimeType(type: AnimeTypeUiModel) = launchAction(
+        action = {
+            clearAnimeUseCase.invoke()
+            _state.update { it.copy(animeType = type, showAnimeTypeMenu = false) }
+        },
+        onError = { globalErrorHandler.handle(it.toCoreError()) }
+    )
 
     private fun onFavoriteClick() {
         navigator.toFavorite()

@@ -19,7 +19,7 @@ class SimpleInMemoryStorage<K : Any, V : Any> {
         invalidationCallbacks.toMutableList().forEach { it.invoke() }
     }
 
-    inner class Modifier {
+    inner class Modifier internal constructor(){
 
         fun store(previousKey: K?, currentKey: K, nextKey: K?, page: List<V>) {
             if (storage.isEmpty()) {

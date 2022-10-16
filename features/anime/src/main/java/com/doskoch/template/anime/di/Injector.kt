@@ -8,9 +8,13 @@ import com.doskoch.template.anime.screens.details.AnimeDetailsViewModel
 import com.doskoch.template.anime.screens.favorite.FavoriteAnimeViewModel
 import com.doskoch.template.anime.screens.top.TopAnimeRemoteMediator
 import com.doskoch.template.anime.screens.top.TopAnimeViewModel
-import com.doskoch.template.anime.useCase.LoadAnimeUseCase
+import com.doskoch.template.anime.screens.top.useCase.ClearAnimeUseCase
+import com.doskoch.template.anime.screens.top.useCase.LoadAnimeUseCase
 import com.doskoch.template.api.jikan.common.enum.RemoteAnimeType
+import com.doskoch.template.api.jikan.services.responses.GetTopAnimeResponse
+import com.doskoch.template.core.components.paging.SimpleInMemoryStorage
 import com.doskoch.template.core.useCase.authorization.LogoutUseCase
+import timber.log.Timber
 
 object AnimeFeatureInjector {
     var provider: DestroyableLazy<AnimeFeature>? = null
@@ -22,24 +26,27 @@ internal val Injector: AnimeFeature
 @ExperimentalPagingApi
 object Module {
 
+    private val topAnimeStorage = DestroyableLazy(initialize = { SimpleInMemoryStorage<Int, GetTopAnimeResponse.Data>() })
+
     fun topAnimeViewModel() = TopAnimeViewModel(
         navigator = Injector.navigator,
         pagerFactory = { remoteAnimeType ->
             Pager(
                 config = PAGING_CONFIG,
-                remoteMediator = animeRemoteMediator(remoteAnimeType = remoteAnimeType),
-                pagingSourceFactory = { Injector.storage.SimplePagingSource() }
+                remoteMediator = TopAnimeRemoteMediator(
+                    remoteAnimeType = remoteAnimeType,
+                    loadAnimeUseCase = LoadAnimeUseCase(service = Injector.topService),
+                    storage = topAnimeStorage.value
+                ),
+                pagingSourceFactory = { topAnimeStorage.value.SimplePagingSource() }
             )
         },
+        clearAnimeUseCase = ClearAnimeUseCase(storage = topAnimeStorage.value),
         logoutUseCase = LogoutUseCase(store = Injector.authorizationDataStore),
         globalErrorHandler = Injector.globalErrorHandler
-    )
-
-    private fun animeRemoteMediator(remoteAnimeType: RemoteAnimeType) = TopAnimeRemoteMediator(
-        remoteAnimeType = remoteAnimeType,
-        loadAnimeUseCase = LoadAnimeUseCase(service = Injector.topService),
-        storage = Injector.storage
-    )
+    ).also {
+        it.addCloseable { topAnimeStorage.destroyInstance() }
+    }
 
     fun favoriteAnimeViewModel() = FavoriteAnimeViewModel(
         navigator = Injector.navigator

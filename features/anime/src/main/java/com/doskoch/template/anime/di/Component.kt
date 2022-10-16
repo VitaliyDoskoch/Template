@@ -13,6 +13,5 @@ interface AnimeFeature {
     val globalErrorHandler: GlobalErrorHandler
     val authorizationDataStore: AuthorizationDataStore
     val topService: TopService
-    val storage: SimpleInMemoryStorage<Int, GetTopAnimeResponse.Data>
     val dbAnimeDao: DbAnimeDao
 }

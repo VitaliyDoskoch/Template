@@ -2,10 +2,8 @@ package com.doskoch.template.anime.di
 
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
-import androidx.paging.PagingConfig
 import com.doskoch.legacy.kotlin.DestroyableLazy
-import com.doskoch.template.anime.INITIAL_LOAD_SIZE
-import com.doskoch.template.anime.PAGE_SIZE
+import com.doskoch.template.anime.PAGING_CONFIG
 import com.doskoch.template.anime.screens.details.AnimeDetailsViewModel
 import com.doskoch.template.anime.screens.favorite.FavoriteAnimeViewModel
 import com.doskoch.template.anime.screens.top.TopAnimeRemoteMediator
@@ -25,16 +23,16 @@ internal val Injector: AnimeFeature
 object Module {
 
     fun topAnimeViewModel() = TopAnimeViewModel(
+        navigator = Injector.navigator,
+        pagerFactory = { remoteAnimeType ->
+            Pager(
+                config = PAGING_CONFIG,
+                remoteMediator = animeRemoteMediator(remoteAnimeType = remoteAnimeType),
+                pagingSourceFactory = { Injector.storage.SimplePagingSource() }
+            )
+        },
         logoutUseCase = LogoutUseCase(store = Injector.authorizationDataStore),
-        pagerFactory = { animeType -> pager(remoteAnimeType = animeType) },
-        globalErrorHandler = Injector.globalErrorHandler,
-        navigator = Injector.navigator
-    )
-
-    private fun pager(remoteAnimeType: RemoteAnimeType) = Pager(
-        config = PagingConfig(pageSize = PAGE_SIZE, initialLoadSize = INITIAL_LOAD_SIZE, enablePlaceholders = true),
-        remoteMediator = animeRemoteMediator(remoteAnimeType = remoteAnimeType),
-        pagingSourceFactory = { Injector.storage.SimplePagingSource() }
+        globalErrorHandler = Injector.globalErrorHandler
     )
 
     private fun animeRemoteMediator(remoteAnimeType: RemoteAnimeType) = TopAnimeRemoteMediator(

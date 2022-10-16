@@ -4,7 +4,7 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
-import com.doskoch.template.anime.INITIAL_PAGE
+import com.doskoch.template.anime.INITIAL_PAGE_KEY
 import com.doskoch.template.anime.useCase.LoadAnimeUseCase
 import com.doskoch.template.api.jikan.common.enum.RemoteAnimeType
 import com.doskoch.template.api.jikan.services.responses.GetTopAnimeResponse
@@ -20,7 +20,7 @@ class TopAnimeRemoteMediator(
 
     override suspend fun load(loadType: LoadType, state: PagingState<Int, GetTopAnimeResponse.Data>): MediatorResult {
         val key = when(loadType) {
-            LoadType.REFRESH -> INITIAL_PAGE
+            LoadType.REFRESH -> INITIAL_PAGE_KEY
             LoadType.APPEND -> storage.pages.keys.lastOrNull() ?: return MediatorResult.Success(endOfPaginationReached = true)
             LoadType.PREPEND -> return MediatorResult.Success(endOfPaginationReached = true)
         }
@@ -29,7 +29,7 @@ class TopAnimeRemoteMediator(
             val response = loadAnimeUseCase.invoke(
                 type = remoteAnimeType,
                 key = key,
-                pageSize = if(key == INITIAL_PAGE) state.config.initialLoadSize else state.config.pageSize
+                pageSize = if(key == INITIAL_PAGE_KEY) state.config.initialLoadSize else state.config.pageSize
             )
 
             storage.inTransaction {
@@ -38,7 +38,7 @@ class TopAnimeRemoteMediator(
                 }
 
                 store(
-                    previousKey = if(key > INITIAL_PAGE) key - 1 else null,
+                    previousKey = if(key > INITIAL_PAGE_KEY) key - 1 else null,
                     currentKey = key,
                     nextKey = if(response.pagination.hasNextPage) key + 1 else null,
                     page = response.data

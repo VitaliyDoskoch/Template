@@ -25,10 +25,10 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class TopAnimeViewModel(
-    private val logoutUseCase: LogoutUseCase,
+    private val navigator: AnimeFeatureNavigator,
     private val pagerFactory: PagerFactory,
-    private val globalErrorHandler: GlobalErrorHandler,
-    private val navigator: AnimeFeatureNavigator
+    private val logoutUseCase: LogoutUseCase,
+    private val globalErrorHandler: GlobalErrorHandler
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(

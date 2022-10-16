@@ -10,7 +10,7 @@ import com.doskoch.template.anime.screens.details.AnimeDetailsViewModel
 import com.doskoch.template.anime.screens.favorite.FavoriteAnimeViewModel
 import com.doskoch.template.anime.screens.top.TopAnimeRemoteMediator
 import com.doskoch.template.anime.screens.top.TopAnimeViewModel
-import com.doskoch.template.anime.screens.top.useCase.LoadAnimeUseCase
+import com.doskoch.template.anime.useCase.LoadAnimeUseCase
 import com.doskoch.template.api.jikan.common.enum.RemoteAnimeType
 import com.doskoch.template.core.useCase.authorization.LogoutUseCase
 

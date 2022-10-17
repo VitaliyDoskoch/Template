@@ -3,22 +3,16 @@ package com.doskoch.template.anime.screens.top
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.AlertDialog
-import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.DropdownMenu
 import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.Icon
@@ -39,10 +33,8 @@ import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -54,12 +46,9 @@ import com.doskoch.template.anime.R
 import com.doskoch.template.anime.di.Module
 import com.doskoch.template.anime.screens.top.uiModel.AnimeTypeUiModel
 import com.doskoch.template.anime.ui.AnimeItem
-import com.doskoch.template.api.jikan.common.enum.RemoteAnimeType
-import com.doskoch.template.core.components.error.toCoreError
 import com.doskoch.template.core.components.theme.Dimensions
-import com.doskoch.template.core.ui.ErrorItem
 import com.doskoch.template.core.ui.LazyPagingColumn
-import com.doskoch.template.core.ui.LoadingItem
+import com.doskoch.template.core.ui.LoadStateItem
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
@@ -75,11 +64,10 @@ fun TopAnimeScreen(vm: TopAnimeViewModel = viewModel { Module.topAnimeViewModel(
         }
     ) { paddingValues ->
         val items = state.pagingFlow.collectAsLazyPagingItems()
-        val refresh = items.loadState.mediator?.refresh
 
         SwipeRefresh(
             state = rememberSwipeRefreshState(
-                isRefreshing = refresh is LoadState.Loading && items.itemCount > 0
+                isRefreshing = items.loadState.refresh is LoadState.Loading && items.itemCount > 0
             ),
             onRefresh = items::refresh,
             modifier = Modifier
@@ -108,20 +96,7 @@ fun TopAnimeScreen(vm: TopAnimeViewModel = viewModel { Module.topAnimeViewModel(
                     }
                 }
 
-                if(items.itemCount > 0) {
-                    when (val append = items.loadState.mediator?.append) {
-                        is LoadState.Loading -> item(key = "loading") {
-                            LoadingItem()
-                        }
-                        is LoadState.Error -> item(key = "error") {
-                            ErrorItem(
-                                error = append.error.toCoreError(),
-                                onRetry = items::retry
-                            )
-                        }
-                        else -> {}
-                    }
-                }
+                LoadStateItem(itemCount = items.itemCount, loadState = items.loadState.append, onRetry = items::retry)
             }
         }
     }

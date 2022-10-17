@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -112,8 +113,24 @@ private fun BoxScope.DefaultError(error: CoreError) {
     }
 }
 
+fun LazyListScope.LoadStateItem(
+    itemCount: Int,
+    loadState: LoadState,
+    onRetry: () -> Unit,
+    loadingItem: @Composable LazyItemScope.() -> Unit = { LoadingItem() },
+    errorItem: @Composable LazyItemScope.(CoreError) -> Unit = { ErrorItem(it, onRetry) }
+) {
+    if(itemCount > 0) {
+        when (loadState) {
+            is LoadState.Loading -> item(key = "loading") { loadingItem() }
+            is LoadState.Error -> item(key = "error") { errorItem(loadState.error.toCoreError()) }
+            else -> {}
+        }
+    }
+}
+
 @Composable
-fun LoadingItem() {
+private fun LoadingItem() {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -128,7 +145,7 @@ fun LoadingItem() {
 }
 
 @Composable
-fun ErrorItem(error: CoreError, onRetry: () -> Unit) {
+private fun ErrorItem(error: CoreError, onRetry: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxWidth()

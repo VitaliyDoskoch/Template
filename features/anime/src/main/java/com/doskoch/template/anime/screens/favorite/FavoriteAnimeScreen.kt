@@ -45,8 +45,6 @@ import com.doskoch.template.anime.di.Module
 import com.doskoch.template.anime.ui.AnimeItem
 import com.doskoch.template.core.components.error.toCoreError
 import com.doskoch.template.core.components.theme.Dimensions
-import com.doskoch.template.core.ui.ErrorItem
-import com.doskoch.template.core.ui.LoadingItem
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
@@ -124,18 +122,6 @@ fun FavoriteAnimeScreen(
                                     onFavoriteClick = {},
                                     modifier = Modifier
                                         .clickable { state.actions.onItemClick(it) }
-                                )
-                            }
-                        }
-
-                        when {
-                            append is LoadState.Loading -> item(key = "loading") {
-                                LoadingItem()
-                            }
-                            append is LoadState.Error -> item(key = "error") {
-                                ErrorItem(
-                                    error = append.error.toCoreError(),
-                                    onRetry = items::retry
                                 )
                             }
                         }

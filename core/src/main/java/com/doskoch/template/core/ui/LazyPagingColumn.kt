@@ -26,8 +26,17 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Snackbar
+import androidx.compose.material.SnackbarData
+import androidx.compose.material.SnackbarDefaults
+import androidx.compose.material.SnackbarHost
+import androidx.compose.material.SnackbarHostState
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -56,6 +65,7 @@ fun <T : Any> LazyPagingColumn(
     userScrollEnabled: Boolean = true,
     loading: @Composable BoxScope.() -> Unit = { DefaultLoading() },
     error: @Composable BoxScope.(CoreError) -> Unit = { DefaultError(it) },
+    errorOnContent: @Composable BoxScope.(LoadState.Error) -> Unit = { DefaultErrorOnContent(it) },
     content: LazyListScope.() -> Unit
 ) {
     Box {
@@ -71,11 +81,16 @@ fun <T : Any> LazyPagingColumn(
             content = content
         )
 
-        if(items.itemCount == 0) {
-            when (val refresh = items.loadState.refresh) {
-                is LoadState.Loading -> loading()
-                is LoadState.Error -> error(refresh.error.toCoreError())
-                else -> {}
+        val refresh = items.loadState.refresh
+
+        when {
+            refresh is LoadState.Loading && items.itemCount == 0 -> loading()
+            refresh is LoadState.Error -> {
+                if(items.itemCount == 0) {
+                    error(refresh.error.toCoreError())
+                } else {
+                    errorOnContent(refresh)
+                }
             }
         }
     }
@@ -111,6 +126,18 @@ private fun BoxScope.DefaultError(error: CoreError) {
             textAlign = TextAlign.Center
         )
     }
+}
+
+@Composable
+private fun BoxScope.DefaultErrorOnContent(state: LoadState.Error) {
+    val snackbarHostState = remember { SnackbarHostState() }
+    val context = LocalContext.current
+
+    LaunchedEffect(state) {
+        snackbarHostState.showSnackbar(state.error.toCoreError().localizedMessage(context))
+    }
+
+    SnackbarHost(hostState = snackbarHostState, modifier = Modifier.align(Alignment.BottomCenter))
 }
 
 fun LazyListScope.LoadStateItem(

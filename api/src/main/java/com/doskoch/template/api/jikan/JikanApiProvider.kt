@@ -20,8 +20,9 @@ import java.util.concurrent.TimeUnit
 const val TIMBER_LOG_LEVEL = Log.DEBUG
 val HTTP_LOG_LEVEL = if (BuildConfig.isLoggingEnabled) BODY else BASIC
 
-const val CONNECT_TIMEOUT = 45_000L
-const val READ_TIMEOUT = 45_000L
+//TODO: change to 30
+const val CONNECT_TIMEOUT = 5_000L
+const val READ_TIMEOUT = 5_000L
 
 const val BASE_URL = "https://api.jikan.moe/"
 

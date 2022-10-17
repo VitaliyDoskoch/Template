@@ -1,8 +1,14 @@
 package com.doskoch.template.core.ui
 
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.FlingBehavior
+import androidx.compose.foundation.gestures.ScrollableDefaults
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -10,6 +16,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListScope
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ButtonDefaults
@@ -24,40 +34,56 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.itemsIndexed
 import com.doskoch.template.core.R
 import com.doskoch.template.core.components.error.CoreError
 import com.doskoch.template.core.components.error.toCoreError
 import com.doskoch.template.core.components.theme.Dimensions
 
 @Composable
-fun <T : Any> PagingScaffold(
+fun <T : Any> LazyPagingColumn(
     items: LazyPagingItems<T>,
     modifier: Modifier = Modifier,
-    loading: @Composable () -> Unit = { DefaultLoading() },
-    error: @Composable (CoreError) -> Unit = { DefaultError(it) },
-    content: @Composable () -> Unit
+    state: LazyListState = rememberLazyListState(),
+    contentPadding: PaddingValues = PaddingValues(0.dp),
+    reverseLayout: Boolean = false,
+    verticalArrangement: Arrangement.Vertical = if (!reverseLayout) Arrangement.Top else Arrangement.Bottom,
+    horizontalAlignment: Alignment.Horizontal = Alignment.Start,
+    flingBehavior: FlingBehavior = ScrollableDefaults.flingBehavior(),
+    userScrollEnabled: Boolean = true,
+    loading: @Composable BoxScope.() -> Unit = { DefaultLoading() },
+    error: @Composable BoxScope.(CoreError) -> Unit = { DefaultError(it) },
+    content: LazyListScope.() -> Unit
 ) {
-    val loadState = items.loadState
-    items.itemCount
+    Box {
+        LazyColumn(
+            modifier = modifier,
+            state = state,
+            contentPadding = contentPadding,
+            reverseLayout = reverseLayout,
+            verticalArrangement = verticalArrangement,
+            horizontalAlignment = horizontalAlignment,
+            flingBehavior = flingBehavior,
+            userScrollEnabled = userScrollEnabled,
+            content = content
+        )
 
-    Box(modifier = modifier) {
-        content()
-
-        when (val refresh = loadState.refresh) {
-            is LoadState.Loading -> loading()
-            is LoadState.Error -> error(refresh.error.toCoreError())
-            else -> {}
+        if(items.itemCount == 0) {
+            when (val refresh = items.loadState.refresh) {
+                is LoadState.Loading -> loading()
+                is LoadState.Error -> error(refresh.error.toCoreError())
+                else -> {}
+            }
         }
     }
 }
 
 @Composable
-private fun DefaultLoading() {
+private fun BoxScope.DefaultLoading() {
     Box(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.matchParentSize()
     ) {
         CircularProgressIndicator(
             modifier = Modifier
@@ -68,10 +94,10 @@ private fun DefaultLoading() {
 }
 
 @Composable
-private fun DefaultError(error: CoreError) {
+private fun BoxScope.DefaultError(error: CoreError) {
     Box(
         modifier = Modifier
-            .fillMaxSize()
+            .matchParentSize()
             .verticalScroll(rememberScrollState())
     ) {
         Text(

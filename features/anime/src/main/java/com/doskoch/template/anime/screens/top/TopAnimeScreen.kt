@@ -58,6 +58,7 @@ import com.doskoch.template.api.jikan.common.enum.RemoteAnimeType
 import com.doskoch.template.core.components.error.toCoreError
 import com.doskoch.template.core.components.theme.Dimensions
 import com.doskoch.template.core.ui.ErrorItem
+import com.doskoch.template.core.ui.LazyPagingColumn
 import com.doskoch.template.core.ui.LoadingItem
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
@@ -88,7 +89,8 @@ fun TopAnimeScreen(vm: TopAnimeViewModel = viewModel { Module.topAnimeViewModel(
         ) {
             val _state = rememberLazyListState()
 
-            LazyColumn(
+            LazyPagingColumn(
+                items = items,
                 modifier = Modifier
                     .fillMaxSize()
                     .simpleVerticalScrollbar(_state, 8.dp),
@@ -118,38 +120,6 @@ fun TopAnimeScreen(vm: TopAnimeViewModel = viewModel { Module.topAnimeViewModel(
                             )
                         }
                         else -> {}
-                    }
-                }
-            }
-
-            when {
-                refresh is LoadState.Loading && items.itemCount == 0 -> {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxSize()
-                    ) {
-                        CircularProgressIndicator(
-                            modifier = Modifier
-                                .align(Alignment.Center)
-                                .size(Dimensions.icon_40)
-                        )
-                    }
-                }
-                refresh is LoadState.Error -> {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .verticalScroll(rememberScrollState())
-                    ) {
-                        Text(
-                            text = refresh.error.toCoreError().localizedMessage(LocalContext.current),
-                            modifier = Modifier
-                                .align(Alignment.Center)
-                                .padding(Dimensions.space_16)
-                                .fillMaxWidth(),
-                            style = MaterialTheme.typography.body1,
-                            textAlign = TextAlign.Center
-                        )
                     }
                 }
             }

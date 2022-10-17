@@ -23,6 +23,7 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -57,6 +58,7 @@ class TopAnimeViewModel(
     private val pagingFlow = state
         .map { it.animeType }
         .distinctUntilChanged()
+        .onEach { clearAnimeUseCase.invoke() }
         .flatMapLatest { pagerFactory.create(it.toRemoteAnimeType()).flow }
         .map { it.map(GetTopAnimeResponse.Data::toUiModel) }
         .cachedIn(viewModelScope)
@@ -73,13 +75,9 @@ class TopAnimeViewModel(
         _state.update { it.copy(showAnimeTypeMenu = false) }
     }
 
-    private fun onUpdateAnimeType(type: AnimeTypeUiModel) = launchAction(
-        action = {
-            clearAnimeUseCase.invoke()
-            _state.update { it.copy(animeType = type, showAnimeTypeMenu = false) }
-        },
-        onError = { globalErrorHandler.handle(it.toCoreError()) }
-    )
+    private fun onUpdateAnimeType(type: AnimeTypeUiModel) {
+        _state.update { it.copy(animeType = type, showAnimeTypeMenu = false) }
+    }
 
     private fun onFavoriteClick() {
         navigator.toFavorite()

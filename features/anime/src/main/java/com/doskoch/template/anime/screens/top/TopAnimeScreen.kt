@@ -23,9 +23,12 @@ import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.key
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -65,11 +68,20 @@ fun TopAnimeScreen(vm: TopAnimeViewModel = viewModel { Module.topAnimeViewModel(
     ) { paddingValues ->
         val items = state.pagingFlow.collectAsLazyPagingItems()
 
+        val showIndicator = remember { mutableStateOf(false) }
+
+        LaunchedEffect(items.loadState.refresh) {
+            if(items.loadState.refresh !is LoadState.Loading) {
+                showIndicator.value = false
+            }
+        }
+
         SwipeRefresh(
-            state = rememberSwipeRefreshState(
-                isRefreshing = items.loadState.refresh is LoadState.Loading && items.itemCount > 0
-            ),
-            onRefresh = items::refresh,
+            state = rememberSwipeRefreshState(isRefreshing = showIndicator.value),
+            onRefresh = {
+                showIndicator.value = true
+                items.refresh()
+            },
             modifier = Modifier
                 .padding(paddingValues)
                 .navigationBarsPadding()
@@ -78,7 +90,8 @@ fun TopAnimeScreen(vm: TopAnimeViewModel = viewModel { Module.topAnimeViewModel(
             val _state = rememberLazyListState()
 
             LazyPagingColumn(
-                items = items,
+                itemCount = items.itemCount,
+                loadState = items.loadState.refresh.takeIf { !showIndicator.value },
                 modifier = Modifier
                     .fillMaxSize()
                     .simpleVerticalScrollbar(_state, 8.dp),

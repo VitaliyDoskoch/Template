@@ -1,6 +1,5 @@
 package com.doskoch.template.core.ui
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.FlingBehavior
 import androidx.compose.foundation.gestures.ScrollableDefaults
 import androidx.compose.foundation.layout.Arrangement
@@ -9,7 +8,6 @@ import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -26,17 +24,12 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Snackbar
-import androidx.compose.material.SnackbarData
-import androidx.compose.material.SnackbarDefaults
 import androidx.compose.material.SnackbarHost
 import androidx.compose.material.SnackbarHostState
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -45,16 +38,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
-import androidx.paging.compose.LazyPagingItems
-import androidx.paging.compose.itemsIndexed
 import com.doskoch.template.core.R
 import com.doskoch.template.core.components.error.CoreError
 import com.doskoch.template.core.components.error.toCoreError
 import com.doskoch.template.core.components.theme.Dimensions
 
 @Composable
-fun <T : Any> LazyPagingColumn(
-    items: LazyPagingItems<T>,
+fun LazyPagingColumn(
+    itemCount: Int,
+    loadState: LoadState?,
     modifier: Modifier = Modifier,
     state: LazyListState = rememberLazyListState(),
     contentPadding: PaddingValues = PaddingValues(0.dp),
@@ -64,7 +56,8 @@ fun <T : Any> LazyPagingColumn(
     flingBehavior: FlingBehavior = ScrollableDefaults.flingBehavior(),
     userScrollEnabled: Boolean = true,
     loading: @Composable BoxScope.() -> Unit = { DefaultLoading() },
-    error: @Composable BoxScope.(CoreError) -> Unit = { DefaultError(it) },
+    loadingOnContent: @Composable BoxScope.() -> Unit = {},
+    error: @Composable BoxScope.(LoadState.Error) -> Unit = { DefaultError(it.error.toCoreError()) },
     errorOnContent: @Composable BoxScope.(LoadState.Error) -> Unit = { DefaultErrorOnContent(it) },
     content: LazyListScope.() -> Unit
 ) {
@@ -81,17 +74,22 @@ fun <T : Any> LazyPagingColumn(
             content = content
         )
 
-        val refresh = items.loadState.refresh
-
-        when {
-            refresh is LoadState.Loading && items.itemCount == 0 -> loading()
-            refresh is LoadState.Error -> {
-                if(items.itemCount == 0) {
-                    error(refresh.error.toCoreError())
+        when (loadState) {
+            is LoadState.Loading -> {
+                if (itemCount == 0) {
+                    loading()
                 } else {
-                    errorOnContent(refresh)
+                    loadingOnContent()
                 }
             }
+            is LoadState.Error -> {
+                if (itemCount == 0) {
+                    error(loadState)
+                } else {
+                    errorOnContent(loadState)
+                }
+            }
+            else -> {}
         }
     }
 }
@@ -147,7 +145,7 @@ fun LazyListScope.LoadStateItem(
     loadingItem: @Composable LazyItemScope.() -> Unit = { LoadingItem() },
     errorItem: @Composable LazyItemScope.(CoreError) -> Unit = { ErrorItem(it, onRetry) }
 ) {
-    if(itemCount > 0) {
+    if (itemCount > 0) {
         when (loadState) {
             is LoadState.Loading -> item(key = "loading") { loadingItem() }
             is LoadState.Error -> item(key = "error") { errorItem(loadState.error.toCoreError()) }

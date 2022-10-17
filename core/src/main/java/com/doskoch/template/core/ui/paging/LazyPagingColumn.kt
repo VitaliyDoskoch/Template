@@ -34,6 +34,7 @@ import com.doskoch.template.core.R
 import com.doskoch.template.core.components.error.CoreError
 import com.doskoch.template.core.components.error.toCoreError
 import com.doskoch.template.core.components.theme.Dimensions
+import com.doskoch.template.core.ui.FadeInFadeOut
 
 @Composable
 fun LazyPagingColumn(
@@ -94,33 +95,41 @@ fun LazyPagingColumn(
 
 @Composable
 private fun BoxScope.DefaultLoading() {
-    Box(
+    FadeInFadeOut(
         modifier = Modifier.matchParentSize()
     ) {
-        CircularProgressIndicator(
-            modifier = Modifier
-                .align(Alignment.Center)
-                .size(Dimensions.icon_40)
-        )
+        Box(
+            modifier = Modifier.matchParentSize()
+        ) {
+            CircularProgressIndicator(
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .size(Dimensions.icon_40)
+            )
+        }
     }
 }
 
 @Composable
 private fun BoxScope.DefaultError(error: CoreError) {
-    Box(
-        modifier = Modifier
-            .matchParentSize()
-            .verticalScroll(rememberScrollState())
+    FadeInFadeOut(
+        modifier = Modifier.matchParentSize()
     ) {
-        Text(
-            text = error.localizedMessage(LocalContext.current),
+        Box(
             modifier = Modifier
-                .align(Alignment.Center)
-                .padding(Dimensions.space_16)
-                .fillMaxWidth(),
-            style = MaterialTheme.typography.body1,
-            textAlign = TextAlign.Center
-        )
+                .matchParentSize()
+                .verticalScroll(rememberScrollState())
+        ) {
+            Text(
+                text = error.localizedMessage(LocalContext.current),
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .padding(Dimensions.space_16)
+                    .fillMaxWidth(),
+                style = MaterialTheme.typography.body1,
+                textAlign = TextAlign.Center
+            )
+        }
     }
 }
 
@@ -138,19 +147,23 @@ private fun BoxScope.DefaultErrorOverContent(state: LoadState.Error) {
 
 @Composable
 private fun BoxScope.DefaultPlaceholder() {
-    Box(
-        modifier = Modifier
-            .matchParentSize()
-            .verticalScroll(rememberScrollState())
+    FadeInFadeOut(
+        modifier = Modifier.matchParentSize()
     ) {
-        Text(
-            text = stringResource(R.string.placeholder_empty_list),
+        Box(
             modifier = Modifier
-                .align(Alignment.Center)
-                .padding(Dimensions.space_16)
-                .fillMaxWidth(),
-            style = MaterialTheme.typography.body1,
-            textAlign = TextAlign.Center
-        )
+                .matchParentSize()
+                .verticalScroll(rememberScrollState())
+        ) {
+            Text(
+                text = stringResource(R.string.placeholder_empty_list),
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .padding(Dimensions.space_16)
+                    .fillMaxWidth(),
+                style = MaterialTheme.typography.body1,
+                textAlign = TextAlign.Center
+            )
+        }
     }
 }

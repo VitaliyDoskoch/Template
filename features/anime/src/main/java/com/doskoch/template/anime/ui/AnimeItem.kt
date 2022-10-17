@@ -30,6 +30,7 @@ import coil.compose.AsyncImage
 import com.doskoch.template.anime.R
 import com.doskoch.template.anime.uiModel.AnimeUiModel
 import com.doskoch.template.core.components.theme.Dimensions
+import com.doskoch.template.core.ui.FadeInFadeOut
 import java.text.DecimalFormat
 
 @Composable
@@ -39,93 +40,95 @@ fun AnimeItem(
     onFavoriteClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Box(
-        modifier = modifier
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
+    FadeInFadeOut(key = item) {
+        Box(
+            modifier = modifier
         ) {
-            AsyncImage(
-                model = item.imageUrl,
-                contentDescription = stringResource(R.string.desc_item_image),
+            Row(
                 modifier = Modifier
-                    .padding(start = Dimensions.space_16, top = Dimensions.space_16, bottom = Dimensions.space_16)
-                    .size(80.dp),
-                contentScale = ContentScale.Crop,
-                placeholder = painterResource(R.drawable.ic_photo),
-                error = painterResource(R.drawable.ic_sync_problem)
-            )
-
-            Column(
-                modifier = Modifier
-                    .padding(Dimensions.space_16)
-                    .weight(1f)
-                    .fillMaxHeight(),
-                verticalArrangement = Arrangement.SpaceEvenly
+                    .fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(
-                    text = item.title,
+                AsyncImage(
+                    model = item.imageUrl,
+                    contentDescription = stringResource(R.string.desc_item_image),
                     modifier = Modifier
-                        .fillMaxWidth(),
-                    style = MaterialTheme.typography.subtitle1,
-                    color = MaterialTheme.colors.onBackground,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
+                        .padding(start = Dimensions.space_16, top = Dimensions.space_16, bottom = Dimensions.space_16)
+                        .size(80.dp),
+                    contentScale = ContentScale.Crop,
+                    placeholder = painterResource(R.drawable.ic_photo),
+                    error = painterResource(R.drawable.ic_sync_problem)
                 )
 
-                Text(
-                    text = item.genres.joinToString(),
+                Column(
                     modifier = Modifier
-                        .fillMaxWidth(),
-                    style = MaterialTheme.typography.caption,
-                    color = MaterialTheme.colors.onBackground,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
-                )
+                        .padding(Dimensions.space_16)
+                        .weight(1f)
+                        .fillMaxHeight(),
+                    verticalArrangement = Arrangement.SpaceEvenly
+                ) {
+                    Text(
+                        text = item.title,
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                        style = MaterialTheme.typography.subtitle1,
+                        color = MaterialTheme.colors.onBackground,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
 
-                Text(
-                    text = buildAnnotatedString {
-                        val score = DecimalFormat("#.#").format(item.score)
-                        append("$score ")
-                        addStyle(SpanStyle(fontWeight = FontWeight.Bold), 0, score.length)
+                    Text(
+                        text = item.genres.joinToString(),
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                        style = MaterialTheme.typography.caption,
+                        color = MaterialTheme.colors.onBackground,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
 
-                        append(LocalContext.current.resources.getQuantityString(R.plurals.by_users, item.scoredBy, item.scoredBy))
-                    },
+                    Text(
+                        text = buildAnnotatedString {
+                            val score = DecimalFormat("#.#").format(item.score)
+                            append("$score ")
+                            addStyle(SpanStyle(fontWeight = FontWeight.Bold), 0, score.length)
+
+                            append(LocalContext.current.resources.getQuantityString(R.plurals.by_users, item.scoredBy, item.scoredBy))
+                        },
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                        style = MaterialTheme.typography.body2,
+                        color = MaterialTheme.colors.onBackground,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                }
+
+                Icon(
+                    painter = painterResource(if (item.isFavorite) R.drawable.ic_star_filled else R.drawable.ic_start_outline),
+                    contentDescription = stringResource(R.string.desc_icon_add_to_favorite),
                     modifier = Modifier
-                        .fillMaxWidth(),
-                    style = MaterialTheme.typography.body2,
-                    color = MaterialTheme.colors.onBackground,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
+                        .align(Alignment.Bottom)
+                        .padding(end = Dimensions.space_16, bottom = Dimensions.space_16)
+                        .clickable(onClick = onFavoriteClick),
+                    tint = if (item.isFavorite) MaterialTheme.colors.secondary else MaterialTheme.colors.onBackground
                 )
             }
 
-            Icon(
-                painter = painterResource(if (item.isFavorite) R.drawable.ic_star_filled else R.drawable.ic_start_outline),
-                contentDescription = stringResource(R.string.desc_icon_add_to_favorite),
+            Text(
+                text = position.toString(),
                 modifier = Modifier
-                    .align(Alignment.Bottom)
-                    .padding(end = Dimensions.space_16, bottom = Dimensions.space_16)
-                    .clickable(onClick = onFavoriteClick),
-                tint = if (item.isFavorite) MaterialTheme.colors.secondary else MaterialTheme.colors.onBackground
+                    .align(Alignment.TopEnd)
+                    .padding(Dimensions.space_16),
+                style = MaterialTheme.typography.h4,
+                color = Color.Red
+            )
+
+            Divider(
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .fillMaxWidth()
             )
         }
-
-        Text(
-            text = position.toString(),
-            modifier = Modifier
-                .align(Alignment.TopEnd)
-                .padding(Dimensions.space_16),
-            style = MaterialTheme.typography.h4,
-            color = Color.Red
-        )
-
-        Divider(
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .fillMaxWidth()
-        )
     }
 }

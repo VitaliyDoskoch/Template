@@ -52,6 +52,7 @@ import com.doskoch.template.anime.ui.AnimeItem
 import com.doskoch.template.core.components.theme.Dimensions
 import com.doskoch.template.core.ui.paging.LazyPagingColumn
 import com.doskoch.template.core.ui.paging.LoadStateItem
+import com.doskoch.template.core.ui.paging.PagingSwipeRefresh
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
@@ -68,30 +69,19 @@ fun TopAnimeScreen(vm: TopAnimeViewModel = viewModel { Module.topAnimeViewModel(
     ) { paddingValues ->
         val items = state.pagingFlow.collectAsLazyPagingItems()
 
-        val showIndicator = remember { mutableStateOf(false) }
-
-        LaunchedEffect(items.loadState.refresh) {
-            if(items.loadState.refresh !is LoadState.Loading) {
-                showIndicator.value = false
-            }
-        }
-
-        SwipeRefresh(
-            state = rememberSwipeRefreshState(isRefreshing = showIndicator.value),
-            onRefresh = {
-                showIndicator.value = true
-                items.refresh()
-            },
+        PagingSwipeRefresh(
+            loadState = items.loadState.refresh,
+            onRefresh = items::refresh,
             modifier = Modifier
                 .padding(paddingValues)
                 .navigationBarsPadding()
                 .fillMaxSize()
-        ) {
+        ) { swipeRefreshState ->
             val _state = rememberLazyListState()
 
             LazyPagingColumn(
                 itemCount = items.itemCount,
-                loadState = items.loadState.refresh.takeIf { !showIndicator.value },
+                loadState = items.loadState.refresh.takeIf { !swipeRefreshState.isRefreshing },
                 modifier = Modifier
                     .fillMaxSize()
                     .simpleVerticalScrollbar(_state, 8.dp),

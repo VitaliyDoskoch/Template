@@ -30,7 +30,7 @@ import coil.compose.AsyncImage
 import com.doskoch.template.anime.R
 import com.doskoch.template.anime.uiModel.AnimeUiModel
 import com.doskoch.template.core.components.theme.Dimensions
-import com.doskoch.template.core.ui.FadeInFadeOut
+import com.doskoch.template.core.ui.FadeInOnCompose
 import java.text.DecimalFormat
 
 @Composable
@@ -40,7 +40,7 @@ fun AnimeItem(
     onFavoriteClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    FadeInFadeOut(key = item) {
+    FadeInOnCompose(key = item) {
         Box(
             modifier = modifier
         ) {

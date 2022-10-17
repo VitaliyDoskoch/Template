@@ -34,7 +34,7 @@ import com.doskoch.template.core.R
 import com.doskoch.template.core.components.error.CoreError
 import com.doskoch.template.core.components.error.toCoreError
 import com.doskoch.template.core.components.theme.Dimensions
-import com.doskoch.template.core.ui.FadeInFadeOut
+import com.doskoch.template.core.ui.FadeInOnCompose
 
 @Composable
 fun LazyPagingColumn(
@@ -95,7 +95,7 @@ fun LazyPagingColumn(
 
 @Composable
 private fun BoxScope.DefaultLoading() {
-    FadeInFadeOut(
+    FadeInOnCompose(
         modifier = Modifier.matchParentSize()
     ) {
         Box(
@@ -112,7 +112,7 @@ private fun BoxScope.DefaultLoading() {
 
 @Composable
 private fun BoxScope.DefaultError(error: CoreError) {
-    FadeInFadeOut(
+    FadeInOnCompose(
         modifier = Modifier.matchParentSize()
     ) {
         Box(
@@ -147,7 +147,7 @@ private fun BoxScope.DefaultErrorOverContent(state: LoadState.Error) {
 
 @Composable
 private fun BoxScope.DefaultPlaceholder() {
-    FadeInFadeOut(
+    FadeInOnCompose(
         modifier = Modifier.matchParentSize()
     ) {
         Box(

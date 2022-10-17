@@ -50,8 +50,8 @@ import com.doskoch.template.anime.di.Module
 import com.doskoch.template.anime.screens.top.uiModel.AnimeTypeUiModel
 import com.doskoch.template.anime.ui.AnimeItem
 import com.doskoch.template.core.components.theme.Dimensions
-import com.doskoch.template.core.ui.LazyPagingColumn
-import com.doskoch.template.core.ui.LoadStateItem
+import com.doskoch.template.core.ui.paging.LazyPagingColumn
+import com.doskoch.template.core.ui.paging.LoadStateItem
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.google.accompanist.systemuicontroller.rememberSystemUiController

@@ -1,27 +1,20 @@
-package com.doskoch.template.core.ui
+package com.doskoch.template.core.ui.paging
 
 import androidx.compose.foundation.gestures.FlingBehavior
 import androidx.compose.foundation.gestures.ScrollableDefaults
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.SnackbarHost
@@ -35,7 +28,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import com.doskoch.template.core.R
@@ -55,10 +47,11 @@ fun LazyPagingColumn(
     horizontalAlignment: Alignment.Horizontal = Alignment.Start,
     flingBehavior: FlingBehavior = ScrollableDefaults.flingBehavior(),
     userScrollEnabled: Boolean = true,
-    loading: @Composable BoxScope.() -> Unit = { DefaultLoading() },
-    loadingOnContent: @Composable BoxScope.() -> Unit = {},
+    loading: @Composable BoxScope.(LoadState.Loading) -> Unit = { DefaultLoading() },
+    loadingOverContent: @Composable BoxScope.(LoadState.Loading) -> Unit = {},
     error: @Composable BoxScope.(LoadState.Error) -> Unit = { DefaultError(it.error.toCoreError()) },
-    errorOnContent: @Composable BoxScope.(LoadState.Error) -> Unit = { DefaultErrorOnContent(it) },
+    errorOverContent: @Composable BoxScope.(LoadState.Error) -> Unit = { DefaultErrorOverContent(it) },
+    placeholder: @Composable BoxScope.(LoadState.NotLoading) -> Unit = { DefaultPlaceholder() },
     content: LazyListScope.() -> Unit
 ) {
     Box {
@@ -77,16 +70,21 @@ fun LazyPagingColumn(
         when (loadState) {
             is LoadState.Loading -> {
                 if (itemCount == 0) {
-                    loading()
+                    loading(loadState)
                 } else {
-                    loadingOnContent()
+                    loadingOverContent(loadState)
                 }
             }
             is LoadState.Error -> {
                 if (itemCount == 0) {
                     error(loadState)
                 } else {
-                    errorOnContent(loadState)
+                    errorOverContent(loadState)
+                }
+            }
+            is LoadState.NotLoading -> {
+                if(itemCount == 0) {
+                    placeholder(loadState)
                 }
             }
             else -> {}
@@ -127,7 +125,7 @@ private fun BoxScope.DefaultError(error: CoreError) {
 }
 
 @Composable
-private fun BoxScope.DefaultErrorOnContent(state: LoadState.Error) {
+private fun BoxScope.DefaultErrorOverContent(state: LoadState.Error) {
     val snackbarHostState = remember { SnackbarHostState() }
     val context = LocalContext.current
 
@@ -138,65 +136,21 @@ private fun BoxScope.DefaultErrorOnContent(state: LoadState.Error) {
     SnackbarHost(hostState = snackbarHostState, modifier = Modifier.align(Alignment.BottomCenter))
 }
 
-fun LazyListScope.LoadStateItem(
-    itemCount: Int,
-    loadState: LoadState,
-    onRetry: () -> Unit,
-    loadingItem: @Composable LazyItemScope.() -> Unit = { LoadingItem() },
-    errorItem: @Composable LazyItemScope.(CoreError) -> Unit = { ErrorItem(it, onRetry) }
-) {
-    if (itemCount > 0) {
-        when (loadState) {
-            is LoadState.Loading -> item(key = "loading") { loadingItem() }
-            is LoadState.Error -> item(key = "error") { errorItem(loadState.error.toCoreError()) }
-            else -> {}
-        }
-    }
-}
-
 @Composable
-private fun LoadingItem() {
+private fun BoxScope.DefaultPlaceholder() {
     Box(
         modifier = Modifier
-            .fillMaxWidth()
-            .height(150.dp),
-        contentAlignment = Alignment.Center
-    ) {
-        CircularProgressIndicator(
-            modifier = Modifier
-                .size(Dimensions.icon_40)
-        )
-    }
-}
-
-@Composable
-private fun ErrorItem(error: CoreError, onRetry: () -> Unit) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
+            .matchParentSize()
+            .verticalScroll(rememberScrollState())
     ) {
         Text(
-            text = error.localizedMessage(LocalContext.current),
+            text = stringResource(R.string.placeholder_empty_list),
             modifier = Modifier
-                .padding(start = Dimensions.space_16, top = Dimensions.space_16, end = Dimensions.space_16)
-                .fillMaxWidth(),
-            style = MaterialTheme.typography.body2,
-            textAlign = TextAlign.Center,
-            maxLines = 5,
-            overflow = TextOverflow.Ellipsis
-        )
-
-        CoreButton(
-            text = stringResource(R.string.retry),
-            onClick = onRetry,
-            modifier = Modifier
-                .align(Alignment.CenterHorizontally)
+                .align(Alignment.Center)
                 .padding(Dimensions.space_16)
-                .width(IntrinsicSize.Min)
-                .requiredHeight(Dimensions.button_height),
-            colors = ButtonDefaults.buttonColors(
-                backgroundColor = MaterialTheme.colors.secondary
-            )
+                .fillMaxWidth(),
+            style = MaterialTheme.typography.body1,
+            textAlign = TextAlign.Center
         )
     }
 }

@@ -88,14 +88,14 @@ fun TopAnimeScreen(vm: TopAnimeViewModel = viewModel { Module.topAnimeViewModel(
                     .simpleVerticalScrollbar(_state),
                 state = _state
             ) {
-                itemsIndexed(items) { position, it ->
-                    it?.let {
+                itemsIndexed(items) { position, item ->
+                    item?.let {
                         AnimeItem(
-                            item = it,
+                            item = item,
                             position = position,
-                            onFavoriteClick = {},
+                            onFavoriteClick = { state.actions.onItemFavoriteClick(item) },
                             modifier = Modifier
-                                .clickable { state.actions.onItemClick(it) }
+                                .clickable { state.actions.onItemClick(item) }
                         )
                     }
                 }

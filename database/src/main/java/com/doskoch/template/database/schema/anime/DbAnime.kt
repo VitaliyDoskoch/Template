@@ -11,6 +11,5 @@ data class DbAnime(
     val title: String,
     val genres: List<String>,
     val score: Float,
-    val scoredBy: Int,
-    val isFavorite: Boolean
+    val scoredBy: Int
 ) : BaseEntity()

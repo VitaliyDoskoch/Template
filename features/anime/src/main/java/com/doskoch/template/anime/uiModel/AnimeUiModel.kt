@@ -33,5 +33,5 @@ fun DbAnime.toUiModel() = AnimeUiModel(
     genres = genres,
     score = score,
     scoredBy = scoredBy,
-    isFavorite = isFavorite
+    isFavorite = true
 )

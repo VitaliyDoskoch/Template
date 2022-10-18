@@ -36,10 +36,10 @@ class SignInViewModel(
     )
     val state = _state.asStateFlow()
 
-    private fun onNavigateBack() = viewModelScope.launch { navigator.navigateUp() }
+    private fun onNavigateBack() = navigator.navigateUp()
 
-    private fun onUpdateEmail(value: String) {
-        _state.update { it.copy(email = value, error = null, isProceedButtonEnabled = value.isNotBlank()) }
+    private fun onUpdateEmail(value: String) = _state.update {
+        it.copy(email = value, error = null, isProceedButtonEnabled = value.isNotBlank())
     }
 
     private fun onProceed() = launchAction(

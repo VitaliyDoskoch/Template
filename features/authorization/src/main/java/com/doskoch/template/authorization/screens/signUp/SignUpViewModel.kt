@@ -9,7 +9,7 @@ class SignUpViewModel(
     private val navigator: AuthorizationFeatureNavigator
 ) : ViewModel() {
 
-    fun onSignIn() = viewModelScope.launch { navigator.toSignIn() }
+    fun onSignIn() = navigator.toSignIn()
 
-    fun onSkip() = viewModelScope.launch { navigator.toAnime() }
+    fun onSkip() = navigator.toAnime()
 }

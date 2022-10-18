@@ -49,7 +49,8 @@ class TopAnimeViewModel(
                 onLogoutClick = this::onLogoutClick,
                 onDismissLogoutDialog = this::onDismissLogoutDialog,
                 onConfirmLogoutClick = this::onConfirmLogoutClick,
-                onItemClick = this::onItemClick
+                onItemClick = this::onItemClick,
+                onItemFavoriteClick = this::onItemFavoriteClick
             )
         )
     )
@@ -67,29 +68,17 @@ class TopAnimeViewModel(
         _state.update { it.copy(pagingFlow = pagingFlow) }
     }
 
-    private fun onAnimeTypeClick() {
-        _state.update { it.copy(showAnimeTypeMenu = true) }
-    }
+    private fun onAnimeTypeClick() = _state.update { it.copy(showAnimeTypeMenu = true) }
 
-    private fun onDismissAnimeTypeMenu() {
-        _state.update { it.copy(showAnimeTypeMenu = false) }
-    }
+    private fun onDismissAnimeTypeMenu() = _state.update { it.copy(showAnimeTypeMenu = false) }
 
-    private fun onUpdateAnimeType(type: AnimeTypeUiModel) {
-        _state.update { it.copy(animeType = type, showAnimeTypeMenu = false) }
-    }
+    private fun onUpdateAnimeType(type: AnimeTypeUiModel) = _state.update { it.copy(animeType = type, showAnimeTypeMenu = false) }
 
-    private fun onFavoriteClick() {
-        navigator.toFavorite()
-    }
+    private fun onFavoriteClick() = navigator.toFavorite()
 
-    private fun onLogoutClick() {
-        _state.update { it.copy(showLogoutDialog = true) }
-    }
+    private fun onLogoutClick() = _state.update { it.copy(showLogoutDialog = true) }
 
-    private fun onDismissLogoutDialog() {
-        _state.update { it.copy(showLogoutDialog = false) }
-    }
+    private fun onDismissLogoutDialog() = _state.update { it.copy(showLogoutDialog = false) }
 
     private fun onConfirmLogoutClick() = launchAction(
         action = {
@@ -99,7 +88,9 @@ class TopAnimeViewModel(
         onError = { globalErrorHandler.handle(it.toCoreError()) }
     )
 
-    private fun onItemClick(item: AnimeUiModel) = viewModelScope.launch { navigator.toDetails(item.id) }
+    private fun onItemClick(item: AnimeUiModel) = navigator.toDetails(item.id)
+
+    private fun onItemFavoriteClick(item: AnimeUiModel) = {}
 
     fun interface PagerFactory {
         fun create(remoteAnimeType: RemoteAnimeType): Pager<Int, GetTopAnimeResponse.Data>

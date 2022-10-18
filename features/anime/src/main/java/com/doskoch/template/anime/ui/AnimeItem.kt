@@ -9,13 +9,16 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Divider
 import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -40,7 +43,7 @@ fun AnimeItem(
     onFavoriteClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    FadeInOnCompose(key = item) {
+    FadeInOnCompose(key = item.id) {
         Box(
             modifier = modifier
         ) {
@@ -104,15 +107,18 @@ fun AnimeItem(
                     )
                 }
 
-                Icon(
-                    painter = painterResource(if (item.isFavorite) R.drawable.ic_star_filled else R.drawable.ic_start_outline),
-                    contentDescription = stringResource(R.string.desc_icon_add_to_favorite),
+                IconButton(
+                    onClick = onFavoriteClick,
                     modifier = Modifier
                         .align(Alignment.Bottom)
-                        .padding(end = Dimensions.space_16, bottom = Dimensions.space_16)
-                        .clickable(onClick = onFavoriteClick),
-                    tint = if (item.isFavorite) MaterialTheme.colors.secondary else MaterialTheme.colors.onBackground
-                )
+                ) {
+                    Icon(
+                        painter = painterResource(if (item.isFavorite) R.drawable.ic_star_filled else R.drawable.ic_start_outline),
+                        contentDescription = stringResource(R.string.desc_icon_add_to_favorite),
+                        modifier = Modifier.size(Dimensions.icon_24),
+                        tint = if (item.isFavorite) MaterialTheme.colors.secondary else MaterialTheme.colors.onBackground
+                    )
+                }
             }
 
             Text(

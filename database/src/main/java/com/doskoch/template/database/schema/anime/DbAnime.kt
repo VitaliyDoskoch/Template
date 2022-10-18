@@ -1,10 +1,11 @@
 package com.doskoch.template.database.schema.anime
 
 import androidx.room.Entity
-import com.doskoch.template.database.common.BaseEntity
+import androidx.room.PrimaryKey
 
 @Entity
 data class DbAnime(
+    @PrimaryKey(autoGenerate = false)
     val id: Int,
     val approved: Boolean,
     val imageUrl: String,
@@ -12,4 +13,4 @@ data class DbAnime(
     val genres: List<String>,
     val score: Float,
     val scoredBy: Int
-) : BaseEntity()
+)

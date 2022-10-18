@@ -9,16 +9,21 @@ import com.doskoch.template.anime.navigation.AnimeFeatureNavigator
 import com.doskoch.template.anime.screens.top.uiModel.AnimeTypeUiModel
 import com.doskoch.template.anime.screens.top.uiModel.toRemoteAnimeType
 import com.doskoch.template.anime.screens.top.useCase.ClearAnimeUseCase
+import com.doskoch.template.anime.screens.top.useCase.GetFavoriteAnimeIdsUseCase
 import com.doskoch.template.anime.uiModel.AnimeUiModel
 import com.doskoch.template.anime.uiModel.toUiModel
+import com.doskoch.template.anime.useCase.DeleteAnimeFromFavoriteUseCase
+import com.doskoch.template.anime.useCase.SaveAnimeToFavoriteUseCase
 import com.doskoch.template.api.jikan.common.enum.RemoteAnimeType
 import com.doskoch.template.api.jikan.services.responses.GetTopAnimeResponse
+import com.doskoch.template.core.components.error.CoreError
 import com.doskoch.template.core.components.error.GlobalErrorHandler
 import com.doskoch.template.core.components.error.toCoreError
 import com.doskoch.template.core.functions.launchAction
 import com.doskoch.template.core.useCase.authorization.LogoutUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.flatMapLatest
@@ -31,6 +36,9 @@ class TopAnimeViewModel(
     private val navigator: AnimeFeatureNavigator,
     private val pagerFactory: PagerFactory,
     private val clearAnimeUseCase: ClearAnimeUseCase,
+    private val getFavoriteAnimeIdsUseCase: GetFavoriteAnimeIdsUseCase,
+    private val saveAnimeToFavoriteUseCase: SaveAnimeToFavoriteUseCase,
+    private val deleteAnimeFromFavoriteUseCase: DeleteAnimeFromFavoriteUseCase,
     private val logoutUseCase: LogoutUseCase,
     private val globalErrorHandler: GlobalErrorHandler
 ) : ViewModel() {
@@ -63,6 +71,7 @@ class TopAnimeViewModel(
         .flatMapLatest { pagerFactory.create(it.toRemoteAnimeType()).flow }
         .map { it.map(GetTopAnimeResponse.Data::toUiModel) }
         .cachedIn(viewModelScope)
+        .combine(getFavoriteAnimeIdsUseCase.invoke()) { data, favoriteIds -> data.map { it.copy(isFavorite = it.id in favoriteIds) } }
 
     init {
         _state.update { it.copy(pagingFlow = pagingFlow) }
@@ -90,7 +99,16 @@ class TopAnimeViewModel(
 
     private fun onItemClick(item: AnimeUiModel) = navigator.toDetails(item.id)
 
-    private fun onItemFavoriteClick(item: AnimeUiModel) = {}
+    private fun onItemFavoriteClick(item: AnimeUiModel) = launchAction(
+        action = {
+            if (item.isFavorite) {
+                deleteAnimeFromFavoriteUseCase.invoke(item.id)
+            } else {
+                saveAnimeToFavoriteUseCase.invoke(item.id)
+            }
+        },
+        onError = { globalErrorHandler.handle(it.toCoreError(CoreError.FailedToSaveChanges())) }
+    )
 
     fun interface PagerFactory {
         fun create(remoteAnimeType: RemoteAnimeType): Pager<Int, GetTopAnimeResponse.Data>

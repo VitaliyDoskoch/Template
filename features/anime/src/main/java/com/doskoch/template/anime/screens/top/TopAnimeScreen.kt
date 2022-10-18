@@ -2,8 +2,6 @@ package com.doskoch.template.anime.screens.top
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.gestures.Orientation
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
@@ -12,11 +10,7 @@ import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.AlertDialog
 import androidx.compose.material.DropdownMenu
 import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.Icon
@@ -24,7 +18,6 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
-import androidx.compose.material.TextButton
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
@@ -32,16 +25,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.key
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.composed
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.drawWithContent
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.compose.collectAsLazyPagingItems
@@ -78,15 +64,15 @@ fun TopAnimeScreen(vm: TopAnimeViewModel = viewModel { Module.topAnimeViewModel(
                 .navigationBarsPadding()
                 .fillMaxSize()
         ) { swipeRefreshState ->
-            val _state = rememberLazyListState()
+            val lazyListState = rememberLazyListState()
 
             LazyPagingColumn(
                 itemCount = items.itemCount,
                 loadState = items.loadState.refresh.takeIf { !swipeRefreshState.isRefreshing },
                 modifier = Modifier
                     .fillMaxSize()
-                    .simpleVerticalScrollbar(_state),
-                state = _state
+                    .simpleVerticalScrollbar(lazyListState),
+                state = lazyListState
             ) {
                 itemsIndexed(items) { position, item ->
                     item?.let {
@@ -183,7 +169,7 @@ private fun TopBar(state: TopAnimeState) {
                     painter = painterResource(R.drawable.ic_logout),
                     contentDescription = stringResource(R.string.desc_logout),
                     modifier = Modifier
-                        .size(24.dp),
+                        .size(Dimensions.icon_24),
                     tint = MaterialTheme.colors.secondary
                 )
             }

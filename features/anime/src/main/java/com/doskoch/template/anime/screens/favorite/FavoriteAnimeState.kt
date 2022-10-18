@@ -10,6 +10,7 @@ data class FavoriteAnimeState(
 ) {
     data class Actions(
         val onBackClick: () -> Unit,
-        val onItemClick: (AnimeUiModel) -> Unit
+        val onItemClick: (AnimeUiModel) -> Unit,
+        val onItemFavoriteClick: (AnimeUiModel) -> Unit
     )
 }

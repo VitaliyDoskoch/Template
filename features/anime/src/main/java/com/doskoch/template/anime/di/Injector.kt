@@ -59,7 +59,9 @@ object Module {
         pager = Pager(
             config = PAGING_CONFIG,
             pagingSourceFactory = Injector.dbAnimeDao::pagingSource
-        )
+        ),
+        deleteAnimeFromFavoriteUseCase = DeleteAnimeFromFavoriteUseCase(dbAnimeDao = Injector.dbAnimeDao),
+        globalErrorHandler = Injector.globalErrorHandler
     )
 
     fun animeDetailsViewModel() = AnimeDetailsViewModel()

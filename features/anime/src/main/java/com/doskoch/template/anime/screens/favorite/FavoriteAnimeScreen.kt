@@ -68,14 +68,14 @@ fun FavoriteAnimeScreen(vm: FavoriteAnimeViewModel = viewModel { Module.favorite
                 .simpleVerticalScrollbar(lazyListState),
             state = lazyListState
         ) {
-            itemsIndexed(items) { position, it ->
-                it?.let {
+            itemsIndexed(items) { position, item ->
+                item?.let {
                     AnimeItem(
-                        item = it,
+                        item = item,
                         position = position,
-                        onFavoriteClick = {},
+                        onFavoriteClick = { state.actions.onItemFavoriteClick(item) },
                         modifier = Modifier
-                            .clickable { state.actions.onItemClick(it) }
+                            .clickable { state.actions.onItemClick(item) }
                     )
                 }
             }

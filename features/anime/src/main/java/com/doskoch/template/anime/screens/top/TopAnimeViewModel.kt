@@ -23,6 +23,7 @@ import com.doskoch.template.core.functions.launchAction
 import com.doskoch.template.core.useCase.authorization.LogoutUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.emptyFlow
@@ -46,6 +47,7 @@ class TopAnimeViewModel(
         TopAnimeState(
             animeType = AnimeTypeUiModel.Tv,
             showAnimeTypeMenu = false,
+            hasFavorite = false,
             showLogoutDialog = false,
             pagingFlow = emptyFlow(),
             actions = TopAnimeState.Actions(
@@ -63,6 +65,8 @@ class TopAnimeViewModel(
     )
     val state = _state.asStateFlow()
 
+    private val favoriteIdsFlow = getFavoriteAnimeIdsUseCase.invoke()
+
     private val pagingFlow = state
         .map { it.animeType }
         .distinctUntilChanged()
@@ -70,11 +74,19 @@ class TopAnimeViewModel(
         .flatMapLatest { pagerFactory.create(it.toRemoteAnimeType()).flow }
         .map { it.map(GetTopAnimeResponse.Data::toUiModel) }
         .cachedIn(viewModelScope)
-        .combine(getFavoriteAnimeIdsUseCase.invoke()) { data, favoriteIds -> data.map { it.copy(isFavorite = it.id in favoriteIds) } }
+        .combine(favoriteIdsFlow) { data, favoriteIds -> data.map { it.copy(isFavorite = it.id in favoriteIds) } }
 
     init {
         _state.update { it.copy(pagingFlow = pagingFlow) }
+        observeHasFavorite()
     }
+
+    private fun observeHasFavorite() = launchAction(
+        action = {
+            favoriteIdsFlow.collectLatest { ids -> _state.update { it.copy(hasFavorite = ids.isNotEmpty()) } }
+        },
+        onError = { globalErrorHandler.handle(it.toCoreError(CoreError.FailedToLoadData())) }
+    )
 
     private fun onAnimeTypeClick() = _state.update { it.copy(showAnimeTypeMenu = true) }
 

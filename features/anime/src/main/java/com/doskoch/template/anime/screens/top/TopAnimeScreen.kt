@@ -154,7 +154,7 @@ private fun TopBar(state: TopAnimeState) {
                 onClick = state.actions.onFavoriteClick
             ) {
                 Icon(
-                    painter = painterResource(R.drawable.ic_star_filled),
+                    painter = painterResource(if(state.hasFavorite) R.drawable.ic_star_filled else R.drawable.ic_start_outline),
                     contentDescription = stringResource(R.string.desc_to_favorite),
                     modifier = Modifier
                         .size(Dimensions.icon_24),

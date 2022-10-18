@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.Flow
 data class TopAnimeState(
     val animeType: AnimeTypeUiModel,
     val showAnimeTypeMenu: Boolean,
+    val hasFavorite: Boolean,
     val showLogoutDialog: Boolean,
     val pagingFlow: Flow<PagingData<AnimeUiModel>>,
     val actions: Actions

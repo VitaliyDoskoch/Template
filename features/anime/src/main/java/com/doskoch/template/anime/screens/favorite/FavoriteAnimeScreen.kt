@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -25,16 +24,10 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.drawWithContent
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadState
@@ -46,15 +39,15 @@ import com.doskoch.template.anime.ui.AnimeItem
 import com.doskoch.template.core.components.error.toCoreError
 import com.doskoch.template.core.components.theme.Dimensions
 import com.doskoch.template.core.ui.modifier.simpleVerticalScrollbar
+import com.doskoch.template.core.ui.paging.LazyPagingColumn
+import com.doskoch.template.core.ui.paging.LoadStateItem
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @OptIn(ExperimentalPagingApi::class)
 @Composable
-fun FavoriteAnimeScreen(
-    vm: FavoriteAnimeViewModel = viewModel { Module.favoriteAnimeViewModel() }
-) {
+fun FavoriteAnimeScreen(vm: FavoriteAnimeViewModel = viewModel { Module.favoriteAnimeViewModel() }) {
     val state = vm.state.collectAsState().value
 
     Scaffold(
@@ -63,70 +56,27 @@ fun FavoriteAnimeScreen(
         }
     ) { paddingValues ->
         val items = state.pagingFlow.collectAsLazyPagingItems()
-        val refresh = items.loadState.mediator?.refresh
+        val lazyListState = rememberLazyListState()
 
-        SwipeRefresh(
-            state = rememberSwipeRefreshState(
-                isRefreshing = refresh is LoadState.Loading && items.itemCount > 0
-            ),
-            onRefresh = items::refresh,
+        LazyPagingColumn(
+            itemCount = items.itemCount,
+            loadState = items.loadState.refresh,
             modifier = Modifier
                 .padding(paddingValues)
                 .navigationBarsPadding()
                 .fillMaxSize()
+                .simpleVerticalScrollbar(lazyListState),
+            state = lazyListState
         ) {
-            when {
-                refresh is LoadState.Loading && items.itemCount == 0 -> {
-                    Box(
+            itemsIndexed(items) { position, it ->
+                it?.let {
+                    AnimeItem(
+                        item = it,
+                        position = position,
+                        onFavoriteClick = {},
                         modifier = Modifier
-                            .fillMaxSize()
-                    ) {
-                        CircularProgressIndicator(
-                            modifier = Modifier
-                                .align(Alignment.Center)
-                                .size(Dimensions.icon_40)
-                        )
-                    }
-                }
-                refresh is LoadState.Error -> {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .verticalScroll(rememberScrollState())
-                    ) {
-                        Text(
-                            text = refresh.error.toCoreError().localizedMessage(LocalContext.current),
-                            modifier = Modifier
-                                .align(Alignment.Center)
-                                .padding(Dimensions.space_16)
-                                .fillMaxWidth(),
-                            style = MaterialTheme.typography.body1,
-                            textAlign = TextAlign.Center
-                        )
-                    }
-                }
-                refresh is LoadState.NotLoading || items.itemCount > 0 -> {
-                    val append = items.loadState.mediator?.append
-
-                    val _state = rememberLazyListState()
-                    LazyColumn(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .simpleVerticalScrollbar(_state),
-                        state = _state
-                    ) {
-                        itemsIndexed(items) { position, it ->
-                            it?.let {
-                                AnimeItem(
-                                    item = it,
-                                    position = position,
-                                    onFavoriteClick = {},
-                                    modifier = Modifier
-                                        .clickable { state.actions.onItemClick(it) }
-                                )
-                            }
-                        }
-                    }
+                            .clickable { state.actions.onItemClick(it) }
+                    )
                 }
             }
         }

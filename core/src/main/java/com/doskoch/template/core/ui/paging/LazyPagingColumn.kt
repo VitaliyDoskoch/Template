@@ -1,10 +1,12 @@
 package com.doskoch.template.core.ui.paging
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.gestures.FlingBehavior
 import androidx.compose.foundation.gestures.ScrollableDefaults
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -26,6 +28,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -150,15 +153,23 @@ private fun BoxScope.DefaultPlaceholder() {
     FadeInOnCompose(
         modifier = Modifier.matchParentSize()
     ) {
-        Box(
+        Column(
             modifier = Modifier
                 .matchParentSize()
-                .verticalScroll(rememberScrollState())
+                .verticalScroll(rememberScrollState()),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
+            Image(
+                painter = painterResource(R.drawable.im_cat),
+                contentDescription = stringResource(R.string.desc_placeholder_empty_list),
+                modifier = Modifier
+                    .size(200.dp)
+            )
+
             Text(
                 text = stringResource(R.string.placeholder_empty_list),
                 modifier = Modifier
-                    .align(Alignment.Center)
                     .padding(Dimensions.space_16)
                     .fillMaxWidth(),
                 style = MaterialTheme.typography.body1,

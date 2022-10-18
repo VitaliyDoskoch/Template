@@ -3,7 +3,8 @@
     
     <string name="desc_navigate_back">Navigate back</string>
     <string name="retry">Retry</string>
-    <string name="placeholder_empty_list">Sorry, there\'s no content here. It is an empty box</string>
+    <string name="placeholder_empty_list">Sorry, there\'s no content here</string>
+    <string name="desc_placeholder_empty_list">There is no content here</string>
     
     <!-- CoreError -->
     <string name="error_unknown">An unknown error occurred.</string>

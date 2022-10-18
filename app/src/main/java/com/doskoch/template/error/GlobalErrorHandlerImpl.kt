@@ -9,11 +9,16 @@ class GlobalErrorHandlerImpl : GlobalErrorHandler, EventQueue.Producer {
 
     val events = EventQueue<CoreError>()
 
-    override fun handle(error: CoreError): Boolean {
-        if(error is CoreError.Unknown) {
-            Timber.w("$error")
+    override fun handle(error: CoreError, showIfNotHandled: Boolean) = when (error) {
+        is CoreError.OperationIsCanceled -> {
+            Timber.w("Some important logic can be done here")
+            false
         }
-        events.enqueue(error)
-        return true
+        else -> if(showIfNotHandled) {
+            events.enqueue(error)
+            true
+        } else {
+            false
+        }
     }
 }

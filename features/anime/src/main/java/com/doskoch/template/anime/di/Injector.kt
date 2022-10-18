@@ -39,7 +39,8 @@ object Module {
                 remoteMediator = TopAnimeRemoteMediator(
                     remoteAnimeType = remoteAnimeType,
                     loadAnimeUseCase = LoadAnimeUseCase(service = Injector.topService),
-                    storage = topAnimeStorage.value
+                    storage = topAnimeStorage.value,
+                    globalErrorHandler = Injector.globalErrorHandler
                 ),
                 pagingSourceFactory = topAnimeStorage.value::SimplePagingSource
             )

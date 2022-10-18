@@ -8,6 +8,8 @@ import com.doskoch.template.anime.INITIAL_PAGE_KEY
 import com.doskoch.template.anime.screens.top.useCase.LoadAnimeUseCase
 import com.doskoch.template.api.jikan.common.enum.RemoteAnimeType
 import com.doskoch.template.api.jikan.services.responses.GetTopAnimeResponse
+import com.doskoch.template.core.components.error.GlobalErrorHandler
+import com.doskoch.template.core.components.error.toCoreError
 import com.doskoch.template.core.components.paging.SimpleInMemoryStorage
 import timber.log.Timber
 
@@ -15,7 +17,8 @@ import timber.log.Timber
 class TopAnimeRemoteMediator(
     private val remoteAnimeType: RemoteAnimeType,
     private val loadAnimeUseCase: LoadAnimeUseCase,
-    private val storage: SimpleInMemoryStorage<Int, GetTopAnimeResponse.Data>
+    private val storage: SimpleInMemoryStorage<Int, GetTopAnimeResponse.Data>,
+    private val globalErrorHandler: GlobalErrorHandler
 ) : RemoteMediator<Int, GetTopAnimeResponse.Data>() {
 
     override suspend fun load(loadType: LoadType, state: PagingState<Int, GetTopAnimeResponse.Data>): MediatorResult {
@@ -48,6 +51,7 @@ class TopAnimeRemoteMediator(
             MediatorResult.Success(endOfPaginationReached = !response.pagination.hasNextPage)
         } catch (t: Throwable) {
             Timber.e(t)
+            globalErrorHandler.handle(t.toCoreError(), showIfNotHandled = false)
             MediatorResult.Error(t)
         }
     }

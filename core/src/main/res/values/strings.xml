@@ -3,7 +3,7 @@
     
     <string name="desc_navigate_back">Navigate back</string>
     <string name="retry">Retry</string>
-    <string name="placeholder_empty_list">Sorry, there\'s no content here. This is an empty box</string>
+    <string name="placeholder_empty_list">Sorry, there\'s no content here. It is an empty box</string>
     
     <!-- CoreError -->
     <string name="error_unknown">An unknown error occurred.</string>
@@ -14,5 +14,10 @@
     <string name="error_operation_is_canceled">Operation is cancelled.</string>
     <string name="error_http">An error occurred while connecting to server.</string>
     <string name="error_invalid_email">The entered email is invalid.</string>
+    
+    <string name="dialog_logout_title">Do you want to log out?</string>
+    <string name="dialog_logout_message">You always can sign in again!</string>
+    <string name="dialog_logout_confirm_button">Confirm</string>
+    <string name="dialog_logout_dismiss_button">Cancel</string>
 
 </resources>

@@ -45,6 +45,7 @@ import com.doskoch.template.anime.di.Module
 import com.doskoch.template.anime.ui.AnimeItem
 import com.doskoch.template.core.components.error.toCoreError
 import com.doskoch.template.core.components.theme.Dimensions
+import com.doskoch.template.core.ui.modifier.simpleVerticalScrollbar
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
@@ -61,7 +62,7 @@ fun FavoriteAnimeScreen(
             TopBar(state = state)
         }
     ) { paddingValues ->
-        val items = state.pagingData.collectAsLazyPagingItems()
+        val items = state.pagingFlow.collectAsLazyPagingItems()
         val refresh = items.loadState.mediator?.refresh
 
         SwipeRefresh(
@@ -128,32 +129,6 @@ fun FavoriteAnimeScreen(
                     }
                 }
             }
-        }
-    }
-}
-
-@Composable
-fun Modifier.simpleVerticalScrollbar(
-    state: LazyListState,
-    width: Dp = 8.dp
-): Modifier {
-    return drawWithContent {
-        drawContent()
-
-        val firstVisibleElementIndex = state.layoutInfo.visibleItemsInfo.firstOrNull()?.index
-
-        // Draw scrollbar if scrolling or if the animation is still running and lazy column has content
-        if (firstVisibleElementIndex != null) {
-            val elementHeight = this.size.height / state.layoutInfo.totalItemsCount
-            val scrollbarOffsetY = firstVisibleElementIndex * elementHeight
-            val scrollbarHeight = state.layoutInfo.visibleItemsInfo.size * elementHeight
-
-            drawRect(
-                color = Color.Red,
-                topLeft = Offset(this.size.width - width.toPx(), scrollbarOffsetY),
-                size = Size(width.toPx(), scrollbarHeight),
-                alpha = 1f
-            )
         }
     }
 }

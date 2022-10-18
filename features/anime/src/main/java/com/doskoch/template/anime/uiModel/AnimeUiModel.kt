@@ -1,6 +1,7 @@
 package com.doskoch.template.anime.uiModel
 
 import com.doskoch.template.api.jikan.services.responses.GetTopAnimeResponse
+import com.doskoch.template.database.schema.anime.DbAnime
 
 data class AnimeUiModel(
     val id: Int,
@@ -22,4 +23,15 @@ fun GetTopAnimeResponse.Data.toUiModel() = AnimeUiModel(
     score = score,
     scoredBy = scoredBy,
     isFavorite = false
+)
+
+fun DbAnime.toUiModel() = AnimeUiModel(
+    id = id,
+    approved = approved,
+    imageUrl = imageUrl,
+    title = title,
+    genres = genres,
+    score = score,
+    scoredBy = scoredBy,
+    isFavorite = isFavorite
 )

@@ -12,10 +12,6 @@
     <string name="desc_icon_add_to_favorite">Add the item to favorites</string>
     <string name="desc_to_favorite">To favorite</string>
     <string name="desc_logout">Logout</string>
-    <string name="dialog_logout_title">Do you want to log out?</string>
-    <string name="dialog_logout_message">You always can sign in again!</string>
-    <string name="dialog_logout_confirm_button">Confirm</string>
-    <string name="dialog_logout_dismiss_button">Cancel</string>
     
     <!-- FavoriteAnimeScreen -->
     <string name="favorite_toolbar_title">Favorite</string>

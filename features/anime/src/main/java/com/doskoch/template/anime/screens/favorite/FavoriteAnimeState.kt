@@ -5,7 +5,7 @@ import com.doskoch.template.anime.uiModel.AnimeUiModel
 import kotlinx.coroutines.flow.Flow
 
 data class FavoriteAnimeState(
-    val pagingData: Flow<PagingData<AnimeUiModel>>,
+    val pagingFlow: Flow<PagingData<AnimeUiModel>>,
     val actions: Actions
 ) {
     data class Actions(

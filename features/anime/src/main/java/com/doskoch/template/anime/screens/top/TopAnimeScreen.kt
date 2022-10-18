@@ -28,6 +28,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.key
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.composed
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.geometry.Offset
@@ -46,6 +47,8 @@ import com.doskoch.template.anime.di.Module
 import com.doskoch.template.anime.screens.top.uiModel.AnimeTypeUiModel
 import com.doskoch.template.anime.ui.AnimeItem
 import com.doskoch.template.core.components.theme.Dimensions
+import com.doskoch.template.core.ui.dialog.LogoutDialog
+import com.doskoch.template.core.ui.modifier.simpleVerticalScrollbar
 import com.doskoch.template.core.ui.paging.LazyPagingColumn
 import com.doskoch.template.core.ui.paging.LoadStateItem
 import com.doskoch.template.core.ui.paging.PagingSwipeRefresh
@@ -99,35 +102,14 @@ fun TopAnimeScreen(vm: TopAnimeViewModel = viewModel { Module.topAnimeViewModel(
     }
 
     if (state.showLogoutDialog) {
-        LogoutDialog(state = state)
+        LogoutDialog(
+            onDismiss = state.actions.onDismissLogoutDialog,
+            onConfirm = state.actions.onConfirmLogoutClick
+        )
     }
 }
 
-@Composable
-fun Modifier.simpleVerticalScrollbar(
-    state: LazyListState,
-    width: Dp = 8.dp
-): Modifier {
-    return drawWithContent {
-        drawContent()
 
-        val firstVisibleElementIndex = state.layoutInfo.visibleItemsInfo.firstOrNull()?.index
-
-        // Draw scrollbar if scrolling or if the animation is still running and lazy column has content
-        if (firstVisibleElementIndex != null) {
-            val elementHeight = this.size.height / state.layoutInfo.totalItemsCount
-            val scrollbarOffsetY = firstVisibleElementIndex * elementHeight
-            val scrollbarHeight = state.layoutInfo.visibleItemsInfo.size * elementHeight
-
-            drawRect(
-                color = Color.Red,
-                topLeft = Offset(this.size.width - width.toPx(), scrollbarOffsetY),
-                size = Size(width.toPx(), scrollbarHeight),
-                alpha = 1f
-            )
-        }
-    }
-}
 
 @Composable
 private fun TopBar(state: TopAnimeState) {
@@ -220,33 +202,4 @@ private fun ColumnScope.AnimeTypeItems(state: TopAnimeState) {
             }
         }
     }
-}
-
-@Composable
-private fun LogoutDialog(state: TopAnimeState) {
-    AlertDialog(
-        onDismissRequest = state.actions.onDismissLogoutDialog,
-        title = {
-            Text(
-                text = stringResource(R.string.dialog_logout_title),
-                style = MaterialTheme.typography.subtitle1
-            )
-        },
-        text = {
-            Text(
-                text = stringResource(R.string.dialog_logout_message),
-                style = MaterialTheme.typography.body2
-            )
-        },
-        confirmButton = {
-            TextButton(onClick = state.actions.onConfirmLogoutClick) {
-                Text(text = stringResource(R.string.dialog_logout_confirm_button))
-            }
-        },
-        dismissButton = {
-            TextButton(onClick = state.actions.onDismissLogoutDialog) {
-                Text(text = stringResource(R.string.dialog_logout_dismiss_button))
-            }
-        }
-    )
 }

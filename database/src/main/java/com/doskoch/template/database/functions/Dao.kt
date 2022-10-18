@@ -12,7 +12,7 @@ import com.doskoch.template.database.common.BaseDao
  * @param [getId] function, which retrieves field or combination of fields,
  * which should be unique per entity and will be used for comparison.
  */
-fun <D : BaseDao<E>, E : Any, K : Any> D.updateRelations(
+fun <D : BaseDao<E>, E : Any, K : Any> D.update(
     old: List<E>,
     new: List<E>,
     getId: (entity: E) -> K

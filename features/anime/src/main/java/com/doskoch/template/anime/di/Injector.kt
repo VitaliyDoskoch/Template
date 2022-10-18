@@ -38,7 +38,7 @@ object Module {
                     loadAnimeUseCase = LoadAnimeUseCase(service = Injector.topService),
                     storage = topAnimeStorage.value
                 ),
-                pagingSourceFactory = { topAnimeStorage.value.SimplePagingSource() }
+                pagingSourceFactory = topAnimeStorage.value::SimplePagingSource
             )
         },
         clearAnimeUseCase = ClearAnimeUseCase(storage = topAnimeStorage.value),
@@ -49,7 +49,11 @@ object Module {
     }
 
     fun favoriteAnimeViewModel() = FavoriteAnimeViewModel(
-        navigator = Injector.navigator
+        navigator = Injector.navigator,
+        pager = Pager(
+            config = PAGING_CONFIG,
+            pagingSourceFactory = Injector.dbAnimeDao::pagingSource
+        )
     )
 
     fun animeDetailsViewModel() = AnimeDetailsViewModel()

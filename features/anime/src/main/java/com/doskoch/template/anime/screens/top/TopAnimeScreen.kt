@@ -2,6 +2,8 @@ package com.doskoch.template.anime.screens.top
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
@@ -12,6 +14,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.AlertDialog
 import androidx.compose.material.DropdownMenu
 import androidx.compose.material.DropdownMenuItem
@@ -81,7 +85,7 @@ fun TopAnimeScreen(vm: TopAnimeViewModel = viewModel { Module.topAnimeViewModel(
                 loadState = items.loadState.refresh.takeIf { !swipeRefreshState.isRefreshing },
                 modifier = Modifier
                     .fillMaxSize()
-                    .simpleVerticalScrollbar(_state, 8.dp),
+                    .simpleVerticalScrollbar(_state),
                 state = _state
             ) {
                 itemsIndexed(items) { position, it ->

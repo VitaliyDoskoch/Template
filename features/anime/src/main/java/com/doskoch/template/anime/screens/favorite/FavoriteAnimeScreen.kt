@@ -112,7 +112,7 @@ fun FavoriteAnimeScreen(
                     LazyColumn(
                         modifier = Modifier
                             .fillMaxSize()
-                            .simpleVerticalScrollbar(_state, 8.dp),
+                            .simpleVerticalScrollbar(_state),
                         state = _state
                     ) {
                         itemsIndexed(items) { position, it ->

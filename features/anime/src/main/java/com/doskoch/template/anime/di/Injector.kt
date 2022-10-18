@@ -8,16 +8,16 @@ import com.doskoch.template.anime.screens.details.AnimeDetailsViewModel
 import com.doskoch.template.anime.screens.favorite.FavoriteAnimeViewModel
 import com.doskoch.template.anime.screens.top.TopAnimeRemoteMediator
 import com.doskoch.template.anime.screens.top.TopAnimeViewModel
-import com.doskoch.template.anime.screens.top.useCase.ClearAnimeUseCase
+import com.doskoch.template.anime.screens.top.useCase.ClearAnimeStorageUseCase
 import com.doskoch.template.anime.screens.top.useCase.GetFavoriteAnimeIdsUseCase
+import com.doskoch.template.anime.screens.top.useCase.GetLastPagingKeyUseCase
 import com.doskoch.template.anime.screens.top.useCase.LoadAnimeUseCase
+import com.doskoch.template.anime.screens.top.useCase.StoreAnimeUseCase
 import com.doskoch.template.anime.useCase.DeleteAnimeFromFavoriteUseCase
 import com.doskoch.template.anime.useCase.SaveAnimeToFavoriteUseCase
-import com.doskoch.template.api.jikan.common.enum.RemoteAnimeType
 import com.doskoch.template.api.jikan.services.responses.GetTopAnimeResponse
 import com.doskoch.template.core.components.paging.SimpleInMemoryStorage
 import com.doskoch.template.core.useCase.authorization.LogoutUseCase
-import timber.log.Timber
 
 object AnimeFeatureInjector {
     var provider: DestroyableLazy<AnimeFeature>? = null
@@ -38,14 +38,15 @@ object Module {
                 config = PAGING_CONFIG,
                 remoteMediator = TopAnimeRemoteMediator(
                     remoteAnimeType = remoteAnimeType,
+                    getLastPagingKeyUseCase = GetLastPagingKeyUseCase(storage = topAnimeStorage.value),
                     loadAnimeUseCase = LoadAnimeUseCase(service = Injector.topService),
-                    storage = topAnimeStorage.value,
+                    storeAnimeUseCase = StoreAnimeUseCase(storage = topAnimeStorage.value),
                     globalErrorHandler = Injector.globalErrorHandler
                 ),
                 pagingSourceFactory = topAnimeStorage.value::SimplePagingSource
             )
         },
-        clearAnimeUseCase = ClearAnimeUseCase(storage = topAnimeStorage.value),
+        clearAnimeStorageUseCase = ClearAnimeStorageUseCase(storage = topAnimeStorage.value),
         getFavoriteAnimeIdsUseCase = GetFavoriteAnimeIdsUseCase(dbAnimeDao = Injector.dbAnimeDao),
         saveAnimeToFavoriteUseCase = SaveAnimeToFavoriteUseCase(storage = topAnimeStorage.value, dbAnimeDao = Injector.dbAnimeDao),
         deleteAnimeFromFavoriteUseCase = DeleteAnimeFromFavoriteUseCase(dbAnimeDao = Injector.dbAnimeDao),

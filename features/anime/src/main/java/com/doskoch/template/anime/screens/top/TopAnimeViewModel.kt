@@ -8,7 +8,7 @@ import androidx.paging.map
 import com.doskoch.template.anime.navigation.AnimeFeatureNavigator
 import com.doskoch.template.anime.screens.top.uiModel.AnimeTypeUiModel
 import com.doskoch.template.anime.screens.top.uiModel.toRemoteAnimeType
-import com.doskoch.template.anime.screens.top.useCase.ClearAnimeUseCase
+import com.doskoch.template.anime.screens.top.useCase.ClearAnimeStorageUseCase
 import com.doskoch.template.anime.screens.top.useCase.GetFavoriteAnimeIdsUseCase
 import com.doskoch.template.anime.uiModel.AnimeUiModel
 import com.doskoch.template.anime.uiModel.toUiModel
@@ -30,12 +30,11 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 
 class TopAnimeViewModel(
     private val navigator: AnimeFeatureNavigator,
     private val pagerFactory: PagerFactory,
-    private val clearAnimeUseCase: ClearAnimeUseCase,
+    private val clearAnimeStorageUseCase: ClearAnimeStorageUseCase,
     private val getFavoriteAnimeIdsUseCase: GetFavoriteAnimeIdsUseCase,
     private val saveAnimeToFavoriteUseCase: SaveAnimeToFavoriteUseCase,
     private val deleteAnimeFromFavoriteUseCase: DeleteAnimeFromFavoriteUseCase,
@@ -67,7 +66,7 @@ class TopAnimeViewModel(
     private val pagingFlow = state
         .map { it.animeType }
         .distinctUntilChanged()
-        .onEach { clearAnimeUseCase.invoke() }
+        .onEach { clearAnimeStorageUseCase.invoke() }
         .flatMapLatest { pagerFactory.create(it.toRemoteAnimeType()).flow }
         .map { it.map(GetTopAnimeResponse.Data::toUiModel) }
         .cachedIn(viewModelScope)

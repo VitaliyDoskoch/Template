@@ -4,5 +4,5 @@ import com.doskoch.template.api.jikan.services.responses.GetTopAnimeResponse
 import com.doskoch.template.core.components.paging.SimpleInMemoryStorage
 
 class GetLastPagingKeyUseCase(private val storage: SimpleInMemoryStorage<Int, GetTopAnimeResponse.Data>) {
-    fun invoke() = storage.pages.keys.lastOrNull()
+    fun invoke() = storage.pages.value.keys.lastOrNull()
 }

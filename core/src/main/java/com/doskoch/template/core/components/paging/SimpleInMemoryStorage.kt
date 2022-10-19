@@ -2,6 +2,8 @@ package com.doskoch.template.core.components.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import timber.log.Timber
 import kotlin.math.min
 
@@ -11,11 +13,12 @@ class SimpleInMemoryStorage<K : Any, V : Any> {
 
     private val storage = mutableMapOf<K, List<V>?>()
 
-    val pages: Map<K, List<V>?>
-        get() = storage.toMap()
+    private val _pages = MutableStateFlow(storage.toMap())
+    val pages = _pages.asStateFlow()
 
     fun inTransaction(action: SimpleInMemoryStorage<K, V>.Modifier.() -> Unit) = synchronized(storage) {
         action(Modifier())
+        _pages.value = storage.toMap()
         invalidationCallbacks.toMutableList().forEach { it.invoke() }
     }
 
@@ -65,7 +68,7 @@ class SimpleInMemoryStorage<K : Any, V : Any> {
 
         override val jumpingSupported = true
 
-        private val items: List<V> by lazy { pages.values.filterNotNull().flatten() }
+        private val items: List<V> by lazy { pages.value.values.filterNotNull().flatten() }
 
         init {
             val invalidationCallback = { invalidate() }

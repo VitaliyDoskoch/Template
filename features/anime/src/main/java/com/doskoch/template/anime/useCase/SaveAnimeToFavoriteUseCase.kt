@@ -10,7 +10,7 @@ class SaveAnimeToFavoriteUseCase(
     private val dbAnimeDao: DbAnimeDao
 ) {
     suspend fun invoke(id: Int) {
-        val item = storage.pages.values.filterNotNull().flatten().first { it.malId == id }
+        val item = storage.pages.value.values.filterNotNull().flatten().first { it.malId == id }
         dbAnimeDao.insert(item.toDbAnime())
     }
 }

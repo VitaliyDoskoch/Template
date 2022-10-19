@@ -14,7 +14,7 @@ data class AnimeUiModel(
     val isFavorite: Boolean
 )
 
-fun GetTopAnimeResponse.Data.toUiModel() = AnimeUiModel(
+fun GetTopAnimeResponse.Data.toUiModel(isFavorite: Boolean) = AnimeUiModel(
     id = malId,
     approved = approved,
     imageUrl = images.webp.imageUrl,
@@ -22,7 +22,7 @@ fun GetTopAnimeResponse.Data.toUiModel() = AnimeUiModel(
     genres = genres.map { it.name },
     score = score,
     scoredBy = scoredBy,
-    isFavorite = false
+    isFavorite = isFavorite
 )
 
 fun DbAnime.toUiModel() = AnimeUiModel(

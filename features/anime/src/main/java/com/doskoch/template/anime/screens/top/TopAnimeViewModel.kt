@@ -72,9 +72,8 @@ class TopAnimeViewModel(
         .distinctUntilChanged()
         .onEach { clearAnimeStorageUseCase.invoke() }
         .flatMapLatest { pagerFactory.create(it.toRemoteAnimeType()).flow }
-        .map { it.map(GetTopAnimeResponse.Data::toUiModel) }
         .cachedIn(viewModelScope)
-        .combine(favoriteIdsFlow) { data, favoriteIds -> data.map { it.copy(isFavorite = it.id in favoriteIds) } }
+        .combine(favoriteIdsFlow) { data, favoriteIds -> data.map { it.toUiModel(isFavorite = it.malId in favoriteIds) } }
 
     init {
         _state.update { it.copy(pagingFlow = pagingFlow) }

@@ -3,7 +3,7 @@ package com.doskoch.template.core.ui.modifier
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.runtime.Composable
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
@@ -14,8 +14,10 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import timber.log.Timber
+import kotlin.math.abs
 
-fun Modifier.simpleVerticalScrollbar(
+fun Modifier._simpleVerticalScrollbar(
     state: LazyListState,
     width: Dp = 8.dp
 ): Modifier = composed {
@@ -49,18 +51,33 @@ fun Modifier.simpleVerticalScrollbar(
     }
 }
 
-//fun Modifier.simpleVerticalScrollbar(state: LazyListState) = composed {
-//    drawWithContent {
-//        drawContent()
-//
-//        val width = 8.dp
-//        val height = size.height / state.layoutInfo.totalItemsCount
-//
-//        drawRoundRect(
-//            color = Color.Red,
-//            topLeft = Offset(size.width - width.toPx(), 0f),
-//            size = Size(width.toPx(), 50f),
-//            cornerRadius = CornerRadius(4f)
-//        )
-//    }
-//}
+fun Modifier.simpleVerticalScrollbar(state: LazyListState) = composed {
+    val color = MaterialTheme.colors.primary
+
+    drawWithContent {
+        drawContent()
+
+        val widthPx = 8.dp.toPx()
+        val heightPerItemPx = size.height / state.layoutInfo.totalItemsCount
+        val firstItemOffsetPx = state.layoutInfo.visibleItemsInfo.firstOrNull()?.let {
+            heightPerItemPx * (abs(it.offset).toFloat() / it.size)
+        } ?: 0f
+
+        val lastItemOffsetPx = state.layoutInfo.visibleItemsInfo.lastOrNull()?.let {
+            heightPerItemPx * (abs(state.layoutInfo.viewportEndOffset - (it.offset + it.size)).toFloat() / it.size)
+        } ?: 0f
+
+        drawRoundRect(
+            color = color,
+            topLeft = Offset(
+                x = size.width - widthPx,
+                y = state.firstVisibleItemIndex * heightPerItemPx + firstItemOffsetPx
+            ),
+            size = Size(
+                width = widthPx,
+                height = state.layoutInfo.visibleItemsInfo.filter { it.offset + it.size < state.layoutInfo.viewportEndOffset }.size * heightPerItemPx + firstItemOffsetPx + lastItemOffsetPx
+            ),
+            cornerRadius = CornerRadius(2.dp.toPx())
+        )
+    }
+}

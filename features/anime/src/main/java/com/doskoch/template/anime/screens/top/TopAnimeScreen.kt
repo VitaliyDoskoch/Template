@@ -42,6 +42,7 @@ import com.doskoch.template.core.ui.modifier.simpleVerticalScrollbar
 import com.doskoch.template.core.ui.paging.LazyPagingColumn
 import com.doskoch.template.core.ui.paging.LoadStateItem
 import com.doskoch.template.core.ui.paging.PagingSwipeRefresh
+import com.doskoch.template.core.ui.paging.retryWhenNetworkAvailable
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @OptIn(ExperimentalPagingApi::class)
@@ -54,7 +55,7 @@ fun TopAnimeScreen(vm: TopAnimeViewModel = viewModel { Module.topAnimeViewModel(
             TopBar(state = state)
         }
     ) { paddingValues ->
-        val items = state.pagingFlow.collectAsLazyPagingItems()
+        val items = state.pagingFlow.collectAsLazyPagingItems().retryWhenNetworkAvailable()
 
         PagingSwipeRefresh(
             loadState = items.loadState.refresh,

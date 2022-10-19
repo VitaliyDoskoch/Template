@@ -22,7 +22,7 @@ fun Context.isNetworkAvailable(): Boolean {
 /**
  * Registers [ConnectivityManager.NetworkCallback].
  */
-@SuppressLint("MissingPermission")
+@SuppressLint("MissingPermission", "ObsoleteSdkInt")
 fun Context.registerNetworkCallback(callback: ConnectivityManager.NetworkCallback) {
     val manager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 

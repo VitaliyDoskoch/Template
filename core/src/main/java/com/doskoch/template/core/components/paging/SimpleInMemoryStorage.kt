@@ -22,7 +22,7 @@ class SimpleInMemoryStorage<K : Any, V : Any> {
         invalidationCallbacks.toMutableList().forEach { it.invoke() }
     }
 
-    inner class Modifier internal constructor(){
+    inner class Modifier internal constructor() {
 
         fun store(previousKey: K?, currentKey: K, nextKey: K?, page: List<V>) {
             if (storage.isEmpty()) {
@@ -58,10 +58,16 @@ class SimpleInMemoryStorage<K : Any, V : Any> {
             }
         }
 
-        fun update(newValue: Map<K, List<V>?>) {
-            storage.clear()
-            storage.putAll(newValue)
-        }
+        fun updatePage(key: K, value: List<V>?) = storage.replace(key, value)
+
+        fun removePage(key: K) = storage.remove(key)
+
+        fun replaceItem(newValue: V, predicate: (V) -> Boolean) = storage.locateItem(predicate)?.let { (key, page) ->
+            val newPage = page.toMutableList().apply { set(page.indexOfFirst(predicate), newValue) }
+            storage.replace(key, page, newPage)
+        } ?: false
+
+        fun clear() = storage.clear()
     }
 
     inner class SimplePagingSource : PagingSource<Int, V>() {
@@ -101,4 +107,12 @@ class SimpleInMemoryStorage<K : Any, V : Any> {
             LoadResult.Error(t)
         }
     }
+}
+
+fun <K : Any, V : Any> Map<K, List<V>?>.locateItem(predicate: (V) -> Boolean): Map.Entry<K, List<V>>? {
+    this.forEach { entry ->
+        @Suppress("UNCHECKED_CAST")
+        entry.value?.find(predicate)?.let { return entry as Map.Entry<K, List<V>> }
+    }
+    return null
 }

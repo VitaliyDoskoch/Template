@@ -4,5 +4,5 @@ import com.doskoch.template.api.jikan.services.responses.GetTopAnimeResponse
 import com.doskoch.template.core.components.paging.SimpleInMemoryStorage
 
 class ClearAnimeStorageUseCase(private val storage: SimpleInMemoryStorage<Int, GetTopAnimeResponse.Data>) {
-    fun invoke() = storage.inTransaction { update(emptyMap()) }
+    fun invoke() = storage.inTransaction { clear() }
 }

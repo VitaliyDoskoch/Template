@@ -12,7 +12,7 @@ class StoreAnimeUseCase(private val storage: SimpleInMemoryStorage<Int, GetTopAn
         page: List<GetTopAnimeResponse.Data>
     ) = storage.inTransaction {
         if(clearExistingData) {
-            update(emptyMap())
+            clear()
         }
 
         store(previousKey, currentKey, nextKey, page)

@@ -30,7 +30,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.paging.CombinedLoadStates
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemsIndexed
@@ -108,7 +107,6 @@ fun TopAnimeScreen(vm: TopAnimeViewModel = viewModel { Module.topAnimeViewModel(
 }
 
 
-
 @Composable
 private fun TopBar(state: TopAnimeState) {
     val systemUiController = rememberSystemUiController()
@@ -162,7 +160,7 @@ private fun TopBar(state: TopAnimeState) {
                 onClick = state.actions.onFavoriteClick
             ) {
                 Icon(
-                    painter = painterResource(if(state.hasFavorite) R.drawable.ic_star_filled else R.drawable.ic_start_outline),
+                    painter = painterResource(if (state.hasFavorite) R.drawable.ic_star_filled else R.drawable.ic_start_outline),
                     contentDescription = stringResource(R.string.desc_to_favorite),
                     modifier = Modifier
                         .size(Dimensions.icon_24),

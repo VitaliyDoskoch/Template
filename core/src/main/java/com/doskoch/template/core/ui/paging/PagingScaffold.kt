@@ -1,10 +1,14 @@
 package com.doskoch.template.core.ui.paging
 
+import androidx.compose.animation.Crossfade
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -31,88 +35,103 @@ import com.doskoch.template.core.R
 import com.doskoch.template.core.components.error.CoreError
 import com.doskoch.template.core.components.error.toCoreError
 import com.doskoch.template.core.components.theme.Dimensions
-import com.doskoch.template.core.ui.FadeInOnCompose
+
+private sealed class ScreenContent {
+    object List : ScreenContent()
+    object Loading : ScreenContent()
+    object LoadingOverList : ScreenContent()
+    data class Error(val loadState: LoadState.Error) : ScreenContent()
+    data class ErrorOverList(val loadState: LoadState.Error) : ScreenContent()
+    object Placeholder : ScreenContent()
+}
 
 @Composable
 fun PagingScaffold(
     itemCount: Int,
     loadState: CombinedLoadStates?,
     modifier: Modifier,
-    loading: @Composable BoxScope.(LoadState.Loading) -> Unit = { DefaultLoading() },
-    loadingOverContent: @Composable BoxScope.(LoadState.Loading) -> Unit = {},
+    loading: @Composable BoxScope.() -> Unit = { DefaultLoading() },
+    loadingOverList: @Composable BoxScope.() -> Unit = {},
     error: @Composable BoxScope.(LoadState.Error) -> Unit = { DefaultError(it.error.toCoreError()) },
-    errorOverContent: @Composable BoxScope.(LoadState.Error) -> Unit = { DefaultErrorOverContent(it) },
-    placeholder: @Composable BoxScope.(LoadState.NotLoading) -> Unit = { DefaultPlaceholder() },
+    errorOverList: @Composable BoxScope.(LoadState.Error) -> Unit = { DefaultErrorOverContent(it) },
+    placeholder: @Composable BoxScope.() -> Unit = { DefaultPlaceholder() },
     list: @Composable BoxScope.() -> Unit
 ) {
     Box(modifier) {
-        val refresh = loadState?.refresh
-        val prepend = loadState?.prepend
-        val append = loadState?.append
+        val screenContent = remember(loadState) {
+            val refresh = loadState?.refresh
+            val prepend = loadState?.prepend
+            val append = loadState?.append
 
-        if (itemCount > 0) {
-            list()
+            when {
+                refresh is LoadState.Loading -> if (itemCount == 0) ScreenContent.Loading else ScreenContent.LoadingOverList
+                refresh is LoadState.Error -> if (itemCount == 0) ScreenContent.Error(refresh) else ScreenContent.ErrorOverList(refresh)
+                itemCount == 0 && refresh is LoadState.NotLoading &&
+                    prepend is LoadState.NotLoading && prepend.endOfPaginationReached &&
+                    append is LoadState.NotLoading && append.endOfPaginationReached -> ScreenContent.Placeholder
+                else -> ScreenContent.List
+            }
         }
 
-        when {
-            refresh is LoadState.Loading -> {
-                if (itemCount == 0) {
-                    loading(refresh)
-                } else {
-                    loadingOverContent(refresh)
+        Crossfade(
+            targetState = screenContent,
+            modifier = Modifier
+                .matchParentSize(),
+            animationSpec = tween(durationMillis = 500, easing = LinearEasing)
+        ) { content ->
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+            ) {
+                when (content) {
+                    is ScreenContent.List,
+                    is ScreenContent.LoadingOverList,
+                    is ScreenContent.ErrorOverList -> {
+                        list()
+                        when (content) {
+                            is ScreenContent.LoadingOverList -> loadingOverList()
+                            is ScreenContent.ErrorOverList -> errorOverList(content.loadState)
+                            else -> {}
+                        }
+                    }
+                    is ScreenContent.Loading -> loading()
+                    is ScreenContent.Error -> error(content.loadState)
+                    is ScreenContent.Placeholder -> placeholder()
                 }
             }
-            refresh is LoadState.Error -> {
-                if (itemCount == 0) {
-                    error(refresh)
-                } else {
-                    errorOverContent(refresh)
-                }
-            }
-            itemCount == 0 && refresh is LoadState.NotLoading &&
-                prepend is LoadState.NotLoading && prepend.endOfPaginationReached &&
-                append is LoadState.NotLoading && append.endOfPaginationReached -> placeholder(refresh)
         }
     }
 }
 
 @Composable
 private fun BoxScope.DefaultLoading() {
-    FadeInOnCompose(
+    Box(
         modifier = Modifier.matchParentSize()
     ) {
-        Box(
-            modifier = Modifier.matchParentSize()
-        ) {
-            CircularProgressIndicator(
-                modifier = Modifier
-                    .align(Alignment.Center)
-                    .size(Dimensions.icon_40)
-            )
-        }
+        CircularProgressIndicator(
+            modifier = Modifier
+                .align(Alignment.Center)
+                .size(Dimensions.icon_40)
+        )
     }
 }
 
 @Composable
 private fun BoxScope.DefaultError(error: CoreError) {
-    FadeInOnCompose(
-        modifier = Modifier.matchParentSize()
+    Box(
+        modifier = Modifier
+            .matchParentSize()
+            .verticalScroll(rememberScrollState())
     ) {
-        Box(
+        Text(
+            text = error.localizedMessage(LocalContext.current),
             modifier = Modifier
-                .matchParentSize()
-                .verticalScroll(rememberScrollState())
-        ) {
-            Text(
-                text = error.localizedMessage(LocalContext.current),
-                modifier = Modifier
-                    .align(Alignment.Center)
-                    .padding(Dimensions.space_16)
-                    .fillMaxWidth(),
-                style = MaterialTheme.typography.body1,
-                textAlign = TextAlign.Center
-            )
-        }
+                .align(Alignment.Center)
+                .padding(Dimensions.space_16)
+                .fillMaxWidth(),
+            style = MaterialTheme.typography.body1,
+            textAlign = TextAlign.Center
+        )
     }
 }
 
@@ -130,31 +149,27 @@ private fun BoxScope.DefaultErrorOverContent(state: LoadState.Error) {
 
 @Composable
 private fun BoxScope.DefaultPlaceholder() {
-    FadeInOnCompose(
-        modifier = Modifier.matchParentSize()
+    Column(
+        modifier = Modifier
+            .matchParentSize()
+            .verticalScroll(rememberScrollState()),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
     ) {
-        Column(
+        Image(
+            painter = painterResource(R.drawable.im_cat),
+            contentDescription = stringResource(R.string.desc_placeholder_empty_list),
             modifier = Modifier
-                .matchParentSize()
-                .verticalScroll(rememberScrollState()),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-            Image(
-                painter = painterResource(R.drawable.im_cat),
-                contentDescription = stringResource(R.string.desc_placeholder_empty_list),
-                modifier = Modifier
-                    .size(200.dp)
-            )
+                .size(200.dp)
+        )
 
-            Text(
-                text = stringResource(R.string.placeholder_empty_list),
-                modifier = Modifier
-                    .padding(Dimensions.space_16)
-                    .fillMaxWidth(),
-                style = MaterialTheme.typography.body1,
-                textAlign = TextAlign.Center
-            )
-        }
+        Text(
+            text = stringResource(R.string.placeholder_empty_list),
+            modifier = Modifier
+                .padding(Dimensions.space_16)
+                .fillMaxWidth(),
+            style = MaterialTheme.typography.body1,
+            textAlign = TextAlign.Center
+        )
     }
 }

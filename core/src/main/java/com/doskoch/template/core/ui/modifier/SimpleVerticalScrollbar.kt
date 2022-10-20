@@ -15,7 +15,6 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import timber.log.Timber
 import kotlin.math.abs
 
 fun Modifier._simpleVerticalScrollbar(
@@ -84,34 +83,13 @@ fun Modifier.simpleVerticalScrollbar(state: LazyListState) = composed {
         val y = state.firstVisibleItemIndex * heightPerItemPx + firstItemInvisiblePartHeightPx
 
         val widthPx = 8.dp.toPx()
-        val heightPx = fullyVisibleItemsHeightPx + (firstItemVisiblePartHeightPx.takeIf { firstItemVisiblePart < 1f } ?: 0f) + lastItemVisiblePartHeightPx
-
-        Timber.e(buildString {
-            append("--------------\n")
-//            append("viewportHeight: ${info.viewportSize.height}, ")
-//            append("totalItemsCount: ${info.totalItemsCount}, ")
-//            append("heightPerItemPx: $heightPerItemPx, ")
-            append("firstVisibleItemIndex: ${state.firstVisibleItemIndex},\n")
-//            append("firstItemInvisiblePart: $firstItemInvisiblePart, ")
-            append("firstItemInvisiblePartHeightPx: $firstItemInvisiblePartHeightPx, ")
-//            append("firstItemVisiblePart: $firstItemVisiblePart, ")
-            append("firstItemVisiblePartHeightPx: $firstItemVisiblePartHeightPx,\n")
-//            append("lastItemInvisiblePart: $lastItemInvisiblePart, ")
-//            append("lastItemVisiblePart: $lastItemVisiblePart, ")
-            append("lastItemVisiblePartHeightPx: $lastItemVisiblePartHeightPx,\n")
-            append("fullyVisibleItemsSize: ${fullyVisibleItems.size}, ")
-            append("fullyVisibleItemsHeightPx: $fullyVisibleItemsHeightPx, ")
-            append("y: $y, ")
-            append("heightPx: $heightPx\n")
-            append("--------------\n")
-        })
+        val heightPx = (firstItemVisiblePartHeightPx.takeIf { firstItemVisiblePart < 1f } ?: 0f) +
+            lastItemVisiblePartHeightPx +
+            fullyVisibleItemsHeightPx
 
         drawRoundRect(
             color = color,
-            topLeft = Offset(
-                x = size.width - widthPx,
-                y = y
-            ),
+            topLeft = Offset(size.width - widthPx, y),
             size = Size(widthPx, heightPx)
         )
     }

@@ -7,9 +7,11 @@ import androidx.compose.foundation.lazy.LazyListLayoutInfo
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.draw.drawWithContent
@@ -32,7 +34,9 @@ fun Modifier.simpleVerticalScrollbar(state: LazyListState) = composed {
         animationSpec = tween(durationMillis = if (targetAlpha.value == 1f) 0 else 500)
     )
 
-    LaunchedEffect(state.layoutInfo.totalItemsCount, state.isScrollInProgress) {
+    val totalItemsCount by snapshotFlow { state.layoutInfo.totalItemsCount }.collectAsState(initial = 0)
+
+    LaunchedEffect(totalItemsCount, state.isScrollInProgress) {
         targetAlpha.value = 1f
         delay(DISPLAY_TIME)
         ensureActive()

@@ -60,7 +60,7 @@ fun FavoriteAnimeScreen(vm: FavoriteAnimeViewModel = viewModel { Module.favorite
 
         LazyPagingColumn(
             itemCount = items.itemCount,
-            loadState = items.loadState.refresh,
+            loadStates = items.loadState,
             modifier = Modifier
                 .padding(paddingValues)
                 .navigationBarsPadding()

@@ -32,17 +32,19 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import com.doskoch.template.core.R
 import com.doskoch.template.core.components.error.CoreError
 import com.doskoch.template.core.components.error.toCoreError
 import com.doskoch.template.core.components.theme.Dimensions
 import com.doskoch.template.core.ui.FadeInOnCompose
+import timber.log.Timber
 
 @Composable
 fun LazyPagingColumn(
     itemCount: Int,
-    loadState: LoadState?,
+    loadStates: CombinedLoadStates?,
     modifier: Modifier = Modifier,
     state: LazyListState = rememberLazyListState(),
     contentPadding: PaddingValues = PaddingValues(0.dp),
@@ -71,27 +73,30 @@ fun LazyPagingColumn(
             content = content
         )
 
-        when (loadState) {
-            is LoadState.Loading -> {
+        val refresh = loadStates?.refresh
+        val prepend = loadStates?.prepend
+        val append = loadStates?.append
+
+        when {
+            refresh is LoadState.Loading -> {
                 if (itemCount == 0) {
-                    loading(loadState)
+                    loading(refresh)
                 } else {
-                    loadingOverContent(loadState)
+                    loadingOverContent(refresh)
                 }
             }
-            is LoadState.Error -> {
+            refresh is LoadState.Error -> {
                 if (itemCount == 0) {
-                    error(loadState)
+                    error(refresh)
                 } else {
-                    errorOverContent(loadState)
+                    errorOverContent(refresh)
                 }
             }
-            is LoadState.NotLoading -> {
-                if(itemCount == 0) {
-                    placeholder(loadState)
+            refresh is LoadState.NotLoading && prepend is LoadState.NotLoading && append is LoadState.NotLoading -> {
+                if(prepend.endOfPaginationReached && append.endOfPaginationReached && itemCount == 0) {
+                    placeholder(refresh)
                 }
             }
-            else -> {}
         }
     }
 }

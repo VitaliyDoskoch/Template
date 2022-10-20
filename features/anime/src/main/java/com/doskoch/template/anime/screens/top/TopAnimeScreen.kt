@@ -69,7 +69,7 @@ fun TopAnimeScreen(vm: TopAnimeViewModel = viewModel { Module.topAnimeViewModel(
 
             LazyPagingColumn(
                 itemCount = items.itemCount,
-                loadState = items.loadState.refresh.takeIf { !swipeRefreshState.isRefreshing },
+                loadStates = items.loadState.takeIf { !swipeRefreshState.isRefreshing },
                 modifier = Modifier
                     .fillMaxSize()
                     .simpleVerticalScrollbar(lazyListState),

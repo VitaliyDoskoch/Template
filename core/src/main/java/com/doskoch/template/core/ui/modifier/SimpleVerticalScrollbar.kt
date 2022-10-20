@@ -6,7 +6,6 @@ import androidx.compose.foundation.lazy.LazyListItemInfo
 import androidx.compose.foundation.lazy.LazyListLayoutInfo
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.material.MaterialTheme
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -18,7 +17,6 @@ import androidx.compose.ui.composed
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
@@ -52,9 +50,15 @@ fun Modifier.simpleVerticalScrollbar(
     drawWithContent {
         drawContent()
 
-        if (alpha == 0f) return@drawWithContent
-
         val info = state.layoutInfo
+
+        val allItemsAreFullyVisible = info.visibleItemsInfo.run {
+            info.totalItemsCount == size &&
+                firstOrNull()?.isFullyVisible(info) ?: true &&
+                lastOrNull()?.isFullyVisible(info) ?: true
+        }
+
+        if (alpha == 0f || allItemsAreFullyVisible) return@drawWithContent
 
         val heightPerItemPx = info.viewportSize.height.toFloat() / info.totalItemsCount.coerceAtLeast(1)
 

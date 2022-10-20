@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.DropdownMenu
 import androidx.compose.material.DropdownMenuItem
@@ -29,6 +30,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.paging.CombinedLoadStates
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemsIndexed
@@ -39,8 +41,8 @@ import com.doskoch.template.anime.ui.AnimeItem
 import com.doskoch.template.core.components.theme.Dimensions
 import com.doskoch.template.core.ui.dialog.LogoutDialog
 import com.doskoch.template.core.ui.modifier.simpleVerticalScrollbar
-import com.doskoch.template.core.ui.paging.LazyPagingColumn
 import com.doskoch.template.core.ui.paging.LoadStateItem
+import com.doskoch.template.core.ui.paging.PagingScaffold
 import com.doskoch.template.core.ui.paging.PagingSwipeRefresh
 import com.doskoch.template.core.ui.paging.retryWhenNetworkAvailable
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
@@ -65,29 +67,34 @@ fun TopAnimeScreen(vm: TopAnimeViewModel = viewModel { Module.topAnimeViewModel(
                 .navigationBarsPadding()
                 .fillMaxSize()
         ) { swipeRefreshState ->
-            val lazyListState = rememberLazyListState()
-
-            LazyPagingColumn(
+            PagingScaffold(
                 itemCount = items.itemCount,
-                loadStates = items.loadState.takeIf { !swipeRefreshState.isRefreshing },
+                loadState = items.loadState.takeIf { !swipeRefreshState.isRefreshing },
                 modifier = Modifier
                     .fillMaxSize()
-                    .simpleVerticalScrollbar(lazyListState),
-                state = lazyListState
             ) {
-                itemsIndexed(items) { position, item ->
-                    item?.let {
-                        AnimeItem(
-                            item = item,
-                            position = position,
-                            onFavoriteClick = { state.actions.onItemFavoriteClick(item) },
-                            modifier = Modifier
-                                .clickable { state.actions.onItemClick(item) }
-                        )
-                    }
-                }
+                val lazyListState = rememberLazyListState()
 
-                LoadStateItem(itemCount = items.itemCount, loadState = items.loadState.append, onRetry = items::retry)
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .simpleVerticalScrollbar(lazyListState),
+                    state = lazyListState
+                ) {
+                    itemsIndexed(items) { position, item ->
+                        item?.let {
+                            AnimeItem(
+                                item = item,
+                                position = position,
+                                onFavoriteClick = { state.actions.onItemFavoriteClick(item) },
+                                modifier = Modifier
+                                    .clickable { state.actions.onItemClick(item) }
+                            )
+                        }
+                    }
+
+                    LoadStateItem(itemCount = items.itemCount, loadState = items.loadState.append, onRetry = items::retry)
+                }
             }
         }
     }

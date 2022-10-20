@@ -1,20 +1,13 @@
 package com.doskoch.template.core.ui.paging
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.gestures.FlingBehavior
-import androidx.compose.foundation.gestures.ScrollableDefaults
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyListScope
-import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.CircularProgressIndicator
@@ -39,43 +32,27 @@ import com.doskoch.template.core.components.error.CoreError
 import com.doskoch.template.core.components.error.toCoreError
 import com.doskoch.template.core.components.theme.Dimensions
 import com.doskoch.template.core.ui.FadeInOnCompose
-import timber.log.Timber
 
 @Composable
-fun LazyPagingColumn(
+fun PagingScaffold(
     itemCount: Int,
-    loadStates: CombinedLoadStates?,
-    modifier: Modifier = Modifier,
-    state: LazyListState = rememberLazyListState(),
-    contentPadding: PaddingValues = PaddingValues(0.dp),
-    reverseLayout: Boolean = false,
-    verticalArrangement: Arrangement.Vertical = if (!reverseLayout) Arrangement.Top else Arrangement.Bottom,
-    horizontalAlignment: Alignment.Horizontal = Alignment.Start,
-    flingBehavior: FlingBehavior = ScrollableDefaults.flingBehavior(),
-    userScrollEnabled: Boolean = true,
+    loadState: CombinedLoadStates?,
+    modifier: Modifier,
     loading: @Composable BoxScope.(LoadState.Loading) -> Unit = { DefaultLoading() },
     loadingOverContent: @Composable BoxScope.(LoadState.Loading) -> Unit = {},
     error: @Composable BoxScope.(LoadState.Error) -> Unit = { DefaultError(it.error.toCoreError()) },
     errorOverContent: @Composable BoxScope.(LoadState.Error) -> Unit = { DefaultErrorOverContent(it) },
     placeholder: @Composable BoxScope.(LoadState.NotLoading) -> Unit = { DefaultPlaceholder() },
-    content: LazyListScope.() -> Unit
+    list: @Composable BoxScope.() -> Unit
 ) {
-    Box {
-        LazyColumn(
-            modifier = modifier,
-            state = state,
-            contentPadding = contentPadding,
-            reverseLayout = reverseLayout,
-            verticalArrangement = verticalArrangement,
-            horizontalAlignment = horizontalAlignment,
-            flingBehavior = flingBehavior,
-            userScrollEnabled = userScrollEnabled,
-            content = content
-        )
+    Box(modifier) {
+        val refresh = loadState?.refresh
+        val prepend = loadState?.prepend
+        val append = loadState?.append
 
-        val refresh = loadStates?.refresh
-        val prepend = loadStates?.prepend
-        val append = loadStates?.append
+        if (itemCount > 0) {
+            list()
+        }
 
         when {
             refresh is LoadState.Loading -> {
@@ -92,11 +69,9 @@ fun LazyPagingColumn(
                     errorOverContent(refresh)
                 }
             }
-            refresh is LoadState.NotLoading && prepend is LoadState.NotLoading && append is LoadState.NotLoading -> {
-                if(prepend.endOfPaginationReached && append.endOfPaginationReached && itemCount == 0) {
-                    placeholder(refresh)
-                }
-            }
+            itemCount == 0 && refresh is LoadState.NotLoading &&
+                prepend is LoadState.NotLoading && prepend.endOfPaginationReached &&
+                append is LoadState.NotLoading && append.endOfPaginationReached -> placeholder(refresh)
         }
     }
 }

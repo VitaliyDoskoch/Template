@@ -2,13 +2,14 @@ package com.doskoch.template.core.ui.modifier
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.lazy.LazyListItemInfo
+import androidx.compose.foundation.lazy.LazyListLayoutInfo
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.draw.drawWithContent
-import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
@@ -57,27 +58,65 @@ fun Modifier.simpleVerticalScrollbar(state: LazyListState) = composed {
     drawWithContent {
         drawContent()
 
-        val widthPx = 8.dp.toPx()
-        val heightPerItemPx = size.height / state.layoutInfo.totalItemsCount
-        val firstItemOffsetPx = state.layoutInfo.visibleItemsInfo.firstOrNull()?.let {
-            heightPerItemPx * (abs(it.offset).toFloat() / it.size)
-        } ?: 0f
+        val info = state.layoutInfo
 
-        val lastItemOffsetPx = state.layoutInfo.visibleItemsInfo.lastOrNull()?.let {
-            heightPerItemPx * (abs(state.layoutInfo.viewportEndOffset - (it.offset + it.size)).toFloat() / it.size)
-        } ?: 0f
+        val heightPerItemPx = info.viewportSize.height.toFloat() / info.totalItemsCount.coerceAtLeast(1)
+
+        val firstItemInvisiblePart = info.visibleItemsInfo.firstOrNull()
+            ?.let { abs(it.offset).toFloat() / it.size } ?: 0f
+        val firstItemInvisiblePartHeightPx = firstItemInvisiblePart * heightPerItemPx
+
+        val firstItemVisiblePart = 1 - firstItemInvisiblePart
+        val firstItemVisiblePartHeightPx = heightPerItemPx * firstItemVisiblePart
+
+        val lastItemInvisiblePart = info.visibleItemsInfo.lastOrNull()
+            ?.let {
+                val outOfScreenPartPx = (it.offset + it.size - info.viewportEndOffset).coerceAtLeast(0)
+                outOfScreenPartPx.toFloat() / it.size
+            } ?: 0f
+
+        val lastItemVisiblePart = 1 - lastItemInvisiblePart
+        val lastItemVisiblePartHeightPx = heightPerItemPx * lastItemVisiblePart
+
+        val fullyVisibleItems = info.visibleItemsInfo.filter { it.isFullyVisible(info) }
+        val fullyVisibleItemsHeightPx = fullyVisibleItems.size * heightPerItemPx
+
+        val y = state.firstVisibleItemIndex * heightPerItemPx + firstItemInvisiblePartHeightPx
+
+        val widthPx = 8.dp.toPx()
+        val heightPx = fullyVisibleItemsHeightPx + (firstItemVisiblePartHeightPx.takeIf { firstItemVisiblePart < 1f } ?: 0f) + lastItemVisiblePartHeightPx
+
+        Timber.e(buildString {
+            append("--------------\n")
+//            append("viewportHeight: ${info.viewportSize.height}, ")
+//            append("totalItemsCount: ${info.totalItemsCount}, ")
+//            append("heightPerItemPx: $heightPerItemPx, ")
+            append("firstVisibleItemIndex: ${state.firstVisibleItemIndex},\n")
+//            append("firstItemInvisiblePart: $firstItemInvisiblePart, ")
+            append("firstItemInvisiblePartHeightPx: $firstItemInvisiblePartHeightPx, ")
+//            append("firstItemVisiblePart: $firstItemVisiblePart, ")
+            append("firstItemVisiblePartHeightPx: $firstItemVisiblePartHeightPx,\n")
+//            append("lastItemInvisiblePart: $lastItemInvisiblePart, ")
+//            append("lastItemVisiblePart: $lastItemVisiblePart, ")
+            append("lastItemVisiblePartHeightPx: $lastItemVisiblePartHeightPx,\n")
+            append("fullyVisibleItemsSize: ${fullyVisibleItems.size}, ")
+            append("fullyVisibleItemsHeightPx: $fullyVisibleItemsHeightPx, ")
+            append("y: $y, ")
+            append("heightPx: $heightPx\n")
+            append("--------------\n")
+        })
 
         drawRoundRect(
             color = color,
             topLeft = Offset(
                 x = size.width - widthPx,
-                y = state.firstVisibleItemIndex * heightPerItemPx + firstItemOffsetPx
+                y = y
             ),
-            size = Size(
-                width = widthPx,
-                height = state.layoutInfo.visibleItemsInfo.filter { it.offset + it.size < state.layoutInfo.viewportEndOffset }.size * heightPerItemPx + firstItemOffsetPx + lastItemOffsetPx
-            ),
-            cornerRadius = CornerRadius(2.dp.toPx())
+            size = Size(widthPx, heightPx)
         )
     }
+}
+
+private fun LazyListItemInfo.isFullyVisible(info: LazyListLayoutInfo): Boolean {
+    return offset >= info.viewportStartOffset && offset + size <= info.viewportEndOffset
 }

@@ -1,11 +1,19 @@
 package com.doskoch.template.anime.screens.details
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
@@ -15,17 +23,24 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.paging.ExperimentalPagingApi
+import coil.compose.AsyncImage
 import com.doskoch.template.anime.R
 import com.doskoch.template.anime.di.Module
-import com.doskoch.template.anime.screens.favorite.FavoriteAnimeState
+import com.doskoch.template.anime.screens.details.AnimeDetailsState.ScreenState
 import com.doskoch.template.core.components.theme.Dimensions
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import java.text.DecimalFormat
 
 @OptIn(ExperimentalPagingApi::class)
 @Composable
@@ -41,12 +56,36 @@ fun AnimeDetailsScreen(
             TopBar(state = state)
         }
     ) { paddingValues ->
-        Column(
+        Box(
             modifier = Modifier
                 .padding(paddingValues)
+                .navigationBarsPadding()
                 .fillMaxSize()
+                .verticalScroll(rememberScrollState())
         ) {
-
+            when (state.screenState) {
+                is ScreenState.Loading -> {
+                    CircularProgressIndicator(
+                        modifier = Modifier
+                            .align(Alignment.Center)
+                            .size(Dimensions.icon_40)
+                    )
+                }
+                is ScreenState.Content -> {
+                    Content(content = state.screenState)
+                }
+                is ScreenState.Error -> {
+                    Text(
+                        text = state.screenState.error.localizedMessage(LocalContext.current),
+                        modifier = Modifier
+                            .align(Alignment.Center)
+                            .padding(Dimensions.space_16)
+                            .fillMaxWidth(),
+                        style = MaterialTheme.typography.body1,
+                        textAlign = TextAlign.Center
+                    )
+                }
+            }
         }
     }
 }
@@ -97,5 +136,149 @@ private fun TopBar(state: AnimeDetailsState) {
                 )
             }
         }
+    )
+}
+
+@Composable
+private fun Content(content: ScreenState.Content) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+    ) {
+        PrimaryInfoRow(
+            content = content,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(Dimensions.space_16)
+        )
+
+        Text(
+            text = content.description,
+            modifier = Modifier
+                .padding(horizontal = Dimensions.space_16)
+                .fillMaxWidth(),
+            style = MaterialTheme.typography.body2
+        )
+
+        SecondaryInfoRow(
+            content = content,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(Dimensions.space_16)
+        )
+    }
+}
+
+@Composable
+private fun PrimaryInfoRow(
+    content: ScreenState.Content,
+    modifier: Modifier = Modifier
+) {
+    Row(modifier) {
+        AsyncImage(
+            model = content.imageUrl,
+            contentDescription = stringResource(R.string.desc_item_image),
+            modifier = Modifier
+                .size(120.dp),
+            contentScale = ContentScale.Crop,
+            placeholder = painterResource(R.drawable.ic_photo),
+            error = painterResource(R.drawable.ic_sync_problem)
+        )
+
+        Column(
+            modifier = Modifier
+                .padding(start = Dimensions.space_16)
+                .height(120.dp),
+            verticalArrangement = Arrangement.SpaceEvenly
+        ) {
+            Hint(text = stringResource(R.string.score))
+            Hint(text = stringResource(R.string.ranked))
+            Hint(text = stringResource(R.string.popularity))
+            Hint(text = stringResource(R.string.status))
+        }
+
+        Column(
+            modifier = Modifier
+                .padding(start = Dimensions.space_16)
+                .height(120.dp)
+                .weight(1f),
+            verticalArrangement = Arrangement.SpaceEvenly
+        ) {
+            FieldValue(
+                text = buildString {
+                    val score = DecimalFormat("#.#").format(content.score)
+                    append("$score ")
+                    append(LocalContext.current.resources.getQuantityString(R.plurals.by_users, content.scoredBy, content.scoredBy))
+                }
+            )
+            FieldValue(text = content.rank.toString())
+            FieldValue(text = content.popularity.toString())
+            FieldValue(text = content.status)
+        }
+    }
+}
+
+@Composable
+private fun SecondaryInfoRow(
+    content: ScreenState.Content,
+    modifier: Modifier = Modifier
+) {
+    Row(modifier) {
+        val paddingModifier = Modifier.padding(top = Dimensions.space_6)
+
+        Column(
+            verticalArrangement = Arrangement.SpaceEvenly
+        ) {
+            Hint(text = stringResource(R.string.type))
+            Hint(text = stringResource(R.string.genres), paddingModifier)
+            Hint(text = stringResource(R.string.theme), paddingModifier)
+            Hint(text = stringResource(R.string.rating), paddingModifier)
+            Hint(text = stringResource(R.string.episodes), paddingModifier)
+            Hint(text = stringResource(R.string.duration), paddingModifier)
+            Hint(text = stringResource(R.string.studios), paddingModifier)
+        }
+
+        Column(
+            modifier = Modifier
+                .padding(start = Dimensions.space_16)
+                .weight(1f),
+            verticalArrangement = Arrangement.SpaceEvenly
+        ) {
+            FieldValue(text = content.type)
+            FieldValue(text = content.genres.joinToString(separator = ", "), paddingModifier)
+            FieldValue(text = content.themes.joinToString(separator = ", "), paddingModifier)
+            FieldValue(text = content.rating, paddingModifier)
+            FieldValue(text = content.episodes.toString(), paddingModifier)
+            FieldValue(text = content.duration, paddingModifier)
+            FieldValue(text = content.studios.joinToString(separator = ", "), paddingModifier)
+        }
+    }
+}
+
+@Composable
+private fun Hint(
+    text: String,
+    modifier: Modifier = Modifier
+) {
+    Text(
+        text = "$text:",
+        modifier = modifier,
+        style = MaterialTheme.typography.subtitle2,
+        maxLines = 1,
+        overflow = TextOverflow.Ellipsis
+    )
+}
+
+@Composable
+private fun FieldValue(
+    text: String,
+    modifier: Modifier = Modifier
+) {
+    Text(
+        text = text,
+        modifier = modifier,
+        style = MaterialTheme.typography.body2,
+        maxLines = 1,
+        overflow = TextOverflow.Ellipsis
     )
 }

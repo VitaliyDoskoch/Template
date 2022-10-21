@@ -43,7 +43,7 @@ class AnimeDetailsViewModel(
 
     init {
         observeIsFavorite()
-//        loadAnimeDetails()
+        loadAnimeDetails()
     }
 
     private fun observeIsFavorite() = launchAction(

@@ -15,4 +15,17 @@
     
     <!-- FavoriteAnimeScreen -->
     <string name="favorite_toolbar_title">Favorite</string>
+    
+    <!-- AnimeDetailsScreen -->
+    <string name="score">Score</string>
+    <string name="ranked">Ranked</string>
+    <string name="popularity">Popularity</string>
+    <string name="status">Status</string>
+    <string name="type">Type</string>
+    <string name="genres">Genres</string>
+    <string name="theme">Theme</string>
+    <string name="rating">Rating</string>
+    <string name="episodes">Episodes</string>
+    <string name="duration">Duration</string>
+    <string name="studios">Studios</string>
 </resources>

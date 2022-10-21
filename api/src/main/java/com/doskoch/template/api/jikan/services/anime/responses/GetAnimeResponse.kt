@@ -76,7 +76,7 @@ data class GetAnimeResponse(
         @SerializedName("trailer")
         val trailer: Trailer,
         @SerializedName("type")
-        val type: RemoteAnimeType,
+        val type: String,
         @SerializedName("url")
         val url: String,
         @SerializedName("year")

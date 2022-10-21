@@ -1,6 +1,6 @@
 package com.doskoch.template.anime
 
-import com.doskoch.template.api.jikan.services.responses.GetTopAnimeResponse
+import com.doskoch.template.api.jikan.services.top.responses.GetTopAnimeResponse
 import com.doskoch.template.database.schema.anime.DbAnime
 
 fun GetTopAnimeResponse.Data.toDbAnime() = DbAnime(

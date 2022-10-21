@@ -1,4 +1,4 @@
-package com.doskoch.template.api.jikan.services.responses
+package com.doskoch.template.api.jikan.services.top.responses
 
 import com.google.gson.annotations.SerializedName
 

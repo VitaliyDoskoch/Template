@@ -49,7 +49,7 @@ class FavoriteAnimeViewModel(
 
     private fun onBackClick() = navigator.navigateUp()
 
-    private fun onItemClick(item: AnimeUiModel) = navigator.toDetails(item.id)
+    private fun onItemClick(item: AnimeUiModel) = navigator.toDetails(item.id, item.title)
 
     private fun onItemFavoriteClick(item: AnimeUiModel) = launchAction(
         action = { deleteAnimeFromFavoriteUseCase.invoke(item.id) },

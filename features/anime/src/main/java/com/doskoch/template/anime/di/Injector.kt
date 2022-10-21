@@ -5,6 +5,7 @@ import androidx.paging.Pager
 import com.doskoch.legacy.kotlin.DestroyableLazy
 import com.doskoch.template.anime.PAGING_CONFIG
 import com.doskoch.template.anime.screens.details.AnimeDetailsViewModel
+import com.doskoch.template.anime.screens.details.useCase.LoadAnimeDetailsUseCase
 import com.doskoch.template.anime.screens.favorite.FavoriteAnimeViewModel
 import com.doskoch.template.anime.screens.top.TopAnimeRemoteMediator
 import com.doskoch.template.anime.screens.top.TopAnimeViewModel
@@ -15,7 +16,7 @@ import com.doskoch.template.anime.screens.top.useCase.LoadAnimeUseCase
 import com.doskoch.template.anime.screens.top.useCase.StoreAnimeUseCase
 import com.doskoch.template.anime.useCase.DeleteAnimeFromFavoriteUseCase
 import com.doskoch.template.anime.useCase.SaveAnimeToFavoriteUseCase
-import com.doskoch.template.api.jikan.services.responses.GetTopAnimeResponse
+import com.doskoch.template.api.jikan.services.top.responses.GetTopAnimeResponse
 import com.doskoch.template.core.components.paging.SimpleInMemoryStorage
 import com.doskoch.template.core.useCase.authorization.LogoutUseCase
 
@@ -66,5 +67,9 @@ object Module {
         globalErrorHandler = Injector.globalErrorHandler
     )
 
-    fun animeDetailsViewModel() = AnimeDetailsViewModel()
+    fun animeDetailsViewModel(animeId: Int, title: String) = AnimeDetailsViewModel(
+        animeId = animeId,
+        title = title,
+        loadAnimeDetailsUseCase = LoadAnimeDetailsUseCase(Injector.animeService)
+    )
 }

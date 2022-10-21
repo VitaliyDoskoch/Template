@@ -32,7 +32,12 @@ fun AnimeFeatureNavGraph() {
             FavoriteAnimeScreen()
         }
         Node.Details.composable(this) {
-            AnimeDetailsScreen()
+            val args = requireNotNull(it.arguments)
+
+            AnimeDetailsScreen(
+                animeId = animeId.valueFrom(args),
+                title = title.valueFrom(args)
+            )
         }
     }
 }
@@ -43,7 +48,11 @@ internal sealed class Node(name: String) : NavigationNode(name) {
 
     object Details : Node("details") {
         val animeId = typedArgument("animeId", NavType.IntType)
+        val title = typedArgument("title", NavType.NotNullStringType)
 
-        fun buildRoute(animeId: Int) = buildRoute(this.animeId setValue animeId)
+        fun buildRoute(animeId: Int, title: String) = buildRoute(
+            this.animeId setValue animeId,
+            this.title setValue title
+        )
     }
 }

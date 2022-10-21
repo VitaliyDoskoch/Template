@@ -1,6 +1,6 @@
 package com.doskoch.template.anime.uiModel
 
-import com.doskoch.template.api.jikan.services.responses.GetTopAnimeResponse
+import com.doskoch.template.api.jikan.services.top.responses.GetTopAnimeResponse
 import com.doskoch.template.database.schema.anime.DbAnime
 
 data class AnimeUiModel(

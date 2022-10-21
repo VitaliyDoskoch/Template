@@ -9,7 +9,7 @@ import com.doskoch.template.anime.screens.top.useCase.GetLastPagingKeyUseCase
 import com.doskoch.template.anime.screens.top.useCase.LoadAnimeUseCase
 import com.doskoch.template.anime.screens.top.useCase.StoreAnimeUseCase
 import com.doskoch.template.api.jikan.common.enum.RemoteAnimeType
-import com.doskoch.template.api.jikan.services.responses.GetTopAnimeResponse
+import com.doskoch.template.api.jikan.services.top.responses.GetTopAnimeResponse
 import com.doskoch.template.core.components.error.GlobalErrorHandler
 import com.doskoch.template.core.components.error.toCoreError
 import com.doskoch.template.core.components.paging.SimpleInMemoryStorage

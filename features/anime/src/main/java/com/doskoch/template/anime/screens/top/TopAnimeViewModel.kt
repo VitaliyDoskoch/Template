@@ -15,7 +15,7 @@ import com.doskoch.template.anime.uiModel.toUiModel
 import com.doskoch.template.anime.useCase.DeleteAnimeFromFavoriteUseCase
 import com.doskoch.template.anime.useCase.SaveAnimeToFavoriteUseCase
 import com.doskoch.template.api.jikan.common.enum.RemoteAnimeType
-import com.doskoch.template.api.jikan.services.responses.GetTopAnimeResponse
+import com.doskoch.template.api.jikan.services.top.responses.GetTopAnimeResponse
 import com.doskoch.template.core.components.error.CoreError
 import com.doskoch.template.core.components.error.GlobalErrorHandler
 import com.doskoch.template.core.components.error.toCoreError
@@ -107,7 +107,7 @@ class TopAnimeViewModel(
         onError = { globalErrorHandler.handle(it.toCoreError()) }
     )
 
-    private fun onItemClick(item: AnimeUiModel) = navigator.toDetails(item.id)
+    private fun onItemClick(item: AnimeUiModel) = navigator.toDetails(item.id, item.title)
 
     private fun onItemFavoriteClick(item: AnimeUiModel) = launchAction(
         action = {

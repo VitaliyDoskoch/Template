@@ -1,8 +1,11 @@
 package com.doskoch.template.core.ui.paging
 
-import androidx.compose.animation.Crossfade
-import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.with
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -45,6 +48,7 @@ private sealed class ScreenContent {
     object Placeholder : ScreenContent()
 }
 
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun PagingScaffold(
     itemCount: Int,
@@ -73,11 +77,13 @@ fun PagingScaffold(
             }
         }
 
-        Crossfade(
+        AnimatedContent(
             targetState = screenContent,
             modifier = Modifier
                 .matchParentSize(),
-            animationSpec = tween(durationMillis = 500, easing = LinearEasing)
+            transitionSpec = {
+                fadeIn(animationSpec = tween(durationMillis = 500)) with fadeOut(animationSpec = tween(durationMillis = 50))
+            }
         ) { content ->
             Box(
                 modifier = Modifier

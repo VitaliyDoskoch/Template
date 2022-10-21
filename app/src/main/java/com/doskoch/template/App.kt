@@ -16,7 +16,7 @@ class App : Application() {
     }
 
     private fun initLogging() {
-        if (BuildConfig.is_logging_enabled) {
+        if (BuildConfig.isLoggingEnabled) {
             Timber.plant(Timber.DebugTree())
         }
     }

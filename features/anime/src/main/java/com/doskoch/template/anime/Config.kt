@@ -1,5 +1,7 @@
 package com.doskoch.template.anime
 
-const val PAGE_SIZE = 10
-const val INITIAL_LOAD_SIZE = PAGE_SIZE * 2
-const val INITIAL_PAGE = 1
+import androidx.paging.PagingConfig
+
+const val INITIAL_PAGE_KEY = 1
+
+val PAGING_CONFIG = PagingConfig(pageSize = 10, initialLoadSize = 20)

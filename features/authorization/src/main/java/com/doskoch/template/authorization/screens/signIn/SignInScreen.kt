@@ -9,48 +9,53 @@ import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.doskoch.legacy.android.viewModel.typedViewModelFactory
-import com.doskoch.template.authorization.di.Module
 import com.doskoch.template.authorization.R
+import com.doskoch.template.authorization.di.Module
 import com.doskoch.template.core.components.theme.Dimensions
-import com.doskoch.template.core.components.ui.CoreButton
-import com.doskoch.template.core.components.ui.CoreTextInputField
-import com.doskoch.template.core.components.ui.CoreTopAppBar
+import com.doskoch.template.core.ui.CoreButton
+import com.doskoch.template.core.ui.CoreTextInputField
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @Composable
-fun SignInScreen() {
-    SignInScreen(
-        vm = viewModel(factory = typedViewModelFactory { Module.signInViewModel() })
-    )
-}
+fun SignInScreen(vm: SignInViewModel = viewModel { Module.signInViewModel() }) {
+    val state = vm.state.collectAsState().value
 
-@Composable
-private fun SignInScreen(vm: SignInViewModel) {
-    SignInScreen(
-        state = vm.state.collectAsState().value
-    )
-}
-
-@Composable
-private fun SignInScreen(state: SignInViewModel.State) {
     Scaffold(
         topBar = {
-            CoreTopAppBar(
+            val systemUiController = rememberSystemUiController()
+            SideEffect { systemUiController.setStatusBarColor(Color.Transparent) }
+
+            TopAppBar(
+                title = {},
                 modifier = Modifier
                     .statusBarsPadding(),
-                iconPainter = painterResource(R.drawable.ic_arrow_back),
-                onNavigationClick = state.actions.onNavigateBack
+                navigationIcon = {
+                    IconButton(onClick = state.actions.onNavigateBack) {
+                        Icon(
+                            painter = painterResource(R.drawable.ic_arrow_back),
+                            contentDescription = stringResource(R.string.common_desc_navigate_back)
+                        )
+                    }
+                },
+                backgroundColor = Color.Transparent,
+                elevation = 0.dp
             )
         }
     ) { paddingValues ->
@@ -61,7 +66,7 @@ private fun SignInScreen(state: SignInViewModel.State) {
                 .fillMaxSize()
         ) {
             Text(
-                text = stringResource(R.string.log_in_with_email),
+                text = stringResource(R.string.sign_in_screen_log_in_with_email),
                 modifier = Modifier
                     .padding(start = Dimensions.space_16, top = Dimensions.space_16, end = Dimensions.space_16)
                     .fillMaxWidth(),
@@ -71,7 +76,7 @@ private fun SignInScreen(state: SignInViewModel.State) {
             )
 
             Text(
-                text = stringResource(R.string.log_in_with_email_hint),
+                text = stringResource(R.string.sign_in_screen_log_in_with_email_hint),
                 modifier = Modifier
                     .padding(start = Dimensions.space_16, top = Dimensions.space_72, end = Dimensions.space_16)
                     .fillMaxWidth(),
@@ -85,7 +90,7 @@ private fun SignInScreen(state: SignInViewModel.State) {
                 modifier = Modifier
                     .padding(start = Dimensions.space_16, top = Dimensions.space_16, end = Dimensions.space_16)
                     .fillMaxWidth(),
-                hint = stringResource(R.string.email_hint),
+                hint = stringResource(R.string.sign_in_screen_email_hint),
                 errorMessage = state.error?.localizedMessage(LocalContext.current),
                 singleLine = true
             )
@@ -93,7 +98,7 @@ private fun SignInScreen(state: SignInViewModel.State) {
             Spacer(modifier = Modifier.weight(1f))
 
             CoreButton(
-                text = stringResource(R.string.proceed),
+                text = stringResource(R.string.sign_in_screen_proceed),
                 onClick = state.actions.onProceed,
                 modifier = Modifier
                     .padding(Dimensions.space_16)

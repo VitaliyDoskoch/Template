@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     
-    <string name="desc_navigate_back">Navigate back</string>
-    <string name="retry">Retry</string>
-    
     <!-- CoreError -->
     <string name="error_unknown">An unknown error occurred.</string>
     <string name="error_failed_to_load_data">Failed to load data.</string>
@@ -13,5 +10,68 @@
     <string name="error_operation_is_canceled">Operation is cancelled.</string>
     <string name="error_http">An error occurred while connecting to server.</string>
     <string name="error_invalid_email">The entered email is invalid.</string>
+    
+    <!-- Common -->
+    <string name="common_retry">Retry</string>
+    <string name="common_placeholder_empty_list">Sorry, there\'s no content here</string>
+    <string name="common_show_more">Show more</string>
+    <string name="common_show_less">Show less</string>
+    <string name="common_desc_navigate_back">Navigate back</string>
+    <string name="common_desc_empty_list">There is no content here</string>
+    <string name="common_dialog_logout_title">Do you want to log out?</string>
+    <string name="common_dialog_logout_message">You always can sign in again!</string>
+    <string name="common_dialog_logout_confirm_button">Confirm</string>
+    <string name="common_dialog_logout_dismiss_button">Cancel</string>
+    
+    <!-- SplashFeature -->
+    <!-- SplashScreen -->
+    <string name="splash_screen_app_version">Version %s</string>
+    <string name="splash_screen_developed_by">Developed by Vitaliy Doskoch</string>
+    
+    <!-- AuthorizationFeature -->
+    <!-- SignUpScreen -->
+    <string name="sign_up_screen_project_description">It is an example project, designed to show an efficient
+        Android app architecture implementation using the free Jikan api under the hood.</string>
+    <string name="sign_up_screen_sign_in_label">Please, sign in. Don\'t worry - the flow is mocked ;)</string>
+    <string name="sign_up_screen_sign_in">Sign in</string>
+    <string name="sign_up_screen_or">or</string>
+    <string name="sign_up_screen_skip">Skip</string>
+    <!-- SignInScreen -->
+    <string name="sign_in_screen_log_in_with_email">Log in with your email</string>
+    <string name="sign_in_screen_log_in_with_email_hint">Don\'t worry - no mail will be sent.
+        Just type the valid email address to pass the simple validation</string>
+    <string name="sign_in_screen_email_hint">Email</string>
+    <string name="sign_in_screen_proceed">Proceed</string>
+    
+    <!-- AnimeFeature -->
+    <!-- Common -->
+    <string name="anime_type_tv">TV</string>
+    <string name="anime_type_movie">Movie</string>
+    <string name="anime_type_ova">Ova</string>
+    <string name="anime_type_special">Special</string>
+    <string name="anime_type_ona">Ona</string>
+    <string name="anime_type_music">Music</string>
+    <string name="anime_desc_anime_image">The image of the anime</string>
+    <string name="anime_desc_add_to_favorite">Add the item to favorites</string>
+    <string name="anime_desc_to_favorite">To favorite</string>
+    <string name="anime_desc_logout">Logout</string>
+    <plurals name="by_users">
+        <item quantity="one">by %d user</item>
+        <item quantity="other">by %d users</item>
+    </plurals>
+    <!-- FavoriteAnimeScreen -->
+    <string name="favorite_anime_screen_toolbar_title">Favorite</string>
+    <!-- AnimeDetailsScreen -->
+    <string name="anime_details_screen_score_hint">Score</string>
+    <string name="anime_details_screen_ranked_hint">Ranked</string>
+    <string name="anime_details_screen_popularity_hint">Popularity</string>
+    <string name="anime_details_screen_status_hint">Status</string>
+    <string name="anime_details_screen_type_hint">Type</string>
+    <string name="anime_details_screen_genres_hint">Genres</string>
+    <string name="anime_details_screen_theme_hint">Theme</string>
+    <string name="anime_details_screen_rating_hint">Rating</string>
+    <string name="anime_details_screen_episodes_hint">Episodes</string>
+    <string name="anime_details_screen_duration_hint">Duration</string>
+    <string name="anime_details_screen_studios_hint">Studios</string>
 
 </resources>

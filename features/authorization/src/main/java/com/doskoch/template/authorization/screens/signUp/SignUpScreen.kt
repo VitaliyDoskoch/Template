@@ -13,30 +13,25 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.doskoch.legacy.android.viewModel.typedViewModelFactory
-import com.doskoch.template.authorization.di.Module
 import com.doskoch.template.authorization.R
+import com.doskoch.template.authorization.di.Module
 import com.doskoch.template.core.components.theme.Dimensions
-import com.doskoch.template.core.components.ui.CoreButton
-import com.doskoch.template.core.components.ui.CoreTextButton
+import com.doskoch.template.core.ui.CoreButton
+import com.doskoch.template.core.ui.CoreTextButton
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @Composable
-fun SignUpScreen() {
-    SignUpScreen(
-        vm = viewModel(factory = typedViewModelFactory { Module.signUpViewModel() })
-    )
-}
-
-@Composable
-private fun SignUpScreen(vm: SignUpViewModel) {
+fun SignUpScreen(vm: SignUpViewModel = viewModel { Module.signUpViewModel() }) {
     SignUpScreen(
         onSignIn = vm::onSignIn,
         onSkip = vm::onSkip
@@ -48,6 +43,9 @@ private fun SignUpScreen(
     onSignIn: () -> Unit,
     onSkip: () -> Unit
 ) {
+    val systemUiController = rememberSystemUiController()
+    SideEffect { systemUiController.setStatusBarColor(Color.Transparent) }
+
     Scaffold { paddingValues ->
         Column(
             modifier = Modifier
@@ -77,7 +75,7 @@ private fun SignUpScreen(
             Spacer(modifier = Modifier.weight(1f))
 
             Text(
-                text = stringResource(R.string.project_description),
+                text = stringResource(R.string.sign_up_screen_project_description),
                 modifier = Modifier
                     .padding(start = Dimensions.space_16, end = Dimensions.space_16)
                     .fillMaxWidth(),
@@ -89,7 +87,7 @@ private fun SignUpScreen(
             Spacer(modifier = Modifier.weight(1f))
 
             Text(
-                text = stringResource(R.string.sign_in_label),
+                text = stringResource(R.string.sign_up_screen_sign_in_label),
                 modifier = Modifier
                     .padding(start = Dimensions.space_16, end = Dimensions.space_16)
                     .fillMaxWidth(),
@@ -99,7 +97,7 @@ private fun SignUpScreen(
             )
 
             CoreButton(
-                text = stringResource(R.string.sign_in),
+                text = stringResource(R.string.sign_up_screen_sign_in),
                 onClick = onSignIn,
                 modifier = Modifier
                     .padding(start = Dimensions.space_16, top = Dimensions.space_24, end = Dimensions.space_16)
@@ -108,7 +106,7 @@ private fun SignUpScreen(
             )
 
             Text(
-                text = stringResource(R.string.or),
+                text = stringResource(R.string.sign_up_screen_or),
                 modifier = Modifier
                     .padding(start = Dimensions.space_16, top = Dimensions.space_8, end = Dimensions.space_16)
                     .fillMaxWidth(),
@@ -119,7 +117,7 @@ private fun SignUpScreen(
             )
 
             CoreTextButton(
-                text = stringResource(R.string.skip),
+                text = stringResource(R.string.sign_up_screen_skip),
                 onClick = onSkip,
                 modifier = Modifier
                     .padding(start = Dimensions.space_16, top = Dimensions.space_8, end = Dimensions.space_16, bottom = Dimensions.space_16)

@@ -7,12 +7,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.doskoch.template.anime.di.Injector
 import com.doskoch.template.anime.screens.details.AnimeDetailsScreen
+import com.doskoch.template.anime.screens.favorite.FavoriteAnimeScreen
 import com.doskoch.template.anime.screens.top.TopAnimeScreen
-import com.doskoch.template.core.components.navigation.JsonNavType
 import com.doskoch.template.core.components.navigation.NavigationNode
+import com.doskoch.template.core.components.navigation.NotNullStringType
 import com.doskoch.template.core.components.navigation.composable
 import com.doskoch.template.core.components.navigation.typedArgument
-import timber.log.Timber
 
 @Composable
 fun AnimeFeatureNavGraph() {
@@ -26,32 +26,31 @@ fun AnimeFeatureNavGraph() {
         Node.Top.composable(this) {
             TopAnimeScreen()
         }
+        Node.Favorite.composable(this) {
+            FavoriteAnimeScreen()
+        }
         Node.Details.composable(this) {
-            requiredBool.extractFrom(it.arguments).let { Timber.e("requiredBool: $it") }
-            optionalInt.extractFrom(it.arguments).let { Timber.e("optionalInt: $it") }
-            optionalNullableJson.extractFrom(it.arguments).let { Timber.e("optionalNullableJson: $it") }
-            requiredJson.extractFrom(it.arguments).let { Timber.e("requiredJson: $it") }
-            optionalString.extractFrom(it.arguments).let { Timber.e("optionalString: $it") }
-            optionalNonNullableJson.extractFrom(it.arguments).let { Timber.e("optionalNonNullableJson: $it") }
-            AnimeDetailsScreen()
+            val args = requireNotNull(it.arguments)
+
+            AnimeDetailsScreen(
+                animeId = animeId.valueFrom(args),
+                title = title.valueFrom(args)
+            )
         }
     }
 }
 
 internal sealed class Node(name: String) : NavigationNode(name) {
     object Top : Node("top")
+    object Favorite : Node("favorite")
 
     object Details : Node("details") {
-        val requiredBool = typedArgument("requiredBool", NavType.BoolType)
-        val optionalInt = typedArgument("optionalInt", NavType.IntType) { defaultValue = 0 }
-        val optionalNullableJson = typedArgument("optionalNullableJson", JsonNavType<Lol?>()) { nullable = true; defaultValue = null }
-        val requiredJson = typedArgument("requiredJson", JsonNavType<Dummy>())
-        val optionalString = typedArgument("optionalString", NavType.StringType) { defaultValue = "optionalString" }
-        val optionalNonNullableJson = typedArgument("optionalNonNullableJson", JsonNavType<Lol>()) { defaultValue = Lol("lol") }
+        val animeId = typedArgument("animeId", NavType.IntType)
+        val title = typedArgument("title", NavType.NotNullStringType)
 
-        override val arguments = listOf(requiredBool, optionalInt, optionalNullableJson, requiredJson, optionalString, optionalNonNullableJson)
+        fun buildRoute(animeId: Int, title: String) = buildRoute(
+            this.animeId setValue animeId,
+            this.title setValue title
+        )
     }
 }
-
-data class Lol(val name: String)
-data class Dummy(val name: String)

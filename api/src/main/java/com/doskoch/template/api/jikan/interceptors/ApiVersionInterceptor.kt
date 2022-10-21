@@ -17,7 +17,7 @@ class ApiVersionInterceptor(private val baseUrl: String) : Interceptor {
         return chain.proceed(
             request.newBuilder()
                 .apply {
-                    version?.let { url("${baseUrl}v${version}/${request.url.toString().substringAfter(baseUrl)}") }
+                    version?.let { url("${baseUrl}v$version/${request.url.toString().substringAfter(baseUrl)}") }
                 }
                 .build()
         )

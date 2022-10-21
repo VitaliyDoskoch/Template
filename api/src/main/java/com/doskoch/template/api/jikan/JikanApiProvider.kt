@@ -2,9 +2,10 @@ package com.doskoch.template.api.jikan
 
 import android.util.Log
 import com.doskoch.template.api.BuildConfig
-import com.doskoch.template.api.jikan.interceptors.ApiVersionInterceptor
 import com.doskoch.template.api.jikan.functions.addInterceptors
-import com.doskoch.template.api.jikan.services.TopService
+import com.doskoch.template.api.jikan.interceptors.ApiVersionInterceptor
+import com.doskoch.template.api.jikan.services.anime.AnimeService
+import com.doskoch.template.api.jikan.services.top.TopService
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonParser
 import okhttp3.OkHttpClient
@@ -18,10 +19,10 @@ import java.lang.reflect.Modifier
 import java.util.concurrent.TimeUnit
 
 const val TIMBER_LOG_LEVEL = Log.DEBUG
-val HTTP_LOG_LEVEL = if (BuildConfig.is_logging_enabled) BODY else BASIC
+val HTTP_LOG_LEVEL = if (BuildConfig.isLoggingEnabled) BODY else BASIC
 
-const val CONNECT_TIMEOUT = 45_000L
-const val READ_TIMEOUT = 45_000L
+const val CONNECT_TIMEOUT = 15_000L
+const val READ_TIMEOUT = 15_000L
 
 const val BASE_URL = "https://api.jikan.moe/"
 
@@ -79,4 +80,6 @@ object JikanApiProvider {
     }
 
     val topService by lazy { retrofit.create(TopService::class.java) }
+
+    val animeService by lazy { retrofit.create(AnimeService::class.java) }
 }

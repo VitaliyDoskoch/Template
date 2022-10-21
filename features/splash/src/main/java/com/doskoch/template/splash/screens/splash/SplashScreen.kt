@@ -14,28 +14,26 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.doskoch.legacy.android.viewModel.typedViewModelFactory
 import com.doskoch.template.core.components.theme.Dimensions
 import com.doskoch.template.splash.R
 import com.doskoch.template.splash.di.Module
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @Composable
-fun SplashScreen() {
-    SplashScreen(
-        vm = viewModel(factory = typedViewModelFactory { Module.splashViewModel() })
-    )
-}
+fun SplashScreen(vm: SplashViewModel = viewModel { Module.splashViewModel() }) {
+    val systemUiController = rememberSystemUiController()
+    SideEffect { systemUiController.setStatusBarColor(Color.Transparent) }
 
-@Composable
-private fun SplashScreen(vm: SplashViewModel) {
     Scaffold { paddingValues ->
         Column(
             modifier = Modifier
@@ -67,7 +65,7 @@ private fun SplashScreen(vm: SplashViewModel) {
 
             Text(
                 text = LocalContext.current.run {
-                    stringResource(R.string.app_version, packageManager.getPackageInfo(packageName, 0).versionName)
+                    stringResource(R.string.splash_screen_app_version, packageManager.getPackageInfo(packageName, 0).versionName)
                 },
                 modifier = Modifier
                     .padding(start = Dimensions.space_16, end = Dimensions.space_16)
@@ -80,7 +78,7 @@ private fun SplashScreen(vm: SplashViewModel) {
             )
 
             Text(
-                text = stringResource(R.string.developed_by),
+                text = stringResource(R.string.splash_screen_developed_by),
                 modifier = Modifier
                     .padding(
                         start = Dimensions.space_16,

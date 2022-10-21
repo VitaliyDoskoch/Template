@@ -10,15 +10,11 @@ abstract class AnimeFeatureNavigator : CoreNavigator {
 
     abstract fun toSplash()
 
-    fun toDetails(animeId: Int) = events.enqueue {
-        navigate(Node.Details.route {
-            Node.Details.requiredBool setTo true
-            Node.Details.optionalInt setTo 100
+    fun navigateUp() = events.enqueue { navigateUp() }
 
-            Node.Details.requiredJson setTo Dummy("dummy")
-            Node.Details.optionalString setTo "non-default"
-        })
-    }
+    fun toFavorite() = events.enqueue { navigate(Node.Favorite.route) }
+
+    fun toDetails(animeId: Int, title: String) = events.enqueue { navigate(Node.Details.buildRoute(animeId, title)) }
 
     companion object {
         internal val startNode = Node.Top

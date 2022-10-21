@@ -60,18 +60,18 @@ class TextTransition(val alphaModifier: Float = 0.5f) : Transition() {
 
                         var applied = false
 
-                        override fun onAnimationStart(animation: Animator?) = Unit
+                        override fun onAnimationStart(animation: Animator) = Unit
 
-                        override fun onAnimationEnd(animation: Animator?) {
+                        override fun onAnimationEnd(animation: Animator) {
                             view.setTextColor(initialColor)
                             if (!applied) {
                                 view.text = endValue
                             }
                         }
 
-                        override fun onAnimationCancel(animation: Animator?) = Unit
+                        override fun onAnimationCancel(animation: Animator) = Unit
 
-                        override fun onAnimationRepeat(animation: Animator?) {
+                        override fun onAnimationRepeat(animation: Animator) {
                             view.text = endValue
                             applied = true
                         }

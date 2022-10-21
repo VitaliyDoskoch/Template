@@ -59,7 +59,7 @@ fun Throwable.toCoreError(ifUnknown: (Throwable) -> CoreError) = when (this) {
     is InterruptedException -> CoreError.OperationIsCanceled()
     is HttpException -> errorResponse()
         ?.let { response ->
-            when(response.type) {
+            when (response.type) {
                 ErrorResponse.Type.RateLimitException -> CoreError.Remote.RateLimit(response.status, response.message)
                 else -> CoreError.Remote.Unspecified()
             }

@@ -1,5 +1,6 @@
 package com.doskoch.template.database.functions
 
+import androidx.room.withTransaction
 import com.doskoch.template.database.common.BaseDao
 
 /**
@@ -12,7 +13,7 @@ import com.doskoch.template.database.common.BaseDao
  * @param [getId] function, which retrieves field or combination of fields,
  * which should be unique per entity and will be used for comparison.
  */
-fun <D : BaseDao<E>, E : Any, K : Any> D.updateRelations(
+suspend fun <D : BaseDao<E>, E : Any, K : Any> D.update(
     old: List<E>,
     new: List<E>,
     getId: (entity: E) -> K
@@ -24,7 +25,7 @@ fun <D : BaseDao<E>, E : Any, K : Any> D.updateRelations(
     val toUpdate = oldIds.intersect(newIds).let { result -> new.filter { getId(it) in result } }
     val toInsert = newIds.subtract(oldIds).let { result -> new.filter { getId(it) in result } }
 
-    database.runInTransaction {
+    database.withTransaction {
         if (toDelete.isNotEmpty()) delete(toDelete)
         if (toUpdate.isNotEmpty()) update(toUpdate)
         if (toInsert.isNotEmpty()) insert(toInsert)

@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-fun ViewModel.perform(action: suspend () -> Unit, onError: suspend (Throwable) -> Unit) = viewModelScope.launch {
+fun ViewModel.launchAction(action: suspend () -> Unit, onError: suspend (Throwable) -> Unit) = viewModelScope.launch {
     try {
         action.invoke()
     } catch (t: Throwable) {

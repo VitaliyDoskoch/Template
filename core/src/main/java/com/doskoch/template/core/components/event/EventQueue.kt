@@ -1,6 +1,5 @@
 package com.doskoch.template.core.components.event
 
-import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update

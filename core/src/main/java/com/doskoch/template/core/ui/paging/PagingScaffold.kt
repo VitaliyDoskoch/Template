@@ -24,6 +24,8 @@ import androidx.compose.material.SnackbarHostState
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -62,12 +64,14 @@ fun PagingScaffold(
     list: @Composable BoxScope.() -> Unit
 ) {
     Box(modifier) {
-        val screenContent = remember(loadState) {
+        val screenContent = remember { mutableStateOf<ScreenContent>(ScreenContent.List) }
+
+        SideEffect {
             val refresh = loadState?.refresh
             val prepend = loadState?.prepend
             val append = loadState?.append
 
-            when {
+            screenContent.value = when {
                 refresh is LoadState.Loading -> if (itemCount == 0) ScreenContent.Loading else ScreenContent.LoadingOverList
                 refresh is LoadState.Error -> if (itemCount == 0) ScreenContent.Error(refresh) else ScreenContent.ErrorOverList(refresh)
                 itemCount == 0 && refresh is LoadState.NotLoading &&
@@ -78,7 +82,7 @@ fun PagingScaffold(
         }
 
         AnimatedContent(
-            targetState = screenContent,
+            targetState = screenContent.value,
             modifier = Modifier
                 .matchParentSize(),
             transitionSpec = {

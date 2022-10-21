@@ -3,6 +3,7 @@ package com.doskoch.template.api.jikan.services.anime.responses
 import com.doskoch.template.api.jikan.common.enum.RemoteAnimeType
 import com.google.gson.annotations.SerializedName
 
+//TODO: clean up model
 data class GetAnimeResponse(
     @SerializedName("data")
     val data: Data

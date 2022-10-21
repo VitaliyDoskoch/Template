@@ -70,6 +70,7 @@ object Module {
     fun animeDetailsViewModel(animeId: Int, title: String) = AnimeDetailsViewModel(
         animeId = animeId,
         title = title,
+        navigator = Injector.navigator,
         loadAnimeDetailsUseCase = LoadAnimeDetailsUseCase(Injector.animeService)
     )
 }

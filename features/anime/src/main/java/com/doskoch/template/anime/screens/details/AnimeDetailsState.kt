@@ -6,10 +6,12 @@ import com.doskoch.template.core.components.error.CoreError
 data class AnimeDetailsState(
     val title: String,
     val isFavorite: Boolean,
-    val screenState: ScreenState
+    val screenState: ScreenState,
+    val actions: Actions
 ) {
     sealed class ScreenState {
         object Loading : ScreenState()
+
         data class Content(
             val imageUrl: String,
             val approved: Boolean,
@@ -30,8 +32,13 @@ data class AnimeDetailsState(
             val studios: List<String>,
             val trailerUrl: String
         ) : ScreenState()
+
         data class Error(val error: CoreError) : ScreenState()
     }
+
+    data class Actions(
+        val onBackClick: () -> Unit
+    )
 }
 
 fun GetAnimeResponse.Data.toContent() = AnimeDetailsState.ScreenState.Content(

@@ -13,8 +13,10 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -26,6 +28,7 @@ import com.doskoch.template.authorization.di.Module
 import com.doskoch.template.core.components.theme.Dimensions
 import com.doskoch.template.core.ui.CoreButton
 import com.doskoch.template.core.ui.CoreTextButton
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @Composable
 fun SignUpScreen(vm: SignUpViewModel = viewModel { Module.signUpViewModel() }) {
@@ -40,6 +43,9 @@ private fun SignUpScreen(
     onSignIn: () -> Unit,
     onSkip: () -> Unit
 ) {
+    val systemUiController = rememberSystemUiController()
+    SideEffect { systemUiController.setStatusBarColor(Color.Transparent) }
+
     Scaffold { paddingValues ->
         Column(
             modifier = Modifier

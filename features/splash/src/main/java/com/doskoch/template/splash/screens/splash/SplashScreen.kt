@@ -14,8 +14,10 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -25,9 +27,13 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.doskoch.template.core.components.theme.Dimensions
 import com.doskoch.template.splash.R
 import com.doskoch.template.splash.di.Module
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @Composable
 fun SplashScreen(vm: SplashViewModel = viewModel { Module.splashViewModel() }) {
+    val systemUiController = rememberSystemUiController()
+    SideEffect { systemUiController.setStatusBarColor(Color.Transparent) }
+
     Scaffold { paddingValues ->
         Column(
             modifier = Modifier

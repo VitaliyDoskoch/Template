@@ -7,10 +7,10 @@ import com.doskoch.template.authorization.screens.signUp.SignUpViewModel
 import com.doskoch.template.core.useCase.authorization.AuthorizeUseCase
 
 object AuthorizationFeatureInjector {
-    var provider: DestroyableLazy<AuthorizationFeature>? = null
+    var provider: DestroyableLazy<AuthorizationFeatureComponent>? = null
 }
 
-internal val Injector: AuthorizationFeature
+internal val Injector: AuthorizationFeatureComponent
     get() = AuthorizationFeatureInjector.provider!!.value
 
 internal object Module {

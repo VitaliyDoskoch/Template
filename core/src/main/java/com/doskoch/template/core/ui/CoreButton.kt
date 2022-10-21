@@ -51,7 +51,7 @@ fun CoreButton(
                 overflow = TextOverflow.Ellipsis
             )
 
-            if(isLoading) {
+            if (isLoading) {
                 CircularProgressIndicator(
                     modifier = Modifier
                         .padding(start = Dimensions.space_8)

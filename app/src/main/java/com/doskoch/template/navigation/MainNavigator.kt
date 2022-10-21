@@ -1,7 +1,6 @@
 package com.doskoch.template.navigation
 
 import androidx.navigation.NavOptions
-import androidx.navigation.NavOptionsBuilder
 import com.doskoch.template.core.components.event.EventQueue
 import com.doskoch.template.core.components.navigation.CoreNavigator
 import com.doskoch.template.core.components.navigation.NavAction

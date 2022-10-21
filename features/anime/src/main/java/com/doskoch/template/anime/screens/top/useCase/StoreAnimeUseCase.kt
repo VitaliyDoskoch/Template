@@ -11,7 +11,7 @@ class StoreAnimeUseCase(private val storage: SimpleInMemoryStorage<Int, GetTopAn
         nextKey: Int?,
         page: List<GetTopAnimeResponse.Data>
     ) = storage.inTransaction {
-        if(clearExistingData) {
+        if (clearExistingData) {
             clear()
         }
 

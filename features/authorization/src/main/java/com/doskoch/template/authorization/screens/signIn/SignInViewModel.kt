@@ -1,7 +1,6 @@
 package com.doskoch.template.authorization.screens.signIn
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.doskoch.template.authorization.navigation.AuthorizationFeatureNavigator
 import com.doskoch.template.authorization.screens.signIn.useCase.IsEmailValidUseCase
 import com.doskoch.template.core.components.error.CoreError
@@ -12,7 +11,6 @@ import com.doskoch.template.core.useCase.authorization.AuthorizeUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 
 class SignInViewModel(
     private val navigator: AuthorizationFeatureNavigator,

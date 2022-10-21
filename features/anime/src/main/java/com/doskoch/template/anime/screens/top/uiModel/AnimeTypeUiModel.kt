@@ -13,7 +13,7 @@ enum class AnimeTypeUiModel(@StringRes val stringId: Int) {
     Music(R.string.anime_type_music)
 }
 
-fun AnimeTypeUiModel.toRemoteAnimeType() = when(this) {
+fun AnimeTypeUiModel.toRemoteAnimeType() = when (this) {
     AnimeTypeUiModel.Tv -> RemoteAnimeType.Tv
     AnimeTypeUiModel.Movie -> RemoteAnimeType.Movie
     AnimeTypeUiModel.Ova -> RemoteAnimeType.Ova

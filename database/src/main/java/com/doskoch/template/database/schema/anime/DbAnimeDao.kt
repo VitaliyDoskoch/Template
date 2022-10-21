@@ -21,5 +21,4 @@ abstract class DbAnimeDao(database: RoomDatabase) : BaseDao<DbAnime>(database) {
 
     @Query("select exists(select DbAnime.id from DbAnime where DbAnime.id = :id)")
     abstract fun isFavorite(id: Int): Flow<Boolean>
-
 }

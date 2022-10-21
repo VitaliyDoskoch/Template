@@ -4,7 +4,7 @@ import com.doskoch.template.authorization.navigation.AuthorizationFeatureNavigat
 import com.doskoch.template.core.components.error.GlobalErrorHandler
 import com.doskoch.template.core.store.AuthorizationDataStore
 
-interface AuthorizationFeature {
+interface AuthorizationFeatureComponent {
     val navigator: AuthorizationFeatureNavigator
     val globalErrorHandler: GlobalErrorHandler
     val authorizationDataStore: AuthorizationDataStore

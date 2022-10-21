@@ -1,10 +1,10 @@
 package com.doskoch.template.di.modules
 
 import android.app.Application
-import com.doskoch.template.error.GlobalErrorHandlerImpl
 import com.doskoch.template.core.store.AuthorizationDataStore
 import com.doskoch.template.database.AppDatabase
 import com.doskoch.template.di.AppComponent
+import com.doskoch.template.error.GlobalErrorHandlerImpl
 import com.doskoch.template.navigation.MainNavigator
 
 fun appModule(application: Application) = object : AppComponent {

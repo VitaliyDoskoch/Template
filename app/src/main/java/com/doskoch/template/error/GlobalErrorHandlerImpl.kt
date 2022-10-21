@@ -14,7 +14,7 @@ class GlobalErrorHandlerImpl : GlobalErrorHandler, EventQueue.Producer {
             Timber.w("Some important logic can be done here")
             false
         }
-        else -> if(showIfNotHandled) {
+        else -> if (showIfNotHandled) {
             events.enqueue(error)
             true
         } else {

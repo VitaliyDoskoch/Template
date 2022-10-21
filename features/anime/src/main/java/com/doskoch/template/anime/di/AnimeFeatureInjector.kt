@@ -22,10 +22,10 @@ import com.doskoch.template.core.components.paging.SimpleInMemoryStorage
 import com.doskoch.template.core.useCase.authorization.LogoutUseCase
 
 object AnimeFeatureInjector {
-    var provider: DestroyableLazy<AnimeFeature>? = null
+    var provider: DestroyableLazy<AnimeFeatureComponent>? = null
 }
 
-internal val Injector: AnimeFeature
+internal val Injector: AnimeFeatureComponent
     get() = AnimeFeatureInjector.provider!!.value
 
 @ExperimentalPagingApi

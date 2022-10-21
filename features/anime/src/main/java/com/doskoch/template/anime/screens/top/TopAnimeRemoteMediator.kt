@@ -12,7 +12,6 @@ import com.doskoch.template.api.jikan.common.enum.RemoteAnimeType
 import com.doskoch.template.api.jikan.services.top.responses.GetTopAnimeResponse
 import com.doskoch.template.core.components.error.GlobalErrorHandler
 import com.doskoch.template.core.components.error.toCoreError
-import com.doskoch.template.core.components.paging.SimpleInMemoryStorage
 import timber.log.Timber
 
 @OptIn(ExperimentalPagingApi::class)
@@ -25,7 +24,7 @@ class TopAnimeRemoteMediator(
 ) : RemoteMediator<Int, GetTopAnimeResponse.Data>() {
 
     override suspend fun load(loadType: LoadType, state: PagingState<Int, GetTopAnimeResponse.Data>): MediatorResult {
-        val key = when(loadType) {
+        val key = when (loadType) {
             LoadType.REFRESH -> INITIAL_PAGE_KEY
             LoadType.APPEND -> getLastPagingKeyUseCase.invoke() ?: return MediatorResult.Success(endOfPaginationReached = true)
             LoadType.PREPEND -> return MediatorResult.Success(endOfPaginationReached = true)
@@ -35,14 +34,14 @@ class TopAnimeRemoteMediator(
             val response = loadAnimeUseCase.invoke(
                 type = remoteAnimeType,
                 key = key,
-                pageSize = if(key == INITIAL_PAGE_KEY) state.config.initialLoadSize else state.config.pageSize
+                pageSize = if (key == INITIAL_PAGE_KEY) state.config.initialLoadSize else state.config.pageSize
             )
 
             storeAnimeUseCase.invoke(
                 clearExistingData = loadType == LoadType.REFRESH,
-                previousKey = if(key > INITIAL_PAGE_KEY) key - 1 else null,
+                previousKey = if (key > INITIAL_PAGE_KEY) key - 1 else null,
                 currentKey = key,
-                nextKey = if(response.pagination.hasNextPage) key + 1 else null,
+                nextKey = if (response.pagination.hasNextPage) key + 1 else null,
                 page = response.data
             )
 

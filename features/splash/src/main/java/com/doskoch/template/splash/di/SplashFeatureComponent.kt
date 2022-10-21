@@ -2,7 +2,7 @@ package com.doskoch.template.splash.di
 
 import com.doskoch.template.core.store.AuthorizationDataStore
 
-interface SplashFeature {
+interface SplashFeatureComponent {
     val navigator: SplashFeatureNavigator
     val authorizationDataStore: AuthorizationDataStore
 }

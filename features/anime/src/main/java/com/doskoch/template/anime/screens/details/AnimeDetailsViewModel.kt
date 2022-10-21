@@ -13,7 +13,6 @@ import com.doskoch.template.core.components.error.toCoreError
 import com.doskoch.template.core.functions.launchAction
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.update
 
@@ -71,7 +70,7 @@ class AnimeDetailsViewModel(
 
     private fun onFavoriteClick() = launchAction(
         action = {
-            if(state.value.isFavorite) {
+            if (state.value.isFavorite) {
                 deleteAnimeFromFavoriteUseCase.invoke(animeId)
             } else {
                 saveAnimeToFavoriteUseCase.invoke(animeId)

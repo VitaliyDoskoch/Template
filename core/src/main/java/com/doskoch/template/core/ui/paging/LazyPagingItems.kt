@@ -23,7 +23,7 @@ fun <T : Any> LazyPagingItems<T>.retryWhenNetworkAvailable() = this.apply {
 @SuppressLint("ComposableNaming")
 @Composable
 private fun LoadState.whenNetworkAvailable(action: () -> Unit) {
-    if(this is LoadState.Error && error.toCoreError() is CoreError.NoInternet) {
+    if (this is LoadState.Error && error.toCoreError() is CoreError.NoInternet) {
         val context = LocalContext.current
 
         DisposableEffect(this) {

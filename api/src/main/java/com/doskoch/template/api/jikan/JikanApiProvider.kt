@@ -2,8 +2,8 @@ package com.doskoch.template.api.jikan
 
 import android.util.Log
 import com.doskoch.template.api.BuildConfig
-import com.doskoch.template.api.jikan.interceptors.ApiVersionInterceptor
 import com.doskoch.template.api.jikan.functions.addInterceptors
+import com.doskoch.template.api.jikan.interceptors.ApiVersionInterceptor
 import com.doskoch.template.api.jikan.services.anime.AnimeService
 import com.doskoch.template.api.jikan.services.top.TopService
 import com.google.gson.GsonBuilder

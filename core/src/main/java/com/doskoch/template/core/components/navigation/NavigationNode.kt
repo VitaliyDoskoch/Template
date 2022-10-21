@@ -6,7 +6,6 @@ import androidx.navigation.NavDeepLink
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.google.gson.Gson
-import timber.log.Timber
 
 abstract class NavigationNode(private val name: String) {
     open val arguments: List<TypedArgument<*>> by lazy(::retrieveArguments)
@@ -35,7 +34,7 @@ abstract class NavigationNode(private val name: String) {
         byHasDefault[false]?.forEach { argument ->
             params[argument]
                 ?.value
-                ?.let { if(argument.type is JsonNavType) Gson().toJson(it, it::class.java) else it }
+                ?.let { if (argument.type is JsonNavType) Gson().toJson(it, it::class.java) else it }
                 ?.let { append("/$it") }
                 ?: throw NoSuchElementException("The required argument is missing")
         }
@@ -43,9 +42,9 @@ abstract class NavigationNode(private val name: String) {
         byHasDefault[true]
             ?.joinToString(prefix = "?", separator = "&") { argument ->
                 val value = params[argument]?.value
-                    ?.let { if(argument.type is JsonNavType) Gson().toJson(it, it::class.java) else it }
+                    ?.let { if (argument.type is JsonNavType) Gson().toJson(it, it::class.java) else it }
                 val defaultValue = argument.defaultValue
-                    ?.let { if(argument.type is JsonNavType) Gson().toJson(it, it::class.java) else it }
+                    ?.let { if (argument.type is JsonNavType) Gson().toJson(it, it::class.java) else it }
 
                 "${argument.value.name}=${value ?: defaultValue}"
             }

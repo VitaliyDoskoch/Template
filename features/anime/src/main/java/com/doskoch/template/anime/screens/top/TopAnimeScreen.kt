@@ -109,7 +109,6 @@ fun TopAnimeScreen(vm: TopAnimeViewModel = viewModel { Module.topAnimeViewModel(
     }
 }
 
-
 @Composable
 private fun TopBar(state: TopAnimeState) {
     val systemUiController = rememberSystemUiController()

@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.ExperimentalMaterialApi
@@ -23,7 +22,6 @@ import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
-import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
@@ -243,7 +241,7 @@ private fun Description(
             modifier = Modifier
                 .animateContentSize(),
             style = MaterialTheme.typography.body2,
-            maxLines = if(expanded.value) Int.MAX_VALUE else 5,
+            maxLines = if (expanded.value) Int.MAX_VALUE else 5,
             overflow = TextOverflow.Ellipsis
         )
 
@@ -255,7 +253,7 @@ private fun Description(
                 .clickable { expanded.value = !expanded.value }
         ) {
             Text(
-                text = stringResource(if(expanded.value) R.string.show_less else R.string.show_more),
+                text = stringResource(if (expanded.value) R.string.show_less else R.string.show_more),
                 modifier = Modifier
                     .padding(horizontal = Dimensions.space_16, vertical = Dimensions.space_4),
                 style = MaterialTheme.typography.caption,

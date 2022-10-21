@@ -7,7 +7,7 @@ import com.doskoch.template.core.components.error.GlobalErrorHandler
 import com.doskoch.template.core.store.AuthorizationDataStore
 import com.doskoch.template.database.schema.anime.DbAnimeDao
 
-interface AnimeFeature {
+interface AnimeFeatureComponent {
     val navigator: AnimeFeatureNavigator
     val globalErrorHandler: GlobalErrorHandler
     val authorizationDataStore: AuthorizationDataStore

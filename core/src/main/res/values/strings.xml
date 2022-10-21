@@ -5,6 +5,8 @@
     <string name="retry">Retry</string>
     <string name="placeholder_empty_list">Sorry, there\'s no content here</string>
     <string name="desc_placeholder_empty_list">There is no content here</string>
+    <string name="show_more">Show more</string>
+    <string name="show_less">Show less</string>
     
     <!-- CoreError -->
     <string name="error_unknown">An unknown error occurred.</string>

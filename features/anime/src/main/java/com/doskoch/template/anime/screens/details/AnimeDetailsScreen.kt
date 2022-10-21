@@ -1,5 +1,8 @@
 package com.doskoch.template.anime.screens.details
 
+import androidx.compose.animation.animateContentSize
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,19 +15,25 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -152,12 +161,11 @@ private fun Content(content: ScreenState.Content) {
                 .padding(Dimensions.space_16)
         )
 
-        Text(
+        Description(
             text = content.description,
             modifier = Modifier
                 .padding(horizontal = Dimensions.space_16)
-                .fillMaxWidth(),
-            style = MaterialTheme.typography.body2
+                .fillMaxWidth()
         )
 
         SecondaryInfoRow(
@@ -214,6 +222,48 @@ private fun PrimaryInfoRow(
             FieldValue(text = content.rank.toString())
             FieldValue(text = content.popularity.toString())
             FieldValue(text = content.status)
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterialApi::class)
+@Composable
+private fun Description(
+    text: String,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        val expanded = remember { mutableStateOf(false) }
+
+        Text(
+            text = text,
+            modifier = Modifier
+                .animateContentSize(),
+            style = MaterialTheme.typography.body2,
+            maxLines = if(expanded.value) Int.MAX_VALUE else 5,
+            overflow = TextOverflow.Ellipsis
+        )
+
+        Box(
+            modifier = Modifier
+                .padding(top = Dimensions.space_16)
+                .clip(MaterialTheme.shapes.medium)
+                .background(MaterialTheme.colors.primary)
+                .clickable { expanded.value = !expanded.value }
+        ) {
+            Text(
+                text = stringResource(if(expanded.value) R.string.show_less else R.string.show_more),
+                modifier = Modifier
+                    .padding(horizontal = Dimensions.space_16, vertical = Dimensions.space_4),
+                style = MaterialTheme.typography.caption,
+                color = MaterialTheme.colors.onPrimary,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                textAlign = TextAlign.Center
+            )
         }
     }
 }

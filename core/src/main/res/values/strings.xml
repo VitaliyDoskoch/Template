@@ -30,10 +30,9 @@
     
     <!-- AuthorizationFeature -->
     <!-- SignUpScreen -->
-    <string name="sign_up_screen_project_description">It is an example project, designed to show a good Android app architecture implementation.
-        It uses the free Jikan api under the hood.</string>
-    <string name="sign_up_screen_sign_in_label">Please, sign in to unlock extra features e.g. adding to favorites.
-        Don\'t worry - the flow is mocked ;)</string>
+    <string name="sign_up_screen_project_description">It is an example project, designed to show an efficient
+        Android app architecture implementation using the free Jikan api under the hood.</string>
+    <string name="sign_up_screen_sign_in_label">Please, sign in. Don\'t worry - the flow is mocked ;)</string>
     <string name="sign_up_screen_sign_in">Sign in</string>
     <string name="sign_up_screen_or">or</string>
     <string name="sign_up_screen_skip">Skip</string>

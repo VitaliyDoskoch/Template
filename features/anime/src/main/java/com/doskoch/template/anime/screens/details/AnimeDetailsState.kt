@@ -19,8 +19,6 @@ data class AnimeDetailsState(
             val scoredBy: Int,
             val rank: Int,
             val popularity: Int,
-            val members: Int,
-            val favorites: Int,
             val genres: List<String>,
             val description: String,
             val type: String,
@@ -30,8 +28,7 @@ data class AnimeDetailsState(
             val themes: List<String>,
             val duration: String,
             val rating: String,
-            val studios: List<String>,
-            val trailerUrl: String
+            val studios: List<String>
         ) : ScreenState()
 
         data class Error(val error: CoreError) : ScreenState()
@@ -50,8 +47,6 @@ fun GetAnimeResponse.Data.toContent() = AnimeDetailsState.ScreenState.Content(
     scoredBy = scoredBy,
     rank = rank,
     popularity = popularity,
-    members = members,
-    favorites = favorites,
     genres = genres.map { it.name },
     description = synopsis,
     type = type,
@@ -61,6 +56,5 @@ fun GetAnimeResponse.Data.toContent() = AnimeDetailsState.ScreenState.Content(
     themes = themes.map { it.name },
     duration = duration,
     rating = rating,
-    studios = studios.map { it.name },
-    trailerUrl = trailer.url
+    studios = studios.map { it.name }
 )

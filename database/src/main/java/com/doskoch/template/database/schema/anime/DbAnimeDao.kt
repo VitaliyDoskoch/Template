@@ -19,4 +19,7 @@ abstract class DbAnimeDao(database: RoomDatabase) : BaseDao<DbAnime>(database) {
     @Query("delete from DbAnime where DbAnime.id = :id")
     abstract suspend fun delete(id: Int)
 
+    @Query("select exists(select DbAnime.id from DbAnime where DbAnime.id = :id)")
+    abstract fun isFavorite(id: Int): Flow<Boolean>
+
 }

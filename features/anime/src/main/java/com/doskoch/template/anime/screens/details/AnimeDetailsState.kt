@@ -37,7 +37,8 @@ data class AnimeDetailsState(
     }
 
     data class Actions(
-        val onBackClick: () -> Unit
+        val onBackClick: () -> Unit,
+        val onFavoriteClick: () -> Unit
     )
 }
 

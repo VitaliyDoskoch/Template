@@ -5,6 +5,7 @@ import androidx.paging.Pager
 import com.doskoch.legacy.kotlin.DestroyableLazy
 import com.doskoch.template.anime.PAGING_CONFIG
 import com.doskoch.template.anime.screens.details.AnimeDetailsViewModel
+import com.doskoch.template.anime.screens.details.useCase.GetIsFavoriteAnimeUseCase
 import com.doskoch.template.anime.screens.details.useCase.LoadAnimeDetailsUseCase
 import com.doskoch.template.anime.screens.favorite.FavoriteAnimeViewModel
 import com.doskoch.template.anime.screens.top.TopAnimeRemoteMediator
@@ -71,6 +72,10 @@ object Module {
         animeId = animeId,
         title = title,
         navigator = Injector.navigator,
-        loadAnimeDetailsUseCase = LoadAnimeDetailsUseCase(Injector.animeService)
+        globalErrorHandler = Injector.globalErrorHandler,
+        getIsFavoriteAnimeUseCase = GetIsFavoriteAnimeUseCase(dbAnimeDao = Injector.dbAnimeDao),
+        loadAnimeDetailsUseCase = LoadAnimeDetailsUseCase(Injector.animeService),
+        saveAnimeToFavoriteUseCase = SaveAnimeToFavoriteUseCase(storage = topAnimeStorage.value, dbAnimeDao = Injector.dbAnimeDao),
+        deleteAnimeFromFavoriteUseCase = DeleteAnimeFromFavoriteUseCase(dbAnimeDao = Injector.dbAnimeDao)
     )
 }

@@ -80,7 +80,10 @@ fun TopAnimeScreen(vm: TopAnimeViewModel = viewModel { Module.topAnimeViewModel(
                         .simpleVerticalScrollbar(lazyListState),
                     state = lazyListState
                 ) {
-                    itemsIndexed(items) { position, item ->
+                    itemsIndexed(
+                        items = items,
+                        key = { _, item -> item.id }
+                    ) { position, item ->
                         item?.let {
                             AnimeItem(
                                 item = item,

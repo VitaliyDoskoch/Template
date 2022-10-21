@@ -50,7 +50,7 @@ fun SignInScreen(vm: SignInViewModel = viewModel { Module.signInViewModel() }) {
                     IconButton(onClick = state.actions.onNavigateBack) {
                         Icon(
                             painter = painterResource(R.drawable.ic_arrow_back),
-                            contentDescription = stringResource(R.string.desc_navigate_back)
+                            contentDescription = stringResource(R.string.common_desc_navigate_back)
                         )
                     }
                 },
@@ -66,7 +66,7 @@ fun SignInScreen(vm: SignInViewModel = viewModel { Module.signInViewModel() }) {
                 .fillMaxSize()
         ) {
             Text(
-                text = stringResource(R.string.log_in_with_email),
+                text = stringResource(R.string.sign_in_screen_log_in_with_email),
                 modifier = Modifier
                     .padding(start = Dimensions.space_16, top = Dimensions.space_16, end = Dimensions.space_16)
                     .fillMaxWidth(),
@@ -76,7 +76,7 @@ fun SignInScreen(vm: SignInViewModel = viewModel { Module.signInViewModel() }) {
             )
 
             Text(
-                text = stringResource(R.string.log_in_with_email_hint),
+                text = stringResource(R.string.sign_in_screen_log_in_with_email_hint),
                 modifier = Modifier
                     .padding(start = Dimensions.space_16, top = Dimensions.space_72, end = Dimensions.space_16)
                     .fillMaxWidth(),
@@ -90,7 +90,7 @@ fun SignInScreen(vm: SignInViewModel = viewModel { Module.signInViewModel() }) {
                 modifier = Modifier
                     .padding(start = Dimensions.space_16, top = Dimensions.space_16, end = Dimensions.space_16)
                     .fillMaxWidth(),
-                hint = stringResource(R.string.email_hint),
+                hint = stringResource(R.string.sign_in_screen_email_hint),
                 errorMessage = state.error?.localizedMessage(LocalContext.current),
                 singleLine = true
             )
@@ -98,7 +98,7 @@ fun SignInScreen(vm: SignInViewModel = viewModel { Module.signInViewModel() }) {
             Spacer(modifier = Modifier.weight(1f))
 
             CoreButton(
-                text = stringResource(R.string.proceed),
+                text = stringResource(R.string.sign_in_screen_proceed),
                 onClick = state.actions.onProceed,
                 modifier = Modifier
                     .padding(Dimensions.space_16)

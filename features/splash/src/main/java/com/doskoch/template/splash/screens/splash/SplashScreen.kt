@@ -65,7 +65,7 @@ fun SplashScreen(vm: SplashViewModel = viewModel { Module.splashViewModel() }) {
 
             Text(
                 text = LocalContext.current.run {
-                    stringResource(R.string.app_version, packageManager.getPackageInfo(packageName, 0).versionName)
+                    stringResource(R.string.splash_screen_app_version, packageManager.getPackageInfo(packageName, 0).versionName)
                 },
                 modifier = Modifier
                     .padding(start = Dimensions.space_16, end = Dimensions.space_16)
@@ -78,7 +78,7 @@ fun SplashScreen(vm: SplashViewModel = viewModel { Module.splashViewModel() }) {
             )
 
             Text(
-                text = stringResource(R.string.developed_by),
+                text = stringResource(R.string.splash_screen_developed_by),
                 modifier = Modifier
                     .padding(
                         start = Dimensions.space_16,

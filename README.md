@@ -3,19 +3,18 @@
 It is a learning project designed to accumulate knowledge for easy-access in the future. The project is implemented using MVI architecture
 pattern based on the MVVM pattern.
 
-> NOTE: The current implementation of the project differs from the stated below!
-
 ## The project consists of these specific modules:
 
 1. database - contains the whole database schema, including RoomDatabase, Daos, Entities, Views, and Embedded objects.
 2. api - contains api-related classes, services, request and response models.
-3. core - contains stuff, shared across features, such as Repositories, custom views, basic abstractions, common UseCases, common
+3. core - contains stuff, that must be shared across features, such as custom views, basic abstractions, common UseCases, common
    resources (such as dimens/themes), all icons and drawables except rare feature-specific images.
 4. feature-modules - contain feature-related stuff, including strings, feature-specific resources, Mappers, UseCases, Screens, and
-   ViewModels. Cross-feature UseCases and the Navigator should be injected from the app module.
-5. optional wrapper modules for third-party libraries - are used to decrease the influence of the library-specific code. Designed to
+   ViewModels.
+5. app - the main module that wires up all modules. Contains cross-feature stuff, Screen containers, and the Navigation schema.
+6. legacy - optional module for legacy code that you don't want to delete yet.
+7. optional wrapper modules for third-party libraries - are used to decrease the influence of the library-specific code. Designed to
    decrease the impact of the migration to a different third-party library.
-6. app - the main module that wires up all modules. Contains cross-feature stuff, Screen containers, and the Navigation schema.
 
 ## Coding conventions:
 

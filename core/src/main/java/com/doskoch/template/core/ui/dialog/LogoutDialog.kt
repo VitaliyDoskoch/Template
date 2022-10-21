@@ -17,24 +17,24 @@ fun LogoutDialog(
         onDismissRequest = onDismiss,
         title = {
             Text(
-                text = stringResource(R.string.dialog_logout_title),
+                text = stringResource(R.string.common_dialog_logout_title),
                 style = MaterialTheme.typography.subtitle1
             )
         },
         text = {
             Text(
-                text = stringResource(R.string.dialog_logout_message),
+                text = stringResource(R.string.common_dialog_logout_message),
                 style = MaterialTheme.typography.body2
             )
         },
         confirmButton = {
             TextButton(onClick = onConfirm) {
-                Text(text = stringResource(R.string.dialog_logout_confirm_button))
+                Text(text = stringResource(R.string.common_dialog_logout_confirm_button))
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text(text = stringResource(R.string.dialog_logout_dismiss_button))
+                Text(text = stringResource(R.string.common_dialog_logout_dismiss_button))
             }
         }
     )

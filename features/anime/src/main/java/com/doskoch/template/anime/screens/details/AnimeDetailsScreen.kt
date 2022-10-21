@@ -124,7 +124,7 @@ private fun TopBar(state: AnimeDetailsState) {
             ) {
                 Icon(
                     painter = painterResource(R.drawable.ic_arrow_back),
-                    contentDescription = stringResource(R.string.desc_navigate_back),
+                    contentDescription = stringResource(R.string.common_desc_navigate_back),
                     modifier = Modifier
                         .size(Dimensions.icon_24)
                 )
@@ -136,7 +136,7 @@ private fun TopBar(state: AnimeDetailsState) {
             ) {
                 Icon(
                     painter = painterResource(if (state.isFavorite) R.drawable.ic_star_filled else R.drawable.ic_start_outline),
-                    contentDescription = stringResource(R.string.desc_to_favorite),
+                    contentDescription = stringResource(R.string.anime_desc_to_favorite),
                     modifier = Modifier
                         .size(Dimensions.icon_24),
                     tint = MaterialTheme.colors.secondary
@@ -183,7 +183,7 @@ private fun PrimaryInfoRow(
     Row(modifier) {
         AsyncImage(
             model = content.imageUrl,
-            contentDescription = stringResource(R.string.desc_item_image),
+            contentDescription = stringResource(R.string.anime_desc_anime_image),
             modifier = Modifier
                 .size(120.dp),
             contentScale = ContentScale.Crop,
@@ -197,10 +197,10 @@ private fun PrimaryInfoRow(
                 .height(120.dp),
             verticalArrangement = Arrangement.SpaceEvenly
         ) {
-            Hint(text = stringResource(R.string.score))
-            Hint(text = stringResource(R.string.ranked))
-            Hint(text = stringResource(R.string.popularity))
-            Hint(text = stringResource(R.string.status))
+            Hint(text = stringResource(R.string.anime_details_screen_score_hint))
+            Hint(text = stringResource(R.string.anime_details_screen_ranked_hint))
+            Hint(text = stringResource(R.string.anime_details_screen_popularity_hint))
+            Hint(text = stringResource(R.string.anime_details_screen_status_hint))
         }
 
         Column(
@@ -253,7 +253,7 @@ private fun Description(
                 .clickable { expanded.value = !expanded.value }
         ) {
             Text(
-                text = stringResource(if (expanded.value) R.string.show_less else R.string.show_more),
+                text = stringResource(if (expanded.value) R.string.common_show_less else R.string.common_show_more),
                 modifier = Modifier
                     .padding(horizontal = Dimensions.space_16, vertical = Dimensions.space_4),
                 style = MaterialTheme.typography.caption,
@@ -277,13 +277,13 @@ private fun SecondaryInfoRow(
         Column(
             verticalArrangement = Arrangement.SpaceEvenly
         ) {
-            Hint(text = stringResource(R.string.type))
-            Hint(text = stringResource(R.string.genres), paddingModifier)
-            Hint(text = stringResource(R.string.theme), paddingModifier)
-            Hint(text = stringResource(R.string.rating), paddingModifier)
-            Hint(text = stringResource(R.string.episodes), paddingModifier)
-            Hint(text = stringResource(R.string.duration), paddingModifier)
-            Hint(text = stringResource(R.string.studios), paddingModifier)
+            Hint(text = stringResource(R.string.anime_details_screen_type_hint))
+            Hint(text = stringResource(R.string.anime_details_screen_genres_hint), paddingModifier)
+            Hint(text = stringResource(R.string.anime_details_screen_theme_hint), paddingModifier)
+            Hint(text = stringResource(R.string.anime_details_screen_rating_hint), paddingModifier)
+            Hint(text = stringResource(R.string.anime_details_screen_episodes_hint), paddingModifier)
+            Hint(text = stringResource(R.string.anime_details_screen_duration_hint), paddingModifier)
+            Hint(text = stringResource(R.string.anime_details_screen_studios_hint), paddingModifier)
         }
 
         Column(

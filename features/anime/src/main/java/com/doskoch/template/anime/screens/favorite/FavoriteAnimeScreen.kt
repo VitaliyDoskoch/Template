@@ -93,7 +93,7 @@ private fun TopBar(state: FavoriteAnimeState) {
             .statusBarsPadding(),
         title = {
             Text(
-                text = stringResource(R.string.favorite_toolbar_title),
+                text = stringResource(R.string.favorite_anime_screen_toolbar_title),
                 style = MaterialTheme.typography.subtitle1,
                 color = MaterialTheme.colors.onPrimary
             )
@@ -104,7 +104,7 @@ private fun TopBar(state: FavoriteAnimeState) {
             ) {
                 Icon(
                     painter = painterResource(R.drawable.ic_arrow_back),
-                    contentDescription = stringResource(R.string.desc_navigate_back),
+                    contentDescription = stringResource(R.string.common_desc_navigate_back),
                     modifier = Modifier
                         .size(Dimensions.icon_24)
                 )

@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- SplashScreen -->
-    <string name="app_version">Version %s</string>
-    <string name="developed_by">Developed by Vitaliy Doskoch</string>
-</resources>

@@ -168,13 +168,13 @@ private fun BoxScope.DefaultPlaceholder() {
     ) {
         Image(
             painter = painterResource(R.drawable.im_cat),
-            contentDescription = stringResource(R.string.desc_placeholder_empty_list),
+            contentDescription = stringResource(R.string.common_desc_empty_list),
             modifier = Modifier
                 .size(200.dp)
         )
 
         Text(
-            text = stringResource(R.string.placeholder_empty_list),
+            text = stringResource(R.string.common_placeholder_empty_list),
             modifier = Modifier
                 .padding(Dimensions.space_16)
                 .fillMaxWidth(),

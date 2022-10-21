@@ -80,7 +80,7 @@ private fun ErrorItem(error: CoreError, onRetry: () -> Unit) {
         )
 
         CoreButton(
-            text = stringResource(R.string.retry),
+            text = stringResource(R.string.common_retry),
             onClick = onRetry,
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)

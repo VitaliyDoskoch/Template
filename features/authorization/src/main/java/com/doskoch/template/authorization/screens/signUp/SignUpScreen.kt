@@ -75,7 +75,7 @@ private fun SignUpScreen(
             Spacer(modifier = Modifier.weight(1f))
 
             Text(
-                text = stringResource(R.string.project_description),
+                text = stringResource(R.string.sign_up_screen_project_description),
                 modifier = Modifier
                     .padding(start = Dimensions.space_16, end = Dimensions.space_16)
                     .fillMaxWidth(),
@@ -87,7 +87,7 @@ private fun SignUpScreen(
             Spacer(modifier = Modifier.weight(1f))
 
             Text(
-                text = stringResource(R.string.sign_in_label),
+                text = stringResource(R.string.sign_up_screen_sign_in_label),
                 modifier = Modifier
                     .padding(start = Dimensions.space_16, end = Dimensions.space_16)
                     .fillMaxWidth(),
@@ -97,7 +97,7 @@ private fun SignUpScreen(
             )
 
             CoreButton(
-                text = stringResource(R.string.sign_in),
+                text = stringResource(R.string.sign_up_screen_sign_in),
                 onClick = onSignIn,
                 modifier = Modifier
                     .padding(start = Dimensions.space_16, top = Dimensions.space_24, end = Dimensions.space_16)
@@ -106,7 +106,7 @@ private fun SignUpScreen(
             )
 
             Text(
-                text = stringResource(R.string.or),
+                text = stringResource(R.string.sign_up_screen_or),
                 modifier = Modifier
                     .padding(start = Dimensions.space_16, top = Dimensions.space_8, end = Dimensions.space_16)
                     .fillMaxWidth(),
@@ -117,7 +117,7 @@ private fun SignUpScreen(
             )
 
             CoreTextButton(
-                text = stringResource(R.string.skip),
+                text = stringResource(R.string.sign_up_screen_skip),
                 onClick = onSkip,
                 modifier = Modifier
                     .padding(start = Dimensions.space_16, top = Dimensions.space_8, end = Dimensions.space_16, bottom = Dimensions.space_16)

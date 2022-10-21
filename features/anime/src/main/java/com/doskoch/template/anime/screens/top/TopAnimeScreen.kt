@@ -163,7 +163,7 @@ private fun TopBar(state: TopAnimeState) {
             ) {
                 Icon(
                     painter = painterResource(if (state.hasFavorite) R.drawable.ic_star_filled else R.drawable.ic_start_outline),
-                    contentDescription = stringResource(R.string.desc_to_favorite),
+                    contentDescription = stringResource(R.string.anime_desc_to_favorite),
                     modifier = Modifier
                         .size(Dimensions.icon_24),
                     tint = MaterialTheme.colors.secondary
@@ -175,7 +175,7 @@ private fun TopBar(state: TopAnimeState) {
             ) {
                 Icon(
                     painter = painterResource(R.drawable.ic_logout),
-                    contentDescription = stringResource(R.string.desc_logout),
+                    contentDescription = stringResource(R.string.anime_desc_logout),
                     modifier = Modifier
                         .size(Dimensions.icon_24),
                     tint = MaterialTheme.colors.secondary

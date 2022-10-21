@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    
-    <!-- TopAnimeScreen -->
-    <plurals name="by_users">
-        <item quantity="one">by %d user</item>
-        <item quantity="other">by %d users</item>
-    </plurals>
-</resources>

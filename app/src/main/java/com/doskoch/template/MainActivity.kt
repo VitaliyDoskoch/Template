@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 
 class MainActivity : FragmentActivity() {
 
-    private val globalErrorHandler = AppInjector.component.globalErrorHandler as GlobalErrorHandlerImpl
+    private val globalErrorHandler by lazy { AppInjector.component.globalErrorHandler as GlobalErrorHandlerImpl }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -16,6 +16,6 @@ class MainNavigator : CoreNavigator {
     fun toSplash(options: NavOptions) = events.enqueue { navigate(Node.Splash.route, options) }
 
     companion object {
-        internal val startDestination = Node.Splash
+        internal val startNode = Node.Splash
     }
 }

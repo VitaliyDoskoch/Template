@@ -19,7 +19,7 @@ fun MainNavGraph() {
         AppInjector.component.navigator.events.collect { it.invoke(navController) }
     }
 
-    NavHost(navController = navController, startDestination = MainNavigator.startDestination.route) {
+    NavHost(navController = navController, startDestination = MainNavigator.startNode.route) {
         Node.Splash.composable(this) {
             SplashScreen()
         }

@@ -9,7 +9,7 @@ import com.doskoch.template.navigation.Node
 
 fun animeFeatureModule(component: AppComponent) = object : AnimeFeatureComponent {
     override val navigator = object : AnimeFeatureNavigator() {
-        override fun toSplash() = component.mainNavigator.toSplash(
+        override fun toSplash() = component.navigator.toSplash(
             navOptions { popUpTo(Node.Anime.route) { inclusive = true } }
         )
     }

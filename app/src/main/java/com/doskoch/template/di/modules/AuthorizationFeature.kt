@@ -9,7 +9,7 @@ import com.doskoch.template.navigation.Node
 fun authorizationFeatureModule(component: AppComponent) = object : AuthorizationFeatureComponent {
 
     override val navigator = object : AuthorizationFeatureNavigator() {
-        override fun toAnime() = component.mainNavigator.toAnime(
+        override fun toAnime() = component.navigator.toAnime(
             navOptions { popUpTo(Node.Authorization.route) { inclusive = true } }
         )
     }

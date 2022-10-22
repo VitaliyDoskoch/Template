@@ -8,7 +8,7 @@ import com.doskoch.template.navigation.MainNavigator
 
 interface AppComponent {
     val application: Application
-    val mainNavigator: MainNavigator
+    val navigator: MainNavigator
     val globalErrorHandler: GlobalErrorHandler
     val authorizationDataStore: AuthorizationDataStore
     val appDatabase: AppDatabase

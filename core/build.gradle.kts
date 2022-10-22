@@ -9,6 +9,7 @@ dependencies {
     implementation(project(":legacy"))
 
     implementation(Dependencies.timber)
+    implementation(Dependencies.material)
     
     implementation(Dependencies.gson)   //for JsonNavType
     compileOnly(Dependencies.retrofit2) //for HttpException

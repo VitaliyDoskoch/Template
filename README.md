@@ -35,7 +35,7 @@ pattern based on the MVVM pattern.
 
 - MVI:
     1. State is used for View <-> Vm communication.
-    2. The View must display error messages using CoreError only and must not work with Exception directly.
+    2. The View must display error messages using CoreError only and must not work with Exceptions directly.
     3. The View must work with uiModel objects and must not work with database or api objects directly.
     4. The navigation is performed by the Navigator via a ViewModel.
 

@@ -41,7 +41,7 @@
         Just type the valid email address to pass the simple validation</string>
     <string name="sign_in_screen_email_hint">Email</string>
     <string name="sign_in_screen_proceed">Proceed</string>
-    <string name="error_invalid_email">The entered email is invalid.</string>
+    <string name="sign_in_screen_error_invalid_email">The entered email is invalid.</string>
     
     <!-- AnimeFeature -->
     <!-- Common -->

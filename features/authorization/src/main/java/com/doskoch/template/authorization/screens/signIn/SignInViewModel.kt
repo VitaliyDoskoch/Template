@@ -58,6 +58,6 @@ class SignInViewModel(
     )
 
     object InvalidEmail : CoreError() {
-        override fun localizedMessage(context: Context) = context.getString(R.string.error_invalid_email)
+        override fun localizedMessage(context: Context) = context.getString(R.string.sign_in_screen_error_invalid_email)
     }
 }

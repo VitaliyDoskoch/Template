@@ -1,6 +1,5 @@
 package com.doskoch.template.navigation
 
-import androidx.navigation.NavOptions
 import com.doskoch.template.core.components.event.EventQueue
 import com.doskoch.template.core.components.navigation.CoreNavigator
 import com.doskoch.template.core.components.navigation.NavAction
@@ -11,9 +10,19 @@ class MainNavigator : CoreNavigator {
     override val events = EventQueue<NavAction>()
     override val startNode: NavigationNode = Node.Splash
 
-    fun toAuthorization(options: NavOptions) = events.enqueue { navigate(Node.Authorization.route, options) }
+    fun toAuthorization() = events.enqueue {
+        navigate(Node.Authorization.route) { popUpTo(Node.Splash.route) { inclusive = true } }
+    }
 
-    fun toAnime(options: NavOptions) = events.enqueue { navigate(Node.Anime.route, options) }
+    fun toAnimeFromSplash() = events.enqueue {
+        navigate(Node.Anime.route) { popUpTo(Node.Splash.route) { inclusive = true } }
+    }
 
-    fun toSplash(options: NavOptions) = events.enqueue { navigate(Node.Splash.route, options) }
+    fun toAnimeFromAuthorization() = events.enqueue {
+        navigate(Node.Anime.route) { popUpTo(Node.Authorization.route) { inclusive = true } }
+    }
+
+    fun toSplash() = events.enqueue {
+        navigate(Node.Splash.route) { popUpTo(Node.Anime.route) { inclusive = true } }
+    }
 }

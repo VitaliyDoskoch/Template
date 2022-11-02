@@ -1,18 +1,17 @@
 package com.doskoch.template.di.modules
 
-import androidx.navigation.navOptions
+import com.doskoch.template.core.components.navigation.NavigationNode
 import com.doskoch.template.di.AppComponent
-import com.doskoch.template.navigation.MainNavigator
+import com.doskoch.template.navigation.Node
 import com.doskoch.template.splash.di.SplashFeatureComponent
-import com.doskoch.template.splash.di.SplashFeatureNavigator
+import com.doskoch.template.splash.navigation.SplashFeatureNavigator
 
 fun splashFeatureModule(component: AppComponent) = object : SplashFeatureComponent {
-    override val navigator = object : SplashFeatureNavigator {
-        val navOptions = navOptions { popUpTo(component.navigator.startNode.route) { inclusive = true } }
+    override val navigator = object : SplashFeatureNavigator() {
+        override val startNode: NavigationNode = Node.Splash
 
-        override fun toAuthorization() = component.navigator.toAuthorization(navOptions)
-
-        override fun toAnime() = component.navigator.toAnime(navOptions)
+        override fun toAuthorization() = component.navigator.toAuthorization()
+        override fun toAnime() = component.navigator.toAnimeFromSplash()
     }
 
     override val authorizationDataStore = component.authorizationDataStore

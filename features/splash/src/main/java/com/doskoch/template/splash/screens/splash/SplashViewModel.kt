@@ -3,7 +3,7 @@ package com.doskoch.template.splash.screens.splash
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.doskoch.template.core.useCase.authorization.IsAuthorizedUseCase
-import com.doskoch.template.splash.di.SplashFeatureNavigator
+import com.doskoch.template.splash.navigation.SplashFeatureNavigator
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 

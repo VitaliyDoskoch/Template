@@ -4,6 +4,7 @@ import android.content.Context
 import com.doskoch.template.api.jikan.common.error.ErrorResponse
 import com.doskoch.template.api.jikan.ext.errorResponse
 import com.doskoch.template.core.R
+import kotlinx.coroutines.CancellationException
 import retrofit2.HttpException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
@@ -56,7 +57,7 @@ fun Throwable.toCoreError(ifUnknown: CoreError = CoreError.Unknown) = toCoreErro
 fun Throwable.toCoreError(ifUnknown: (Throwable) -> CoreError) = when (this) {
     is UnknownHostException -> CoreError.NoInternet
     is SocketTimeoutException, is TimeoutException -> CoreError.Timeout
-    is InterruptedException -> CoreError.OperationIsCanceled
+    is InterruptedException, is CancellationException -> CoreError.OperationIsCanceled
     is HttpException -> errorResponse()?.let { response ->
         when (response.type) {
             ErrorResponse.Type.RateLimitException -> CoreError.Remote.RateLimit(response.status, response.message)

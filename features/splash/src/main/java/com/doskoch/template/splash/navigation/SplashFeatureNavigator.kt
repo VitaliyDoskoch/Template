@@ -1,0 +1,12 @@
+package com.doskoch.template.splash.navigation
+
+import com.doskoch.template.core.components.event.EventQueue
+import com.doskoch.template.core.components.navigation.CoreNavigator
+import com.doskoch.template.core.components.navigation.NavAction
+
+abstract class SplashFeatureNavigator : CoreNavigator {
+    override val events = EventQueue<NavAction>()
+
+    abstract fun toAuthorization()
+    abstract fun toAnime()
+}

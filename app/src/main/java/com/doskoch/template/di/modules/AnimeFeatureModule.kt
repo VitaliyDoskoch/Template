@@ -1,17 +1,13 @@
 package com.doskoch.template.di.modules
 
-import androidx.navigation.navOptions
 import com.doskoch.template.anime.di.AnimeFeatureComponent
 import com.doskoch.template.anime.navigation.AnimeFeatureNavigator
 import com.doskoch.template.api.jikan.di.JikanApiModule
 import com.doskoch.template.di.AppComponent
-import com.doskoch.template.navigation.Node
 
 fun animeFeatureModule(component: AppComponent) = object : AnimeFeatureComponent {
     override val navigator = object : AnimeFeatureNavigator() {
-        override fun toSplash() = component.navigator.toSplash(
-            navOptions { popUpTo(Node.Anime.route) { inclusive = true } }
-        )
+        override fun toSplash() = component.navigator.toSplash()
     }
 
     override val globalErrorHandler = component.globalErrorHandler

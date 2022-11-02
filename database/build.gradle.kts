@@ -18,6 +18,6 @@ android {
 }
 
 dependencies {
-    kapt(Dependencies.roomCompiler)
-    implementation(Dependencies.room)
+    kapt(Libraries.roomCompiler)
+    implementation(Libraries.room)
 }

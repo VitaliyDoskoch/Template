@@ -1,4 +1,5 @@
 plugins {
+    id("com.android.library")
     id("android-module")
     id("compose")
 }
@@ -9,7 +10,7 @@ dependencies {
     implementation(project(":core"))
     implementation(project(":legacy"))
 
-    implementation(Dependencies.timber)
-    implementation(Dependencies.room)
-    implementation(Dependencies.dataStore)
+    implementation(Libraries.timber)
+    implementation(Libraries.room)
+    implementation(Libraries.dataStore)
 }

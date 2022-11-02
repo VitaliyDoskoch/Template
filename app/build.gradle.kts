@@ -13,10 +13,7 @@ android {
             isMinifyEnabled = true
             isShrinkResources = true
 
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
 }
@@ -31,10 +28,8 @@ dependencies {
     implementation(project(":features:authorization"))
     implementation(project(":features:anime"))
 
-    debugImplementation(Dependencies.leakCanary)
+    debugImplementation(Libraries.leakCanary)
 
-    implementation(Dependencies.timber)
-    implementation(Dependencies.material)
-
-    implementation(Dependencies.room)
+    implementation(Libraries.material)
+    implementation(Libraries.room)
 }

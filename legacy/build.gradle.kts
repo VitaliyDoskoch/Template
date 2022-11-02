@@ -4,8 +4,8 @@ plugins {
 }
 
 dependencies {
-    implementation(Dependencies.material)
-    implementation(Dependencies.coreKtx)
-    implementation(Dependencies.recyclerView)
-    implementation(Dependencies.swipeRefreshLayout)
+    implementation(Libraries.material)
+    implementation(Libraries.coreKtx)
+    implementation(Libraries.recyclerView)
+    implementation(Libraries.swipeRefreshLayout)
 }

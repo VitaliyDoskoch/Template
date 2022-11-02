@@ -8,11 +8,10 @@ dependencies {
     implementation(project(":api"))
     implementation(project(":legacy"))
 
-    implementation(Dependencies.timber)
-    implementation(Dependencies.material)
+    implementation(Libraries.material)
     
-    implementation(Dependencies.gson)   //for JsonNavType
-    compileOnly(Dependencies.retrofit2) //for HttpException
+    implementation(Libraries.gson)   //for JsonNavType
+    compileOnly(Libraries.retrofit2) //for HttpException
 
-    implementation(Dependencies.dataStore)
+    implementation(Libraries.dataStore)
 }

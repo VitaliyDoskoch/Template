@@ -2,6 +2,7 @@ import com.android.build.gradle.LibraryExtension
 import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
 import org.gradle.kotlin.dsl.dependencies
 
+@Suppress("UnstableApiUsage")
 android {
     when(this) {
         is BaseAppModuleExtension -> {
@@ -9,7 +10,7 @@ android {
                 compose = true
             }
             composeOptions {
-                kotlinCompilerExtensionVersion = Dependencies.Versions.compose
+                kotlinCompilerExtensionVersion = Libraries.Versions.compose
             }
         }
         is LibraryExtension -> {
@@ -17,13 +18,13 @@ android {
                 compose = true
             }
             composeOptions {
-                kotlinCompilerExtensionVersion = Dependencies.Versions.compose
+                kotlinCompilerExtensionVersion = Libraries.Versions.compose
             }
         }
     }
 }
 
 dependencies {
-    implementation(Dependencies.compose)
-    implementation(Dependencies.accompanist)
+    implementation(Libraries.compose)
+    implementation(Libraries.accompanist)
 }

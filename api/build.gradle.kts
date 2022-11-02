@@ -4,11 +4,9 @@ plugins {
 }
 
 dependencies {
-    implementation(Dependencies.gson)
-    implementation(Dependencies.retrofit2)
-    implementation(Dependencies.retrofit2ConverterGson)
-    implementation(Dependencies.okhttpLoggingInterceptor)
-
-    implementation(Dependencies.timber)
-    implementation(Dependencies.annotations)
+    implementation(Libraries.gson)
+    implementation(Libraries.retrofit2)
+    implementation(Libraries.retrofit2ConverterGson)
+    implementation(Libraries.okhttpLoggingInterceptor)
+    implementation(Libraries.annotations)
 }

@@ -1,5 +1,6 @@
 rootProject.name = "Template"
 
+@Suppress("UnstableApiUsage")
 dependencyResolutionManagement {
     repositories {
         google()

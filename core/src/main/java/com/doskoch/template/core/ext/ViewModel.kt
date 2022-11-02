@@ -1,4 +1,4 @@
-package com.doskoch.template.core.functions
+package com.doskoch.template.core.ext
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

@@ -1,4 +1,4 @@
-package com.doskoch.template.database.functions
+package com.doskoch.template.database.ext
 
 import androidx.room.withTransaction
 import com.doskoch.template.database.common.BaseDao

@@ -6,7 +6,7 @@ import com.doskoch.template.authorization.screens.signIn.useCase.IsEmailValidUse
 import com.doskoch.template.core.components.error.CoreError
 import com.doskoch.template.core.components.error.GlobalErrorHandler
 import com.doskoch.template.core.components.error.toCoreError
-import com.doskoch.template.core.functions.launchAction
+import com.doskoch.template.core.ext.launchAction
 import com.doskoch.template.core.useCase.authorization.AuthorizeUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

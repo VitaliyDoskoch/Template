@@ -10,7 +10,7 @@ import com.doskoch.template.anime.useCase.SaveAnimeToFavoriteUseCase
 import com.doskoch.template.core.components.error.CoreError
 import com.doskoch.template.core.components.error.GlobalErrorHandler
 import com.doskoch.template.core.components.error.toCoreError
-import com.doskoch.template.core.functions.launchAction
+import com.doskoch.template.core.ext.launchAction
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest

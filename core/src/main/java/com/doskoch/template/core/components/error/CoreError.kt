@@ -13,31 +13,31 @@ sealed class CoreError {
 
     abstract fun localizedMessage(context: Context): String
 
-    class Unknown : CoreError() {
+    object Unknown : CoreError() {
         override fun localizedMessage(context: Context) = context.getString(R.string.error_unknown)
     }
 
-    class FailedToLoadData : CoreError() {
+    object FailedToLoadData : CoreError() {
         override fun localizedMessage(context: Context) = context.getString(R.string.error_failed_to_load_data)
     }
 
-    class FailedToSaveChanges : CoreError() {
+    object FailedToSaveChanges : CoreError() {
         override fun localizedMessage(context: Context) = context.getString(R.string.error_failed_to_save_changes)
     }
 
-    class NoInternet : CoreError() {
+    object NoInternet : CoreError() {
         override fun localizedMessage(context: Context) = context.getString(R.string.error_no_internet)
     }
 
-    class Timeout : CoreError() {
+    object Timeout : CoreError() {
         override fun localizedMessage(context: Context) = context.getString(R.string.error_timeout)
     }
 
-    class OperationIsCanceled : CoreError() {
+    object OperationIsCanceled : CoreError() {
         override fun localizedMessage(context: Context) = context.getString(R.string.error_operation_is_canceled)
     }
 
-    class InvalidEmail : CoreError() {
+    object InvalidEmail : CoreError() {
         override fun localizedMessage(context: Context) = context.getString(R.string.error_invalid_email)
     }
 
@@ -51,19 +51,17 @@ sealed class CoreError {
     }
 }
 
-fun Throwable.toCoreError(ifUnknown: CoreError = CoreError.Unknown()) = toCoreError { ifUnknown }
+fun Throwable.toCoreError(ifUnknown: CoreError = CoreError.Unknown) = toCoreError { ifUnknown }
 
 fun Throwable.toCoreError(ifUnknown: (Throwable) -> CoreError) = when (this) {
-    is UnknownHostException -> CoreError.NoInternet()
-    is SocketTimeoutException, is TimeoutException -> CoreError.Timeout()
-    is InterruptedException -> CoreError.OperationIsCanceled()
-    is HttpException -> errorResponse()
-        ?.let { response ->
-            when (response.type) {
-                ErrorResponse.Type.RateLimitException -> CoreError.Remote.RateLimit(response.status, response.message)
-                else -> CoreError.Remote.Unspecified()
-            }
+    is UnknownHostException -> CoreError.NoInternet
+    is SocketTimeoutException, is TimeoutException -> CoreError.Timeout
+    is InterruptedException -> CoreError.OperationIsCanceled
+    is HttpException -> errorResponse()?.let { response ->
+        when (response.type) {
+            ErrorResponse.Type.RateLimitException -> CoreError.Remote.RateLimit(response.status, response.message)
+            else -> CoreError.Remote.Unspecified()
         }
-        ?: CoreError.Remote.Unspecified()
+    } ?: CoreError.Remote.Unspecified()
     else -> ifUnknown(this)
 }

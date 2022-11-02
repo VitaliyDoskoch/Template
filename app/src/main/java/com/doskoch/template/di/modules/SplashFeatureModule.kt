@@ -8,7 +8,7 @@ import com.doskoch.template.splash.di.SplashFeatureNavigator
 
 fun splashFeatureModule(component: AppComponent) = object : SplashFeatureComponent {
     override val navigator = object : SplashFeatureNavigator {
-        val navOptions = navOptions { popUpTo(MainNavigator.startNode.route) { inclusive = true } }
+        val navOptions = navOptions { popUpTo(component.navigator.startNode.route) { inclusive = true } }
 
         override fun toAuthorization() = component.navigator.toAuthorization(navOptions)
 

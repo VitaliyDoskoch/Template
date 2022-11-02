@@ -7,4 +7,5 @@ typealias NavAction = NavController.() -> Unit
 
 interface CoreNavigator : EventQueue.Producer {
     val events: EventQueue<NavAction>
+    val startNode: NavigationNode
 }

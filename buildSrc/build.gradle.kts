@@ -1,9 +1,7 @@
 import java.io.*
 import java.util.*
 
-val classpathProperties = Properties().apply {
-    load(FileInputStream(File(rootDir.parentFile, "classpath.properties")))
-}
+val plugins = Properties().apply { load(FileInputStream(File(rootDir, "plugin.properties"))) }
 
 plugins {
     `kotlin-dsl`
@@ -17,6 +15,6 @@ repositories {
 }
 
 dependencies {
-    implementation(classpathProperties.getProperty("android"))
-    implementation(classpathProperties.getProperty("kotlin"))
+    implementation("com.android.tools.build:gradle:${plugins.getProperty("android")}")
+    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:${plugins.getProperty("kotlin")}")
 }

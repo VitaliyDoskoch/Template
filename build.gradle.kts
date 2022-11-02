@@ -4,12 +4,9 @@ buildscript {
         mavenCentral()
     }
 
-    val classpathProperties = java.util.Properties().apply {
-        load(java.io.FileInputStream(File(rootDir, "classpath.properties")))
-    }
-
     dependencies {
-        classpathProperties.values.forEach { classpath(it) }
+        classpath(Plugins.android)
+        classpath(Plugins.kotlin)
     }
 }
 

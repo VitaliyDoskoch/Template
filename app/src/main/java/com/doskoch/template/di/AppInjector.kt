@@ -3,7 +3,7 @@ package com.doskoch.template.di
 import android.app.Application
 import com.doskoch.legacy.kotlin.DestroyableLazy
 import com.doskoch.template.anime.di.AnimeFeatureInjector
-import com.doskoch.template.api.jikan.JikanApiInjector
+import com.doskoch.template.api.jikan.di.JikanApiInjector
 import com.doskoch.template.authorization.di.AuthorizationFeatureInjector
 import com.doskoch.template.di.modules.animeFeatureModule
 import com.doskoch.template.di.modules.appModule

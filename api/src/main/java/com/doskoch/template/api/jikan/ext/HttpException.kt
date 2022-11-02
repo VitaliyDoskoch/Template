@@ -1,4 +1,4 @@
-package com.doskoch.template.api.jikan.functions
+package com.doskoch.template.api.jikan.ext
 
 import com.doskoch.template.api.jikan.JikanApiProvider
 import com.doskoch.template.api.jikan.common.error.ErrorResponse

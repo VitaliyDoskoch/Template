@@ -1,4 +1,4 @@
-package com.doskoch.template.api.jikan.functions
+package com.doskoch.template.api.jikan.ext
 
 import retrofit2.Converter
 import retrofit2.Retrofit

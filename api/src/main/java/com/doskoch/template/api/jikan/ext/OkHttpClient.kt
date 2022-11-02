@@ -1,4 +1,4 @@
-package com.doskoch.template.api.jikan.functions
+package com.doskoch.template.api.jikan.ext
 
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient

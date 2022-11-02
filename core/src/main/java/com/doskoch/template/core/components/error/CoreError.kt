@@ -2,7 +2,7 @@ package com.doskoch.template.core.components.error
 
 import android.content.Context
 import com.doskoch.template.api.jikan.common.error.ErrorResponse
-import com.doskoch.template.api.jikan.functions.errorResponse
+import com.doskoch.template.api.jikan.ext.errorResponse
 import com.doskoch.template.core.R
 import retrofit2.HttpException
 import java.net.SocketTimeoutException

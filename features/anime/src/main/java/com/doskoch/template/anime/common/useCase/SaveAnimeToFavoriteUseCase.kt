@@ -1,6 +1,6 @@
-package com.doskoch.template.anime.useCase
+package com.doskoch.template.anime.common.useCase
 
-import com.doskoch.template.anime.toDbAnime
+import com.doskoch.template.anime.common.toDbAnime
 import com.doskoch.template.api.jikan.services.top.responses.GetTopAnimeResponse
 import com.doskoch.template.core.components.paging.SimpleInMemoryStorage
 import com.doskoch.template.database.schema.anime.DbAnimeDao

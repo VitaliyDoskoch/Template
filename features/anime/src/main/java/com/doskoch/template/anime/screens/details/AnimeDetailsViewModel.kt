@@ -5,8 +5,8 @@ import com.doskoch.template.anime.navigation.AnimeFeatureNavigator
 import com.doskoch.template.anime.screens.details.AnimeDetailsState.ScreenState
 import com.doskoch.template.anime.screens.details.useCase.GetIsFavoriteAnimeUseCase
 import com.doskoch.template.anime.screens.details.useCase.LoadAnimeDetailsUseCase
-import com.doskoch.template.anime.useCase.DeleteAnimeFromFavoriteUseCase
-import com.doskoch.template.anime.useCase.SaveAnimeToFavoriteUseCase
+import com.doskoch.template.anime.common.useCase.DeleteAnimeFromFavoriteUseCase
+import com.doskoch.template.anime.common.useCase.SaveAnimeToFavoriteUseCase
 import com.doskoch.template.core.components.error.CoreError
 import com.doskoch.template.core.components.error.GlobalErrorHandler
 import com.doskoch.template.core.components.error.toCoreError

@@ -12,17 +12,3 @@ object AuthorizationFeatureInjector {
 
 internal val Injector: AuthorizationFeatureComponent
     get() = AuthorizationFeatureInjector.provider!!.value
-
-internal object Module {
-
-    fun signUpViewModel() = SignUpViewModel(
-        navigator = Injector.navigator
-    )
-
-    fun signInViewModel() = SignInViewModel(
-        navigator = Injector.navigator,
-        isEmailValidUseCase = IsEmailValidUseCase(),
-        globalErrorHandler = Injector.globalErrorHandler,
-        authorizeUseCase = AuthorizeUseCase(store = Injector.authorizationDataStore)
-    )
-}

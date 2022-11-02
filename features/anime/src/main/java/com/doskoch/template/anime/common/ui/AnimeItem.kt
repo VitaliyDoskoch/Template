@@ -1,4 +1,4 @@
-package com.doskoch.template.anime.ui
+package com.doskoch.template.anime.common.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -28,7 +28,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.doskoch.template.anime.R
-import com.doskoch.template.anime.uiModel.AnimeUiModel
+import com.doskoch.template.anime.common.uiModel.AnimeUiModel
 import com.doskoch.template.core.components.theme.Dimensions
 import java.text.DecimalFormat
 

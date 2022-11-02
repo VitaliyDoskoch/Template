@@ -10,10 +10,10 @@ import com.doskoch.template.anime.screens.top.uiModel.AnimeTypeUiModel
 import com.doskoch.template.anime.screens.top.uiModel.toRemoteAnimeType
 import com.doskoch.template.anime.screens.top.useCase.ClearAnimeStorageUseCase
 import com.doskoch.template.anime.screens.top.useCase.GetFavoriteAnimeIdsUseCase
-import com.doskoch.template.anime.uiModel.AnimeUiModel
-import com.doskoch.template.anime.uiModel.toUiModel
-import com.doskoch.template.anime.useCase.DeleteAnimeFromFavoriteUseCase
-import com.doskoch.template.anime.useCase.SaveAnimeToFavoriteUseCase
+import com.doskoch.template.anime.common.uiModel.AnimeUiModel
+import com.doskoch.template.anime.common.uiModel.toUiModel
+import com.doskoch.template.anime.common.useCase.DeleteAnimeFromFavoriteUseCase
+import com.doskoch.template.anime.common.useCase.SaveAnimeToFavoriteUseCase
 import com.doskoch.template.api.jikan.common.enum.RemoteAnimeType
 import com.doskoch.template.api.jikan.services.top.responses.GetTopAnimeResponse
 import com.doskoch.template.core.components.error.CoreError

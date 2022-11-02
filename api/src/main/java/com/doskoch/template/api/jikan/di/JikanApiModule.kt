@@ -1,5 +1,10 @@
-package com.doskoch.template.api.jikan
+package com.doskoch.template.api.jikan.di
 
+import com.doskoch.template.api.jikan.BASE_URL
+import com.doskoch.template.api.jikan.CONNECT_TIMEOUT
+import com.doskoch.template.api.jikan.HTTP_LOG_LEVEL
+import com.doskoch.template.api.jikan.READ_TIMEOUT
+import com.doskoch.template.api.jikan.TIMBER_LOG_LEVEL
 import com.doskoch.template.api.jikan.ext.addInterceptors
 import com.doskoch.template.api.jikan.interceptors.ApiVersionInterceptor
 import com.doskoch.template.api.jikan.services.anime.AnimeService
@@ -15,7 +20,7 @@ import java.lang.reflect.Modifier
 import java.util.concurrent.TimeUnit
 
 @Suppress("MemberVisibilityCanBePrivate", "HasPlatformType")
-object JikanApiProvider {
+object JikanApiModule {
 
     val topService by lazy { retrofit.create(TopService::class.java) }
 

@@ -3,7 +3,7 @@ package com.doskoch.template.di.modules
 import androidx.navigation.navOptions
 import com.doskoch.template.anime.di.AnimeFeatureComponent
 import com.doskoch.template.anime.navigation.AnimeFeatureNavigator
-import com.doskoch.template.api.jikan.JikanApiProvider
+import com.doskoch.template.api.jikan.di.JikanApiModule
 import com.doskoch.template.di.AppComponent
 import com.doskoch.template.navigation.Node
 
@@ -18,9 +18,9 @@ fun animeFeatureModule(component: AppComponent) = object : AnimeFeatureComponent
 
     override val authorizationDataStore = component.authorizationDataStore
 
-    override val topService = JikanApiProvider.topService
+    override val topService = JikanApiModule.topService
 
     override val dbAnimeDao = component.appDatabase.dbAnimeDao()
 
-    override val animeService = JikanApiProvider.animeService
+    override val animeService = JikanApiModule.animeService
 }

@@ -1,4 +1,4 @@
-package com.doskoch.template.anime.uiModel
+package com.doskoch.template.anime.common.uiModel
 
 import com.doskoch.template.api.jikan.services.top.responses.GetTopAnimeResponse
 import com.doskoch.template.database.schema.anime.DbAnime

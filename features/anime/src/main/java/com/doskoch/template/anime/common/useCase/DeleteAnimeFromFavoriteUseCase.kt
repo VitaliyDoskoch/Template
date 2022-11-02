@@ -1,4 +1,4 @@
-package com.doskoch.template.anime.useCase
+package com.doskoch.template.anime.common.useCase
 
 import com.doskoch.template.database.schema.anime.DbAnimeDao
 

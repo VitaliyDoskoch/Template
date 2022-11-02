@@ -26,7 +26,7 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemsIndexed
 import com.doskoch.template.anime.R
 import com.doskoch.template.anime.di.Module
-import com.doskoch.template.anime.ui.AnimeItem
+import com.doskoch.template.anime.common.ui.AnimeItem
 import com.doskoch.template.core.components.theme.Dimensions
 import com.doskoch.template.core.ui.modifier.simpleVerticalScrollbar
 import com.doskoch.template.core.ui.paging.PagingScaffold

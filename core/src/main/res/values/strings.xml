@@ -9,7 +9,6 @@
     <string name="error_timeout">Operation timeout.</string>
     <string name="error_operation_is_canceled">Operation is cancelled.</string>
     <string name="error_http">An error occurred while connecting to server.</string>
-    <string name="error_invalid_email">The entered email is invalid.</string>
     
     <!-- Common -->
     <string name="common_retry">Retry</string>
@@ -42,6 +41,7 @@
         Just type the valid email address to pass the simple validation</string>
     <string name="sign_in_screen_email_hint">Email</string>
     <string name="sign_in_screen_proceed">Proceed</string>
+    <string name="error_invalid_email">The entered email is invalid.</string>
     
     <!-- AnimeFeature -->
     <!-- Common -->

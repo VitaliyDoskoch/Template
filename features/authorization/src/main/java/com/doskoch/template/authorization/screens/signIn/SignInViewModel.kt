@@ -1,8 +1,10 @@
 package com.doskoch.template.authorization.screens.signIn
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import com.doskoch.template.authorization.navigation.AuthorizationFeatureNavigator
 import com.doskoch.template.authorization.screens.signIn.useCase.IsEmailValidUseCase
+import com.doskoch.template.core.R
 import com.doskoch.template.core.components.error.CoreError
 import com.doskoch.template.core.components.error.GlobalErrorHandler
 import com.doskoch.template.core.components.error.toCoreError
@@ -49,9 +51,13 @@ class SignInViewModel(
                 authorizeUseCase.invoke()
                 navigator.toAnime()
             } else {
-                _state.update { it.copy(error = CoreError.InvalidEmail) }
+                _state.update { it.copy(error = InvalidEmail) }
             }
         },
         onError = { globalErrorHandler.handle(it.toCoreError()) }
     )
+
+    object InvalidEmail : CoreError() {
+        override fun localizedMessage(context: Context) = context.getString(R.string.error_invalid_email)
+    }
 }

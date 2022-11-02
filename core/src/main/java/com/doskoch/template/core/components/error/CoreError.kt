@@ -10,7 +10,7 @@ import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 import java.util.concurrent.TimeoutException
 
-sealed class CoreError {
+abstract class CoreError {
 
     abstract fun localizedMessage(context: Context): String
 
@@ -38,11 +38,7 @@ sealed class CoreError {
         override fun localizedMessage(context: Context) = context.getString(R.string.error_operation_is_canceled)
     }
 
-    object InvalidEmail : CoreError() {
-        override fun localizedMessage(context: Context) = context.getString(R.string.error_invalid_email)
-    }
-
-    sealed class Remote(val status: Int, val message: String?) : CoreError() {
+    abstract class Remote(val status: Int, val message: String?) : CoreError() {
 
         override fun localizedMessage(context: Context) = message ?: context.getString(R.string.error_http)
 

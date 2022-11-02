@@ -53,6 +53,6 @@ class FavoriteAnimeViewModel(
 
     private fun onItemFavoriteClick(item: AnimeUiModel) = launchAction(
         action = { deleteAnimeFromFavoriteUseCase.invoke(item.id) },
-        onError = { globalErrorHandler.handle(it.toCoreError(CoreError.FailedToSaveChanges())) }
+        onError = { globalErrorHandler.handle(it.toCoreError(CoreError.FailedToSaveChanges)) }
     )
 }

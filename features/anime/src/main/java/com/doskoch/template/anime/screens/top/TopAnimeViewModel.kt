@@ -84,7 +84,7 @@ class TopAnimeViewModel(
         action = {
             favoriteIdsFlow.collectLatest { ids -> _state.update { it.copy(hasFavorite = ids.isNotEmpty()) } }
         },
-        onError = { globalErrorHandler.handle(it.toCoreError(CoreError.FailedToLoadData())) }
+        onError = { globalErrorHandler.handle(it.toCoreError(CoreError.FailedToLoadData)) }
     )
 
     private fun onAnimeTypeClick() = _state.update { it.copy(showAnimeTypeMenu = true) }
@@ -117,7 +117,7 @@ class TopAnimeViewModel(
                 saveAnimeToFavoriteUseCase.invoke(item.id)
             }
         },
-        onError = { globalErrorHandler.handle(it.toCoreError(CoreError.FailedToSaveChanges())) }
+        onError = { globalErrorHandler.handle(it.toCoreError(CoreError.FailedToSaveChanges)) }
     )
 
     fun interface PagerFactory {

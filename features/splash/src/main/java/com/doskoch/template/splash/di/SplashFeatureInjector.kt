@@ -11,12 +11,3 @@ object SplashFeatureInjector {
 
 internal val Injector: SplashFeatureComponent
     get() = SplashFeatureInjector.provider!!.value
-
-internal object Module {
-
-    fun splashViewModel() = SplashViewModel(
-        minDisplayTime = MIN_SPLASH_DISPLAY_TIME,
-        isAuthorizedUseCase = IsAuthorizedUseCase(store = Injector.authorizationDataStore),
-        navigator = Injector.navigator
-    )
-}

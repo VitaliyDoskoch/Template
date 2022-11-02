@@ -52,7 +52,7 @@ class AnimeDetailsViewModel(
             }
         },
         onError = { error ->
-            _state.update { it.copy(screenState = ScreenState.Error(error.toCoreError(CoreError.FailedToLoadData()))) }
+            _state.update { it.copy(screenState = ScreenState.Error(error.toCoreError(CoreError.FailedToLoadData))) }
         }
     )
 
@@ -62,7 +62,7 @@ class AnimeDetailsViewModel(
             _state.update { it.copy(screenState = loadAnimeDetailsUseCase.invoke(animeId).data.toContent()) }
         },
         onError = { error ->
-            _state.update { it.copy(screenState = ScreenState.Error(error.toCoreError(CoreError.FailedToLoadData()))) }
+            _state.update { it.copy(screenState = ScreenState.Error(error.toCoreError(CoreError.FailedToLoadData))) }
         }
     )
 
@@ -76,6 +76,6 @@ class AnimeDetailsViewModel(
                 saveAnimeToFavoriteUseCase.invoke(animeId)
             }
         },
-        onError = { globalErrorHandler.handle(it.toCoreError(CoreError.FailedToSaveChanges())) }
+        onError = { globalErrorHandler.handle(it.toCoreError(CoreError.FailedToSaveChanges)) }
     )
 }

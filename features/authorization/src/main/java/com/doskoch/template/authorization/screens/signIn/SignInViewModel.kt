@@ -49,7 +49,7 @@ class SignInViewModel(
                 authorizeUseCase.invoke()
                 navigator.toAnime()
             } else {
-                _state.update { it.copy(error = CoreError.InvalidEmail()) }
+                _state.update { it.copy(error = CoreError.InvalidEmail) }
             }
         },
         onError = { globalErrorHandler.handle(it.toCoreError()) }

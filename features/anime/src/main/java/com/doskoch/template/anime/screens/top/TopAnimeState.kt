@@ -1,8 +1,8 @@
 package com.doskoch.template.anime.screens.top
 
 import androidx.paging.PagingData
-import com.doskoch.template.anime.screens.top.uiModel.AnimeTypeUiModel
 import com.doskoch.template.anime.common.uiModel.AnimeUiModel
+import com.doskoch.template.anime.screens.top.uiModel.AnimeTypeUiModel
 import kotlinx.coroutines.flow.Flow
 
 data class TopAnimeState(

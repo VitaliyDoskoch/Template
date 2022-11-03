@@ -1,6 +1,6 @@
 package com.doskoch.template.anime.di
 
-import com.doskoch.legacy.kotlin.DestroyableLazy
+import com.doskoch.template.core.components.kotlin.DestroyableLazy
 
 object AnimeFeatureInjector {
     var provider: DestroyableLazy<AnimeFeatureComponent>? = null

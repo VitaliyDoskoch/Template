@@ -1,4 +1,4 @@
-package com.doskoch.legacy.kotlin
+package com.doskoch.template.core.components.kotlin
 
 /**
  * It is the [Lazy] implementation, that allows to destroy the instance.

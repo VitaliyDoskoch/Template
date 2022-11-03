@@ -45,7 +45,7 @@ object Libraries {
         const val coroutines = "1.3.9"
 
         const val timber = "4.6.1"
-        const val leakCanary = "2.2"
+        const val leakCanary = "2.9.1"
 
         const val coreKtx = "1.8.0"
         const val annotations = "1.0.0"

@@ -1,6 +1,6 @@
 package com.doskoch.template.splash.di
 
-import com.doskoch.legacy.kotlin.DestroyableLazy
+import com.doskoch.template.core.components.kotlin.DestroyableLazy
 
 object SplashFeatureInjector {
     var provider: DestroyableLazy<SplashFeatureComponent>? = null

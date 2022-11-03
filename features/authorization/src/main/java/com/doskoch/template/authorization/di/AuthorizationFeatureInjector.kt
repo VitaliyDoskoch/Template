@@ -1,6 +1,6 @@
 package com.doskoch.template.authorization.di
 
-import com.doskoch.legacy.kotlin.DestroyableLazy
+import com.doskoch.template.core.components.kotlin.DestroyableLazy
 
 object AuthorizationFeatureInjector {
     var provider: DestroyableLazy<AuthorizationFeatureComponent>? = null

@@ -6,7 +6,6 @@ plugins {
 
 dependencies {
     implementation(project(":api"))
-    implementation(project(":legacy"))
 
     implementation(Libraries.material)
     

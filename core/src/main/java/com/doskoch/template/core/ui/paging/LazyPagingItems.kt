@@ -8,10 +8,10 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.platform.LocalContext
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
-import com.doskoch.legacy.android.functions.registerNetworkCallback
-import com.doskoch.legacy.android.functions.unregisterNetworkCallback
 import com.doskoch.template.core.components.error.CoreError
 import com.doskoch.template.core.components.error.toCoreError
+import com.doskoch.template.core.ext.registerNetworkCallback
+import com.doskoch.template.core.ext.unregisterNetworkCallback
 
 @Composable
 fun <T : Any> LazyPagingItems<T>.retryWhenNetworkAvailable() = this.apply {

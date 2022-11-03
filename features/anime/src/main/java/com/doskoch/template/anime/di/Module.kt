@@ -2,7 +2,7 @@ package com.doskoch.template.anime.di
 
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
-import com.doskoch.legacy.kotlin.DestroyableLazy
+import com.doskoch.template.core.components.kotlin.DestroyableLazy
 import com.doskoch.template.anime.PAGING_CONFIG
 import com.doskoch.template.anime.common.useCase.DeleteAnimeFromFavoriteUseCase
 import com.doskoch.template.anime.common.useCase.SaveAnimeToFavoriteUseCase

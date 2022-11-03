@@ -22,7 +22,6 @@ dependencies {
     implementation(project(":api"))
     implementation(project(":database"))
     implementation(project(":core"))
-    implementation(project(":legacy"))
 
     implementation(project(":features:splash"))
     implementation(project(":features:authorization"))

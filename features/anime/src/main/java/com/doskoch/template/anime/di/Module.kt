@@ -22,7 +22,7 @@ import com.doskoch.template.core.components.kotlin.DestroyableLazy
 import com.doskoch.template.core.components.paging.SimpleInMemoryStorage
 import com.doskoch.template.core.useCase.authorization.LogoutUseCase
 
-object Module {
+internal object Module {
 
     private val topAnimeStorage = DestroyableLazy(initialize = { SimpleInMemoryStorage<Int, GetTopAnimeResponse.Data>() })
 

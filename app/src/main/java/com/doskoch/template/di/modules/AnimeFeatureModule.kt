@@ -12,8 +12,6 @@ fun animeFeatureModule(component: AppComponent) = object : AnimeFeatureComponent
 
     override val globalErrorHandler = component.globalErrorHandler
 
-    override val authorizationDataStore = component.authorizationDataStore
-
     override val topService = JikanApiModule.topService
 
     override val dbAnimeDao = component.appDatabase.dbAnimeDao()

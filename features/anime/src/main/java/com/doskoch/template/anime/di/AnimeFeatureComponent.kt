@@ -10,7 +10,6 @@ import com.doskoch.template.database.schema.anime.DbAnimeDao
 interface AnimeFeatureComponent {
     val navigator: AnimeFeatureNavigator
     val globalErrorHandler: GlobalErrorHandler
-    val authorizationDataStore: AuthorizationDataStore
     val topService: TopService
     val dbAnimeDao: DbAnimeDao
     val animeService: AnimeService

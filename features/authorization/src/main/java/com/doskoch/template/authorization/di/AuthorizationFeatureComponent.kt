@@ -7,5 +7,4 @@ import com.doskoch.template.core.store.AuthorizationDataStore
 interface AuthorizationFeatureComponent {
     val navigator: AuthorizationFeatureNavigator
     val globalErrorHandler: GlobalErrorHandler
-    val authorizationDataStore: AuthorizationDataStore
 }

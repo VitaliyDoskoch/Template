@@ -1,17 +1,7 @@
 -printconfiguration build/tmp/full-r8-config.txt
 
--keepparameternames
 -renamesourcefileattribute SourceFile
 -keepattributes SourceFile, LineNumberTable
-
--keepattributes Exceptions, InnerClasses, Signature, Deprecated, *Annotation*, EnclosingMethod
-
--keepclassmembers enum * { public *; }
-
--keepnames class * extends android.os.Parcelable
--keepnames class * extends java.io.Serializable
-
--keep public class * extends java.lang.Exception
 
 -keepclassmembers, allowshrinking, allowobfuscation interface * { @retrofit2.http.* <methods>; }
 -keepclasseswithmembers class * { @retrofit2.http.* <methods>; }

@@ -3,6 +3,7 @@ package com.doskoch.template.authorization.di
 import com.doskoch.template.authorization.screens.signIn.SignInViewModel
 import com.doskoch.template.authorization.screens.signIn.useCase.IsEmailValidUseCase
 import com.doskoch.template.authorization.screens.signUp.SignUpViewModel
+import com.doskoch.template.core.di.CoreModule
 import com.doskoch.template.core.useCase.authorization.AuthorizeUseCase
 
 internal object Module {
@@ -15,6 +16,6 @@ internal object Module {
         navigator = Injector.navigator,
         isEmailValidUseCase = IsEmailValidUseCase(),
         globalErrorHandler = Injector.globalErrorHandler,
-        authorizeUseCase = AuthorizeUseCase(store = Injector.authorizationDataStore)
+        authorizeUseCase = CoreModule.authorizeUseCase()
     )
 }

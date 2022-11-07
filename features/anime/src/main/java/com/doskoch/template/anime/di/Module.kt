@@ -20,6 +20,7 @@ import com.doskoch.template.api.jikan.common.enum.RemoteAnimeType
 import com.doskoch.template.api.jikan.services.top.responses.GetTopAnimeResponse
 import com.doskoch.template.core.components.kotlin.DestroyableLazy
 import com.doskoch.template.core.components.paging.SimpleInMemoryStorage
+import com.doskoch.template.core.di.CoreModule
 import com.doskoch.template.core.useCase.authorization.LogoutUseCase
 
 internal object Module {
@@ -40,7 +41,7 @@ internal object Module {
         getFavoriteAnimeIdsUseCase = GetFavoriteAnimeIdsUseCase(dbAnimeDao = Injector.dbAnimeDao),
         saveAnimeToFavoriteUseCase = SaveAnimeToFavoriteUseCase(storage = topAnimeStorage.value, dbAnimeDao = Injector.dbAnimeDao),
         deleteAnimeFromFavoriteUseCase = DeleteAnimeFromFavoriteUseCase(dbAnimeDao = Injector.dbAnimeDao),
-        logoutUseCase = LogoutUseCase(store = Injector.authorizationDataStore),
+        logoutUseCase = CoreModule.logoutUseCase(),
         globalErrorHandler = Injector.globalErrorHandler
     ).also {
         it.addCloseable { topAnimeStorage.destroyInstance() }

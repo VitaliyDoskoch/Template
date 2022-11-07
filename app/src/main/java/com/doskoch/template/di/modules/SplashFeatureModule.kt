@@ -13,6 +13,4 @@ fun splashFeatureModule(component: AppComponent) = object : SplashFeatureCompone
         override fun toAuthorization() = component.navigator.toAuthorization()
         override fun toAnime() = component.navigator.toAnimeFromSplash()
     }
-
-    override val authorizationDataStore = component.authorizationDataStore
 }

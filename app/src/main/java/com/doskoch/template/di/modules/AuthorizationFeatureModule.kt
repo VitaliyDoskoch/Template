@@ -5,12 +5,9 @@ import com.doskoch.template.authorization.navigation.AuthorizationFeatureNavigat
 import com.doskoch.template.di.AppComponent
 
 fun authorizationFeatureModule(component: AppComponent) = object : AuthorizationFeatureComponent {
-
     override val navigator = object : AuthorizationFeatureNavigator() {
         override fun toAnime() = component.navigator.toAnimeFromAuthorization()
     }
 
     override val globalErrorHandler = component.globalErrorHandler
-
-    override val authorizationDataStore = component.authorizationDataStore
 }

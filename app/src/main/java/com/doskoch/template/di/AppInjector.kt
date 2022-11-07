@@ -5,9 +5,11 @@ import com.doskoch.template.anime.di.AnimeFeatureInjector
 import com.doskoch.template.api.jikan.di.JikanApiInjector
 import com.doskoch.template.authorization.di.AuthorizationFeatureInjector
 import com.doskoch.template.core.components.kotlin.DestroyableLazy
+import com.doskoch.template.core.di.CoreInjector
 import com.doskoch.template.di.modules.animeFeatureModule
 import com.doskoch.template.di.modules.appModule
 import com.doskoch.template.di.modules.authorizationFeatureModule
+import com.doskoch.template.di.modules.coreModule
 import com.doskoch.template.di.modules.jikanApiModule
 import com.doskoch.template.di.modules.splashFeatureModule
 import com.doskoch.template.splash.di.SplashFeatureInjector
@@ -20,6 +22,7 @@ object AppInjector {
     fun init(application: Application) {
         component = appModule(application).also(this::logCreation)
 
+        CoreInjector.component = coreModule(component).also(this::logCreation)
         JikanApiInjector.component = jikanApiModule(component).also(this::logCreation)
 
         SplashFeatureInjector.provider = DestroyableLazy(

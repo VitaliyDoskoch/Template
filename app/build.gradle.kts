@@ -24,7 +24,7 @@ dependencies {
     implementation(project(":core"))
 
     implementation(project(":features:splash"))
-    implementation(project(":features:authorization"))
+    implementation(project(":features:auth"))
     implementation(project(":features:anime"))
 
     debugImplementation(Libraries.leakCanary)

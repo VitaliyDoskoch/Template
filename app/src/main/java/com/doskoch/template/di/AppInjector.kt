@@ -3,12 +3,12 @@ package com.doskoch.template.di
 import android.app.Application
 import com.doskoch.template.anime.di.AnimeFeatureInjector
 import com.doskoch.template.api.jikan.di.JikanApiInjector
-import com.doskoch.template.authorization.di.AuthorizationFeatureInjector
+import com.doskoch.template.auth.di.AuthFeatureInjector
 import com.doskoch.template.core.components.kotlin.DestroyableLazy
 import com.doskoch.template.core.di.CoreInjector
 import com.doskoch.template.di.modules.animeFeatureModule
 import com.doskoch.template.di.modules.appModule
-import com.doskoch.template.di.modules.authorizationFeatureModule
+import com.doskoch.template.di.modules.authFeatureModule
 import com.doskoch.template.di.modules.coreModule
 import com.doskoch.template.di.modules.jikanApiModule
 import com.doskoch.template.di.modules.splashFeatureModule
@@ -30,8 +30,8 @@ object AppInjector {
             onDestroyInstance = this::logDestruction
         )
 
-        AuthorizationFeatureInjector.provider = DestroyableLazy(
-            initialize = { authorizationFeatureModule(component).also(this::logCreation) },
+        AuthFeatureInjector.provider = DestroyableLazy(
+            initialize = { authFeatureModule(component).also(this::logCreation) },
             onDestroyInstance = this::logDestruction
         )
 

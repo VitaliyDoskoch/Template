@@ -1,7 +1,7 @@
 package com.doskoch.template.di.modules
 
 import android.app.Application
-import com.doskoch.template.core.store.AuthorizationDataStore
+import com.doskoch.template.core.store.AuthDataStore
 import com.doskoch.template.database.AppDatabase
 import com.doskoch.template.di.AppComponent
 import com.doskoch.template.error.GlobalErrorHandlerImpl
@@ -12,6 +12,6 @@ fun appModule(application: Application) = object : AppComponent {
     override val navigator = MainNavigator()
     override val globalErrorHandler = GlobalErrorHandlerImpl()
 
-    override val authorizationDataStore by lazy { AuthorizationDataStore(application) }
+    override val authDataStore by lazy { AuthDataStore(application) }
     override val appDatabase by lazy { AppDatabase.buildDatabase(application) }
 }

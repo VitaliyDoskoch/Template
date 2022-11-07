@@ -1,7 +1,7 @@
 package com.doskoch.template.core.di
 
-import com.doskoch.template.core.store.AuthorizationDataStore
+import com.doskoch.template.core.store.AuthDataStore
 
 interface CoreComponent {
-    val authorizationDataStore: AuthorizationDataStore
+    val authDataStore: AuthDataStore
 }

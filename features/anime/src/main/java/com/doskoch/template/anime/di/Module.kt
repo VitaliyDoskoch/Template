@@ -21,7 +21,6 @@ import com.doskoch.template.api.jikan.services.top.responses.GetTopAnimeResponse
 import com.doskoch.template.core.components.kotlin.DestroyableLazy
 import com.doskoch.template.core.components.paging.SimpleInMemoryStorage
 import com.doskoch.template.core.di.CoreModule
-import com.doskoch.template.core.useCase.authorization.LogoutUseCase
 
 internal object Module {
 

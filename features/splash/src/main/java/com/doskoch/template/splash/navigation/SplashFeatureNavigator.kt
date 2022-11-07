@@ -7,6 +7,6 @@ import com.doskoch.template.core.components.navigation.NavAction
 abstract class SplashFeatureNavigator : CoreNavigator {
     override val events = EventQueue<NavAction>()
 
-    abstract fun toAuthorization()
+    abstract fun toAuth()
     abstract fun toAnime()
 }

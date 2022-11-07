@@ -27,7 +27,7 @@
     <string name="splash_screen_app_version">Version %s</string>
     <string name="splash_screen_developed_by">Developed by Vitaliy Doskoch</string>
     
-    <!-- AuthorizationFeature -->
+    <!-- AuthFeature -->
     <!-- SignUpScreen -->
     <string name="sign_up_screen_project_description">It is an example project, designed to show an efficient
         Android app architecture implementation using the free Jikan api under the hood.</string>

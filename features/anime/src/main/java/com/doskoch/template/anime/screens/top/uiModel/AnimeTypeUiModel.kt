@@ -5,12 +5,12 @@ import com.doskoch.template.anime.R
 import com.doskoch.template.api.jikan.common.enum.RemoteAnimeType
 
 enum class AnimeTypeUiModel(@StringRes val stringId: Int) {
-    Tv(R.string.anime_type_tv),
-    Movie(R.string.anime_type_movie),
-    Ova(R.string.anime_type_ova),
-    Special(R.string.anime_type_special),
-    Ona(R.string.anime_type_ona),
-    Music(R.string.anime_type_music)
+    Tv(R.string.anime_feature_anime_type_tv),
+    Movie(R.string.anime_feature_anime_type_movie),
+    Ova(R.string.anime_feature_anime_type_ova),
+    Special(R.string.anime_feature_anime_type_special),
+    Ona(R.string.anime_feature_anime_type_ona),
+    Music(R.string.anime_feature_anime_type_music)
 }
 
 fun AnimeTypeUiModel.toRemoteAnimeType() = when (this) {

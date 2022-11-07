@@ -49,7 +49,7 @@ fun AnimeItem(
         ) {
             AsyncImage(
                 model = item.imageUrl,
-                contentDescription = stringResource(R.string.anime_desc_anime_image),
+                contentDescription = stringResource(R.string.anime_feature_desc_anime_image),
                 modifier = Modifier
                     .padding(start = Dimensions.space_16, top = Dimensions.space_16, bottom = Dimensions.space_16)
                     .size(80.dp),
@@ -91,7 +91,7 @@ fun AnimeItem(
                         append("$score ")
                         addStyle(SpanStyle(fontWeight = FontWeight.Bold), 0, score.length)
 
-                        append(LocalContext.current.resources.getQuantityString(R.plurals.by_users, item.scoredBy, item.scoredBy))
+                        append(LocalContext.current.resources.getQuantityString(R.plurals.anime_feature_by_users, item.scoredBy, item.scoredBy))
                     },
                     modifier = Modifier
                         .fillMaxWidth(),
@@ -109,7 +109,7 @@ fun AnimeItem(
             ) {
                 Icon(
                     painter = painterResource(if (item.isFavorite) R.drawable.ic_star_filled else R.drawable.ic_start_outline),
-                    contentDescription = stringResource(R.string.anime_desc_add_to_favorite),
+                    contentDescription = stringResource(R.string.anime_feature_desc_add_to_favorite),
                     modifier = Modifier.size(Dimensions.icon_24),
                     tint = if (item.isFavorite) MaterialTheme.colors.secondary else MaterialTheme.colors.onBackground
                 )

@@ -45,17 +45,17 @@
     
     <!-- AnimeFeature -->
     <!-- Common -->
-    <string name="anime_type_tv">TV</string>
-    <string name="anime_type_movie">Movie</string>
-    <string name="anime_type_ova">Ova</string>
-    <string name="anime_type_special">Special</string>
-    <string name="anime_type_ona">Ona</string>
-    <string name="anime_type_music">Music</string>
-    <string name="anime_desc_anime_image">The image of the anime</string>
-    <string name="anime_desc_add_to_favorite">Add the item to favorites</string>
-    <string name="anime_desc_to_favorite">To favorite</string>
-    <string name="anime_desc_logout">Logout</string>
-    <plurals name="by_users">
+    <string name="anime_feature_anime_type_tv">TV</string>
+    <string name="anime_feature_anime_type_movie">Movie</string>
+    <string name="anime_feature_anime_type_ova">Ova</string>
+    <string name="anime_feature_anime_type_special">Special</string>
+    <string name="anime_feature_anime_type_ona">Ona</string>
+    <string name="anime_feature_anime_type_music">Music</string>
+    <string name="anime_feature_desc_anime_image">The image of the anime</string>
+    <string name="anime_feature_desc_add_to_favorite">Add the item to favorites</string>
+    <string name="anime_feature_desc_to_favorite">To favorite</string>
+    <string name="anime_feature_desc_logout">Logout</string>
+    <plurals name="anime_feature_by_users">
         <item quantity="one">by %d user</item>
         <item quantity="other">by %d users</item>
     </plurals>

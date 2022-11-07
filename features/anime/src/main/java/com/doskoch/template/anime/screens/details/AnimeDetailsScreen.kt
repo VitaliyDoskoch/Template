@@ -136,7 +136,7 @@ private fun TopBar(state: AnimeDetailsState) {
             ) {
                 Icon(
                     painter = painterResource(if (state.isFavorite) R.drawable.ic_star_filled else R.drawable.ic_start_outline),
-                    contentDescription = stringResource(R.string.anime_desc_to_favorite),
+                    contentDescription = stringResource(R.string.anime_feature_desc_to_favorite),
                     modifier = Modifier
                         .size(Dimensions.icon_24),
                     tint = MaterialTheme.colors.secondary
@@ -183,7 +183,7 @@ private fun PrimaryInfoRow(
     Row(modifier) {
         AsyncImage(
             model = content.imageUrl,
-            contentDescription = stringResource(R.string.anime_desc_anime_image),
+            contentDescription = stringResource(R.string.anime_feature_desc_anime_image),
             modifier = Modifier
                 .size(120.dp),
             contentScale = ContentScale.Crop,
@@ -214,7 +214,7 @@ private fun PrimaryInfoRow(
                 text = buildString {
                     val score = DecimalFormat("#.#").format(content.score)
                     append("$score ")
-                    append(LocalContext.current.resources.getQuantityString(R.plurals.by_users, content.scoredBy, content.scoredBy))
+                    append(LocalContext.current.resources.getQuantityString(R.plurals.anime_feature_by_users, content.scoredBy, content.scoredBy))
                 }
             )
             FieldValue(text = content.rank.toString())

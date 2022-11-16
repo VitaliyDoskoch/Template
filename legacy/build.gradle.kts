@@ -3,6 +3,10 @@ plugins {
     id("android-module")
 }
 
+android {
+    namespace = "com.doskoch.legacy"
+}
+
 dependencies {
     implementation(Libraries.material)
     implementation(Libraries.coreKtx)

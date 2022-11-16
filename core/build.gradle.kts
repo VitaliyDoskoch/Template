@@ -4,6 +4,10 @@ plugins {
     id("compose")
 }
 
+android {
+    namespace = "com.doskoch.template.core"
+}
+
 dependencies {
     implementation(project(":api"))
 

@@ -4,6 +4,8 @@ plugins {
 }
 
 android {
+    namespace = "com.doskoch.template.database"
+
     defaultConfig {
         javaCompileOptions {
             annotationProcessorOptions {

@@ -10,3 +10,7 @@ dependencies {
     implementation(Libraries.okhttpLoggingInterceptor)
     implementation(Libraries.annotations)
 }
+
+android {
+    namespace = "com.doskoch.template.api"
+}

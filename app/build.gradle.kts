@@ -5,6 +5,8 @@ plugins {
 }
 
 android {
+    namespace = "com.doskoch.template"
+
     buildTypes {
         debug {
             isMinifyEnabled = false

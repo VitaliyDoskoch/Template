@@ -10,7 +10,7 @@ fun splashFeatureModule(component: AppComponent) = object : SplashFeatureCompone
     override val navigator = object : SplashFeatureNavigator() {
         override val startNode: NavigationNode = Node.Splash
 
-        override fun toAuth() = component.navigator.toAuth()
+        override fun toAuth() = component.navigator.toAuthFromSplash()
         override fun toAnime() = component.navigator.toAnimeFromSplash()
     }
 }

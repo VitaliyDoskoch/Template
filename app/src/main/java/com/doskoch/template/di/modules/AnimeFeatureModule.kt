@@ -7,7 +7,7 @@ import com.doskoch.template.di.AppComponent
 
 fun animeFeatureModule(component: AppComponent) = object : AnimeFeatureComponent {
     override val navigator = object : AnimeFeatureNavigator() {
-        override fun toSplash() = component.navigator.toSplash()
+        override fun toSplash() = component.navigator.toSplashFromAnime()
     }
 
     override val globalErrorHandler = component.globalErrorHandler

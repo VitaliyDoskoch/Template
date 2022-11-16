@@ -25,17 +25,17 @@ object AppInjector {
         CoreInjector.component = coreModule(component).also(this::logCreation)
         JikanApiInjector.component = jikanApiModule(component).also(this::logCreation)
 
-        SplashFeatureInjector.provider = DestroyableLazy(
+        SplashFeatureInjector.component = DestroyableLazy(
             initialize = { splashFeatureModule(component).also(this::logCreation) },
             onDestroyInstance = this::logDestruction
         )
 
-        AuthFeatureInjector.provider = DestroyableLazy(
+        AuthFeatureInjector.component = DestroyableLazy(
             initialize = { authFeatureModule(component).also(this::logCreation) },
             onDestroyInstance = this::logDestruction
         )
 
-        AnimeFeatureInjector.provider = DestroyableLazy(
+        AnimeFeatureInjector.component = DestroyableLazy(
             initialize = { animeFeatureModule(component).also(this::logCreation) },
             onDestroyInstance = this::logDestruction
         )

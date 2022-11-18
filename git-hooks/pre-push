@@ -1,0 +1,11 @@
+#!/bin/sh
+{
+  echo "Running the ktlintCheck gradle task"
+  ./gradlew ktlintCheck
+} || {
+  echo "The ktlintCheck task failed"
+  echo "Running the ktlintFormat gradle task"
+  ./gradlew ktlintFormat
+  echo "Fix all issues, commit the changes and try again"
+  exit 1
+}

@@ -13,6 +13,7 @@ import android.os.Build
  */
 @SuppressLint("MissingPermission")
 fun Context.isNetworkAvailable(): Boolean {
+    @Suppress("DEPRECATION")
     return (getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager)
         .activeNetworkInfo?.isConnected ?: false
 }

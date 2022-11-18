@@ -21,6 +21,7 @@ import com.doskoch.template.core.components.error.GlobalErrorHandler
 import com.doskoch.template.core.components.error.toCoreError
 import com.doskoch.template.core.ext.launchAction
 import com.doskoch.template.core.useCase.auth.LogoutUseCase
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
@@ -67,6 +68,7 @@ class TopAnimeViewModel(
 
     private val favoriteIdsFlow = getFavoriteAnimeIdsUseCase.invoke()
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     private val pagingFlow = state
         .map { it.animeType }
         .distinctUntilChanged()

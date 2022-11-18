@@ -26,7 +26,7 @@ data class GetTopAnimeResponse(
         @SerializedName("status")
         val status: String,
         @SerializedName("title")
-        val title: String,
+        val title: String
     ) {
         data class Genre(
             @SerializedName("mal_id")

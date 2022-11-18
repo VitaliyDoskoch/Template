@@ -20,7 +20,7 @@ android {
     }
 }
 
-val installGitHook by tasks.creating {
+val installGitHook: Task by tasks.creating {
     println("Copying files from the 'rootDir/git-hooks' folder into the '.git/hooks' folder")
     copy { from("$rootDir/git-hooks").into("$rootDir/.git/hooks") }
 }

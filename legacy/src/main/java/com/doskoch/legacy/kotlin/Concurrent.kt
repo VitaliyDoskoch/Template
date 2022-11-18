@@ -7,7 +7,6 @@ import java.util.concurrent.TimeUnit
  * Runs the [action] and waits for an invocation of the onComplete.
  */
 fun runAndWaitForEvent(action: (onComplete: () -> Unit) -> Unit) {
-
     fun newEventHandler(latch: CountDownLatch): () -> Unit = { latch.countDown() }
 
     val latch = CountDownLatch(1)
@@ -19,7 +18,6 @@ fun runAndWaitForEvent(action: (onComplete: () -> Unit) -> Unit) {
  * Runs the [action] and waits for an invocation of the onComplete.
  */
 fun runAndWaitForEvent(timeout: Long, timeUnit: TimeUnit, action: (onComplete: () -> Unit) -> Unit) {
-
     fun newEventHandler(latch: CountDownLatch): () -> Unit = { latch.countDown() }
 
     val latch = CountDownLatch(1)

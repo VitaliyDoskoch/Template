@@ -20,6 +20,13 @@ android {
     }
 }
 
+val installGitHook by tasks.creating {
+    println("Copying files from the 'rootDir/git-hooks' folder into the '.git/hooks' folder")
+    copy { from("$rootDir/git-hooks").into("$rootDir/.git/hooks") }
+}
+
+tasks.getByPath(":app:preBuild").dependsOn(installGitHook)
+
 dependencies {
     implementation(project(":api"))
     implementation(project(":database"))

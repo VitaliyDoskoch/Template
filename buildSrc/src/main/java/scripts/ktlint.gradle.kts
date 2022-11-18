@@ -23,10 +23,3 @@ val ktlintFormat by tasks.creating(JavaExec::class) {
     mainClass.set("com.pinterest.ktlint.Main")
     args = listOf("-F", "src/**/*.kt")
 }
-
-val installGitHook by tasks.creating {
-    println("Copying files from the 'rootDir/git-hooks' folder into the '.git/hooks' folder")
-    copy { from("$rootDir/git-hooks").into("$rootDir/.git/hooks") }
-}
-
-tasks.getByPath(":app:preBuild").dependsOn(installGitHook)

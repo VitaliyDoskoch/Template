@@ -13,11 +13,15 @@ import com.doskoch.template.core.components.theme.WithDimensions
 import com.doskoch.template.di.AppInjector
 import com.doskoch.template.error.GlobalErrorHandlerImpl
 import com.doskoch.template.navigation.MainNavGraph
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : FragmentActivity() {
 
-    private val globalErrorHandler by lazy { AppInjector.component.globalErrorHandler as GlobalErrorHandlerImpl }
+    @Inject
+    lateinit var globalErrorHandler: GlobalErrorHandlerImpl
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

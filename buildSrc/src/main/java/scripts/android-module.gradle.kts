@@ -5,7 +5,7 @@ plugins {
     id("kotlin-android")
     id("kotlin-kapt")
     id("ktlint")
-//    id("dagger.hilt.android.plugin")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -52,6 +52,6 @@ dependencies {
 
     implementation(Libraries.timber)
 
-//    implementation(Libraries.hilt)
-//    kapt(Libraries.hiltCompiler)
+    implementation(Libraries.hilt)
+    kapt(Libraries.hiltCompiler)
 }

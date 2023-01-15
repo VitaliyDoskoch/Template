@@ -1,6 +1,6 @@
 package com.doskoch.template.database
 
-import android.content.Context
+import android.app.Application
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -19,9 +19,9 @@ import com.doskoch.template.database.schema.anime.DbAnimeDao
 abstract class AppDatabase : RoomDatabase() {
 
     companion object {
-        fun buildDatabase(context: Context): AppDatabase {
+        fun buildDatabase(application: Application): AppDatabase {
             return Room
-                .databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME)
+                .databaseBuilder(application, AppDatabase::class.java, DATABASE_NAME)
                 .fallbackToDestructiveMigration()
                 .build()
         }

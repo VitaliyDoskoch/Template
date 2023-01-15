@@ -1,18 +1,18 @@
 package com.doskoch.template.core.store
 
-import android.content.Context
+import android.app.Application
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.map
 
-class AuthDataStore(private val context: Context) {
+class AuthDataStore(private val application: Application) {
 
-    private val Context.store by preferencesDataStore("AuthDataStore")
+    private val Application.store by preferencesDataStore("AuthDataStore")
 
-    fun authorized() = context.store.data.map { it[AUTHORIZED] }
+    fun authorized() = application.store.data.map { it[AUTHORIZED] }
 
-    suspend fun updateAuthorized(value: Boolean) = context.store.edit { it[AUTHORIZED] = value }
+    suspend fun updateAuthorized(value: Boolean) = application.store.edit { it[AUTHORIZED] = value }
 
     companion object {
         private val AUTHORIZED = booleanPreferencesKey("AUTHORIZED")

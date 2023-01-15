@@ -15,6 +15,7 @@ repositories {
 }
 
 dependencies {
-    implementation("com.android.tools.build:gradle:${plugins.getProperty("android")}")
-    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:${plugins.getProperty("kotlin")}")
+    implementation("com.android.tools.build:gradle:${plugins["android"]}")
+    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:${plugins["kotlin"]}")
+//    implementation("com.google.dagger:hilt-android-gradle-plugin:${plugins["hilt"]}")
 }

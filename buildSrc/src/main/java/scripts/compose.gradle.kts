@@ -10,7 +10,7 @@ android {
                 compose = true
             }
             composeOptions {
-                kotlinCompilerExtensionVersion = Libraries.Versions.compose
+                kotlinCompilerExtensionVersion = Libraries.Versions.composeCompilerExtension
             }
         }
         is LibraryExtension -> {
@@ -18,7 +18,7 @@ android {
                 compose = true
             }
             composeOptions {
-                kotlinCompilerExtensionVersion = Libraries.Versions.compose
+                kotlinCompilerExtensionVersion = Libraries.Versions.composeCompilerExtension
             }
         }
     }

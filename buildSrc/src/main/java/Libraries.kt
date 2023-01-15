@@ -2,6 +2,9 @@ object Libraries {
     const val kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Versions.kotlin}"
     const val coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}"
 
+    const val hilt = "com.google.dagger:hilt-android:${Versions.hilt}"
+    const val hiltCompiler = "com.google.dagger:hilt-android-compiler:${Versions.hilt}"
+
     const val timber = "com.jakewharton.timber:timber:${Versions.timber}"
     const val leakCanary = "com.squareup.leakcanary:leakcanary-android:${Versions.leakCanary}"
 
@@ -10,10 +13,10 @@ object Libraries {
     const val material = "com.google.android.material:material:${Versions.material}"
 
     val compose = listOf(
-        "androidx.compose.ui:ui:${Versions.compose}",
-        "androidx.compose.ui:ui-tooling:${Versions.compose}",
-        "androidx.compose.foundation:foundation:${Versions.compose}",
-        "androidx.compose.material:material:${Versions.compose}",
+        "androidx.compose.ui:ui:${Versions.composeUi}",
+        "androidx.compose.ui:ui-tooling:${Versions.composeUi}",
+        "androidx.compose.foundation:foundation:${Versions.composeFoundation}",
+        "androidx.compose.material:material:${Versions.composeMaterial}",
         "io.coil-kt:coil-compose:${Versions.coilCompose}",
         "androidx.navigation:navigation-compose:${Versions.navigationCompose}",
         "androidx.paging:paging-compose:${Versions.pagingCompose}"
@@ -44,6 +47,8 @@ object Libraries {
         const val kotlin = "1.7.0"
         const val coroutines = "1.3.9"
 
+        const val hilt = "2.44"
+
         const val timber = "4.6.1"
         const val leakCanary = "2.9.1"
 
@@ -51,7 +56,11 @@ object Libraries {
         const val annotations = "1.0.0"
         const val material = "1.2.0-alpha03"
 
-        const val compose = "1.2.0"
+        const val composeUi = "1.3.3"
+        const val composeFoundation = "1.3.1"
+        const val composeMaterial = "1.3.1"
+        const val composeCompilerExtension = "1.3.2"
+
         const val navigationCompose = "2.5.1"
         const val pagingCompose = "1.0.0-alpha16"
         const val coilCompose = "2.1.0"

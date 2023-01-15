@@ -5,6 +5,7 @@ plugins {
     id("kotlin-android")
     id("kotlin-kapt")
     id("ktlint")
+//    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -50,4 +51,7 @@ dependencies {
     implementation(Libraries.coroutines)
 
     implementation(Libraries.timber)
+
+//    implementation(Libraries.hilt)
+//    kapt(Libraries.hiltCompiler)
 }

@@ -17,9 +17,10 @@ object Libraries {
         "androidx.compose.ui:ui-tooling:${Versions.composeUi}",
         "androidx.compose.foundation:foundation:${Versions.composeFoundation}",
         "androidx.compose.material:material:${Versions.composeMaterial}",
-        "io.coil-kt:coil-compose:${Versions.coilCompose}",
         "androidx.navigation:navigation-compose:${Versions.navigationCompose}",
-        "androidx.paging:paging-compose:${Versions.pagingCompose}"
+        "androidx.hilt:hilt-navigation-compose:${Versions.hiltNavigationCompose}",
+        "androidx.paging:paging-compose:${Versions.pagingCompose}",
+        "io.coil-kt:coil-compose:${Versions.coilCompose}"
     )
 
     val accompanist = listOf(
@@ -62,6 +63,7 @@ object Libraries {
         const val composeCompilerExtension = "1.3.2"
 
         const val navigationCompose = "2.5.1"
+        const val hiltNavigationCompose = "1.0.0"
         const val pagingCompose = "1.0.0-alpha16"
         const val coilCompose = "2.1.0"
 

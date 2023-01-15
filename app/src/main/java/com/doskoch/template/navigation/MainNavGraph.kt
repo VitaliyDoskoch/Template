@@ -6,12 +6,12 @@ import com.doskoch.template.auth.navigation.AuthFeatureNavGraph
 import com.doskoch.template.core.components.navigation.CoreNavGraph
 import com.doskoch.template.core.components.navigation.NavigationNode
 import com.doskoch.template.core.components.navigation.composable
-import com.doskoch.template.di.AppInjector
+import com.doskoch.template.di.modules.AppModule
 import com.doskoch.template.splash.screens.splash.SplashScreen
 
 @Composable
 fun MainNavGraph() {
-    CoreNavGraph(navigator = AppInjector.component.navigator) {
+    CoreNavGraph(navigator = AppModule.Provider::mainNavigator) {
         Node.Splash.composable(this) {
             SplashScreen()
         }

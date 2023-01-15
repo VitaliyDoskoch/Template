@@ -5,8 +5,9 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
-class AuthDataStore(private val application: Application) {
+class AuthDataStore @Inject constructor(private val application: Application) {
 
     private val Application.store by preferencesDataStore("AuthDataStore")
 

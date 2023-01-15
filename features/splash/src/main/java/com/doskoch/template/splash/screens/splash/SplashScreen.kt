@@ -23,14 +23,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.doskoch.template.core.components.theme.Dimensions
 import com.doskoch.template.splash.R
-import com.doskoch.template.splash.di.Module
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @Composable
-fun SplashScreen(vm: SplashViewModel = viewModel { Module.splashViewModel() }) {
+fun SplashScreen(vm: SplashViewModel = hiltViewModel()) {
     val systemUiController = rememberSystemUiController()
     SideEffect { systemUiController.setStatusBarColor(Color.Transparent) }
 

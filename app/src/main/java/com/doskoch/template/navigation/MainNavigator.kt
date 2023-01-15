@@ -7,8 +7,11 @@ import com.doskoch.template.core.components.navigation.CoreNavigator
 import com.doskoch.template.core.components.navigation.NavAction
 import com.doskoch.template.core.components.navigation.NavigationNode
 import com.doskoch.template.splash.di.SplashFeatureInjector
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class MainNavigator : CoreNavigator {
+@Singleton
+class MainNavigator @Inject constructor() : CoreNavigator {
 
     override val events = EventQueue<NavAction>()
     override val startNode: NavigationNode = Node.Splash

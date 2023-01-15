@@ -4,10 +4,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.doskoch.template.core.useCase.auth.IsAuthorizedUseCase
 import com.doskoch.template.splash.navigation.SplashFeatureNavigator
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SplashViewModel(
+@HiltViewModel
+class SplashViewModel @Inject constructor(
     private val minDisplayTime: Long,
     private val isAuthorizedUseCase: IsAuthorizedUseCase,
     private val navigator: SplashFeatureNavigator

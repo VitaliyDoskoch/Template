@@ -25,16 +25,15 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.doskoch.template.auth.R
-import com.doskoch.template.auth.di.Module
 import com.doskoch.template.core.components.theme.Dimensions
 import com.doskoch.template.core.ui.CoreButton
 import com.doskoch.template.core.ui.CoreTextInputField
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @Composable
-fun SignInScreen(vm: SignInViewModel = viewModel { Module.signInViewModel() }) {
+fun SignInScreen(vm: SignInViewModel = hiltViewModel()) {
     val state = vm.state.collectAsState().value
 
     Scaffold(

@@ -1,5 +1,7 @@
 package com.doskoch.template.auth.screens.signIn.useCase
 
-class IsEmailValidUseCase {
+import javax.inject.Inject
+
+class IsEmailValidUseCase @Inject constructor() {
     fun invoke(email: String) = android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
 }

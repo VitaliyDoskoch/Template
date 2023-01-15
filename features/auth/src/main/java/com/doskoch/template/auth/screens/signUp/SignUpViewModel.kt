@@ -2,8 +2,11 @@ package com.doskoch.template.auth.screens.signUp
 
 import androidx.lifecycle.ViewModel
 import com.doskoch.template.auth.navigation.AuthFeatureNavigator
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class SignUpViewModel(
+@HiltViewModel
+class SignUpViewModel @Inject constructor(
     private val navigator: AuthFeatureNavigator
 ) : ViewModel() {
 

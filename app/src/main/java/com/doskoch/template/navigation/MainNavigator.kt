@@ -1,7 +1,6 @@
 package com.doskoch.template.navigation
 
 import com.doskoch.template.anime.di.AnimeFeatureInjector
-import com.doskoch.template.auth.di.AuthFeatureInjector
 import com.doskoch.template.core.components.event.EventQueue
 import com.doskoch.template.core.components.navigation.CoreNavigator
 import com.doskoch.template.core.components.navigation.NavAction
@@ -25,7 +24,6 @@ class MainNavigator @Inject constructor() : CoreNavigator {
 
     fun toAnimeFromAuth() = events.enqueue {
         navigate(Node.Anime.route) { popUpTo(Node.Auth.route) { inclusive = true } }
-        AuthFeatureInjector.component?.destroyInstance()
     }
 
     fun toSplashFromAnime() = events.enqueue {

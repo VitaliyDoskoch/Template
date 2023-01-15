@@ -10,24 +10,27 @@ import com.doskoch.template.core.components.error.GlobalErrorHandler
 import com.doskoch.template.core.components.error.toCoreError
 import com.doskoch.template.core.ext.launchAction
 import com.doskoch.template.core.useCase.auth.AuthorizeUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import javax.inject.Inject
 
-class SignInViewModel(
+@HiltViewModel
+class SignInViewModel @Inject constructor(
     private val navigator: AuthFeatureNavigator,
     private val isEmailValidUseCase: IsEmailValidUseCase,
     private val globalErrorHandler: GlobalErrorHandler,
     private val authorizeUseCase: AuthorizeUseCase
 ) : ViewModel() {
 
-    private val _state: MutableStateFlow<SignInState> = MutableStateFlow(
-        SignInState(
+    private val _state: MutableStateFlow<SignInScreenState> = MutableStateFlow(
+        SignInScreenState(
             email = "",
             error = null,
             isProceedButtonEnabled = false,
             isLoading = false,
-            actions = SignInState.Actions(
+            actions = SignInScreenState.Actions(
                 onNavigateBack = this::onNavigateBack,
                 onUpdateEmail = this::onUpdateEmail,
                 onProceed = this::onProceed

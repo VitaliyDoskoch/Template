@@ -1,13 +1,20 @@
 package com.doskoch.template.di.modules
 
-import com.doskoch.template.auth.di.AuthFeatureComponent
 import com.doskoch.template.auth.navigation.AuthFeatureNavigator
-import com.doskoch.template.di.AppComponent
+import com.doskoch.template.navigation.MainNavigator
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
-fun authFeatureModule(component: AppComponent) = object : AuthFeatureComponent {
-    override val navigator = object : AuthFeatureNavigator() {
-        override fun toAnime() = component.navigator.toAnimeFromAuth()
+@Module
+@InstallIn(SingletonComponent::class)
+object AuthFeatureModule {
+
+    @Provides
+    @Singleton
+    fun navigator(navigator: MainNavigator) = object : AuthFeatureNavigator() {
+        override fun toAnime() = navigator.toAnimeFromAuth()
     }
-
-    override val globalErrorHandler = component.globalErrorHandler
 }

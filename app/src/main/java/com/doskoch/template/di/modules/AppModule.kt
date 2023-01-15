@@ -1,12 +1,14 @@
 package com.doskoch.template.di.modules
 
 import android.app.Application
+import com.doskoch.template.core.components.error.GlobalErrorHandler
 import com.doskoch.template.core.store.AuthDataStore
 import com.doskoch.template.database.AppDatabase
 import com.doskoch.template.di.AppComponent
 import com.doskoch.template.di.AppInjector
 import com.doskoch.template.error.GlobalErrorHandlerImpl
 import com.doskoch.template.navigation.MainNavigator
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.EntryPoint
@@ -29,11 +31,18 @@ object AppModule {
 
     // TODO: refactor
     @Provides
-    fun globalErrorHandler() = AppInjector.component.globalErrorHandler as GlobalErrorHandlerImpl
+    fun globalErrorHandlerImpl() = AppInjector.component.globalErrorHandler as GlobalErrorHandlerImpl
 
     @Provides
     @Singleton
     fun appDatabase(application: Application) = AppDatabase.buildDatabase(application)
+
+    @Module
+    @InstallIn(SingletonComponent::class)
+    abstract class Binder {
+        @Binds
+        abstract fun globalErrorHandler(impl: GlobalErrorHandlerImpl): GlobalErrorHandler
+    }
 
     @EntryPoint
     @InstallIn(SingletonComponent::class)

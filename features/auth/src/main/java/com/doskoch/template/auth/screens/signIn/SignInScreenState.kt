@@ -2,7 +2,7 @@ package com.doskoch.template.auth.screens.signIn
 
 import com.doskoch.template.core.components.error.CoreError
 
-data class SignInState(
+data class SignInScreenState(
     val email: String,
     val error: CoreError?,
     val isProceedButtonEnabled: Boolean,

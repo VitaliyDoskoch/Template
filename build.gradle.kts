@@ -1,21 +1,7 @@
-buildscript {
-    repositories {
-        google()
-        mavenCentral()
-    }
-
-    dependencies {
-        classpath(Plugins.android)
-        classpath(Plugins.kotlin)
-    }
-}
-
-//plugins {
-//    id("com.google.dagger.hilt.android") version "2.44" apply false
-//}
-
-tasks {
-    register("clean", Delete::class) { delete(rootProject.buildDir) }
+plugins {
+    id("com.android.application") apply false
+    id("com.android.library") apply false
+    id("org.jetbrains.kotlin.android") apply false
 }
 
 val installGitHook: Task by tasks.creating {

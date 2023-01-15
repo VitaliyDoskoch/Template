@@ -11,8 +11,6 @@ import com.doskoch.template.di.modules.appModule
 import com.doskoch.template.di.modules.authFeatureModule
 import com.doskoch.template.di.modules.coreModule
 import com.doskoch.template.di.modules.jikanApiModule
-import com.doskoch.template.di.modules.splashFeatureModule
-import com.doskoch.template.splash.di.SplashFeatureInjector
 import timber.log.Timber
 
 object AppInjector {
@@ -24,11 +22,6 @@ object AppInjector {
 
         CoreInjector.component = coreModule(component).also(this::logCreation)
         JikanApiInjector.component = jikanApiModule(component).also(this::logCreation)
-
-        SplashFeatureInjector.component = DestroyableLazy(
-            initialize = { splashFeatureModule(component).also(this::logCreation) },
-            onDestroyInstance = this::logDestruction
-        )
 
         AuthFeatureInjector.component = DestroyableLazy(
             initialize = { authFeatureModule(component).also(this::logCreation) },

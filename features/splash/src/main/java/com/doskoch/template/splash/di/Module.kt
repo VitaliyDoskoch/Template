@@ -6,10 +6,10 @@ import com.doskoch.template.splash.navigation.SplashFeatureNavigator
 import com.doskoch.template.splash.screens.splash.SplashViewModel
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.components.SingletonComponent
 
 @dagger.Module
-@InstallIn(ViewModelComponent::class)
+@InstallIn(SingletonComponent::class)
 internal object Module {
 
     @Provides

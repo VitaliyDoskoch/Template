@@ -6,7 +6,6 @@ import com.doskoch.template.core.components.event.EventQueue
 import com.doskoch.template.core.components.navigation.CoreNavigator
 import com.doskoch.template.core.components.navigation.NavAction
 import com.doskoch.template.core.components.navigation.NavigationNode
-import com.doskoch.template.splash.di.SplashFeatureInjector
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -18,12 +17,10 @@ class MainNavigator @Inject constructor() : CoreNavigator {
 
     fun toAuthFromSplash() = events.enqueue {
         navigate(Node.Auth.route) { popUpTo(Node.Splash.route) { inclusive = true } }
-        SplashFeatureInjector.component?.destroyInstance()
     }
 
     fun toAnimeFromSplash() = events.enqueue {
         navigate(Node.Anime.route) { popUpTo(Node.Splash.route) { inclusive = true } }
-        SplashFeatureInjector.component?.destroyInstance()
     }
 
     fun toAnimeFromAuth() = events.enqueue {

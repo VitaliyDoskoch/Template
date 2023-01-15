@@ -9,7 +9,6 @@ dependencies {
     implementation(project(":database"))
     implementation(project(":core"))
 
-    implementation(Libraries.timber)
     implementation(Libraries.room)
     implementation(Libraries.dataStore)
 }

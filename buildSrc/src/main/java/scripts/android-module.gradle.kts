@@ -4,8 +4,8 @@ import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
 plugins {
     id("kotlin-android")
     id("kotlin-kapt")
-    id("ktlint")
     id("com.google.dagger.hilt.android")
+    id("ktlint")
 }
 
 android {
@@ -39,7 +39,7 @@ android {
             buildConfigField("boolean", "isLoggingEnabled", "true")
         }
         getByName("release") {
-            buildConfigField("boolean", "isLoggingEnabled", "true")
+            buildConfigField("boolean", "isLoggingEnabled", "false")
         }
     }
 }
@@ -50,8 +50,8 @@ dependencies {
     implementation(Libraries.kotlin)
     implementation(Libraries.coroutines)
 
-    implementation(Libraries.timber)
-
     implementation(Libraries.hilt)
     kapt(Libraries.hiltCompiler)
+
+    implementation(Libraries.timber)
 }

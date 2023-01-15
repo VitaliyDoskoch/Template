@@ -2,9 +2,10 @@ package com.doskoch.template
 
 import android.app.Application
 import com.doskoch.template.di.AppInjector
+import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
-@Suppress("unused")
+@HiltAndroidApp
 class App : Application() {
 
     override fun onCreate() {

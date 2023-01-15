@@ -1,8 +1,3 @@
-import java.io.*
-import java.util.*
-
-val plugins = Properties().apply { load(FileInputStream(File(rootDir, "plugin.properties"))) }
-
 plugins {
     `kotlin-dsl`
     `kotlin-dsl-precompiled-script-plugins`
@@ -15,7 +10,7 @@ repositories {
 }
 
 dependencies {
-    implementation("com.android.tools.build:gradle:${plugins["android"]}")
-    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:${plugins["kotlin"]}")
-    implementation("com.google.dagger:hilt-android-gradle-plugin:${plugins["hilt"]}")
+    implementation("com.android.tools.build:gradle:7.3.1")
+    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.20")
+    implementation("com.google.dagger:hilt-android-gradle-plugin:2.44")
 }

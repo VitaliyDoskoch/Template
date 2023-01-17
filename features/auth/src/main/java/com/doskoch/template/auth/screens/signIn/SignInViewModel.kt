@@ -2,6 +2,7 @@ package com.doskoch.template.auth.screens.signIn
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
+import com.doskoch.template.auth.di.Bridged
 import com.doskoch.template.auth.navigation.AuthFeatureNavigator
 import com.doskoch.template.auth.screens.signIn.useCase.IsEmailValidUseCase
 import com.doskoch.template.core.R
@@ -18,7 +19,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SignInViewModel @Inject constructor(
-    private val navigator: AuthFeatureNavigator,
+    @Bridged private val navigator: AuthFeatureNavigator,
     private val isEmailValidUseCase: IsEmailValidUseCase,
     private val globalErrorHandler: GlobalErrorHandler,
     private val authorizeUseCase: AuthorizeUseCase

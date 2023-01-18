@@ -13,7 +13,7 @@ import dagger.hilt.EntryPoints
 
 @Composable
 fun AuthFeatureNavGraph() {
-    CoreNavGraph(navigator = EntryPoints.get(authFeatureComponentHolder!!.value, AuthFeatureComponent.ComponentEntryPoint::class.java).navigator()) {
+    CoreNavGraph(navigator = EntryPoints.get(authFeatureComponentHolder!!.value, AuthFeatureComponent.EntryPoint::class.java).navigator()) {
         Node.SignUp.composable(this) {
             SignUpScreen(vm = hiltViewModel(it))
         }

@@ -31,7 +31,7 @@ object AppModule {
 
     // TODO: refactor
     @Provides
-    fun globalErrorHandlerImpl() = AppInjector.component.globalErrorHandler as GlobalErrorHandlerImpl
+    fun globalErrorHandlerImpl(appInjector: AppInjector) = appInjector.component.globalErrorHandler as GlobalErrorHandlerImpl
 
     @Provides
     @Singleton

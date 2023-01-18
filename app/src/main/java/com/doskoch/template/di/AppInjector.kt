@@ -13,17 +13,22 @@ import com.doskoch.template.di.modules.coreModule
 import com.doskoch.template.di.modules.jikanApiModule
 import dagger.hilt.android.EntryPointAccessors
 import timber.log.Timber
+import javax.inject.Inject
+import javax.inject.Provider
+import javax.inject.Singleton
 
-object AppInjector {
+@Singleton
+class AppInjector @Inject constructor(
+    private val authFeatureComponentBuilder: Provider<AuthFeatureComponent.Builder>
+) {
 
     lateinit var component: AppComponent
 
     fun init(application: Application) {
         component = appModule(application).also(this::logCreation)
 
-        val builder = EntryPointAccessors.fromApplication(application, AuthFeatureComponent.BuilderEntryPoint::class.java).provideBuilder()
         authFeatureComponentHolder = DestroyableLazy(
-            initialize = { builder.build().also(this::logCreation) },
+            initialize = { authFeatureComponentBuilder.get().build().also(this::logCreation) },
             onDestroyInstance = this::logDestruction
         )
 

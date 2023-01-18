@@ -1,7 +1,6 @@
 package com.doskoch.template.auth.di
 
 import com.doskoch.template.auth.navigation.AuthFeatureNavigator
-import com.doskoch.template.core.components.kotlin.DestroyableLazy
 import dagger.hilt.DefineComponent
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
@@ -27,5 +26,3 @@ interface AuthFeatureComponent {
         fun navigator(): AuthFeatureNavigator
     }
 }
-
-var authFeatureComponentHolder: DestroyableLazy<AuthFeatureComponent>? = null

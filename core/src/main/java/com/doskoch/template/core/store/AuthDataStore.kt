@@ -11,13 +11,13 @@ import javax.inject.Singleton
 @Singleton
 class AuthDataStore @Inject constructor(private val application: Application) {
 
-    private val Application.store by preferencesDataStore("AuthDataStore")
-
     fun authorized() = application.store.data.map { it[AUTHORIZED] }
 
     suspend fun updateAuthorized(value: Boolean) = application.store.edit { it[AUTHORIZED] = value }
 
     companion object {
+        private val Application.store by preferencesDataStore("AuthDataStore")
+
         private val AUTHORIZED = booleanPreferencesKey("AUTHORIZED")
     }
 }

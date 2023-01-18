@@ -9,13 +9,9 @@ import dagger.hilt.components.SingletonComponent
 import javax.inject.Qualifier
 import javax.inject.Scope
 
-@Qualifier
-@Retention(AnnotationRetention.BINARY)
-annotation class Bridged
-
 @Scope
 @MustBeDocumented
-@Retention(value = AnnotationRetention.BINARY)
+@Retention(value = AnnotationRetention.RUNTIME)
 annotation class AuthFeatureScope
 
 @AuthFeatureScope

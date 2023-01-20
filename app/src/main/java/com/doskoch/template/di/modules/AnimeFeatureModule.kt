@@ -6,7 +6,6 @@ import com.doskoch.template.navigation.navigators.AnimeFeatureNavigatorImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(AnimeFeatureComponent::class)

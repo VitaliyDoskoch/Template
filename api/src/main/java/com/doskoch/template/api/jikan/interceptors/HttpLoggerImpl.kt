@@ -1,7 +1,7 @@
 package com.doskoch.template.api.jikan.interceptors
 
-import com.doskoch.template.api.jikan.di.qualifiers.GsonForLogging
 import com.doskoch.template.api.jikan.di.external.ExternalLogger
+import com.doskoch.template.api.jikan.di.qualifiers.GsonForLogging
 import com.google.gson.Gson
 import com.google.gson.JsonParser
 import okhttp3.logging.HttpLoggingInterceptor

@@ -20,13 +20,12 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemsIndexed
 import com.doskoch.template.anime.R
 import com.doskoch.template.anime.common.ui.AnimeItem
-import com.doskoch.template.anime.di._Module
 import com.doskoch.template.core.components.theme.Dimensions
 import com.doskoch.template.core.ui.modifier.simpleVerticalScrollbar
 import com.doskoch.template.core.ui.paging.PagingScaffold
@@ -34,7 +33,7 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @OptIn(ExperimentalPagingApi::class)
 @Composable
-fun FavoriteAnimeScreen(vm: FavoriteAnimeViewModel = viewModel { _Module.favoriteAnimeViewModel() }) {
+fun FavoriteAnimeScreen(vm: FavoriteAnimeViewModel = hiltViewModel()) {
     val state = vm.state.collectAsState().value
 
     Scaffold(

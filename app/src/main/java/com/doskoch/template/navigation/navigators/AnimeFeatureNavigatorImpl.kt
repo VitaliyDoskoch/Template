@@ -6,6 +6,6 @@ import com.doskoch.template.navigation.MainNavigator
 import javax.inject.Inject
 
 @AnimeFeatureScope
-class AnimeFeatureNavigatorImpl @Inject constructor(private val navigator: MainNavigator): AnimeFeatureNavigator() {
+class AnimeFeatureNavigatorImpl @Inject constructor(private val navigator: MainNavigator) : AnimeFeatureNavigator() {
     override fun toSplash() = navigator.toSplashFromAnime()
 }

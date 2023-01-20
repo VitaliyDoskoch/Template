@@ -40,21 +40,19 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.paging.ExperimentalPagingApi
 import coil.compose.AsyncImage
 import com.doskoch.template.anime.R
-import com.doskoch.template.anime.di._Module
+import com.doskoch.template.anime.di.AnimeFeatureInjector
 import com.doskoch.template.anime.screens.details.AnimeDetailsState.ScreenState
 import com.doskoch.template.core.components.theme.Dimensions
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import java.text.DecimalFormat
 
-@OptIn(ExperimentalPagingApi::class)
 @Composable
 fun AnimeDetailsScreen(
     animeId: Int,
     title: String,
-    vm: AnimeDetailsViewModel = viewModel { _Module.animeDetailsViewModel(animeId, title) }
+    vm: AnimeDetailsViewModel = viewModel { AnimeFeatureInjector.animeDetailsViewModelFactory().create(animeId, title) }
 ) {
     val state = vm.state.collectAsState().value
 

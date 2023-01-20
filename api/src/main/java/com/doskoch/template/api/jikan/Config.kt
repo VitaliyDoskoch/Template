@@ -1,6 +1,5 @@
 package com.doskoch.template.api.jikan
 
-import android.util.Log
 import com.doskoch.template.api.BuildConfig
 import okhttp3.logging.HttpLoggingInterceptor.Level
 

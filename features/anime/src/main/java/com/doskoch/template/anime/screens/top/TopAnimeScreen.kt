@@ -29,13 +29,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemsIndexed
 import com.doskoch.template.anime.R
 import com.doskoch.template.anime.common.ui.AnimeItem
-import com.doskoch.template.anime.di._Module
 import com.doskoch.template.anime.screens.top.uiModel.AnimeTypeUiModel
 import com.doskoch.template.core.components.theme.Dimensions
 import com.doskoch.template.core.ui.dialog.LogoutDialog
@@ -48,7 +47,7 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @OptIn(ExperimentalPagingApi::class)
 @Composable
-fun TopAnimeScreen(vm: TopAnimeViewModel = viewModel { _Module.topAnimeViewModel() }) {
+fun TopAnimeScreen(vm: TopAnimeViewModel = hiltViewModel()) {
     val state = vm.state.collectAsState().value
 
     Scaffold(

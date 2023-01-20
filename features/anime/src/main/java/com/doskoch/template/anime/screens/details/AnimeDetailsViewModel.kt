@@ -11,17 +11,17 @@ import com.doskoch.template.core.components.error.CoreError
 import com.doskoch.template.core.components.error.GlobalErrorHandler
 import com.doskoch.template.core.components.error.toCoreError
 import com.doskoch.template.core.ext.launchAction
-import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.update
-import javax.inject.Inject
 
-@HiltViewModel
-class AnimeDetailsViewModel @Inject constructor(
-    private val animeId: Int,
-    private val title: String,
+class AnimeDetailsViewModel @AssistedInject constructor(
+    @Assisted private val animeId: Int,
+    @Assisted private val title: String,
     private val navigator: AnimeFeatureNavigator,
     private val globalErrorHandler: GlobalErrorHandler,
     private val getIsFavoriteAnimeUseCase: GetIsFavoriteAnimeUseCase,
@@ -81,4 +81,9 @@ class AnimeDetailsViewModel @Inject constructor(
         },
         onError = { globalErrorHandler.handle(it.toCoreError(CoreError.FailedToSaveChanges)) }
     )
+
+    @AssistedFactory
+    interface Factory {
+        fun create(animeId: Int, title: String): AnimeDetailsViewModel
+    }
 }

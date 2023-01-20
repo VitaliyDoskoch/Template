@@ -14,13 +14,16 @@ import com.doskoch.template.core.components.error.GlobalErrorHandler
 import com.doskoch.template.core.components.error.toCoreError
 import com.doskoch.template.core.ext.launchAction
 import com.doskoch.template.database.schema.anime.DbAnime
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
+import javax.inject.Inject
 
-class FavoriteAnimeViewModel(
+@HiltViewModel
+class FavoriteAnimeViewModel @Inject constructor(
     private val navigator: AnimeFeatureNavigator,
     private val pager: Pager<Int, DbAnime>,
     private val deleteAnimeFromFavoriteUseCase: DeleteAnimeFromFavoriteUseCase,

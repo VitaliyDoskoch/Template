@@ -17,7 +17,7 @@ class App : Application() {
 
         initLogging()
 
-        appInjector.init(this)
+        appInjector.init()
     }
 
     private fun initLogging() {

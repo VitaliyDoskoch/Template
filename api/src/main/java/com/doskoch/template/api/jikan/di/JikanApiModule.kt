@@ -4,75 +4,82 @@ import com.doskoch.template.api.jikan.BASE_URL
 import com.doskoch.template.api.jikan.CONNECT_TIMEOUT
 import com.doskoch.template.api.jikan.HTTP_LOG_LEVEL
 import com.doskoch.template.api.jikan.READ_TIMEOUT
-import com.doskoch.template.api.jikan.TIMBER_LOG_LEVEL
-import com.doskoch.template.api.jikan.ext.addInterceptors
+import com.doskoch.template.api.jikan.di.qualifiers.GsonForLogging
+import com.doskoch.template.api.jikan.di.qualifiers.GsonForSerializing
 import com.doskoch.template.api.jikan.interceptors.ApiVersionInterceptor
+import com.doskoch.template.api.jikan.interceptors.HttpLoggerImpl
 import com.doskoch.template.api.jikan.services.anime.AnimeService
 import com.doskoch.template.api.jikan.services.top.TopService
+import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.google.gson.JsonParser
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import timber.log.Timber
 import java.lang.reflect.Modifier
 import java.util.concurrent.TimeUnit
+import javax.inject.Singleton
 
-@Suppress("MemberVisibilityCanBePrivate", "HasPlatformType")
-object JikanApiModule {
+@Module
+@InstallIn(SingletonComponent::class)
+interface JikanApiModule {
 
-    val topService by lazy { retrofit.create(TopService::class.java) }
+    companion object {
+        @Provides
+        @Singleton
+        @GsonForLogging
+        fun gsonForLogging() = GsonBuilder().setPrettyPrinting().create()
 
-    val animeService by lazy { retrofit.create(AnimeService::class.java) }
+        @Provides
+        @Singleton
+        fun httpLoggingInterceptor(httpLoggerImpl: HttpLoggerImpl) = HttpLoggingInterceptor(httpLoggerImpl).apply { level = HTTP_LOG_LEVEL }
 
-    internal val retrofit by lazy {
-        Retrofit.Builder().apply {
+        @Provides
+        @Singleton
+        fun apiVersionInterceptor() = ApiVersionInterceptor(baseUrl = BASE_URL)
+
+        @Provides
+        @Singleton
+        fun okHttpClient(loggingInterceptor: HttpLoggingInterceptor, apiVersionInterceptor: ApiVersionInterceptor) = OkHttpClient.Builder()
+            .apply {
+                connectTimeout(CONNECT_TIMEOUT, TimeUnit.MILLISECONDS)
+                readTimeout(READ_TIMEOUT, TimeUnit.MILLISECONDS)
+                addInterceptor(loggingInterceptor)
+                addInterceptor(apiVersionInterceptor)
+            }
+            .build()
+
+        @Provides
+        @Singleton
+        @GsonForSerializing
+        fun gsonForSerializing() = GsonBuilder()
+            .excludeFieldsWithModifiers(Modifier.TRANSIENT)
+            .serializeNulls()
+            .create()
+
+        @Provides
+        @Singleton
+        fun gsonConverterFactory(@GsonForSerializing gson: Gson) = GsonConverterFactory.create(gson)
+
+        @Provides
+        @Singleton
+        fun retrofit(okHttpClient: OkHttpClient, gsonConverterFactory: GsonConverterFactory) = Retrofit.Builder().apply {
             baseUrl(if (BASE_URL.endsWith("/")) BASE_URL else "$BASE_URL/")
             client(okHttpClient)
             addConverterFactory(gsonConverterFactory)
         }
             .build()
-    }
 
-    internal val okHttpClient by lazy {
-        OkHttpClient.Builder().apply {
-            connectTimeout(CONNECT_TIMEOUT, TimeUnit.MILLISECONDS)
-            readTimeout(READ_TIMEOUT, TimeUnit.MILLISECONDS)
-            addInterceptors(
-                listOf(
-                    ApiVersionInterceptor(BASE_URL),
-                    httpLoggingInterceptor
-                )
-            )
-        }
-            .build()
-    }
+        @Provides
+        @Singleton
+        fun topService(retrofit: Retrofit) = retrofit.create(TopService::class.java)
 
-    internal val httpLoggingInterceptor by lazy {
-        HttpLoggingInterceptor(object : HttpLoggingInterceptor.Logger {
-            override fun log(message: String) {
-                val result: String = try {
-                    GsonBuilder()
-                        .setPrettyPrinting()
-                        .create()
-                        .toJson(JsonParser.parseString(message))
-                } catch (t: Throwable) {
-                    message
-                }
-
-                Timber.log(TIMBER_LOG_LEVEL, result)
-            }
-        })
-            .apply { level = HTTP_LOG_LEVEL }
-    }
-
-    internal val gsonConverterFactory by lazy { GsonConverterFactory.create(gson) }
-
-    internal val gson by lazy {
-        GsonBuilder()
-            .excludeFieldsWithModifiers(Modifier.TRANSIENT)
-            .serializeNulls()
-            .create()
+        @Provides
+        @Singleton
+        fun animeService(retrofit: Retrofit) = retrofit.create(AnimeService::class.java)
     }
 }

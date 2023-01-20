@@ -13,7 +13,7 @@ import com.doskoch.template.core.components.navigation.composable
 fun AuthFeatureNavGraph() {
     CoreNavGraph(navigator = AuthFeatureInjector.navigator()) {
         Node.SignUp.composable(this) {
-            SignUpScreen(vm = hiltViewModel(it))
+            SignUpScreen(vm = hiltViewModel())
         }
         Node.SignIn.composable(this) {
             SignInScreen()

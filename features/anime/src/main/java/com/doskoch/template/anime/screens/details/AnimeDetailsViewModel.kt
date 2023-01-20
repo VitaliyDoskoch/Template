@@ -11,12 +11,15 @@ import com.doskoch.template.core.components.error.CoreError
 import com.doskoch.template.core.components.error.GlobalErrorHandler
 import com.doskoch.template.core.components.error.toCoreError
 import com.doskoch.template.core.ext.launchAction
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.update
+import javax.inject.Inject
 
-class AnimeDetailsViewModel(
+@HiltViewModel
+class AnimeDetailsViewModel @Inject constructor(
     private val animeId: Int,
     private val title: String,
     private val navigator: AnimeFeatureNavigator,

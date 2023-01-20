@@ -13,9 +13,10 @@ import com.doskoch.template.api.jikan.services.top.responses.GetTopAnimeResponse
 import com.doskoch.template.core.components.error.GlobalErrorHandler
 import com.doskoch.template.core.components.error.toCoreError
 import timber.log.Timber
+import javax.inject.Inject
 
 @OptIn(ExperimentalPagingApi::class)
-class TopAnimeRemoteMediator(
+class TopAnimeRemoteMediator @Inject constructor(
     private val remoteAnimeType: RemoteAnimeType,
     private val getLastPagingKeyUseCase: GetLastPagingKeyUseCase,
     private val loadAnimeUseCase: LoadAnimeUseCase,

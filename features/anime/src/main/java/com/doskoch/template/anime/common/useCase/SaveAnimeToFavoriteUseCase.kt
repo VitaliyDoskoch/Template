@@ -4,8 +4,9 @@ import com.doskoch.template.anime.common.toDbAnime
 import com.doskoch.template.api.jikan.services.top.responses.GetTopAnimeResponse
 import com.doskoch.template.core.components.paging.SimpleInMemoryStorage
 import com.doskoch.template.database.schema.anime.DbAnimeDao
+import javax.inject.Inject
 
-class SaveAnimeToFavoriteUseCase(
+class SaveAnimeToFavoriteUseCase @Inject constructor(
     private val storage: SimpleInMemoryStorage<Int, GetTopAnimeResponse.Data>,
     private val dbAnimeDao: DbAnimeDao
 ) {

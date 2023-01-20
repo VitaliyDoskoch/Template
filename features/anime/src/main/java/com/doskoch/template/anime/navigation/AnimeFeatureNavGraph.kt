@@ -2,7 +2,7 @@ package com.doskoch.template.anime.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavType
-import com.doskoch.template.anime.di.Injector
+import com.doskoch.template.anime.di.AnimeFeatureInjector
 import com.doskoch.template.anime.screens.details.AnimeDetailsScreen
 import com.doskoch.template.anime.screens.favorite.FavoriteAnimeScreen
 import com.doskoch.template.anime.screens.top.TopAnimeScreen
@@ -14,7 +14,7 @@ import com.doskoch.template.core.components.navigation.typedArgument
 
 @Composable
 fun AnimeFeatureNavGraph() {
-    CoreNavGraph(navigator = Injector.navigator) {
+    CoreNavGraph(navigator = AnimeFeatureInjector.navigator()) {
         Node.Top.composable(this) {
             TopAnimeScreen()
         }

@@ -22,8 +22,6 @@ inline fun <reified T> CoreNavGraph(
     CoreNavGraph(navigator = navigator, modifier = modifier, builder = builder)
 }
 
-// TODO: make private
-@Deprecated("don't use it anymore")
 @Composable
 fun CoreNavGraph(
     navigator: CoreNavigator,

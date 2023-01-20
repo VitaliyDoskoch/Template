@@ -1,17 +1,10 @@
 package com.doskoch.template.di
 
-import android.app.Application
+import com.doskoch.template.anime.di.AnimeFeatureComponent
 import com.doskoch.template.anime.di.AnimeFeatureInjector
-import com.doskoch.template.api.jikan.di.JikanApiInjector
 import com.doskoch.template.auth.di.AuthFeatureComponent
 import com.doskoch.template.auth.di.AuthFeatureInjector
 import com.doskoch.template.core.components.kotlin.DestroyableLazy
-import com.doskoch.template.core.di.CoreInjector
-import com.doskoch.template.di.modules.animeFeatureModule
-import com.doskoch.template.di.modules.appModule
-import com.doskoch.template.di.modules.coreModule
-import com.doskoch.template.di.modules.jikanApiModule
-import com.doskoch.template.navigation.MainNavigator
 import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Provider
@@ -20,26 +13,22 @@ import javax.inject.Singleton
 @Singleton
 class AppInjector @Inject constructor(
     private val authFeatureComponentBuilder: Provider<AuthFeatureComponent.Builder>,
-    private val mainNavigator: MainNavigator
+    private val animeFeatureComponentBuilder: Provider<AnimeFeatureComponent.Builder>
 ) {
 
-    lateinit var component: AppComponent
-
-    fun init(application: Application) {
-        component = appModule(application).also(this::logCreation)
-
+    fun init() {
         AuthFeatureInjector.component = DestroyableLazy(
             initialize = { authFeatureComponentBuilder.get().build().also(this::logCreation) },
             onDestroyInstance = this::logDestruction
         )
 
-        CoreInjector.component = coreModule(component).also(this::logCreation)
-        JikanApiInjector.component = jikanApiModule(component).also(this::logCreation)
-
         AnimeFeatureInjector.component = DestroyableLazy(
-            initialize = { animeFeatureModule(component, mainNavigator).also(this::logCreation) },
+            initialize = { animeFeatureComponentBuilder.get().build().also(this::logCreation) },
             onDestroyInstance = this::logDestruction
         )
+
+//        CoreInjector.component = coreModule(component).also(this::logCreation)
+//        JikanApiInjector.component = jikanApiModule(component).also(this::logCreation)
     }
 
     @Suppress("UNUSED_PARAMETER")

@@ -5,13 +5,16 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.EntryPoints
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.android.components.ActivityRetainedComponent
 
 @Module
-@InstallIn(ViewModelComponent::class)
-object AuthFeatureInjector {
-    var component: DestroyableLazy<AuthFeatureComponent>? = null
+@InstallIn(ActivityRetainedComponent::class)
+interface AuthFeatureInjector {
 
-    @Provides
-    fun navigator() = EntryPoints.get(component!!.value, AuthFeatureComponent.EntryPoint::class.java).navigator()
+    companion object {
+        var component: DestroyableLazy<AuthFeatureComponent>? = null
+
+        @Provides
+        fun navigator() = EntryPoints.get(component!!.value, AuthFeatureComponent.EntryPoint::class.java).navigator()
+    }
 }

@@ -37,11 +37,11 @@ interface AnimeFeatureInjector {
         fun topPagerFactory(
             remoteMediatorFactory: TopAnimeRemoteMediator.Factory,
             storage: SimpleInMemoryStorage<Int, GetTopAnimeResponse.Data>
-        ) = TopAnimeViewModel.PagerFactory {
+        ) = TopAnimeViewModel.PagerFactory { remoteAnimeType ->
             @OptIn(ExperimentalPagingApi::class)
             Pager(
                 config = PAGING_CONFIG,
-                remoteMediator = remoteMediatorFactory.create(),
+                remoteMediator = remoteMediatorFactory.create(remoteAnimeType.ordinal),
                 pagingSourceFactory = storage::SimplePagingSource
             )
         }

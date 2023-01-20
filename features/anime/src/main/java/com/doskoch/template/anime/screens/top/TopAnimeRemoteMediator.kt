@@ -12,14 +12,14 @@ import com.doskoch.template.api.jikan.common.enum.RemoteAnimeType
 import com.doskoch.template.api.jikan.services.top.responses.GetTopAnimeResponse
 import com.doskoch.template.core.components.error.GlobalErrorHandler
 import com.doskoch.template.core.components.error.toCoreError
+import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import timber.log.Timber
 
-//TODO: fix this
 @OptIn(ExperimentalPagingApi::class)
 class TopAnimeRemoteMediator @AssistedInject constructor(
-//    @Assisted private val remoteAnimeType: RemoteAnimeType,
+    @Assisted private val remoteAnimeType: Int,
     private val getLastPagingKeyUseCase: GetLastPagingKeyUseCase,
     private val loadAnimeUseCase: LoadAnimeUseCase,
     private val storeAnimeUseCase: StoreAnimeUseCase,
@@ -35,7 +35,7 @@ class TopAnimeRemoteMediator @AssistedInject constructor(
 
         return try {
             val response = loadAnimeUseCase.invoke(
-                type = RemoteAnimeType.Movie, // remoteAnimeType,
+                type = RemoteAnimeType.values()[remoteAnimeType],
                 key = key,
                 pageSize = if (key == INITIAL_PAGE_KEY) state.config.initialLoadSize else state.config.pageSize
             )
@@ -58,6 +58,6 @@ class TopAnimeRemoteMediator @AssistedInject constructor(
 
     @AssistedFactory
     interface Factory {
-        fun create(): TopAnimeRemoteMediator
+        fun create(remoteAnimeType: Int): TopAnimeRemoteMediator
     }
 }

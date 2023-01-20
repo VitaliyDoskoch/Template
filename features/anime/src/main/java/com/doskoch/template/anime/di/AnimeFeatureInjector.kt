@@ -22,15 +22,23 @@ interface AnimeFeatureInjector {
     companion object {
         var component: DestroyableLazy<AnimeFeatureComponent>? = null
 
-        @Provides
-        fun navigator() = EntryPoints.get(component!!.value, AnimeFeatureComponent.EntryPoint::class.java).navigator()
+        private val entryPoint: AnimeFeatureComponent.EntryPoint
+            get() = EntryPoints.get(component!!.value, AnimeFeatureComponent.EntryPoint::class.java)
 
-        @OptIn(ExperimentalPagingApi::class)
         @Provides
-        fun pagerFactory(
+        fun navigator() = entryPoint.navigator()
+
+        @Provides
+        fun storage() = entryPoint.storage()
+
+        fun animeDetailsViewModelFactory() = entryPoint.animeDetailsViewModelFactory()
+
+        @Provides
+        fun topPagerFactory(
             remoteMediatorFactory: TopAnimeRemoteMediator.Factory,
             storage: SimpleInMemoryStorage<Int, GetTopAnimeResponse.Data>
         ) = TopAnimeViewModel.PagerFactory {
+            @OptIn(ExperimentalPagingApi::class)
             Pager(
                 config = PAGING_CONFIG,
                 remoteMediator = remoteMediatorFactory.create(),
@@ -39,11 +47,9 @@ interface AnimeFeatureInjector {
         }
 
         @Provides
-        fun pager(dbAnimeDao: DbAnimeDao) = Pager(
+        fun favoritePager(dbAnimeDao: DbAnimeDao) = Pager(
             config = PAGING_CONFIG,
             pagingSourceFactory = dbAnimeDao::pagingSource
         )
-
-        fun animeDetailsViewModelFactory() = EntryPoints.get(component!!.value, AnimeFeatureComponent.EntryPoint::class.java).animeDetailsViewModelFactory()
     }
 }

@@ -5,10 +5,9 @@ import androidx.paging.PagingState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import timber.log.Timber
-import javax.inject.Inject
 import kotlin.math.min
 
-class SimpleInMemoryStorage<K : Any, V : Any> @Inject constructor() {
+class SimpleInMemoryStorage<K : Any, V : Any> {
 
     private val invalidationCallbacks = mutableSetOf<() -> Unit>()
 

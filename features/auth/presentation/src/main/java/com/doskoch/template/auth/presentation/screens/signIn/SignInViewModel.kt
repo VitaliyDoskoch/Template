@@ -2,7 +2,6 @@ package com.doskoch.template.auth.presentation.screens.signIn
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
-import com.doskoch.template.auth.domain.screens.signIn.useCase.IsEmailValidUseCase
 import com.doskoch.template.auth.presentation.R
 import com.doskoch.template.auth.presentation.navigation.AuthFeatureNavigator
 import com.doskoch.template.core.android.components.error.CoreError
@@ -10,6 +9,7 @@ import com.doskoch.template.core.android.components.error.GlobalErrorHandler
 import com.doskoch.template.core.android.components.error.toCoreError
 import com.doskoch.template.core.android.ext.launchAction
 import com.doskoch.template.core.domain.auth.useCase.AuthorizeUseCase
+import com.doskoch.template.core.domain.validator.email.useCase.IsEmailValidUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

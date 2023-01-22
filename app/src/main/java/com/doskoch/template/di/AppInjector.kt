@@ -2,15 +2,11 @@ package com.doskoch.template.di
 
 import com.doskoch.template.anime.di.AnimeFeatureComponent
 import com.doskoch.template.anime.di.AnimeFeatureComponentAccessor
-import com.doskoch.template.anime.di.AnimeFeatureInjector
 import com.doskoch.template.auth.presentation.di.AuthFeatureComponent
 import com.doskoch.template.auth.presentation.di.AuthFeatureComponentAccessor
-import com.doskoch.template.auth.presentation.di.AuthFeatureInjector
-import com.doskoch.template.core.android.components.error.ErrorResponseParser
 import com.doskoch.template.core.android.di.CoreAndroidComponent
 import com.doskoch.template.core.android.di.CoreAndroidComponentAccessor
 import com.doskoch.template.core.kotlin.lazy.DestroyableLazy
-import com.doskoch.template.error.ErrorResponseParserImpl
 import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Provider

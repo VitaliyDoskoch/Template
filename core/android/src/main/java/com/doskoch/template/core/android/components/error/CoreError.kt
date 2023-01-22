@@ -2,7 +2,6 @@ package com.doskoch.template.core.android.components.error
 
 import android.content.Context
 import com.doskoch.template.core.android.R
-import com.doskoch.template.core.android.di.CoreAndroidComponentAccessor
 import com.doskoch.template.core.android.di.CoreAndroidInjector
 import kotlinx.coroutines.CancellationException
 import retrofit2.HttpException

@@ -1,12 +1,8 @@
-package com.doskoch.template.auth.domain.screens.signIn.useCase
+package com.doskoch.template.core.domain.validator.email.useCase
 
+import com.doskoch.template.core.domain.validator.email.EmailValidator
 import javax.inject.Inject
 
 class IsEmailValidUseCase @Inject constructor(private val validator: EmailValidator) {
-
-    interface EmailValidator {
-        fun isValid(email: String): Boolean
-    }
-
     fun invoke(email: String) = validator.isValid(email)
 }

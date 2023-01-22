@@ -9,11 +9,9 @@ import com.doskoch.template.api.jikan.services.top.responses.GetTopAnimeResponse
 import com.doskoch.template.core.android.components.paging.SimpleInMemoryStorage
 import com.doskoch.template.core.android.ext.entryPoint
 import com.doskoch.template.core.kotlin.di.ComponentAccessor
-import com.doskoch.template.core.kotlin.lazy.DestroyableLazy
 import com.doskoch.template.database.schema.anime.DbAnimeDao
 import dagger.Module
 import dagger.Provides
-import dagger.hilt.EntryPoints
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityRetainedComponent
 

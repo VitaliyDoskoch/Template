@@ -11,8 +11,10 @@ abstract class ComponentAccessor<T : Any> {
 
     fun get(): T = requireNotNull(
         value = provider,
-        lazyMessage = { "The Provider of this ComponentAccessor hasn't been initialized. " +
-            "Call the init function within the AppInjector class before accessing the component." }
+        lazyMessage = {
+            "The Provider of this ComponentAccessor hasn't been initialized. " +
+                "Call the init function within the AppInjector class before accessing the component."
+        }
     ).value
 
     fun destroyComponent() = provider?.destroyInstance()

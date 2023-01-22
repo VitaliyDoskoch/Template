@@ -1,5 +1,6 @@
 package com.doskoch.template.auth.presentation.di
 
+import com.doskoch.template.auth.domain.screens.signIn.useCase.IsEmailValidUseCase
 import com.doskoch.template.core.components.kotlin.DestroyableLazy
 import dagger.Module
 import dagger.Provides
@@ -16,5 +17,10 @@ interface AuthFeatureInjector {
 
         @Provides
         fun navigator() = EntryPoints.get(component!!.value, AuthFeatureComponent.EntryPoint::class.java).navigator()
+
+        @Provides
+        fun emailValidator() = object : IsEmailValidUseCase.EmailValidator {
+            override fun isValid(email: String) = android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
+        }
     }
 }

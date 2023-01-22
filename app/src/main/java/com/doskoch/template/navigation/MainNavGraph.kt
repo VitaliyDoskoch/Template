@@ -9,7 +9,7 @@ import com.doskoch.template.core.components.navigation.CoreNavGraph
 import com.doskoch.template.core.components.navigation.NavigationNode
 import com.doskoch.template.core.components.navigation.composable
 import com.doskoch.template.di.modules.AppModule
-import com.doskoch.template.splash.screens.splash.SplashScreen
+import com.doskoch.template.splash.presentation.screens.splash.SplashScreen
 import dagger.hilt.android.EntryPointAccessors
 
 @Composable
@@ -22,7 +22,7 @@ fun MainNavGraph() {
             SplashScreen()
         }
         Node.Auth.composable(this) {
-            com.doskoch.template.auth.presentation.navigation.AuthFeatureNavGraph()
+            AuthFeatureNavGraph()
         }
         Node.Anime.composable(this) {
             AnimeFeatureNavGraph()

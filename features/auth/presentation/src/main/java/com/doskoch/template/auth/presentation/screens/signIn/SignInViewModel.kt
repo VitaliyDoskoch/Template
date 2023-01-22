@@ -3,7 +3,7 @@ package com.doskoch.template.auth.presentation.screens.signIn
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import com.doskoch.template.auth.presentation.navigation.AuthFeatureNavigator
-import com.doskoch.template.auth.presentation.screens.signIn.useCase.IsEmailValidUseCase
+import com.doskoch.template.auth.domain.screens.signIn.useCase.IsEmailValidUseCase
 import com.doskoch.template.core.R
 import com.doskoch.template.core.components.error.CoreError
 import com.doskoch.template.core.components.error.GlobalErrorHandler

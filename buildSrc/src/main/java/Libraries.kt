@@ -2,6 +2,7 @@ object Libraries {
     const val kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Versions.kotlin}"
     const val coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}"
 
+    const val javaxInject = "javax.inject:javax.inject:${Versions.javaxInject}"
     const val hilt = "com.google.dagger:hilt-android:${Versions.hilt}"
     const val hiltCompiler = "com.google.dagger:hilt-android-compiler:${Versions.hilt}"
 
@@ -48,6 +49,7 @@ object Libraries {
         const val kotlin = "1.7.0"
         const val coroutines = "1.3.9"
 
+        const val javaxInject = "1"
         const val hilt = "2.44"
 
         const val timber = "4.6.1"

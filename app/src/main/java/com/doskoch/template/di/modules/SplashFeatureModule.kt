@@ -1,7 +1,7 @@
 package com.doskoch.template.di.modules
 
 import com.doskoch.template.navigation.navigators.SplashFeatureNavigatorImpl
-import com.doskoch.template.splash.navigation.SplashFeatureNavigator
+import com.doskoch.template.splash.presentation.navigation.SplashFeatureNavigator
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

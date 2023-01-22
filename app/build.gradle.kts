@@ -25,7 +25,7 @@ dependencies {
     implementation(project(":database"))
     implementation(project(":core"))
 
-    implementation(project(":features:splash"))
+    implementation(project(":features:splash:presentation"))
     implementation(project(":features:auth:presentation"))
     implementation(project(":features:anime"))
 

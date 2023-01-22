@@ -1,7 +1,7 @@
 package com.doskoch.template.auth.presentation.di
 
 import com.doskoch.template.auth.domain.screens.signIn.useCase.IsEmailValidUseCase
-import com.doskoch.template.core.components.kotlin.DestroyableLazy
+import com.doskoch.template.core.kotlin.lazy.DestroyableLazy
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.EntryPoints

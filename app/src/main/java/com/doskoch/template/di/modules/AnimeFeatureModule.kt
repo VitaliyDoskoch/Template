@@ -4,7 +4,7 @@ import com.doskoch.template.anime.di.AnimeFeatureComponent
 import com.doskoch.template.anime.di.AnimeFeatureScope
 import com.doskoch.template.anime.navigation.AnimeFeatureNavigator
 import com.doskoch.template.api.jikan.services.top.responses.GetTopAnimeResponse
-import com.doskoch.template.core.components.paging.SimpleInMemoryStorage
+import com.doskoch.template.core.android.components.paging.SimpleInMemoryStorage
 import com.doskoch.template.navigation.navigators.AnimeFeatureNavigatorImpl
 import dagger.Binds
 import dagger.Module

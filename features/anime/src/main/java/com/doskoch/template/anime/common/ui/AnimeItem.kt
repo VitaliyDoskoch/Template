@@ -29,7 +29,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.doskoch.template.anime.R
 import com.doskoch.template.anime.common.uiModel.AnimeUiModel
-import com.doskoch.template.core.components.theme.Dimensions
+import com.doskoch.template.core.android.ui.theme.Dimensions
 import java.text.DecimalFormat
 
 @Composable

@@ -36,13 +36,13 @@ import androidx.paging.compose.itemsIndexed
 import com.doskoch.template.anime.R
 import com.doskoch.template.anime.common.ui.AnimeItem
 import com.doskoch.template.anime.screens.top.uiModel.AnimeTypeUiModel
-import com.doskoch.template.core.components.theme.Dimensions
-import com.doskoch.template.core.ui.dialog.LogoutDialog
-import com.doskoch.template.core.ui.modifier.simpleVerticalScrollbar
-import com.doskoch.template.core.ui.paging.LoadStateItem
-import com.doskoch.template.core.ui.paging.PagingScaffold
-import com.doskoch.template.core.ui.paging.PagingSwipeRefresh
-import com.doskoch.template.core.ui.paging.retryWhenNetworkAvailable
+import com.doskoch.template.core.android.ui.common.dialogs.LogoutDialog
+import com.doskoch.template.core.android.ui.modifiers.simpleVerticalScrollbar
+import com.doskoch.template.core.android.ui.paging.LoadStateItem
+import com.doskoch.template.core.android.ui.paging.PagingScaffold
+import com.doskoch.template.core.android.ui.paging.PagingSwipeRefresh
+import com.doskoch.template.core.android.ui.paging.retryWhenNetworkAvailable
+import com.doskoch.template.core.android.ui.theme.Dimensions
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @OptIn(ExperimentalPagingApi::class)

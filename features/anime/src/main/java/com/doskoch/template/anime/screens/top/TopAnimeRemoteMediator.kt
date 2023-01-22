@@ -10,8 +10,8 @@ import com.doskoch.template.anime.screens.top.useCase.LoadAnimeUseCase
 import com.doskoch.template.anime.screens.top.useCase.StoreAnimeUseCase
 import com.doskoch.template.api.jikan.common.enum.RemoteAnimeType
 import com.doskoch.template.api.jikan.services.top.responses.GetTopAnimeResponse
-import com.doskoch.template.core.components.error.GlobalErrorHandler
-import com.doskoch.template.core.components.error.toCoreError
+import com.doskoch.template.core.android.components.error.GlobalErrorHandler
+import com.doskoch.template.core.android.components.error.toCoreError
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject

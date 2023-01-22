@@ -1,3 +1,3 @@
 plugins {
-    id("kotlin-module")
+    id("feature-domain")
 }

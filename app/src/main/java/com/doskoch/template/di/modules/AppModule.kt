@@ -1,7 +1,7 @@
 package com.doskoch.template.di.modules
 
 import android.app.Application
-import com.doskoch.template.core.components.error.GlobalErrorHandler
+import com.doskoch.template.core.android.components.error.GlobalErrorHandler
 import com.doskoch.template.database.AppDatabase
 import com.doskoch.template.error.GlobalErrorHandlerImpl
 import com.doskoch.template.navigation.MainNavigator

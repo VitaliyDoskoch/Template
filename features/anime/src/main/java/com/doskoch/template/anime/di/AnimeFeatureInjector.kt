@@ -6,8 +6,8 @@ import com.doskoch.template.anime.PAGING_CONFIG
 import com.doskoch.template.anime.screens.top.TopAnimeRemoteMediator
 import com.doskoch.template.anime.screens.top.TopAnimeViewModel
 import com.doskoch.template.api.jikan.services.top.responses.GetTopAnimeResponse
-import com.doskoch.template.core.components.kotlin.DestroyableLazy
-import com.doskoch.template.core.components.paging.SimpleInMemoryStorage
+import com.doskoch.template.core.android.components.paging.SimpleInMemoryStorage
+import com.doskoch.template.core.kotlin.lazy.DestroyableLazy
 import com.doskoch.template.database.schema.anime.DbAnimeDao
 import dagger.Module
 import dagger.Provides

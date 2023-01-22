@@ -23,7 +23,9 @@ android {
 dependencies {
     implementation(project(":api"))
     implementation(project(":database"))
-    implementation(project(":core"))
+
+    implementation(project(":core:android"))
+    implementation(project(":core:kotlin"))
     implementation(project(":core:data"))
     implementation(project(":core:domain"))
 

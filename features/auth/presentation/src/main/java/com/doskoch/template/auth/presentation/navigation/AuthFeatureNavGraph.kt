@@ -5,9 +5,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.doskoch.template.auth.presentation.di.AuthFeatureInjector
 import com.doskoch.template.auth.presentation.screens.signIn.SignInScreen
 import com.doskoch.template.auth.presentation.screens.signUp.SignUpScreen
-import com.doskoch.template.core.components.navigation.CoreNavGraph
-import com.doskoch.template.core.components.navigation.NavigationNode
-import com.doskoch.template.core.components.navigation.composable
+import com.doskoch.template.core.android.components.navigation.CoreNavGraph
+import com.doskoch.template.core.android.components.navigation.NavigationNode
+import com.doskoch.template.core.android.components.navigation.composable
 
 @Composable
 fun AuthFeatureNavGraph() {

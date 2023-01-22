@@ -44,7 +44,7 @@ import coil.compose.AsyncImage
 import com.doskoch.template.anime.R
 import com.doskoch.template.anime.di.AnimeFeatureInjector
 import com.doskoch.template.anime.screens.details.AnimeDetailsState.ScreenState
-import com.doskoch.template.core.components.theme.Dimensions
+import com.doskoch.template.core.android.ui.theme.Dimensions
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import java.text.DecimalFormat
 

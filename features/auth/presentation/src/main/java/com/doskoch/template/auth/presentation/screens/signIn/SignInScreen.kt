@@ -27,9 +27,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.doskoch.template.auth.presentation.R
-import com.doskoch.template.core.components.theme.Dimensions
-import com.doskoch.template.core.ui.CoreButton
-import com.doskoch.template.core.ui.CoreTextInputField
+import com.doskoch.template.core.android.ui.common.components.CoreButton
+import com.doskoch.template.core.android.ui.common.components.CoreTextInputField
+import com.doskoch.template.core.android.ui.theme.Dimensions
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @Composable

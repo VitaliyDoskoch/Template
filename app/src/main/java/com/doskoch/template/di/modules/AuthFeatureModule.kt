@@ -8,8 +8,8 @@ import dagger.Module
 import dagger.hilt.InstallIn
 
 @Module
-@InstallIn(com.doskoch.template.auth.presentation.di.AuthFeatureComponent::class)
+@InstallIn(AuthFeatureComponent::class)
 interface AuthFeatureModule {
     @Binds
-    fun navigator(impl: AuthFeatureNavigatorImpl): com.doskoch.template.auth.presentation.navigation.AuthFeatureNavigator
+    fun navigator(impl: AuthFeatureNavigatorImpl): AuthFeatureNavigator
 }

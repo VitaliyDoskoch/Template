@@ -5,7 +5,7 @@ import com.doskoch.template.auth.presentation.navigation.AuthFeatureNavigator
 import com.doskoch.template.navigation.MainNavigator
 import javax.inject.Inject
 
-@com.doskoch.template.auth.presentation.di.AuthFeatureScope
-class AuthFeatureNavigatorImpl @Inject constructor(private val navigator: MainNavigator) : com.doskoch.template.auth.presentation.navigation.AuthFeatureNavigator() {
+@AuthFeatureScope
+class AuthFeatureNavigatorImpl @Inject constructor(private val navigator: MainNavigator) : AuthFeatureNavigator() {
     override fun toAnime() = navigator.toAnimeFromAuth()
 }

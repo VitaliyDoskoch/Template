@@ -2,9 +2,7 @@ package com.doskoch.template.di
 
 import com.doskoch.template.anime.di.AnimeFeatureComponent
 import com.doskoch.template.anime.di.AnimeFeatureInjector
-import com.doskoch.template.auth.presentation.di.AuthFeatureComponent
-import com.doskoch.template.auth.presentation.di.AuthFeatureInjector
-import com.doskoch.template.core.components.kotlin.DestroyableLazy
+import com.doskoch.template.core.kotlin.lazy.DestroyableLazy
 import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Provider

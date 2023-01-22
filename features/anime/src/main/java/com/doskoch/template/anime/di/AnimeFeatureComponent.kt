@@ -3,7 +3,7 @@ package com.doskoch.template.anime.di
 import com.doskoch.template.anime.navigation.AnimeFeatureNavigator
 import com.doskoch.template.anime.screens.details.AnimeDetailsViewModel
 import com.doskoch.template.api.jikan.services.top.responses.GetTopAnimeResponse
-import com.doskoch.template.core.components.paging.SimpleInMemoryStorage
+import com.doskoch.template.core.android.components.paging.SimpleInMemoryStorage
 import dagger.hilt.DefineComponent
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent

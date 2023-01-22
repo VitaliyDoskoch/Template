@@ -11,7 +11,9 @@ dependencyResolutionManagement {
 
 include(":app")
 
-include(":core")
+include(":core:android")
+include(":core:kotlin")
+include(":core:data")
 include(":core:domain")
 
 include(":api")
@@ -22,4 +24,3 @@ include(":features:splash:presentation")
 include(":features:auth:domain")
 include(":features:auth:presentation")
 include(":features:anime")
-include(":core:data")

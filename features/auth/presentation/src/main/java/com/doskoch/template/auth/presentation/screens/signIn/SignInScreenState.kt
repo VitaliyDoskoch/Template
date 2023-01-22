@@ -1,6 +1,6 @@
 package com.doskoch.template.auth.presentation.screens.signIn
 
-import com.doskoch.template.core.components.error.CoreError
+import com.doskoch.template.core.android.components.error.CoreError
 
 data class SignInScreenState(
     val email: String,

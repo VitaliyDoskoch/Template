@@ -5,9 +5,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import com.doskoch.template.anime.navigation.AnimeFeatureNavGraph
 import com.doskoch.template.auth.presentation.navigation.AuthFeatureNavGraph
-import com.doskoch.template.core.components.navigation.CoreNavGraph
-import com.doskoch.template.core.components.navigation.NavigationNode
-import com.doskoch.template.core.components.navigation.composable
+import com.doskoch.template.core.android.components.navigation.CoreNavGraph
+import com.doskoch.template.core.android.components.navigation.NavigationNode
+import com.doskoch.template.core.android.components.navigation.composable
 import com.doskoch.template.di.modules.AppModule
 import com.doskoch.template.splash.presentation.screens.splash.SplashScreen
 import dagger.hilt.android.EntryPointAccessors

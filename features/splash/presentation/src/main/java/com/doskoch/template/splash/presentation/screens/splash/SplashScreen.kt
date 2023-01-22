@@ -24,7 +24,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.doskoch.template.core.components.theme.Dimensions
+import com.doskoch.template.core.android.ui.theme.Dimensions
 import com.doskoch.template.splash.presentation.R
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 

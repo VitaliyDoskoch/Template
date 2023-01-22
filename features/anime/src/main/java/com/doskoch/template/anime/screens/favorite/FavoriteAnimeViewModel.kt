@@ -9,10 +9,10 @@ import com.doskoch.template.anime.common.uiModel.AnimeUiModel
 import com.doskoch.template.anime.common.uiModel.toUiModel
 import com.doskoch.template.anime.common.useCase.DeleteAnimeFromFavoriteUseCase
 import com.doskoch.template.anime.navigation.AnimeFeatureNavigator
-import com.doskoch.template.core.components.error.CoreError
-import com.doskoch.template.core.components.error.GlobalErrorHandler
-import com.doskoch.template.core.components.error.toCoreError
-import com.doskoch.template.core.ext.launchAction
+import com.doskoch.template.core.android.components.error.CoreError
+import com.doskoch.template.core.android.components.error.GlobalErrorHandler
+import com.doskoch.template.core.android.components.error.toCoreError
+import com.doskoch.template.core.android.ext.launchAction
 import com.doskoch.template.database.schema.anime.DbAnime
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

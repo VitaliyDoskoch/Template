@@ -16,10 +16,10 @@ import com.doskoch.template.anime.screens.top.useCase.ClearAnimeStorageUseCase
 import com.doskoch.template.anime.screens.top.useCase.GetFavoriteAnimeIdsUseCase
 import com.doskoch.template.api.jikan.common.enum.RemoteAnimeType
 import com.doskoch.template.api.jikan.services.top.responses.GetTopAnimeResponse
-import com.doskoch.template.core.components.error.CoreError
-import com.doskoch.template.core.components.error.GlobalErrorHandler
-import com.doskoch.template.core.components.error.toCoreError
-import com.doskoch.template.core.ext.launchAction
+import com.doskoch.template.core.android.components.error.CoreError
+import com.doskoch.template.core.android.components.error.GlobalErrorHandler
+import com.doskoch.template.core.android.components.error.toCoreError
+import com.doskoch.template.core.android.ext.launchAction
 import com.doskoch.template.core.domain.auth.useCase.LogoutUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi

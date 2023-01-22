@@ -1,9 +1,9 @@
 package com.doskoch.template.anime.navigation
 
-import com.doskoch.template.core.components.event.EventQueue
-import com.doskoch.template.core.components.navigation.CoreNavigator
-import com.doskoch.template.core.components.navigation.NavAction
-import com.doskoch.template.core.components.navigation.NavigationNode
+import com.doskoch.template.core.android.components.event.EventQueue
+import com.doskoch.template.core.android.components.navigation.CoreNavigator
+import com.doskoch.template.core.android.components.navigation.NavAction
+import com.doskoch.template.core.android.components.navigation.NavigationNode
 
 abstract class AnimeFeatureNavigator : CoreNavigator {
 

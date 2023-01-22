@@ -1,7 +1,7 @@
 package com.doskoch.template.anime.screens.details
 
 import com.doskoch.template.api.jikan.services.anime.responses.GetAnimeResponse
-import com.doskoch.template.core.components.error.CoreError
+import com.doskoch.template.core.android.components.error.CoreError
 
 data class AnimeDetailsState(
     val title: String,

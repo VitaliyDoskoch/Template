@@ -1,8 +1,8 @@
 package com.doskoch.template.error
 
-import com.doskoch.template.core.components.error.CoreError
-import com.doskoch.template.core.components.error.GlobalErrorHandler
-import com.doskoch.template.core.components.event.EventQueue
+import com.doskoch.template.core.android.components.error.CoreError
+import com.doskoch.template.core.android.components.error.GlobalErrorHandler
+import com.doskoch.template.core.android.components.event.EventQueue
 import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton

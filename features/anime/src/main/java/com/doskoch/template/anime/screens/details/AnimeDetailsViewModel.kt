@@ -7,10 +7,10 @@ import com.doskoch.template.anime.navigation.AnimeFeatureNavigator
 import com.doskoch.template.anime.screens.details.AnimeDetailsState.ScreenState
 import com.doskoch.template.anime.screens.details.useCase.GetIsFavoriteAnimeUseCase
 import com.doskoch.template.anime.screens.details.useCase.LoadAnimeDetailsUseCase
-import com.doskoch.template.core.components.error.CoreError
-import com.doskoch.template.core.components.error.GlobalErrorHandler
-import com.doskoch.template.core.components.error.toCoreError
-import com.doskoch.template.core.ext.launchAction
+import com.doskoch.template.core.android.components.error.CoreError
+import com.doskoch.template.core.android.components.error.GlobalErrorHandler
+import com.doskoch.template.core.android.components.error.toCoreError
+import com.doskoch.template.core.android.ext.launchAction
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject

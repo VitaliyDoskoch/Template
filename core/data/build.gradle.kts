@@ -1,6 +1,5 @@
 plugins {
-    id("com.android.library")
-    id("android-module")
+    id("feature-data")
 }
 
 android {

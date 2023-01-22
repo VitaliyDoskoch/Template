@@ -7,6 +7,8 @@ import com.doskoch.template.anime.screens.top.TopAnimeRemoteMediator
 import com.doskoch.template.anime.screens.top.TopAnimeViewModel
 import com.doskoch.template.api.jikan.services.top.responses.GetTopAnimeResponse
 import com.doskoch.template.core.android.components.paging.SimpleInMemoryStorage
+import com.doskoch.template.core.android.ext.entryPoint
+import com.doskoch.template.core.kotlin.di.ComponentAccessor
 import com.doskoch.template.core.kotlin.lazy.DestroyableLazy
 import com.doskoch.template.database.schema.anime.DbAnimeDao
 import dagger.Module
@@ -20,18 +22,15 @@ import dagger.hilt.android.components.ActivityRetainedComponent
 interface AnimeFeatureInjector {
 
     companion object {
-        var component: DestroyableLazy<AnimeFeatureComponent>? = null
-
-        private val entryPoint: AnimeFeatureComponent.EntryPoint
-            get() = EntryPoints.get(component!!.value, AnimeFeatureComponent.EntryPoint::class.java)
+        private fun entryPoint() = AnimeFeatureComponentAccessor.entryPoint<AnimeFeatureComponent.EntryPoint>()
 
         @Provides
-        fun navigator() = entryPoint.navigator()
+        fun navigator() = entryPoint().navigator()
 
         @Provides
-        fun storage() = entryPoint.storage()
+        fun storage() = entryPoint().storage()
 
-        fun animeDetailsViewModelFactory() = entryPoint.animeDetailsViewModelFactory()
+        fun animeDetailsViewModelFactory() = entryPoint().animeDetailsViewModelFactory()
 
         @Provides
         fun topPagerFactory(
@@ -53,3 +52,5 @@ interface AnimeFeatureInjector {
         )
     }
 }
+
+object AnimeFeatureComponentAccessor : ComponentAccessor<AnimeFeatureComponent>()

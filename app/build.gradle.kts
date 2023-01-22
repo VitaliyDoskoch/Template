@@ -36,5 +36,6 @@ dependencies {
     debugImplementation(Libraries.leakCanary)
 
     implementation(Libraries.material)
+    implementation(Libraries.retrofit2)
     implementation(Libraries.room)
 }

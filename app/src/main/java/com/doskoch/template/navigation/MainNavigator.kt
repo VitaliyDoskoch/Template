@@ -1,6 +1,8 @@
 package com.doskoch.template.navigation
 
+import com.doskoch.template.anime.di.AnimeFeatureComponentAccessor
 import com.doskoch.template.anime.di.AnimeFeatureInjector
+import com.doskoch.template.auth.presentation.di.AuthFeatureComponentAccessor
 import com.doskoch.template.auth.presentation.di.AuthFeatureInjector
 import com.doskoch.template.core.android.components.event.EventQueue
 import com.doskoch.template.core.android.components.navigation.CoreNavigator
@@ -25,11 +27,11 @@ class MainNavigator @Inject constructor() : CoreNavigator {
 
     fun toAnimeFromAuth() = events.enqueue {
         navigate(Node.Anime.route) { popUpTo(Node.Auth.route) { inclusive = true } }
-        AuthFeatureInjector.component?.destroyInstance()
+        AuthFeatureComponentAccessor.destroyComponent()
     }
 
     fun toSplashFromAnime() = events.enqueue {
         navigate(Node.Splash.route) { popUpTo(Node.Anime.route) { inclusive = true } }
-        AnimeFeatureInjector.component?.destroyInstance()
+        AnimeFeatureComponentAccessor.destroyComponent()
     }
 }

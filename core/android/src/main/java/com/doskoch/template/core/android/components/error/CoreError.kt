@@ -2,6 +2,8 @@ package com.doskoch.template.core.android.components.error
 
 import android.content.Context
 import com.doskoch.template.core.android.R
+import com.doskoch.template.core.android.di.CoreAndroidComponentAccessor
+import com.doskoch.template.core.android.di.CoreAndroidInjector
 import kotlinx.coroutines.CancellationException
 import retrofit2.HttpException
 import java.net.SocketTimeoutException
@@ -46,22 +48,15 @@ abstract class CoreError {
     }
 }
 
-fun interface ErrorResponseParser {
-    fun parse(exception: HttpException): CoreError
-}
-
 fun Throwable.toCoreError(ifUnknown: CoreError = CoreError.Unknown) = toCoreError { ifUnknown }
 
-fun Throwable.toCoreError(ifUnknown: (Throwable) -> CoreError) = when (this) {
+fun Throwable.toCoreError(
+    errorResponseParser: ErrorResponseParser = CoreAndroidInjector.errorResponseParser(),
+    ifUnknown: (Throwable) -> CoreError
+) = when (this) {
     is UnknownHostException -> CoreError.NoInternet
     is SocketTimeoutException, is TimeoutException -> CoreError.Timeout
     is InterruptedException, is CancellationException -> CoreError.OperationIsCanceled
-    is HttpException -> TODO()
-//    errorResponse()?.let { response ->
-//        when (response.type) {
-//            ErrorResponse.Type.RateLimitException -> CoreError.Remote.RateLimit(response.status, response.message)
-//            else -> CoreError.Remote.Unspecified()
-//        }
-//    } ?: CoreError.Remote.Unspecified()
+    is HttpException -> errorResponseParser.parse(this)
     else -> ifUnknown(this)
 }

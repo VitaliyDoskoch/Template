@@ -1,7 +1,7 @@
 package com.doskoch.template.auth.presentation.di
 
 import com.doskoch.template.auth.domain.screens.signIn.useCase.IsEmailValidUseCase
-import com.doskoch.template.core.kotlin.lazy.DestroyableLazy
+import com.doskoch.template.core.kotlin.di.ComponentAccessor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.EntryPoints
@@ -13,10 +13,8 @@ import dagger.hilt.android.components.ActivityRetainedComponent
 interface AuthFeatureInjector {
 
     companion object {
-        var component: DestroyableLazy<AuthFeatureComponent>? = null
-
         @Provides
-        fun navigator() = EntryPoints.get(component!!.value, AuthFeatureComponent.EntryPoint::class.java).navigator()
+        fun navigator() = EntryPoints.get(AuthFeatureComponentAccessor.get(), AuthFeatureComponent.EntryPoint::class.java).navigator()
 
         @Provides
         fun emailValidator() = object : IsEmailValidUseCase.EmailValidator {
@@ -24,3 +22,5 @@ interface AuthFeatureInjector {
         }
     }
 }
+
+object AuthFeatureComponentAccessor : ComponentAccessor<AuthFeatureComponent>()

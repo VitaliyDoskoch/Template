@@ -9,6 +9,8 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:kotlin"))
+
     implementation(Libraries.material)
 
     implementation(Libraries.gson)   //for JsonNavType

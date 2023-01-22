@@ -1,6 +1,6 @@
 package com.doskoch.template.splash.presentation.di
 
-import com.doskoch.template.core.useCase.auth.IsAuthorizedUseCase
+import com.doskoch.template.core.domain.auth.useCase.IsAuthorizedUseCase
 import com.doskoch.template.splash.presentation.MIN_SPLASH_DISPLAY_TIME
 import com.doskoch.template.splash.presentation.navigation.SplashFeatureNavigator
 import com.doskoch.template.splash.presentation.screens.splash.SplashViewModel

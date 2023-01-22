@@ -24,6 +24,8 @@ dependencies {
     implementation(project(":api"))
     implementation(project(":database"))
     implementation(project(":core"))
+    implementation(project(":core:data"))
+    implementation(project(":core:domain"))
 
     implementation(project(":features:splash:presentation"))
     implementation(project(":features:auth:presentation"))

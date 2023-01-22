@@ -8,6 +8,7 @@ dependencies {
 //    implementation(project(":api"))
 //    implementation(project(":database"))
     implementation(project(":core"))
+    implementation(project(":core:domain"))
 
 //    implementation(Libraries.room)
 //    implementation(Libraries.dataStore)

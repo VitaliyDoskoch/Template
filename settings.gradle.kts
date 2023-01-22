@@ -10,12 +10,16 @@ dependencyResolutionManagement {
 }
 
 include(":app")
+
 include(":core")
+include(":core:domain")
+
 include(":api")
 include(":database")
 include(":legacy")
 
 include(":features:splash:presentation")
-include(":features:anime")
 include(":features:auth:domain")
 include(":features:auth:presentation")
+include(":features:anime")
+include(":core:data")

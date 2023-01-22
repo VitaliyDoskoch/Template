@@ -2,7 +2,7 @@ package com.doskoch.template.splash.presentation.screens.splash
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.doskoch.template.core.useCase.auth.IsAuthorizedUseCase
+import com.doskoch.template.core.domain.auth.useCase.IsAuthorizedUseCase
 import com.doskoch.template.splash.presentation.navigation.SplashFeatureNavigator
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay

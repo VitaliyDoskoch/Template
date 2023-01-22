@@ -16,5 +16,7 @@ include(":database")
 include(":legacy")
 
 include(":features:splash")
-include(":features:auth")
 include(":features:anime")
+include(":features:auth:data")
+include(":features:auth:domain")
+include(":features:auth:presentation")

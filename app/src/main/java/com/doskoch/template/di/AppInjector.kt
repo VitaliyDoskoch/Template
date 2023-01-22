@@ -2,8 +2,8 @@ package com.doskoch.template.di
 
 import com.doskoch.template.anime.di.AnimeFeatureComponent
 import com.doskoch.template.anime.di.AnimeFeatureInjector
-import com.doskoch.template.auth.di.AuthFeatureComponent
-import com.doskoch.template.auth.di.AuthFeatureInjector
+import com.doskoch.template.auth.presentation.di.AuthFeatureComponent
+import com.doskoch.template.auth.presentation.di.AuthFeatureInjector
 import com.doskoch.template.core.components.kotlin.DestroyableLazy
 import timber.log.Timber
 import javax.inject.Inject
@@ -12,12 +12,12 @@ import javax.inject.Singleton
 
 @Singleton
 class AppInjector @Inject constructor(
-    private val authFeatureComponentBuilder: Provider<AuthFeatureComponent.Builder>,
+    private val authFeatureComponentBuilder: Provider<com.doskoch.template.auth.presentation.di.AuthFeatureComponent.Builder>,
     private val animeFeatureComponentBuilder: Provider<AnimeFeatureComponent.Builder>
 ) {
 
     fun init() {
-        AuthFeatureInjector.component = DestroyableLazy(
+        com.doskoch.template.auth.presentation.di.AuthFeatureInjector.component = DestroyableLazy(
             initialize = { authFeatureComponentBuilder.get().build().also(this::logCreation) },
             onDestroyInstance = this::logDestruction
         )

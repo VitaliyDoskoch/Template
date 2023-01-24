@@ -30,8 +30,12 @@ dependencies {
     implementation(project(":core:domain"))
 
     implementation(project(":features:splash:presentation"))
+
     implementation(project(":features:auth:presentation"))
+
     implementation(project(":features:anime"))
+    implementation(project(":features:anime:data"))
+    implementation(project(":features:anime:presentation"))
 
     debugImplementation(Libraries.leakCanary)
 

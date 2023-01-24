@@ -33,7 +33,6 @@ dependencies {
 
     implementation(project(":features:auth:presentation"))
 
-    implementation(project(":features:anime"))
     implementation(project(":features:anime:data"))
     implementation(project(":features:anime:presentation"))
 

@@ -1,7 +1,7 @@
 package com.doskoch.template.navigation.navigators
 
-import com.doskoch.template.anime.di.AnimeFeatureScope
-import com.doskoch.template.anime.navigation.AnimeFeatureNavigator
+import com.doskoch.template.anime.presentation.di.AnimeFeatureScope
+import com.doskoch.template.anime.presentation.navigation.AnimeFeatureNavigator
 import com.doskoch.template.navigation.MainNavigator
 import javax.inject.Inject
 

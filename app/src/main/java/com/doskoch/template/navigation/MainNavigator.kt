@@ -1,6 +1,6 @@
 package com.doskoch.template.navigation
 
-import com.doskoch.template.anime.di.AnimeFeatureComponentAccessor
+import com.doskoch.template.anime.presentation.di.AnimeFeatureComponentAccessor
 import com.doskoch.template.auth.presentation.di.AuthFeatureComponentAccessor
 import com.doskoch.template.core.android.components.event.EventQueue
 import com.doskoch.template.core.android.components.navigation.CoreNavigator

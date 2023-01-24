@@ -22,7 +22,6 @@ include(":legacy")
 
 include(":features:splash:presentation")
 include(":features:auth:presentation")
-include(":features:anime")
 include(":features:anime:data")
 include(":features:anime:presentation")
 include(":features:anime:domain")

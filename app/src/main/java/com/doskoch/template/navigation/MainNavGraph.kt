@@ -3,7 +3,7 @@ package com.doskoch.template.navigation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
-import com.doskoch.template.anime.navigation.AnimeFeatureNavGraph
+import com.doskoch.template.anime.presentation.navigation.AnimeFeatureNavGraph
 import com.doskoch.template.auth.presentation.navigation.AuthFeatureNavGraph
 import com.doskoch.template.core.android.components.navigation.CoreNavGraph
 import com.doskoch.template.core.android.components.navigation.NavigationNode

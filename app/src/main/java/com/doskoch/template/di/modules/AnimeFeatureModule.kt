@@ -1,8 +1,8 @@
 package com.doskoch.template.di.modules
 
-import com.doskoch.template.anime.di.AnimeFeatureComponent
-import com.doskoch.template.anime.di.AnimeFeatureScope
-import com.doskoch.template.anime.navigation.AnimeFeatureNavigator
+import com.doskoch.template.anime.presentation.di.AnimeFeatureComponent
+import com.doskoch.template.anime.presentation.di.AnimeFeatureScope
+import com.doskoch.template.anime.presentation.navigation.AnimeFeatureNavigator
 import com.doskoch.template.api.jikan.services.top.responses.GetTopAnimeResponse
 import com.doskoch.template.core.android.components.paging.SimpleInMemoryStorage
 import com.doskoch.template.navigation.navigators.AnimeFeatureNavigatorImpl

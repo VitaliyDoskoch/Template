@@ -1,7 +1,7 @@
 package com.doskoch.template.di
 
-import com.doskoch.template.anime.di.AnimeFeatureComponent
-import com.doskoch.template.anime.di.AnimeFeatureComponentAccessor
+import com.doskoch.template.anime.presentation.di.AnimeFeatureComponent
+import com.doskoch.template.anime.presentation.di.AnimeFeatureComponentAccessor
 import com.doskoch.template.auth.presentation.di.AuthFeatureComponent
 import com.doskoch.template.auth.presentation.di.AuthFeatureComponentAccessor
 import com.doskoch.template.core.android.di.CoreAndroidComponent

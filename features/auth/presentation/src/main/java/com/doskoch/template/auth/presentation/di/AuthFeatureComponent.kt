@@ -23,6 +23,6 @@ interface AuthFeatureComponent {
     @dagger.hilt.EntryPoint
     @InstallIn(AuthFeatureComponent::class)
     interface EntryPoint {
-        fun navigator(): AuthFeatureNavigator
+        fun authFeatureNavigator(): AuthFeatureNavigator
     }
 }

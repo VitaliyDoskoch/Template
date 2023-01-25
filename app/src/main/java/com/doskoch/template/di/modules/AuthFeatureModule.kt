@@ -1,6 +1,7 @@
 package com.doskoch.template.di.modules
 
 import com.doskoch.template.auth.presentation.di.AuthFeatureComponent
+import com.doskoch.template.auth.presentation.di.AuthFeatureScope
 import com.doskoch.template.auth.presentation.navigation.AuthFeatureNavigator
 import com.doskoch.template.navigation.navigators.AuthFeatureNavigatorImpl
 import dagger.Binds
@@ -11,5 +12,6 @@ import dagger.hilt.InstallIn
 @InstallIn(AuthFeatureComponent::class)
 interface AuthFeatureModule {
     @Binds
+    @AuthFeatureScope
     fun navigator(impl: AuthFeatureNavigatorImpl): AuthFeatureNavigator
 }

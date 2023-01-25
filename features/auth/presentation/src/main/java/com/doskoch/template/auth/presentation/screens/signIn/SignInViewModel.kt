@@ -10,6 +10,7 @@ import com.doskoch.template.core.android.components.error.GlobalErrorHandler
 import com.doskoch.template.core.android.ext.launchAction
 import com.doskoch.template.core.domain.auth.useCase.AuthorizeUseCase
 import com.doskoch.template.core.domain.validator.email.useCase.IsEmailValidUseCase
+import com.doskoch.template.core.kotlin.di.FeatureScoped
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -18,7 +19,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SignInViewModel @Inject constructor(
-    private val navigator: AuthFeatureNavigator,
+    @FeatureScoped private val navigator: AuthFeatureNavigator,
     private val isEmailValidUseCase: IsEmailValidUseCase,
     private val globalErrorHandler: GlobalErrorHandler,
     private val errorMapper: ErrorMapper,

@@ -74,9 +74,9 @@ object Libraries {
         const val recyclerView = "1.1.0"
         const val swipeRefreshLayout = "1.0.0"
 
-        const val retrofit2 = "2.8.1"
-        const val okhttpLoggingInterceptor = "4.2.1"
-        const val gson = "2.8.6"
+        const val retrofit2 = "2.9.0"
+        const val okhttpLoggingInterceptor = "4.10.0"
+        const val gson = "2.10.1"
 
         const val dataStore = "1.0.0"
 

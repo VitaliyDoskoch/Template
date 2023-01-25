@@ -1,9 +1,9 @@
 package com.doskoch.template.auth.presentation.di
 
+import com.doskoch.template.core.android.ext.entryPoint
 import com.doskoch.template.core.kotlin.di.ComponentAccessor
 import dagger.Module
 import dagger.Provides
-import dagger.hilt.EntryPoints
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityRetainedComponent
 
@@ -13,7 +13,7 @@ interface AuthFeatureInjector {
 
     companion object {
         @Provides
-        fun navigator() = EntryPoints.get(AuthFeatureComponentAccessor.get(), AuthFeatureComponent.EntryPoint::class.java).navigator()
+        fun navigator() = AuthFeatureComponentAccessor.entryPoint<AuthFeatureComponent.EntryPoint>().navigator()
     }
 }
 

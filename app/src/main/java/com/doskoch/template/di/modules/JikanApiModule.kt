@@ -41,19 +41,15 @@ interface JikanApiModule {
 
         @Provides
         @Singleton
-        fun httpLoggingInterceptor(@GsonForLogging gson: Gson) = HttpLoggingInterceptor(
-            object : HttpLoggingInterceptor.Logger {
-                override fun log(message: String) {
-                    val result = try {
-                        gson.toJson(JsonParser.parseString(message))
-                    } catch (t: Throwable) {
-                        message
-                    }
-
-                    Timber.log(TIMBER_HTTP_LOG_LEVEL, result)
-                }
+        fun httpLoggingInterceptor(@GsonForLogging gson: Gson) = HttpLoggingInterceptor { message ->
+            val result = try {
+                gson.toJson(JsonParser.parseString(message))
+            } catch (t: Throwable) {
+                message
             }
-        ).apply { level = HTTP_LOG_LEVEL }
+
+            Timber.log(TIMBER_HTTP_LOG_LEVEL, result)
+        }.apply { level = HTTP_LOG_LEVEL }
 
         @Provides
         @Singleton

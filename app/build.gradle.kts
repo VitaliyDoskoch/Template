@@ -38,7 +38,11 @@ dependencies {
 
     debugImplementation(Libraries.leakCanary)
 
-    implementation(Libraries.material)
+    implementation(Libraries.gson)
     implementation(Libraries.retrofit2)
+    implementation(Libraries.retrofit2ConverterGson)
+    implementation(Libraries.okhttpLoggingInterceptor)
+
+    implementation(Libraries.material)
     implementation(Libraries.room)
 }

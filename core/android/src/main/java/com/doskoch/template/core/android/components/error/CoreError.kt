@@ -3,11 +3,6 @@ package com.doskoch.template.core.android.components.error
 import android.content.Context
 import com.doskoch.template.core.android.R
 import com.doskoch.template.core.android.di.CoreAndroidInjector
-import kotlinx.coroutines.CancellationException
-import retrofit2.HttpException
-import java.net.SocketTimeoutException
-import java.net.UnknownHostException
-import java.util.concurrent.TimeoutException
 
 abstract class CoreError {
 
@@ -50,12 +45,6 @@ abstract class CoreError {
 fun Throwable.toCoreError(ifUnknown: CoreError = CoreError.Unknown) = toCoreError { ifUnknown }
 
 fun Throwable.toCoreError(
-    errorResponseParser: ErrorResponseParser = CoreAndroidInjector.errorResponseParser(),
+    errorMapper: ErrorMapper = CoreAndroidInjector.errorMapper(),
     ifUnknown: (Throwable) -> CoreError
-) = when (this) {
-    is UnknownHostException -> CoreError.NoInternet
-    is SocketTimeoutException, is TimeoutException -> CoreError.Timeout
-    is InterruptedException, is CancellationException -> CoreError.OperationIsCanceled
-    is HttpException -> errorResponseParser.parse(this)
-    else -> ifUnknown(this)
-}
+) = errorMapper.map(this, ifUnknown)

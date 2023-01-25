@@ -1,6 +1,6 @@
 package com.doskoch.template.core.android.di
 
-import com.doskoch.template.core.android.components.error.ErrorResponseParser
+import com.doskoch.template.core.android.components.error.ErrorMapper
 import dagger.hilt.DefineComponent
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
@@ -16,6 +16,6 @@ interface CoreAndroidComponent {
     @dagger.hilt.EntryPoint
     @InstallIn(CoreAndroidComponent::class)
     interface EntryPoint {
-        fun errorResponseParser(): ErrorResponseParser
+        fun errorMapper(): ErrorMapper
     }
 }

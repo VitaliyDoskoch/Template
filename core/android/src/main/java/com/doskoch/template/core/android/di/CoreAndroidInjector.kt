@@ -13,7 +13,7 @@ interface CoreAndroidInjector {
     companion object {
         private fun entryPoint() = CoreAndroidComponentAccessor.entryPoint<CoreAndroidComponent.EntryPoint>()
 
-        fun errorResponseParser() = entryPoint().errorResponseParser()
+        fun errorMapper() = entryPoint().errorMapper()
     }
 }
 

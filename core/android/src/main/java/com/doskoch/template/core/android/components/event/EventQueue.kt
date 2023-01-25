@@ -5,6 +5,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
+/**
+ * It's a StateFlow wrapper, that allows to manage a state like a queue.
+ */
 class EventQueue<E> {
 
     private val state = MutableStateFlow(emptyList<ProcessableEvent<E>>())

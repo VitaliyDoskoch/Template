@@ -1,7 +1,7 @@
 package com.doskoch.template.di.modules
 
-import com.doskoch.template.core.android.components.error.ErrorResponseParser
-import com.doskoch.template.error.ErrorResponseParserImpl
+import com.doskoch.template.core.android.components.error.ErrorMapper
+import com.doskoch.template.error.ErrorMapperImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -11,5 +11,5 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 interface CoreAndroidModule {
     @Binds
-    fun errorResponseParser(impl: ErrorResponseParserImpl): ErrorResponseParser
+    fun errorMapper(impl: ErrorMapperImpl): ErrorMapper
 }

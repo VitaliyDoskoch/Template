@@ -17,8 +17,8 @@ import com.doskoch.template.anime.presentation.screens.top.useCase.GetFavoriteAn
 import com.doskoch.template.api.jikan.common.enum.RemoteAnimeType
 import com.doskoch.template.api.jikan.services.top.responses.GetTopAnimeResponse
 import com.doskoch.template.core.android.components.error.CoreError
+import com.doskoch.template.core.android.components.error.ErrorMapper
 import com.doskoch.template.core.android.components.error.GlobalErrorHandler
-import com.doskoch.template.core.android.components.error.toCoreError
 import com.doskoch.template.core.android.ext.launchAction
 import com.doskoch.template.core.domain.auth.useCase.LogoutUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -44,7 +44,8 @@ class TopAnimeViewModel @Inject constructor(
     private val saveAnimeToFavoriteUseCase: SaveAnimeToFavoriteUseCase,
     private val deleteAnimeFromFavoriteUseCase: DeleteAnimeFromFavoriteUseCase,
     private val logoutUseCase: LogoutUseCase,
-    private val globalErrorHandler: GlobalErrorHandler
+    private val globalErrorHandler: GlobalErrorHandler,
+    private val errorMapper: ErrorMapper
 ) : ViewModel() {
 
     private val _state: MutableStateFlow<TopAnimeState> = MutableStateFlow(
@@ -89,7 +90,7 @@ class TopAnimeViewModel @Inject constructor(
         action = {
             favoriteIdsFlow.collectLatest { ids -> _state.update { it.copy(hasFavorite = ids.isNotEmpty()) } }
         },
-        onError = { globalErrorHandler.handle(it.toCoreError(CoreError.FailedToLoadData)) }
+        onError = { globalErrorHandler.handle(errorMapper.toCoreError(it, CoreError.FailedToLoadData)) }
     )
 
     private fun onAnimeTypeClick() = _state.update { it.copy(showAnimeTypeMenu = true) }
@@ -109,7 +110,7 @@ class TopAnimeViewModel @Inject constructor(
             logoutUseCase.invoke()
             navigator.toSplash()
         },
-        onError = { globalErrorHandler.handle(it.toCoreError()) }
+        onError = { globalErrorHandler.handle(errorMapper.toCoreError(it)) }
     )
 
     private fun onItemClick(item: AnimeUiModel) = navigator.toDetails(item.id, item.title)
@@ -122,7 +123,7 @@ class TopAnimeViewModel @Inject constructor(
                 saveAnimeToFavoriteUseCase.invoke(item.id)
             }
         },
-        onError = { globalErrorHandler.handle(it.toCoreError(CoreError.FailedToSaveChanges)) }
+        onError = { globalErrorHandler.handle(errorMapper.toCoreError(it, CoreError.FailedToSaveChanges)) }
     )
 
     fun interface PagerFactory {

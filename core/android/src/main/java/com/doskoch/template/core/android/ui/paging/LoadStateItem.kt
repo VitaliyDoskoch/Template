@@ -26,7 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import com.doskoch.template.core.android.R
 import com.doskoch.template.core.android.components.error.CoreError
-import com.doskoch.template.core.android.components.error.toCoreError
+import com.doskoch.template.core.android.di.errorMapper
 import com.doskoch.template.core.android.ui.common.components.CoreButton
 import com.doskoch.template.core.android.ui.theme.Dimensions
 
@@ -41,7 +41,7 @@ fun LazyListScope.LoadStateItem(
     if (itemCount > 0) {
         when (loadState) {
             is LoadState.Loading -> item(key = "loading") { loadingItem() }
-            is LoadState.Error -> item(key = "error") { errorItem(loadState.error.toCoreError()) }
+            is LoadState.Error -> item(key = "error") { errorItem(LocalContext.current.errorMapper().toCoreError(loadState.error)) }
             else -> {}
         }
     }

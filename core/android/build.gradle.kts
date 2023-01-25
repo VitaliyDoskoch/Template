@@ -13,6 +13,5 @@ dependencies {
 
     implementation(Libraries.material)
 
-    implementation(Libraries.gson)   //for JsonNavType
-    compileOnly(Libraries.retrofit2) //for HttpException
+    compileOnly(Libraries.gson)   //for JsonNavType
 }

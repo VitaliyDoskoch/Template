@@ -10,8 +10,8 @@ import com.doskoch.template.anime.presentation.screens.top.useCase.LoadAnimeUseC
 import com.doskoch.template.anime.presentation.screens.top.useCase.StoreAnimeUseCase
 import com.doskoch.template.api.jikan.common.enum.RemoteAnimeType
 import com.doskoch.template.api.jikan.services.top.responses.GetTopAnimeResponse
+import com.doskoch.template.core.android.components.error.ErrorMapper
 import com.doskoch.template.core.android.components.error.GlobalErrorHandler
-import com.doskoch.template.core.android.components.error.toCoreError
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -23,7 +23,8 @@ class TopAnimeRemoteMediator @AssistedInject constructor(
     private val getLastPagingKeyUseCase: GetLastPagingKeyUseCase,
     private val loadAnimeUseCase: LoadAnimeUseCase,
     private val storeAnimeUseCase: StoreAnimeUseCase,
-    private val globalErrorHandler: GlobalErrorHandler
+    private val globalErrorHandler: GlobalErrorHandler,
+    private val errorMapper: ErrorMapper
 ) : RemoteMediator<Int, GetTopAnimeResponse.Data>() {
 
     override suspend fun load(loadType: LoadType, state: PagingState<Int, GetTopAnimeResponse.Data>): MediatorResult {
@@ -51,7 +52,7 @@ class TopAnimeRemoteMediator @AssistedInject constructor(
             MediatorResult.Success(endOfPaginationReached = !response.pagination.hasNextPage)
         } catch (t: Throwable) {
             Timber.e(t)
-            globalErrorHandler.handle(t.toCoreError(), showIfNotHandled = false)
+            globalErrorHandler.handle(errorMapper.toCoreError(t), showIfNotHandled = false)
             MediatorResult.Error(t)
         }
     }

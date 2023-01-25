@@ -9,7 +9,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import com.doskoch.template.core.android.components.error.CoreError
-import com.doskoch.template.core.android.components.error.toCoreError
+import com.doskoch.template.core.android.di.errorMapper
 import com.doskoch.template.core.android.ext.registerNetworkCallback
 import com.doskoch.template.core.android.ext.unregisterNetworkCallback
 
@@ -23,7 +23,7 @@ fun <T : Any> LazyPagingItems<T>.retryWhenNetworkAvailable() = this.apply {
 @SuppressLint("ComposableNaming")
 @Composable
 private fun LoadState.whenNetworkAvailable(action: () -> Unit) {
-    if (this is LoadState.Error && error.toCoreError() is CoreError.NoInternet) {
+    if (this is LoadState.Error && LocalContext.current.errorMapper().toCoreError(error) is CoreError.NoInternet) {
         val context = LocalContext.current
 
         DisposableEffect(this) {

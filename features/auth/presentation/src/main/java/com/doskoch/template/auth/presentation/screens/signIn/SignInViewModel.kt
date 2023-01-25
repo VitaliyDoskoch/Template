@@ -5,8 +5,8 @@ import androidx.lifecycle.ViewModel
 import com.doskoch.template.auth.presentation.R
 import com.doskoch.template.auth.presentation.navigation.AuthFeatureNavigator
 import com.doskoch.template.core.android.components.error.CoreError
+import com.doskoch.template.core.android.components.error.ErrorMapper
 import com.doskoch.template.core.android.components.error.GlobalErrorHandler
-import com.doskoch.template.core.android.components.error.toCoreError
 import com.doskoch.template.core.android.ext.launchAction
 import com.doskoch.template.core.domain.auth.useCase.AuthorizeUseCase
 import com.doskoch.template.core.domain.validator.email.useCase.IsEmailValidUseCase
@@ -21,6 +21,7 @@ class SignInViewModel @Inject constructor(
     private val navigator: AuthFeatureNavigator,
     private val isEmailValidUseCase: IsEmailValidUseCase,
     private val globalErrorHandler: GlobalErrorHandler,
+    private val errorMapper: ErrorMapper,
     private val authorizeUseCase: AuthorizeUseCase
 ) : ViewModel() {
 
@@ -57,7 +58,7 @@ class SignInViewModel @Inject constructor(
                 _state.update { it.copy(error = InvalidEmail) }
             }
         },
-        onError = { globalErrorHandler.handle(it.toCoreError()) }
+        onError = { globalErrorHandler.handle(errorMapper.toCoreError(it)) }
     )
 
     object InvalidEmail : CoreError() {

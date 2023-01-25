@@ -1,15 +1,13 @@
 package com.doskoch.template.anime.presentation.screens.details
 
 import androidx.lifecycle.ViewModel
-import com.doskoch.template.anime.presentation.common.useCase.DeleteAnimeFromFavoriteUseCase
-import com.doskoch.template.anime.presentation.common.useCase.SaveAnimeToFavoriteUseCase
 import com.doskoch.template.anime.presentation.navigation.AnimeFeatureNavigator
 import com.doskoch.template.anime.presentation.screens.details.AnimeDetailsState.ScreenState
 import com.doskoch.template.anime.presentation.screens.details.useCase.GetIsFavoriteAnimeUseCase
 import com.doskoch.template.anime.presentation.screens.details.useCase.LoadAnimeDetailsUseCase
 import com.doskoch.template.core.android.components.error.CoreError
+import com.doskoch.template.core.android.components.error.ErrorMapper
 import com.doskoch.template.core.android.components.error.GlobalErrorHandler
-import com.doskoch.template.core.android.components.error.toCoreError
 import com.doskoch.template.core.android.ext.launchAction
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
@@ -22,8 +20,9 @@ import kotlinx.coroutines.flow.update
 class AnimeDetailsViewModel @AssistedInject constructor(
     @Assisted private val animeId: Int,
     @Assisted private val title: String,
-    private val navigator: com.doskoch.template.anime.presentation.navigation.AnimeFeatureNavigator,
+    private val navigator: AnimeFeatureNavigator,
     private val globalErrorHandler: GlobalErrorHandler,
+    private val errorMapper: ErrorMapper,
     private val getIsFavoriteAnimeUseCase: GetIsFavoriteAnimeUseCase,
     private val loadAnimeDetailsUseCase: LoadAnimeDetailsUseCase,
     private val saveAnimeToFavoriteUseCase: com.doskoch.template.anime.presentation.common.useCase.SaveAnimeToFavoriteUseCase,
@@ -55,7 +54,7 @@ class AnimeDetailsViewModel @AssistedInject constructor(
             }
         },
         onError = { error ->
-            _state.update { it.copy(screenState = ScreenState.Error(error.toCoreError(CoreError.FailedToLoadData))) }
+            _state.update { it.copy(screenState = ScreenState.Error(errorMapper.toCoreError(error, CoreError.FailedToLoadData))) }
         }
     )
 
@@ -65,7 +64,7 @@ class AnimeDetailsViewModel @AssistedInject constructor(
             _state.update { it.copy(screenState = loadAnimeDetailsUseCase.invoke(animeId).data.toContent()) }
         },
         onError = { error ->
-            _state.update { it.copy(screenState = ScreenState.Error(error.toCoreError(CoreError.FailedToLoadData))) }
+            _state.update { it.copy(screenState = ScreenState.Error(errorMapper.toCoreError(error, CoreError.FailedToLoadData))) }
         }
     )
 
@@ -79,7 +78,7 @@ class AnimeDetailsViewModel @AssistedInject constructor(
                 saveAnimeToFavoriteUseCase.invoke(animeId)
             }
         },
-        onError = { globalErrorHandler.handle(it.toCoreError(CoreError.FailedToSaveChanges)) }
+        onError = { globalErrorHandler.handle(errorMapper.toCoreError(it, CoreError.FailedToSaveChanges)) }
     )
 
     @AssistedFactory

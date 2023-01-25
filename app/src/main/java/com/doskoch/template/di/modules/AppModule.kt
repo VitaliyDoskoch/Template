@@ -1,8 +1,10 @@
 package com.doskoch.template.di.modules
 
 import android.app.Application
+import com.doskoch.template.core.android.components.error.ErrorMapper
 import com.doskoch.template.core.android.components.error.GlobalErrorHandler
 import com.doskoch.template.database.AppDatabase
+import com.doskoch.template.error.ErrorMapperImpl
 import com.doskoch.template.error.GlobalErrorHandlerImpl
 import com.doskoch.template.navigation.MainNavigator
 import dagger.Binds
@@ -18,6 +20,9 @@ interface AppModule {
 
     @Binds
     fun globalErrorHandler(impl: GlobalErrorHandlerImpl): GlobalErrorHandler
+
+    @Binds
+    fun errorMapper(impl: ErrorMapperImpl): ErrorMapper
 
     companion object {
         @Provides

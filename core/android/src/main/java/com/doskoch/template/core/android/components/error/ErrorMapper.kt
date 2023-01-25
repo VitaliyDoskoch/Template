@@ -1,5 +1,6 @@
 package com.doskoch.template.core.android.components.error
 
-fun interface ErrorMapper {
-    fun map(throwable: Throwable, ifUnknown: (Throwable) -> CoreError): CoreError
+interface ErrorMapper {
+    fun toCoreError(throwable: Throwable, ifUnknown: (Throwable) -> CoreError): CoreError
+    fun toCoreError(throwable: Throwable, ifUnknown: CoreError = CoreError.Unknown): CoreError = toCoreError(throwable) { ifUnknown }
 }

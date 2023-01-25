@@ -10,8 +10,8 @@ import com.doskoch.template.anime.presentation.common.uiModel.toUiModel
 import com.doskoch.template.anime.presentation.common.useCase.DeleteAnimeFromFavoriteUseCase
 import com.doskoch.template.anime.presentation.navigation.AnimeFeatureNavigator
 import com.doskoch.template.core.android.components.error.CoreError
+import com.doskoch.template.core.android.components.error.ErrorMapper
 import com.doskoch.template.core.android.components.error.GlobalErrorHandler
-import com.doskoch.template.core.android.components.error.toCoreError
 import com.doskoch.template.core.android.ext.launchAction
 import com.doskoch.template.database.schema.anime.DbAnime
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -27,7 +27,8 @@ class FavoriteAnimeViewModel @Inject constructor(
     private val navigator: AnimeFeatureNavigator,
     private val pager: Pager<Int, DbAnime>,
     private val deleteAnimeFromFavoriteUseCase: DeleteAnimeFromFavoriteUseCase,
-    private val globalErrorHandler: GlobalErrorHandler
+    private val globalErrorHandler: GlobalErrorHandler,
+    private val errorMapper: ErrorMapper
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(
@@ -56,6 +57,6 @@ class FavoriteAnimeViewModel @Inject constructor(
 
     private fun onItemFavoriteClick(item: AnimeUiModel) = launchAction(
         action = { deleteAnimeFromFavoriteUseCase.invoke(item.id) },
-        onError = { globalErrorHandler.handle(it.toCoreError(CoreError.FailedToSaveChanges)) }
+        onError = { globalErrorHandler.handle(errorMapper.toCoreError(it, CoreError.FailedToSaveChanges)) }
     )
 }

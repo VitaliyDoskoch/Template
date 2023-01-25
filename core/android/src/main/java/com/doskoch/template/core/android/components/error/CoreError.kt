@@ -2,7 +2,6 @@ package com.doskoch.template.core.android.components.error
 
 import android.content.Context
 import com.doskoch.template.core.android.R
-import com.doskoch.template.core.android.di.CoreAndroidInjector
 
 abstract class CoreError {
 
@@ -41,10 +40,3 @@ abstract class CoreError {
         class RateLimit(status: Int, message: String?) : Remote(status, message)
     }
 }
-
-fun Throwable.toCoreError(ifUnknown: CoreError = CoreError.Unknown) = toCoreError { ifUnknown }
-
-fun Throwable.toCoreError(
-    errorMapper: ErrorMapper = CoreAndroidInjector.errorMapper(),
-    ifUnknown: (Throwable) -> CoreError
-) = errorMapper.map(this, ifUnknown)

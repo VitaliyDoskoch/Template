@@ -16,7 +16,7 @@ import javax.inject.Singleton
 @Singleton
 class ErrorMapperImpl @Inject constructor(@GsonForSerializing private val gson: Gson) : ErrorMapper {
 
-    override fun map(throwable: Throwable, ifUnknown: (Throwable) -> CoreError) = when (throwable) {
+    override fun toCoreError(throwable: Throwable, ifUnknown: (Throwable) -> CoreError) = when (throwable) {
         is UnknownHostException -> CoreError.NoInternet
         is SocketTimeoutException, is TimeoutException -> CoreError.Timeout
         is InterruptedException, is CancellationException -> CoreError.OperationIsCanceled

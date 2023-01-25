@@ -4,8 +4,6 @@ import com.doskoch.template.anime.presentation.di.AnimeFeatureComponent
 import com.doskoch.template.anime.presentation.di.AnimeFeatureComponentAccessor
 import com.doskoch.template.auth.presentation.di.AuthFeatureComponent
 import com.doskoch.template.auth.presentation.di.AuthFeatureComponentAccessor
-import com.doskoch.template.core.android.di.CoreAndroidComponent
-import com.doskoch.template.core.android.di.CoreAndroidComponentAccessor
 import com.doskoch.template.core.kotlin.lazy.DestroyableLazy
 import timber.log.Timber
 import javax.inject.Inject
@@ -14,19 +12,11 @@ import javax.inject.Singleton
 
 @Singleton
 class AppInjector @Inject constructor(
-    private val coreAndroidComponentBuilder: Provider<CoreAndroidComponent.Builder>,
     private val authFeatureComponentBuilder: Provider<AuthFeatureComponent.Builder>,
     private val animeFeatureComponentBuilder: Provider<AnimeFeatureComponent.Builder>
 ) {
 
     fun init() {
-        CoreAndroidComponentAccessor.init(
-            DestroyableLazy(
-                initialize = { coreAndroidComponentBuilder.get().build().also(this::logCreation) },
-                onDestroyInstance = this::logDestruction
-            )
-        )
-
         AuthFeatureComponentAccessor.init(
             DestroyableLazy(
                 initialize = { authFeatureComponentBuilder.get().build().also(this::logCreation) },

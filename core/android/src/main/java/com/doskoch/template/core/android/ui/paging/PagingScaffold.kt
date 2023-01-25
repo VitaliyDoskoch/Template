@@ -38,7 +38,7 @@ import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import com.doskoch.template.core.android.R
 import com.doskoch.template.core.android.components.error.CoreError
-import com.doskoch.template.core.android.components.error.toCoreError
+import com.doskoch.template.core.android.di.errorMapper
 import com.doskoch.template.core.android.ui.theme.Dimensions
 
 private sealed class ScreenContent {
@@ -58,7 +58,7 @@ fun PagingScaffold(
     modifier: Modifier,
     loading: @Composable BoxScope.() -> Unit = { DefaultLoading() },
     loadingOverList: @Composable BoxScope.() -> Unit = {},
-    error: @Composable BoxScope.(LoadState.Error) -> Unit = { DefaultError(it.error.toCoreError()) },
+    error: @Composable BoxScope.(LoadState.Error) -> Unit = { DefaultError(LocalContext.current.errorMapper().toCoreError(it.error)) },
     errorOverList: @Composable BoxScope.(LoadState.Error) -> Unit = { DefaultErrorOverContent(it) },
     placeholder: @Composable BoxScope.() -> Unit = { DefaultPlaceholder() },
     list: @Composable BoxScope.() -> Unit
@@ -150,8 +150,9 @@ private fun BoxScope.DefaultErrorOverContent(state: LoadState.Error) {
     val snackbarHostState = remember { SnackbarHostState() }
     val context = LocalContext.current
 
+    val errorMapper = LocalContext.current.errorMapper()
     LaunchedEffect(state) {
-        snackbarHostState.showSnackbar(state.error.toCoreError().localizedMessage(context))
+        snackbarHostState.showSnackbar(errorMapper.toCoreError(state.error).localizedMessage(context))
     }
 
     SnackbarHost(hostState = snackbarHostState, modifier = Modifier.align(Alignment.BottomCenter))

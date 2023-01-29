@@ -1,7 +1,6 @@
 package com.doskoch.template.anime.presentation.screens.details
 
 import com.doskoch.template.anime.domain.model.AnimeDetails
-import com.doskoch.template.api.jikan.services.anime.responses.GetAnimeResponse
 import com.doskoch.template.core.android.components.error.CoreError
 
 data class AnimeDetailsState(

@@ -2,10 +2,10 @@ package com.doskoch.template.anime.presentation.di
 
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
+import com.doskoch.template.anime.domain.model.AnimeItem
 import com.doskoch.template.anime.presentation.PAGING_CONFIG
 import com.doskoch.template.anime.presentation.screens.top.TopAnimeRemoteMediator
 import com.doskoch.template.anime.presentation.screens.top.TopAnimeViewModel
-import com.doskoch.template.api.jikan.services.top.responses.GetTopAnimeResponse
 import com.doskoch.template.core.android.components.paging.SimpleInMemoryStorage
 import com.doskoch.template.core.android.ext.entryPoint
 import com.doskoch.template.core.kotlin.di.ComponentAccessor
@@ -29,7 +29,7 @@ interface AnimeFeatureInjector {
 
         @Provides
         @FeatureScoped
-        fun storage() = entryPoint().animeFeatureStorage()
+        fun animeFeatureStorage() = entryPoint().animeFeatureStorage()
 
         fun animeDetailsViewModelFactory() = entryPoint().animeDetailsViewModelFactory()
 
@@ -37,12 +37,12 @@ interface AnimeFeatureInjector {
         fun topPagerFactory(
             remoteMediatorFactory: TopAnimeRemoteMediator.Factory,
             @FeatureScoped
-            storage: SimpleInMemoryStorage<Int, GetTopAnimeResponse.Data>
-        ) = TopAnimeViewModel.PagerFactory { remoteAnimeType ->
+            storage: SimpleInMemoryStorage<Int, AnimeItem>
+        ) = TopAnimeViewModel.PagerFactory { animeType ->
             @OptIn(ExperimentalPagingApi::class)
             Pager(
                 config = PAGING_CONFIG,
-                remoteMediator = remoteMediatorFactory.create(remoteAnimeType.ordinal),
+                remoteMediator = remoteMediatorFactory.create(animeType.ordinal),
                 pagingSourceFactory = storage::SimplePagingSource
             )
         }

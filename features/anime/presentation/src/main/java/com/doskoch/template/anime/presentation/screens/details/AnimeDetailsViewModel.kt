@@ -2,10 +2,11 @@ package com.doskoch.template.anime.presentation.screens.details
 
 import androidx.lifecycle.ViewModel
 import com.doskoch.template.anime.domain.common.DeleteAnimeFromFavoriteUseCase
-import com.doskoch.template.anime.presentation.navigation.AnimeFeatureNavigator
-import com.doskoch.template.anime.presentation.screens.details.AnimeDetailsState.ScreenState
+import com.doskoch.template.anime.domain.common.SaveAnimeToFavoriteUseCase
 import com.doskoch.template.anime.domain.screens.details.GetIsFavoriteAnimeUseCase
 import com.doskoch.template.anime.domain.screens.details.LoadAnimeDetailsUseCase
+import com.doskoch.template.anime.presentation.navigation.AnimeFeatureNavigator
+import com.doskoch.template.anime.presentation.screens.details.AnimeDetailsState.ScreenState
 import com.doskoch.template.core.android.components.error.CoreError
 import com.doskoch.template.core.android.components.error.ErrorMapper
 import com.doskoch.template.core.android.components.error.GlobalErrorHandler
@@ -28,7 +29,7 @@ class AnimeDetailsViewModel @AssistedInject constructor(
     private val errorMapper: ErrorMapper,
     private val getIsFavoriteAnimeUseCase: GetIsFavoriteAnimeUseCase,
     private val loadAnimeDetailsUseCase: LoadAnimeDetailsUseCase,
-    private val saveAnimeToFavoriteUseCase: com.doskoch.template.anime.presentation.common.useCase.SaveAnimeToFavoriteUseCase,
+    private val saveAnimeToFavoriteUseCase: SaveAnimeToFavoriteUseCase,
     private val deleteAnimeFromFavoriteUseCase: DeleteAnimeFromFavoriteUseCase
 ) : ViewModel() {
 

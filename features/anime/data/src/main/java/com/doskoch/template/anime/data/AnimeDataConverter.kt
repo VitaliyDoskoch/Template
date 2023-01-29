@@ -1,7 +1,12 @@
 package com.doskoch.template.anime.data
 
 import com.doskoch.template.anime.domain.model.AnimeDetails
+import com.doskoch.template.anime.domain.model.AnimeItem
+import com.doskoch.template.anime.domain.model.AnimeType
+import com.doskoch.template.api.jikan.common.enum.RemoteAnimeType
 import com.doskoch.template.api.jikan.services.anime.responses.GetAnimeResponse
+import com.doskoch.template.api.jikan.services.top.responses.GetTopAnimeResponse
+import com.doskoch.template.database.schema.anime.DbAnime
 import javax.inject.Inject
 
 class AnimeDataConverter @Inject constructor() {
@@ -25,5 +30,47 @@ class AnimeDataConverter @Inject constructor() {
             rating = rating,
             studios = studios.map { it.name }
         )
+    }
+
+    fun toAnimeItem(data: GetTopAnimeResponse.Data) = with(data) {
+        AnimeItem(
+            id = malId,
+            approved = approved,
+            imageUrl = images.webp.imageUrl,
+            title = title,
+            genres = genres.map { it.name },
+            score = score,
+            scoredBy = scoredBy
+        )
+    }
+
+    fun toDbAnime(data: AnimeItem) = with(data) {
+        DbAnime(
+            id = id,
+            approved = approved,
+            imageUrl = imageUrl,
+            title = title,
+            genres = genres,
+            score = score,
+            scoredBy = scoredBy
+        )
+    }
+
+    fun toAnimeType(data: RemoteAnimeType) = when (data) {
+        RemoteAnimeType.Tv -> AnimeType.Tv
+        RemoteAnimeType.Movie -> AnimeType.Movie
+        RemoteAnimeType.Ova -> AnimeType.Ova
+        RemoteAnimeType.Special -> AnimeType.Special
+        RemoteAnimeType.Ona -> AnimeType.Ona
+        RemoteAnimeType.Music -> AnimeType.Music
+    }
+
+    fun toRemoteAnimeType(data: AnimeType) = when (data) {
+        AnimeType.Tv -> RemoteAnimeType.Tv
+        AnimeType.Movie -> RemoteAnimeType.Movie
+        AnimeType.Ova -> RemoteAnimeType.Ova
+        AnimeType.Special -> RemoteAnimeType.Special
+        AnimeType.Ona -> RemoteAnimeType.Ona
+        AnimeType.Music -> RemoteAnimeType.Music
     }
 }

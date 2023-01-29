@@ -1,7 +1,9 @@
 package com.doskoch.template.anime.data.di
 
+import com.doskoch.template.anime.data.AnimeInMemoryRepositoryImpl
 import com.doskoch.template.anime.data.AnimeLocalRepositoryImpl
 import com.doskoch.template.anime.data.AnimeRemoteRepositoryImpl
+import com.doskoch.template.anime.domain.AnimeInMemoryRepository
 import com.doskoch.template.anime.domain.AnimeLocalRepository
 import com.doskoch.template.anime.domain.AnimeRemoteRepository
 import dagger.Binds
@@ -17,4 +19,7 @@ interface AnimeFeatureDataModule {
 
     @Binds
     fun remoteRepository(impl: AnimeRemoteRepositoryImpl): AnimeRemoteRepository
+
+    @Binds
+    fun inMemoryRepository(impl: AnimeInMemoryRepositoryImpl): AnimeInMemoryRepository
 }

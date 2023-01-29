@@ -34,6 +34,7 @@ dependencies {
     implementation(project(":features:auth:presentation"))
 
     implementation(project(":features:anime:data"))
+    implementation(project(":features:anime:domain"))
     implementation(project(":features:anime:presentation"))
 
     debugImplementation(Libraries.leakCanary)

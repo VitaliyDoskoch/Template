@@ -5,9 +5,9 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.cachedIn
 import androidx.paging.map
+import com.doskoch.template.anime.domain.common.DeleteAnimeFromFavoriteUseCase
 import com.doskoch.template.anime.presentation.common.uiModel.AnimeUiModel
 import com.doskoch.template.anime.presentation.common.uiModel.toUiModel
-import com.doskoch.template.anime.domain.common.DeleteAnimeFromFavoriteUseCase
 import com.doskoch.template.anime.presentation.navigation.AnimeFeatureNavigator
 import com.doskoch.template.core.android.components.error.CoreError
 import com.doskoch.template.core.android.components.error.ErrorMapper

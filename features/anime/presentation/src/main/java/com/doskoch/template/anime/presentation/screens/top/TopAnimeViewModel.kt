@@ -5,17 +5,17 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.cachedIn
 import androidx.paging.map
+import com.doskoch.template.anime.domain.common.DeleteAnimeFromFavoriteUseCase
+import com.doskoch.template.anime.domain.common.SaveAnimeToFavoriteUseCase
+import com.doskoch.template.anime.domain.model.AnimeItem
+import com.doskoch.template.anime.domain.model.AnimeType
+import com.doskoch.template.anime.domain.screens.top.ClearAnimeStorageUseCase
+import com.doskoch.template.anime.domain.screens.top.GetFavoriteAnimeIdsUseCase
 import com.doskoch.template.anime.presentation.common.uiModel.AnimeUiModel
 import com.doskoch.template.anime.presentation.common.uiModel.toUiModel
-import com.doskoch.template.anime.domain.common.DeleteAnimeFromFavoriteUseCase
-import com.doskoch.template.anime.presentation.common.useCase.SaveAnimeToFavoriteUseCase
 import com.doskoch.template.anime.presentation.navigation.AnimeFeatureNavigator
 import com.doskoch.template.anime.presentation.screens.top.uiModel.AnimeTypeUiModel
-import com.doskoch.template.anime.presentation.screens.top.uiModel.toRemoteAnimeType
-import com.doskoch.template.anime.presentation.screens.top.useCase.ClearAnimeStorageUseCase
-import com.doskoch.template.anime.presentation.screens.top.useCase.GetFavoriteAnimeIdsUseCase
-import com.doskoch.template.api.jikan.common.enum.RemoteAnimeType
-import com.doskoch.template.api.jikan.services.top.responses.GetTopAnimeResponse
+import com.doskoch.template.anime.presentation.screens.top.uiModel.toAnimeType
 import com.doskoch.template.core.android.components.error.CoreError
 import com.doskoch.template.core.android.components.error.ErrorMapper
 import com.doskoch.template.core.android.components.error.GlobalErrorHandler
@@ -79,9 +79,9 @@ class TopAnimeViewModel @Inject constructor(
         .map { it.animeType }
         .distinctUntilChanged()
         .onEach { clearAnimeStorageUseCase.invoke() }
-        .flatMapLatest { pagerFactory.create(it.toRemoteAnimeType()).flow }
+        .flatMapLatest { pagerFactory.create(it.toAnimeType()).flow }
         .cachedIn(viewModelScope)
-        .combine(favoriteIdsFlow) { data, favoriteIds -> data.map { it.toUiModel(isFavorite = it.malId in favoriteIds) } }
+        .combine(favoriteIdsFlow) { data, favoriteIds -> data.map { it.toUiModel(isFavorite = it.id in favoriteIds) } }
 
     init {
         _state.update { it.copy(pagingFlow = pagingFlow) }
@@ -129,6 +129,6 @@ class TopAnimeViewModel @Inject constructor(
     )
 
     fun interface PagerFactory {
-        fun create(remoteAnimeType: RemoteAnimeType): Pager<Int, GetTopAnimeResponse.Data>
+        fun create(animeType: AnimeType): Pager<Int, AnimeItem>
     }
 }

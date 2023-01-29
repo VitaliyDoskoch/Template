@@ -1,8 +1,8 @@
 package com.doskoch.template.anime.presentation.di
 
+import com.doskoch.template.anime.domain.model.AnimeItem
 import com.doskoch.template.anime.presentation.navigation.AnimeFeatureNavigator
 import com.doskoch.template.anime.presentation.screens.details.AnimeDetailsViewModel
-import com.doskoch.template.api.jikan.services.top.responses.GetTopAnimeResponse
 import com.doskoch.template.core.android.components.paging.SimpleInMemoryStorage
 import dagger.hilt.DefineComponent
 import dagger.hilt.InstallIn
@@ -27,7 +27,7 @@ interface AnimeFeatureComponent {
     @InstallIn(AnimeFeatureComponent::class)
     interface EntryPoint {
         fun animeFeatureNavigator(): AnimeFeatureNavigator
-        fun animeFeatureStorage(): SimpleInMemoryStorage<Int, GetTopAnimeResponse.Data>
+        fun animeFeatureStorage(): SimpleInMemoryStorage<Int, AnimeItem>
         fun animeDetailsViewModelFactory(): AnimeDetailsViewModel.Factory
     }
 }

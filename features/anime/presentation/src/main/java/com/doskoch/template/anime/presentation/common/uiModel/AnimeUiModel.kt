@@ -1,6 +1,6 @@
 package com.doskoch.template.anime.presentation.common.uiModel
 
-import com.doskoch.template.api.jikan.services.top.responses.GetTopAnimeResponse
+import com.doskoch.template.anime.domain.model.AnimeItem
 import com.doskoch.template.database.schema.anime.DbAnime
 
 data class AnimeUiModel(
@@ -14,12 +14,12 @@ data class AnimeUiModel(
     val isFavorite: Boolean
 )
 
-fun GetTopAnimeResponse.Data.toUiModel(isFavorite: Boolean) = AnimeUiModel(
-    id = malId,
+fun AnimeItem.toUiModel(isFavorite: Boolean) = AnimeUiModel(
+    id = id,
     approved = approved,
-    imageUrl = images.webp.imageUrl,
+    imageUrl = imageUrl,
     title = title,
-    genres = genres.map { it.name },
+    genres = genres,
     score = score,
     scoredBy = scoredBy,
     isFavorite = isFavorite

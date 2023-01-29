@@ -26,8 +26,8 @@ interface AnimeFeatureComponent {
     @dagger.hilt.EntryPoint
     @InstallIn(AnimeFeatureComponent::class)
     interface EntryPoint {
-        fun navigator(): AnimeFeatureNavigator
-        fun storage(): SimpleInMemoryStorage<Int, GetTopAnimeResponse.Data>
+        fun animeFeatureNavigator(): AnimeFeatureNavigator
+        fun animeFeatureStorage(): SimpleInMemoryStorage<Int, GetTopAnimeResponse.Data>
         fun animeDetailsViewModelFactory(): AnimeDetailsViewModel.Factory
     }
 }

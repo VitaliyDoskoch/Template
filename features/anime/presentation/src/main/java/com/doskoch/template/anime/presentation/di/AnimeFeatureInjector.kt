@@ -9,30 +9,34 @@ import com.doskoch.template.api.jikan.services.top.responses.GetTopAnimeResponse
 import com.doskoch.template.core.android.components.paging.SimpleInMemoryStorage
 import com.doskoch.template.core.android.ext.entryPoint
 import com.doskoch.template.core.kotlin.di.ComponentAccessor
+import com.doskoch.template.core.kotlin.di.FeatureScoped
 import com.doskoch.template.database.schema.anime.DbAnimeDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ActivityRetainedComponent
+import dagger.hilt.components.SingletonComponent
 
 @Module
-@InstallIn(ActivityRetainedComponent::class)
+@InstallIn(SingletonComponent::class)
 interface AnimeFeatureInjector {
 
     companion object {
         private fun entryPoint() = AnimeFeatureComponentAccessor.entryPoint<AnimeFeatureComponent.EntryPoint>()
 
         @Provides
-        fun navigator() = entryPoint().navigator()
+        @FeatureScoped
+        fun navigator() = entryPoint().animeFeatureNavigator()
 
         @Provides
-        fun storage() = entryPoint().storage()
+        @FeatureScoped
+        fun storage() = entryPoint().animeFeatureStorage()
 
         fun animeDetailsViewModelFactory() = entryPoint().animeDetailsViewModelFactory()
 
         @Provides
         fun topPagerFactory(
             remoteMediatorFactory: TopAnimeRemoteMediator.Factory,
+            @FeatureScoped
             storage: SimpleInMemoryStorage<Int, GetTopAnimeResponse.Data>
         ) = TopAnimeViewModel.PagerFactory { remoteAnimeType ->
             @OptIn(ExperimentalPagingApi::class)

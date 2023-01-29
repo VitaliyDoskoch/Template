@@ -21,6 +21,7 @@ import com.doskoch.template.core.android.components.error.ErrorMapper
 import com.doskoch.template.core.android.components.error.GlobalErrorHandler
 import com.doskoch.template.core.android.ext.launchAction
 import com.doskoch.template.core.domain.auth.useCase.LogoutUseCase
+import com.doskoch.template.core.kotlin.di.FeatureScoped
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -37,6 +38,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TopAnimeViewModel @Inject constructor(
+    @FeatureScoped
     private val navigator: AnimeFeatureNavigator,
     private val pagerFactory: PagerFactory,
     private val clearAnimeStorageUseCase: ClearAnimeStorageUseCase,

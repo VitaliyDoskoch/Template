@@ -15,6 +15,7 @@ import dagger.hilt.InstallIn
 @InstallIn(AnimeFeatureComponent::class)
 interface AnimeFeatureModule {
     @Binds
+    @AnimeFeatureScope
     fun navigator(impl: AnimeFeatureNavigatorImpl): AnimeFeatureNavigator
 
     companion object {

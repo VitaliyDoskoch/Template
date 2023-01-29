@@ -9,6 +9,7 @@ import com.doskoch.template.core.android.components.error.CoreError
 import com.doskoch.template.core.android.components.error.ErrorMapper
 import com.doskoch.template.core.android.components.error.GlobalErrorHandler
 import com.doskoch.template.core.android.ext.launchAction
+import com.doskoch.template.core.kotlin.di.FeatureScoped
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -20,6 +21,7 @@ import kotlinx.coroutines.flow.update
 class AnimeDetailsViewModel @AssistedInject constructor(
     @Assisted private val animeId: Int,
     @Assisted private val title: String,
+    @FeatureScoped
     private val navigator: AnimeFeatureNavigator,
     private val globalErrorHandler: GlobalErrorHandler,
     private val errorMapper: ErrorMapper,

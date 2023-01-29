@@ -3,7 +3,6 @@ package com.doskoch.template.anime.presentation.screens.top.uiModel
 import androidx.annotation.StringRes
 import com.doskoch.template.anime.domain.model.AnimeType
 import com.doskoch.template.anime.presentation.R
-import com.doskoch.template.api.jikan.common.enum.RemoteAnimeType
 
 enum class AnimeTypeUiModel(@StringRes val stringId: Int) {
     Tv(R.string.anime_feature_anime_type_tv),
@@ -21,13 +20,4 @@ fun AnimeTypeUiModel.toAnimeType() = when (this) {
     AnimeTypeUiModel.Special -> AnimeType.Special
     AnimeTypeUiModel.Ona -> AnimeType.Ona
     AnimeTypeUiModel.Music -> AnimeType.Music
-}
-
-fun AnimeTypeUiModel.toRemoteAnimeType() = when (this) {
-    AnimeTypeUiModel.Tv -> RemoteAnimeType.Tv
-    AnimeTypeUiModel.Movie -> RemoteAnimeType.Movie
-    AnimeTypeUiModel.Ova -> RemoteAnimeType.Ova
-    AnimeTypeUiModel.Special -> RemoteAnimeType.Special
-    AnimeTypeUiModel.Ona -> RemoteAnimeType.Ona
-    AnimeTypeUiModel.Music -> RemoteAnimeType.Music
 }

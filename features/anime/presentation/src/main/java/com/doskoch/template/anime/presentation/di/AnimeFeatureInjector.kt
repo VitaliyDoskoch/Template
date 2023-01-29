@@ -10,7 +10,6 @@ import com.doskoch.template.core.android.components.paging.SimpleInMemoryStorage
 import com.doskoch.template.core.android.ext.entryPoint
 import com.doskoch.template.core.kotlin.di.ComponentAccessor
 import com.doskoch.template.core.kotlin.di.FeatureScoped
-import com.doskoch.template.database.schema.anime.DbAnimeDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -46,12 +45,6 @@ interface AnimeFeatureInjector {
                 pagingSourceFactory = storage::SimplePagingSource
             )
         }
-
-        @Provides
-        fun favoritePager(dbAnimeDao: DbAnimeDao) = Pager(
-            config = PAGING_CONFIG,
-            pagingSourceFactory = dbAnimeDao::pagingSource
-        )
     }
 }
 

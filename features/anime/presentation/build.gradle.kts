@@ -8,7 +8,4 @@ android {
 
 dependencies {
     implementation(project(":features:anime:domain"))
-    //TODO: remove
-    implementation(project(":api"))
-    implementation(project(":database"))
 }

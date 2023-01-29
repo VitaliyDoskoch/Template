@@ -56,13 +56,16 @@ class AnimeDataConverter @Inject constructor() {
         )
     }
 
-    fun toAnimeType(data: RemoteAnimeType) = when (data) {
-        RemoteAnimeType.Tv -> AnimeType.Tv
-        RemoteAnimeType.Movie -> AnimeType.Movie
-        RemoteAnimeType.Ova -> AnimeType.Ova
-        RemoteAnimeType.Special -> AnimeType.Special
-        RemoteAnimeType.Ona -> AnimeType.Ona
-        RemoteAnimeType.Music -> AnimeType.Music
+    fun toAnimeItem(data: DbAnime) = with(data) {
+        AnimeItem(
+            id = id,
+            approved = approved,
+            imageUrl = imageUrl,
+            title = title,
+            genres = genres,
+            score = score,
+            scoredBy = scoredBy
+        )
     }
 
     fun toRemoteAnimeType(data: AnimeType) = when (data) {

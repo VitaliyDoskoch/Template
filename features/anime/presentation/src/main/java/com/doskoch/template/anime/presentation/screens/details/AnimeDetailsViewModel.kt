@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel
 import com.doskoch.template.anime.domain.common.DeleteAnimeFromFavoriteUseCase
 import com.doskoch.template.anime.presentation.navigation.AnimeFeatureNavigator
 import com.doskoch.template.anime.presentation.screens.details.AnimeDetailsState.ScreenState
-import com.doskoch.template.anime.presentation.screens.details.useCase.GetIsFavoriteAnimeUseCase
-import com.doskoch.template.anime.presentation.screens.details.useCase.LoadAnimeDetailsUseCase
+import com.doskoch.template.anime.domain.screens.details.GetIsFavoriteAnimeUseCase
+import com.doskoch.template.anime.domain.screens.details.LoadAnimeDetailsUseCase
 import com.doskoch.template.core.android.components.error.CoreError
 import com.doskoch.template.core.android.components.error.ErrorMapper
 import com.doskoch.template.core.android.components.error.GlobalErrorHandler
@@ -64,7 +64,7 @@ class AnimeDetailsViewModel @AssistedInject constructor(
     private fun loadAnimeDetails() = launchAction(
         action = {
             _state.update { it.copy(screenState = ScreenState.Loading) }
-            _state.update { it.copy(screenState = loadAnimeDetailsUseCase.invoke(animeId).data.toContent()) }
+            _state.update { it.copy(screenState = ScreenState.Content(loadAnimeDetailsUseCase.invoke(animeId))) }
         },
         onError = { error ->
             _state.update { it.copy(screenState = ScreenState.Error(errorMapper.toCoreError(error, CoreError.FailedToLoadData))) }

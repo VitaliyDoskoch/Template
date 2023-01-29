@@ -41,6 +41,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
+import com.doskoch.template.anime.domain.model.AnimeDetails
 import com.doskoch.template.anime.presentation.R
 import com.doskoch.template.anime.presentation.di.AnimeFeatureInjector
 import com.doskoch.template.anime.presentation.screens.details.AnimeDetailsState.ScreenState
@@ -151,21 +152,21 @@ private fun Content(content: ScreenState.Content) {
             .fillMaxSize()
     ) {
         PrimaryInfoRow(
-            content = content,
+            data = content.data,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(Dimensions.space_16)
         )
 
         Description(
-            text = content.description,
+            text = content.data.description,
             modifier = Modifier
                 .padding(horizontal = Dimensions.space_16)
                 .fillMaxWidth()
         )
 
         SecondaryInfoRow(
-            content = content,
+            data = content.data,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(Dimensions.space_16)
@@ -175,12 +176,12 @@ private fun Content(content: ScreenState.Content) {
 
 @Composable
 private fun PrimaryInfoRow(
-    content: ScreenState.Content,
+    data: AnimeDetails,
     modifier: Modifier = Modifier
 ) {
     Row(modifier) {
         AsyncImage(
-            model = content.imageUrl,
+            model = data.imageUrl,
             contentDescription = stringResource(R.string.anime_feature_desc_anime_image),
             modifier = Modifier
                 .size(120.dp),
@@ -210,19 +211,18 @@ private fun PrimaryInfoRow(
         ) {
             FieldValue(
                 text = buildString {
-                    val score = DecimalFormat("#.#").format(content.score)
+                    val score = DecimalFormat("#.#").format(data.score)
                     append("$score ")
-                    append(LocalContext.current.resources.getQuantityString(R.plurals.anime_feature_by_users, content.scoredBy, content.scoredBy))
+                    append(LocalContext.current.resources.getQuantityString(R.plurals.anime_feature_by_users, data.scoredBy, data.scoredBy))
                 }
             )
-            FieldValue(text = content.rank.toString())
-            FieldValue(text = content.popularity.toString())
-            FieldValue(text = content.status)
+            FieldValue(text = data.rank.toString())
+            FieldValue(text = data.popularity.toString())
+            FieldValue(text = data.status)
         }
     }
 }
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 private fun Description(
     text: String,
@@ -266,7 +266,7 @@ private fun Description(
 
 @Composable
 private fun SecondaryInfoRow(
-    content: ScreenState.Content,
+    data: AnimeDetails,
     modifier: Modifier = Modifier
 ) {
     Row(modifier) {
@@ -290,13 +290,13 @@ private fun SecondaryInfoRow(
                 .weight(1f),
             verticalArrangement = Arrangement.SpaceEvenly
         ) {
-            FieldValue(text = content.type)
-            FieldValue(text = content.genres.joinToString(separator = ", "), paddingModifier)
-            FieldValue(text = content.themes.joinToString(separator = ", "), paddingModifier)
-            FieldValue(text = content.rating, paddingModifier)
-            FieldValue(text = content.episodes.toString(), paddingModifier)
-            FieldValue(text = content.duration, paddingModifier)
-            FieldValue(text = content.studios.joinToString(separator = ", "), paddingModifier)
+            FieldValue(text = data.type)
+            FieldValue(text = data.genres.joinToString(separator = ", "), paddingModifier)
+            FieldValue(text = data.themes.joinToString(separator = ", "), paddingModifier)
+            FieldValue(text = data.rating, paddingModifier)
+            FieldValue(text = data.episodes.toString(), paddingModifier)
+            FieldValue(text = data.duration, paddingModifier)
+            FieldValue(text = data.studios.joinToString(separator = ", "), paddingModifier)
         }
     }
 }

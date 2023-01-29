@@ -8,4 +8,5 @@ class AnimeLocalRepositoryImpl @Inject constructor(
     private val dbAnimeDao: DbAnimeDao
 ) : AnimeLocalRepository {
     override suspend fun deleteAnime(id: Int) = dbAnimeDao.delete(id)
+    override fun isFavorite(id: Int) = dbAnimeDao.isFavorite(id)
 }

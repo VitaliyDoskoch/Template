@@ -7,7 +7,7 @@ import androidx.paging.cachedIn
 import androidx.paging.map
 import com.doskoch.template.anime.presentation.common.uiModel.AnimeUiModel
 import com.doskoch.template.anime.presentation.common.uiModel.toUiModel
-import com.doskoch.template.anime.presentation.common.useCase.DeleteAnimeFromFavoriteUseCase
+import com.doskoch.template.anime.domain.common.DeleteAnimeFromFavoriteUseCase
 import com.doskoch.template.anime.presentation.common.useCase.SaveAnimeToFavoriteUseCase
 import com.doskoch.template.anime.presentation.navigation.AnimeFeatureNavigator
 import com.doskoch.template.anime.presentation.screens.top.uiModel.AnimeTypeUiModel

@@ -1,6 +1,7 @@
 package com.doskoch.template.anime.presentation.screens.details
 
 import androidx.lifecycle.ViewModel
+import com.doskoch.template.anime.domain.common.DeleteAnimeFromFavoriteUseCase
 import com.doskoch.template.anime.presentation.navigation.AnimeFeatureNavigator
 import com.doskoch.template.anime.presentation.screens.details.AnimeDetailsState.ScreenState
 import com.doskoch.template.anime.presentation.screens.details.useCase.GetIsFavoriteAnimeUseCase
@@ -28,7 +29,7 @@ class AnimeDetailsViewModel @AssistedInject constructor(
     private val getIsFavoriteAnimeUseCase: GetIsFavoriteAnimeUseCase,
     private val loadAnimeDetailsUseCase: LoadAnimeDetailsUseCase,
     private val saveAnimeToFavoriteUseCase: com.doskoch.template.anime.presentation.common.useCase.SaveAnimeToFavoriteUseCase,
-    private val deleteAnimeFromFavoriteUseCase: com.doskoch.template.anime.presentation.common.useCase.DeleteAnimeFromFavoriteUseCase
+    private val deleteAnimeFromFavoriteUseCase: DeleteAnimeFromFavoriteUseCase
 ) : ViewModel() {
 
     private val _state: MutableStateFlow<AnimeDetailsState> = MutableStateFlow(
